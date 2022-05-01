@@ -9,7 +9,7 @@
         private $correo;
         private $telefono;
         private $idColegioProcedencia;
-        private $ative;
+        private $active;
 
         /**
          * @return mixed
@@ -142,16 +142,16 @@
         /**
          * @return mixed
          */
-        public function getAtive()
+        public function getActive()
         {
-            return $this->ative;
+            return $this->active;
         }
 
         /**
-         * @param mixed $ative
+         * @param mixed $active
          */
-        public function setAtive($ative)
+        public function setActive($active)
         {
-            $this->ative = $ative;
+            $this->active = $active;
         }
     }
