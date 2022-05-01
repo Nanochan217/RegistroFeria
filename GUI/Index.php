@@ -1,5 +1,1 @@
-aaaaaa
-
-<?php
-$helloFella = "";
 
