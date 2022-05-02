@@ -1,36 +1,33 @@
 <?php
     include '../Core/Conexion.php';
-    include '../DAL/DALUsuario.php';
+    include '../DAL/UsuarioDAL/DALUsuario.php';
+    include '../DAL/UsuarioDAL/DALCredenciales.php';
     include '../Entidades/UsuarioEntidades/EntidadesUsuario.php';
-    include '../Entidades/UsuarioEntidades/EntidadesCredenciales.php';
-    include '../Entidades/UsuarioEntidades/EntidadesPerfil.php';
 
     $nuevoUsuario = new Usuario();//Entidades del Usuario
-    $nuevaCredencial = new Credenciales();//Entidades de las Credenciales
     $usuarioDAL = new DALUsuario();//Métodos del Usuario
+    $usuarioCredencial = new DALCredenciales();
 
-    //OBTENCIÓN DE DATOS DESDE EL FRONT
-    $nuevaCredencial->setCorreo($_POST['']);
-    $nuevaCredencial->getContrasena($_POST['']);
+    //Búsqueda de la última credencial añadida (may affect)
+    $ultimaCredencial = $usuarioCredencial->UltimaCredencial();
 
-    //Nueva Credencial
-    $usuarioDAL->NuevaCredencial($nuevaCredencial);
-    $idNuevaCredencial = $usuarioDAL->AsignarCredencial();
-    //Nuevo Usuario
+    //Captura de Datos del Usuario
     $cedulaUsuario = $_POST[''];
     $nombreUsuario = $_POST[''];
     $apellido1Usuario = $_POST[''];
     $apellido2Usuario = $_POST[''];
     $idPerfilUsuario = $_POST[''];
-    $idCredencial = $idNuevaCredencial['ID'];
+    $idCredencialUsuario = $ultimaCredencial['ID'];
 
+    //Asignar datos a Usuario
     $nuevoUsuario->setCedula($cedulaUsuario);
     $nuevoUsuario->setNombre($nombreUsuario);
     $nuevoUsuario->setApellido1($apellido1Usuario);
     $nuevoUsuario->setApellido2($apellido2Usuario);
-    $nuevoUsuario->setIdCredenciales($idCredencial);
+    $nuevoUsuario->setIdCredenciales($idCredencialUsuario);
     $nuevoUsuario->setIdPerfil($idPerfilUsuario);
 
+    //Nuevo Usuario
     if($usuarioDAL->NuevoUsuario($nuevoUsuario))
     {
         //Redireccionamiento
@@ -39,4 +36,4 @@
     {
         //Redireccionamiento
     }
-
+/////////////////////////////////////////////////////////////////////////////

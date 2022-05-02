@@ -49,11 +49,10 @@ include '../Default/Header.html';
                             </button>
                         </span>
                     </div>
+                </div>
             </div>
-
         </div>
     </div>
-</div>
 </div>
 <!--  Footer  -->
 <?php

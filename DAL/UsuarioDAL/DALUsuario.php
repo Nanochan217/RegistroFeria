@@ -1,56 +1,15 @@
 <?php
     class DALUsuario
     {
-        function NuevaCredencial(Credenciales $nuevaCredencial)
-        {
-            $resultado = false;
-            $conexionDB = new Conexion();
-
-            $consultaSql = "INSERT INTO 'CREDENCIALES'('CORREO', 'CONTRASENA', 'ACTIVE') 
-                VALUES ('".$nuevaCredencial->getCorreo()."','".$nuevaCredencial->getContrasena()."', 1)";
-
-            if($conexionDB->NuevaConexion($consultaSql))
-            {
-                $resultado = true;
-            }
-            $conexionDB->CerrarConexion();
-            return $resultado;
-        }
-
-        //Método para buscar la ultima credencial creada y devolverla al BL
-        function AsignarCredencial()
-        {
-            $ultimaCredencial = new Credenciales();
-            $conexionDB = new Conexion();
-            $consultaSql = "SELECT * FROM 'CREDENCIALES' WHERE 'id'=(SELECT MAX('id') FROM 'CREDENCIALES') AND 'ACTIVE' = 1;";
-            $credencial = $conexionDB->NuevaConexion($consultaSql);
-
-            if(mysqli_num_rows($credencial)>0)
-            {
-                while($filaCredencial = $credencial->fetch_assoc())
-                {
-                    $ultimaCredencial->setId($filaCredencial["ID"]);
-                    $ultimaCredencial->setCorreo($filaCredencial["CORREO"]);
-                    $ultimaCredencial->setContrasena($filaCredencial["CONTRASENA"]);
-                    $ultimaCredencial->setActive($filaCredencial["ACTIVE"]);
-                }
-            }
-            else
-            {
-                $ultimaCredencial = null;
-            }
-            $conexionDB->CerrarConexion();
-            return $ultimaCredencial;
-        }
-
+        //Añade un nuevo Usuario a la Base de Datos
         function NuevoUsuario(Usuario $nuevoUsuario)
         {
             $resultado = false;
             $conexionDB = new Conexion();
 
             $consultaSql = "INSERT INTO 'USUARIO'('CEDULA', 'NOMBRE', 'APELLIDO1', 'APELLIDO2', 'IDCREDENCIAL', 'IDPERFIL', 'ACTIVE') 
-                VALUES ('".$nuevoUsuario->getCedula()."','".$nuevoUsuario->getNombre()."','".$nuevoUsuario->getApellido1()."',
-                '".$nuevoUsuario->getApellido2()."','".$nuevoUsuario->getIdCredenciales()."','".$nuevoUsuario->getIdPerfil()."', 1)";
+                    VALUES ('".$nuevoUsuario->getCedula()."','".$nuevoUsuario->getNombre()."','".$nuevoUsuario->getApellido1()."',
+                    '".$nuevoUsuario->getApellido2()."','".$nuevoUsuario->getIdCredenciales()."','".$nuevoUsuario->getIdPerfil()."', 1)";
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
@@ -60,6 +19,7 @@
             return $resultado;
         }
 
+        //PENDIENTE
         function ActualizarUsuario(Usuario $actualizarUsuario)
         {
             $resultado = false;
@@ -81,7 +41,7 @@
             $conexionDB = new Conexion();
 
             $consultaSql = "SELECT * FROM 'USUARIO' WHERE 'ACTIVE' = 1 
-                            INNER JOIN 'CREDENCIALES' ON 'USUARIO.IDCREDENCIALES'='CREDENCIALES.ID'";
+                                INNER JOIN 'CREDENCIALES' ON 'USUARIO.IDCREDENCIALES'='CREDENCIALES.ID'";
 
             $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
@@ -97,6 +57,7 @@
                     $usuario->setApellido2($filasUsuario["APELLIDO2"]);
                     $usuario->setIdCredenciales($filasUsuario["IDCREDENCIALES"]);
                     $usuario->setIdPerfil($filasUsuario["IDPERFIL"]);
+                    //VER CORREO Y CONTRASEÑA PARA LA TABLA DE CREDENCIALES
                 }
             }
             else
@@ -113,7 +74,7 @@
             $conexionDB = new Conexion();
 
             $consultaSql = "SELECT * FROM 'USUARIO' WHERE 'ID' = '$idUsuario' 
-                            INNER JOIN 'CREDENCIALES' ON 'USUARIO.IDCREDENCIALES'='CREDENCIALES.ID'";
+                                INNER JOIN 'CREDENCIALES' ON 'USUARIO.IDCREDENCIALES'='CREDENCIALES.ID'";
 
             $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
@@ -128,6 +89,7 @@
                     $usuarioDB->setApellido2($filaUsuario["APELLIDO2"]);
                     $usuarioDB->setIdCredenciales($filaUsuario["IDCREDENCIALES"]);
                     $usuarioDB->setIdPerfil($filaUsuario["IDPERFIL"]);
+                    //VER CORREO Y CONTRASEÑA PARA LA TABLA DE CREDENCIALES
                 }
             }
             else
@@ -138,5 +100,3 @@
             return $usuarioDB;
         }
     }
-
-
