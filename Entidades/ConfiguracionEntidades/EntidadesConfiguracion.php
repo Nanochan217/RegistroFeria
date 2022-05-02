@@ -1,5 +1,5 @@
 <?php
-    class Formulario
+    class Configuracion
     {
         private $id;
         private $nombre;

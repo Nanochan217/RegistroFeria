@@ -3,7 +3,7 @@
     {
         private $id;
         private $dia;
-        private $idFormulario;
+        private $idConfiguracion;
         private $visible;
         private $active;
 
