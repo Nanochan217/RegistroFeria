@@ -22,13 +22,13 @@
     $apellido1Usuario = $_POST[''];
     $apellido2Usuario = $_POST[''];
     $idPerfilUsuario = $_POST[''];
-
+    $idCredencial = $idNuevaCredencial['ID'];
 
     $nuevoUsuario->setCedula($cedulaUsuario);
     $nuevoUsuario->setNombre($nombreUsuario);
     $nuevoUsuario->setApellido1($apellido1Usuario);
     $nuevoUsuario->setApellido2($apellido2Usuario);
-    $nuevoUsuario->setIdCredenciales($idNuevaCredencial['ID']);
+    $nuevoUsuario->setIdCredenciales($idCredencial);
     $nuevoUsuario->setIdPerfil($idPerfilUsuario);
 
     if($usuarioDAL->NuevoUsuario($nuevoUsuario))

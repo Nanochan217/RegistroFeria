@@ -48,9 +48,6 @@
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $credencialUsuario = "SELECT * FROM 'CREDENCIALES' WHERE 'id'=(SELECT MAX('id') FROM 'Credenciales');";
-            $credencial = $conexionDB->NuevaConexion($credencialUsuario);
-
             $consultaSql = "INSERT INTO 'USUARIO'('CEDULA', 'NOMBRE', 'APELLIDO1', 'APELLIDO2', 'IDCREDENCIAL', 'IDPERFIL', 'ACTIVE') 
                 VALUES ('".$nuevoUsuario->getCedula()."','".$nuevoUsuario->getNombre()."','".$nuevoUsuario->getApellido1()."',
                 '".$nuevoUsuario->getApellido2()."','".$nuevoUsuario->getIdCredenciales()."','".$nuevoUsuario->getIdPerfil()."', 1)";
