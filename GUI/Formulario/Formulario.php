@@ -42,7 +42,6 @@ include '../Default/Header.html';
             </div>
             <form class="row g-3">
                 <h2>Datos del solicitante</h2>
-
                 <div class="col-md-3">
                     <label for="cedula" class="form-label">Cedula</label>
                     <input type="text" class="form-control" id="cedula" name="cedula">
