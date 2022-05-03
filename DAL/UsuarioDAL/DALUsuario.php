@@ -15,22 +15,7 @@
             {
                 $resultado = true;
             }
-            $conexionDB->CerrarConexion();
-            return $resultado;
-        }
 
-        //PENDIENTE
-        function ActualizarUsuario(Usuario $actualizarUsuario)
-        {
-            $resultado = false;
-            $conexionDB = new Conexion();
-
-            $consultaSql = "QUERY";
-
-            if($conexionDB->NuevaConexion($consultaSql))
-            {
-                $resultado = true;
-            }
             $conexionDB->CerrarConexion();
             return $resultado;
         }
@@ -40,8 +25,7 @@
             $usuariosDB = array();
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM 'USUARIO' WHERE 'ACTIVE' = 1 
-                                INNER JOIN 'CREDENCIALES' ON 'USUARIO.IDCREDENCIALES'='CREDENCIALES.ID'";
+            $consultaSql = "SELECT * FROM 'USUARIO' WHERE 'ACTIVE' = 1";
 
             $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
@@ -57,13 +41,15 @@
                     $usuario->setApellido2($filasUsuario["APELLIDO2"]);
                     $usuario->setIdCredenciales($filasUsuario["IDCREDENCIALES"]);
                     $usuario->setIdPerfil($filasUsuario["IDPERFIL"]);
-                    //VER CORREO Y CONTRASEÑA PARA LA TABLA DE CREDENCIALES
+                    $usuario->setActive($filasUsuario['ACTIVE']);
+                    $usuariosDB[]=$usuario;
                 }
             }
             else
             {
                 $usuariosDB = null;
             }
+
             $conexionDB->CerrarConexion();
             return $usuariosDB;
         }
@@ -73,8 +59,7 @@
             $usuarioDB = new Usuario();
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM 'USUARIO' WHERE 'ID' = '$idUsuario' 
-                                INNER JOIN 'CREDENCIALES' ON 'USUARIO.IDCREDENCIALES'='CREDENCIALES.ID'";
+            $consultaSql = "SELECT * FROM 'USUARIO' WHERE 'ID' = '$idUsuario'";
 
             $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
@@ -89,14 +74,31 @@
                     $usuarioDB->setApellido2($filaUsuario["APELLIDO2"]);
                     $usuarioDB->setIdCredenciales($filaUsuario["IDCREDENCIALES"]);
                     $usuarioDB->setIdPerfil($filaUsuario["IDPERFIL"]);
-                    //VER CORREO Y CONTRASEÑA PARA LA TABLA DE CREDENCIALES
+                    $usuarioDB->setActive($filaUsuario['ACTIVE']);
                 }
             }
             else
             {
                 $usuarioDB = null;
             }
+
             $conexionDB->CerrarConexion();
             return $usuarioDB;
+        }
+
+        function DesactivarUsuario(Usuario $desactivarUsuario)
+        {
+            $resultado = false;
+            $conexionDB = new Conexion();
+
+            $consultaSql = "SELECT FROM 'USUARIO' WHERE 'ID'= '".$desactivarUsuario->getId()."' SET 'ACTIVE' =".$desactivarUsuario->getActive();
+
+            if($conexionDB->NuevaConexion($consultaSql))
+            {
+                $resultado = true;
+            }
+
+            $conexionDB->CerrarConexion();
+            return $resultado;
         }
     }

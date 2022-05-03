@@ -22,7 +22,7 @@
         {
             $ultimaCredencial = new Credenciales();
             $conexionDB = new Conexion();
-            $consultaSql = "SELECT * FROM 'CREDENCIALES' WHERE 'id'=(SELECT MAX('id') FROM 'CREDENCIALES') AND 'ACTIVE' = 1;";
+            $consultaSql = "SELECT * FROM 'CREDENCIALES' WHERE 'ID'=(SELECT MAX('ID') FROM 'CREDENCIALES') AND 'ACTIVE' = 1;";
             $credencial = $conexionDB->NuevaConexion($consultaSql);
 
             if(mysqli_num_rows($credencial)>0)
@@ -45,11 +45,82 @@
 
         function ActualizarCredenciales(Credenciales $modificarCredenciales)
         {
-            //MODIFICAR CREDENCIALES DEL USUARIO
+            $resultado = false;
+            $conexionDB = new Conexion();
+            $consultaSql = "UPDATE 'CREDENCIALES' SET 'CORREO'='".$modificarCredenciales->getCorreo()."' 
+                            SET 'CONTRASENA'='".$modificarCredenciales->getContrasena()."' WHERE 'ID'=".$modificarCredenciales->getId();
+
+            if($conexionDB->NuevaConexion($consultaSql))
+            {
+                $resultado = true;
+            }
+            $conexionDB->CerrarConexion();
+            return $resultado;
+        }
+
+        function BuscarTodasCredenciales()
+        {
+            $credencialesDB = array();
+            $conexionDB = new Conexion();
+
+            $consultaSql = "SELECT * FROM 'CREDENCIALES' WHERE 'ACTIVE' = 1";
+
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+            if(mysqli_num_rows($respuestaDB)>0)
+            {
+                while($filasCredencial = $respuestaDB->fetch_assoc())
+                {
+                    $credencial = new Credenciales();
+                    $credencial->setId($filasCredencial["ID"]);
+                    $credencial->setCorreo($filasCredencial["CORREO"]);
+                    $credencial->setContrasena($filasCredencial["CONTRASENA"]);
+                    $credencial->setActive($filasCredencial['ACTIVE']);
+                    $credencialesDB[]=$credencial;
+                }
+            }
+            else
+            {
+                $credencialesDB = null;
+            }
+            $conexionDB->CerrarConexion();
+            return $credencialesDB;
+        }
+
+        function BuscarIdCredencial($idUsuario)
+        {
+            $credencialesDB = new Credenciales();
+            $conexionDB = new Conexion();
+
+            $consultaSql = "SELECT * FROM 'CREDENCIALES' WHERE 'ID' = '$idUsuario'";
+
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+            if(mysqli_num_rows($respuestaDB)>0)
+            {
+                while($filaUsuario = $respuestaDB->fetch_assoc())
+                {
+                    $credencialesDB->setId($filaUsuario["ID"]);
+                    $credencialesDB->setCorreo($filaUsuario["CORREO"]);
+                    $credencialesDB->setContrasena($filaUsuario["CONTRASENA"]);
+                    $credencialesDB->setActive($filaUsuario["ACTIVE"]);
+                }
+            }
+            else
+            {
+                $credencialesDB = null;
+            }
+
+            $conexionDB->CerrarConexion();
+            return $credencialesDB;
+        }
+
+        function DesactivarCredencial(Credenciales $desactivarCredencial)
+        {
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "QUERY";
+            $consultaSql = "SELECT FROM 'CREDENCIALES' WHERE 'ID'= '".$desactivarCredencial->getId()."' SET 'ACTIVE' =".$desactivarCredencial->getActive();
 
             if($conexionDB->NuevaConexion($consultaSql))
             {

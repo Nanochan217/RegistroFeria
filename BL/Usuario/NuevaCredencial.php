@@ -1,10 +1,10 @@
 <?php
-    include '../Core/Conexion.php';
-    include '../DAL/UsuarioDAL/DALUsuario.php';
-    include '../Entidades/UsuarioEntidades/EntidadesCredenciales.php';
+    include '../../Core/Conexion.php';
+    include '../../DAL/UsuarioDAL/DALUsuario.php';
+    include '../../Entidades/UsuarioEntidades/EntidadesCredenciales.php';
 
-    $nuevaCredencial = new Credenciales();//Entidades de las Credenciales
-    $credencialDAL = new DALCredenciales();//Métodos del Usuario
+    $nuevaCredencial = new Credenciales();
+    $credencialDAL = new DALCredenciales();
 
     //OBTENCIÓN DE DATOS DESDE EL FRONT
     $nuevaCredencial->setCorreo($_POST['']);
