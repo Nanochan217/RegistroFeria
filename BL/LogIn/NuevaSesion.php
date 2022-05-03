@@ -1,5 +1,4 @@
 <?php
-
     include '../../Core/Conexion.php';
     include '../../DAL/UsuarioDAL/DALUsuario.php';
     include '../../DAL/LogInDAL/DALLogIn.php';
@@ -9,8 +8,8 @@
     $UsuarioDAL = new DALUsuario();
     $CredencialesDAL = new DALLogIn();
 
-    $correo = $_POST[''];
-    $contrasena = $_POST[''];
+    $correo = $_POST['correo'];
+    $contrasena = $_POST['password'];
     $confirmarSesion->setCorreo($correo);
     $confirmarSesion->setContrasena($contrasena);
 
@@ -23,20 +22,20 @@
             //SuperAdmin
             session_start();
             $_SESSION['idUsuario'] = $nuevaSesionUsuario->getId();
-            $_SESSION['Perfil'] = "SuperAdmin";
+            $_SESSION['Perfil'] = 1;
         }
         else if($nuevaSesionUsuario->getIdPerfil()==2)
         {
             //Admin
             session_start();
             $_SESSION['idUsuario'] = $nuevaSesionUsuario->getId();
-            $_SESSION['Perfil'] = "Admin";
+            $_SESSION['Perfil'] = 2;
         }
         else
         {
             session_start();
             $_SESSION['idUsuario'] = $nuevaSesionUsuario->getId();
-            $_SESSION['Perfil'] = "Guarda";
+            $_SESSION['Perfil'] = 3;
         }
     }
     else

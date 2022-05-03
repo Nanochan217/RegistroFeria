@@ -13,12 +13,13 @@
     $cambiarCredencial = new Credenciales();
     $usuarioDAL = new DALUsuario();
     $credencialDAL = new DALCredenciales();
-    $idUsuarioActivo = $_SESSION['IDUSUARIO'];
+    $idUsuarioActivo = $_SESSION['idUsuario'];
 
     //Busca al Usuario en la sesion para realizar validaciones
-    $usuarioSesion = $usuarioDAL->BuscarIdUsuario($idUsuarioActivo);
+    //$usuarioSesion = $usuarioDAL->BuscarIdUsuario($idUsuarioActivo);
 
-    if($usuarioSesion['PERFIL'] = 1)
+    //$usuarioSesion['PERFIL'] = 1 en caso de usar la busqueda por ID
+    if($_SESSION['Perfil'] = 1)
     {
         //OBTENCIÓN DE DATOS DE LAS CREDENCIALES
         $nuevoCorreo = $_POST[''];

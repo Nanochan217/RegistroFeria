@@ -1,7 +1,6 @@
 <?php
-    if(!isset($_SESSION['IDUSUARIO']))
-        header("Location: ./");
-    //unset($_SESSION["idUsuario"]);
+    if(!isset($_SESSION['idUsuario']))
+        header("Location: ../../GUI/Index/Index.php");
 
     include '../../Core/Conexion.php';
     include '../../DAL/UsuarioDAL/DALUsuario.php';
@@ -13,21 +12,22 @@
     $desactivarCredencial = new Credenciales();
     $usuarioDAL = new DALUsuario();
     $credencialDAL = new DALCredenciales();
-    $idUsuarioActivo = $_SESSION['IDUSUARIO'];//Se obtiene la ID del Usuario Activo
+    $idUsuarioActivo = $_SESSION['idUsuario'];//Se obtiene la ID del Usuario Activo
 
     //Busca al Usuario en la sesion para realizar validaciones
-    $usuarioSesion = $usuarioDAL->BuscarIdUsuario($idUsuarioActivo);
+    //$usuarioSesion = $usuarioDAL->BuscarIdUsuario($idUsuarioActivo);
+    //$usuarioSesion['PERFIL'] = 1 en caso de usar la busqueda de usuarios
 
     //Se valida al usuario en sesión si es SuperAdmin
-    if($usuarioSesion['PERFIL'] = 1)
+    if($_SESSION['Perfil'] = 1)
     {
         //OBTENCIÓN DEL ID DEL USUARIO A DESACTIVAR
         $idUsuario = $_POST[''];
 
         //ASIGNACION DE LAS NUEVAS CREDENCIALES
-        $desactivarCredencial->setId($idUsuarioActivo);
+        $desactivarCredencial->setId($idUsuario);
         $desactivarCredencial->setActive(0);
-        $desactivarUsuario->setId($idUsuarioActivo);
+        $desactivarUsuario->setId($idUsuario);
         $desactivarUsuario->setActive(0);
 
         //Aplicar Cambios a las Credenciales y Usuarios
@@ -42,5 +42,5 @@
     }
     else
     {
-        //Redireccionamiento Página Principal
+        header("Location: ../../GUI/Index/Index.php");
     }

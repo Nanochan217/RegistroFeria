@@ -1,5 +1,5 @@
 <?php
-    //Librerias Necesarias
+    //Librerias Ncesarias
 ?>
 
 
@@ -31,7 +31,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <form action="">
+                        <form action="../../BL/LogIn/NuevaSesion.php" method="post">
                             <div class="mb-3">
                                 <label for="correo" class="form-label">Correo Electrónico</label>
                                 <input type="email" class="form-control" id="correo" name="usuario">
@@ -44,7 +44,6 @@
                                         ¿Olvidó su contraseña?
                                     </button>
                                 </div>
-
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Ingresar</button>
                         </form>
