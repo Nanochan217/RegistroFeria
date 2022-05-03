@@ -1,11 +1,11 @@
 <?php
-    include '../Core/Conexion.php';
-    include '../DAL/UsuarioDAL/DALUsuario.php';
-    include '../DAL/UsuarioDAL/DALCredenciales.php';
-    include '../Entidades/UsuarioEntidades/EntidadesUsuario.php';
+    include '../../Core/Conexion.php';
+    include '../../DAL/UsuarioDAL/DALUsuario.php';
+    include '../../DAL/UsuarioDAL/DALCredenciales.php';
+    include '../../Entidades/UsuarioEntidades/EntidadesUsuario.php';
 
-    $nuevoUsuario = new Usuario();//Entidades del Usuario
-    $usuarioDAL = new DALUsuario();//Métodos del Usuario
+    $nuevoUsuario = new Usuario();
+    $usuarioDAL = new DALUsuario();
     $usuarioCredencial = new DALCredenciales();
 
     //Búsqueda de la última credencial añadida (may affect)

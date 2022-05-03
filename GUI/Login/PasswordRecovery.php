@@ -31,7 +31,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <form action="">
+                        <form action="../../BL/LogIn/NuevaContrasena.php" method="post">
                             <div class="mb-3">
                                 <label for="newPassword1" class="form-label">Nueva Contraseña</label>
                                 <input type="password" class="form-control" id="newPassword1" name="newPassword1">
