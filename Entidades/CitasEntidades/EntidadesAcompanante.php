@@ -4,6 +4,7 @@
         private $id;
         private $cedula;
         private $idTipoAcompanante;
+        private $idCita;
         private $active;
 
         /**
@@ -52,6 +53,22 @@
         public function setIdTipoAcompanante($idTipoAcompanante)
         {
             $this->idTipoAcompanante = $idTipoAcompanante;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getIdCita()
+        {
+            return $this->idCita;
+        }
+
+        /**
+         * @param mixed $idCita
+         */
+        public function setIdCita($idCita): void
+        {
+            $this->idCita = $idCita;
         }
 
         /**
