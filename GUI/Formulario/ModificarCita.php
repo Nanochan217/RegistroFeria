@@ -15,7 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
-    <title>Registrarse a la feria</title>
+    <title>Modificar Cita</title>
     <style>
         @media (max-width: 768px) {
             .feria {
@@ -49,10 +49,8 @@
 
                 <!-- Titulo de la pagina -->
                 <div class="pt-5 pb-4">
-                    <h1 class="text-center">Reservar Cita</h1>
-                    <div class="alert alert-warning text-center small my-3 py-1 mx-auto" style="width: fit-content;" role="alert">
-                        Fecha maxima de registro: <span class="fw-bold" id="fechaMaxima">Lunes 1 de Noviembre</span>
-                    </div>
+                    <h1 class="text-center">Modificar Cita</h1>
+
                 </div>
                 <!-- Formulario START-->
                 <form class="row gap-3">
@@ -61,58 +59,9 @@
                     <div class="row border rounded bg-white shadow-sm p-5">
                         <h2 class="pb-4">Datos del solicitante</h2>
 
-                        <!-- Imputs 1 -->
-                        <div class="row">
+                        <span class="fw-bold mb-2">Nombre del solicitante: <span class="fw-normal" id="nombreSolicitante">Bryan Monge Solano</span> </span>
+                        <span class="fw-bold">Cedula del solicitante: <span class="fw-normal" id="cedulaSolicitante">303330333</span> </span>
 
-                            <!-- Cedula -->
-                            <div class="col-md-3 pb-3">
-                                <label for="cedula" class="form-label">Cedula</label>
-                                <input type="text" class="form-control " id="cedula" name="cedula">
-                            </div>
-
-                            <!-- Nombre -->
-                            <div class="col-md-3 pb-3">
-                                <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control " id="nombre" name="nombre">
-                            </div>
-
-                            <!-- Apellido 1 -->
-                            <div class="col-md-3 pb-3">
-                                <label for="apellido1" class="form-label">Primer apellido</label>
-                                <input type="text" class="form-control " id="apellido1" name="apellido1">
-                            </div>
-
-                            <!-- Apellido 2 -->
-                            <div class="col-md-3 pb-3">
-                                <label for="apellido2" class="form-label">Segundo apellido</label>
-                                <input type="text" class="form-control " id="apellido2" name="apellido2">
-                            </div>
-                        </div>
-
-                        <!-- Imputs 2 -->
-                        <div class="row">
-
-                            <!-- Correo -->
-                            <div class="col-md-4 pb-3">
-                                <label for="email" class="form-label">Correo electrónico</label>
-                                <input type="text" class="form-control " id="email" name="email">
-                            </div>
-
-                            <!-- Telefono -->
-                            <div class="col-md-4 pb-3">
-                                <label for="telefono" class="form-label">Telefono</label>
-                                <input type="Number" class="form-control " id="telefono" name="telefono" min="0">
-                            </div>
-
-                            <!-- Colegio de procedencia -->
-                            <div class="col-md-4 pb-3">
-                                <label for="colegioProcedencia" class="form-label">Colegio de Procedencia</label>
-                                <select id="colegioProcedencia" name="colegioProcedencia" class="form-select">
-                                    <option selected>Seleccione un colegio</option>
-                                    <option>...</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                     <!-- END Sección de datos del solicitante -->
 
@@ -210,7 +159,7 @@
                         <div class="col position-relative px-0 py-5">
                             <div class="d-flex gap-3 position-absolute top-0 end-0">
                                 <a href="../Index/Index.php" class="btn btn-danger">Descartar</a>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal" class="btn btn-primary">Enviar Reserva</button>
+                                <button type="submit" class="btn btn-primary">Modificar</button>
                             </div>
                         </div>
                     </div>
@@ -226,26 +175,6 @@
     include '../Default/Footer.html';
     ?>
 
-
-    <!-- Modal -->
-    <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalPassRecoveryLabel">Cita editada con exito</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center flex-column mb-3">
-                        <i class="mx-auto bi bi-check-circle-fill" style="font-size: 8rem; color: #198754;"></i>
-                        <p class="text-center px-3">Muchas gracias por registrarte en la feria vocacional del COVAO 2022. ¡Te esperamos!</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="../Index/" class="btn btn-primary">Aceptar</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
