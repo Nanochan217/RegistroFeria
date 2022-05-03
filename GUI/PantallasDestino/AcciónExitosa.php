@@ -15,7 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
-    <title>Registrarse a la feria</title>
+    <title>Acción Exitosa</title>
     <style>
         @media (max-width: 768px) {
             .feria {
@@ -49,69 +49,20 @@
 
                 <!-- Titulo de la pagina -->
                 <div class="pt-5 pb-4">
-                    <h1 class="text-center">Reservar Cita</h1>
-                    <div class="alert alert-warning text-center small my-3 py-1 mx-auto" style="width: fit-content;" role="alert">
-                        Fecha maxima de registro: <span class="fw-bold" id="fechaMaxima">Lunes 1 de Noviembre</span>
-                    </div>
+                    <h1 class="text-center">¿Interesado en el COVAO?</h1>
                 </div>
                 <!-- Formulario START-->
                 <form class="row gap-3">
 
                     <!-- START Sección de datos del solicitante -->
                     <div class="row border rounded bg-white shadow-sm p-5">
-                        <h2 class="pb-4">Datos del solicitante</h2>
+                        <h2 class="pb-4">Consultar dirferentes recursos</h2>
 
-                        <!-- Imputs 1 -->
-                        <div class="row">
-
-                            <!-- Cedula -->
-                            <div class="col-md-3 pb-3">
-                                <label for="cedula" class="form-label">Cedula</label>
-                                <input type="text" class="form-control " id="cedula" name="cedula">
-                            </div>
-
-                            <!-- Nombre -->
-                            <div class="col-md-3 pb-3">
-                                <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control " id="nombre" name="nombre">
-                            </div>
-
-                            <!-- Apellido 1 -->
-                            <div class="col-md-3 pb-3">
-                                <label for="apellido1" class="form-label">Primer apellido</label>
-                                <input type="text" class="form-control " id="apellido1" name="apellido1">
-                            </div>
-
-                            <!-- Apellido 2 -->
-                            <div class="col-md-3 pb-3">
-                                <label for="apellido2" class="form-label">Segundo apellido</label>
-                                <input type="text" class="form-control " id="apellido2" name="apellido2">
-                            </div>
+                        <div class="col-md-6">
+                            <button>1</button>
                         </div>
-
-                        <!-- Imputs 2 -->
-                        <div class="row">
-
-                            <!-- Correo -->
-                            <div class="col-md-4 pb-3">
-                                <label for="email" class="form-label">Correo electrónico</label>
-                                <input type="text" class="form-control " id="email" name="email">
-                            </div>
-
-                            <!-- Telefono -->
-                            <div class="col-md-4 pb-3">
-                                <label for="telefono" class="form-label">Telefono</label>
-                                <input type="Number" class="form-control " id="telefono" name="telefono" min="0">
-                            </div>
-
-                            <!-- Colegio de procedencia -->
-                            <div class="col-md-4 pb-3">
-                                <label for="colegioProcedencia" class="form-label">Colegio de Procedencia</label>
-                                <select id="colegioProcedencia" name="colegioProcedencia" class="form-select">
-                                    <option selected>Seleccione un colegio</option>
-                                    <option>...</option>
-                                </select>
-                            </div>
+                        <div class="col-md-6">
+                            <button>2</button>
                         </div>
                     </div>
                     <!-- END Sección de datos del solicitante -->
