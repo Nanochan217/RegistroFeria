@@ -2,7 +2,7 @@
     include '../../Core/Conexion.php';
     include '../../DAL/UsuarioDAL/DALUsuario.php';
     include '../../DAL/UsuarioDAL/DALCredenciales.php';
-    include '../../Entidades/UsuarioEntidades/EntidadesUsuario.php';
+    include '../../Entidades/UsuarioEntidades/Usuario.php';
 
     $nuevoUsuario = new Usuario();
     $usuarioDAL = new DALUsuario();

@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <!-- Formulario START-->
-                <form class="row gap-3">
+                <form class="row gap-3" action="../../BL/Cita/NuevaCita.php" method="post">
 
                     <!-- START Sección de datos del solicitante -->
                     <div class="row border rounded bg-white shadow-sm p-5">
@@ -169,7 +169,7 @@
                             </div>
 
                             <!-- Inputs -->
-                            <div id="listaAcompanante" style="display: none;">
+                            <div id="listaAcompanante" name="listaAcompanante" style="display: none;">
 
                                 <!-- Acompanante 1 -->
                                 <!-- <div id="acompanante" class="row flex-wrap mx-0 border rounded bg-light pt-2 px-1 mb-3"> -->

@@ -56,7 +56,7 @@
 
                     <!-- START Sección de datos del solicitante -->
                     <div class="row border rounded bg-white shadow-sm p-5">
-                        <h2 class="pb-4">Consultar dirferentes recursos</h2>
+                        <h2 class="pb-4">Consultar diferentes recursos</h2>
 
                         <div class="col-md-6">
                             <button>1</button>

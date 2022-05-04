@@ -6,7 +6,7 @@
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "INSERT INTO 'ACOMPANANTE' ('CEDULA','IDTIPOACOMPANANTE','IDCITA','ACTIVE') 
+            $consultaSql = "INSERT INTO `ACOMPANANTE` (`CEDULA`,`IDTIPOACOMPANANTE`,`IDCITA`,`ACTIVE`) 
                             VALUES ('".$nuevoAcompanante->getCedula()."','".$nuevoAcompanante->getIdTipoAcompanante()."',
                             '".$nuevoAcompanante->getIdCita()."','".$nuevoAcompanante->getActive()."')";
 
