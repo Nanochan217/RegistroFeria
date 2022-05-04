@@ -1,9 +1,9 @@
 <?php
     include '../../Core/Conexion.php';
-    include '../../DAL/UsuarioDAL/DALUsuario.php';
-    include '../../DAL/UsuarioDAL/DALCredenciales.php';
     include '../../Entidades/UsuarioEntidades/Credenciales.php';
     include '../../Entidades/UsuarioEntidades/Usuario.php';
+    include '../../DAL/UsuarioDAL/DALUsuario.php';
+    include '../../DAL/UsuarioDAL/DALCredenciales.php';
 
     $nuevoUsuario = new Usuario();
     $usuarioDAL = new DALUsuario();
@@ -11,8 +11,8 @@
     $nuevaCredencial = new Credenciales();
     $credencialDAL = new DALCredenciales();
 
-    $correoUsuario = $_POST['correo'];
-    $contrasenaUsuario = $_POST['password'];
+    $correoUsuario = $_POST['email'];
+    $contrasenaUsuario = $_POST['contrasena'];
 
     //OBTENCIÓN DE DATOS DESDE EL FRONT
     $nuevaCredencial->setCorreo($correoUsuario);
@@ -29,7 +29,7 @@
         $nombreUsuario = $_POST['nombre'];
         $apellido1Usuario = $_POST['apellido1'];
         $apellido2Usuario = $_POST['apellido2'];
-        $idPerfilUsuario = $_POST['perfil'];
+        $idPerfilUsuario = $_POST['tipoPerfil'];
         $idCredencialUsuario = $ultimaCredencial->getId();
 
         //Asignar datos a Usuario

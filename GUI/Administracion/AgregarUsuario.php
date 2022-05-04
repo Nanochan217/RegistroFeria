@@ -42,7 +42,7 @@
                 </div>
 
                 <!-- Formulario START-->
-                <form action="../PantallasDestino/AcciónExitosa.php" method="POST" class="row gap-3">
+                <form action="../../BL/Usuario/NuevoUsuario.php" method="POST" class="row gap-3">
 
                     <!-- START Sección de datos del solicitante -->
                     <div class="row border rounded bg-white shadow-sm p-5">
@@ -96,7 +96,9 @@
                                 <label for="tipoPerfil" class="form-label">Tipo perfil</label>
                                 <select id="tipoPerfil" name="tipoPerfil" class="form-select" required>
                                     <option selected>Seleccione un perfil</option>
-                                    <option>...</option>
+                                    <option value="1">SuperAdmin</option>
+                                    <option value="2">Admin</option>
+                                    <option value="3">Guarda</option>
                                 </select>
                             </div>
                         </div>

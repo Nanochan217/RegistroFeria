@@ -1,6 +1,4 @@
 <?php
-    include '../../Entidades/UsuarioEntidades/Usuario.php';
-
     class DALUsuario
     {
         //Añade un nuevo Usuario a la Base de Datos
