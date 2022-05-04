@@ -16,8 +16,8 @@
                 {
                     $perfil = new Perfil();
                     $perfil->setId($filasPerfil["id"]);
-                    $perfil->setNombrePerfil($filasPerfil["correo"]);
-                    $perfil->setDescripcion($filasPerfil["contrasena"]);
+                    $perfil->setNombrePerfil($filasPerfil["nombrePerfil"]);
+                    $perfil->setDescripcion($filasPerfil["descripcion"]);
                     $perfil->setActive($filasPerfil['active']);
                     $perfilesDB[]=$perfil;
                 }
