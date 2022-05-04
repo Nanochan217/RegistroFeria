@@ -30,7 +30,7 @@
     $cedulaAcompanante = $_POST['cedulaAcompanante1'];
     $tipoAcompanante = $_POST['parentescoAcompanante1'];
 
-    //Objetos para almacenar los datos obtenidos
+    //Objetos para almacenar los datos del Formulario
     $nuevoAsistente = new Asistente();
     $nuevoAcompanante = new Acompanante();
     $nuevaCita = new Cita();
@@ -71,12 +71,13 @@
         }
         else
         {
-            header("Location: ../../GUI/Formulario/Formulario.php");
+            header("Location: ../../GUI/Index/Index.php");
             echo "Ha ocurrido un error";
         }
     }
     else
     {
+        header("Location: ../../GUI/Index/Index.php");
         echo "Ha ocurrido un error";
     }
 
