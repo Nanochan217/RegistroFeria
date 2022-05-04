@@ -8,7 +8,7 @@
          {
              $usuario = "root";
              $contrasena = "";
-             $db = "id18869247_feriavocacional";//Nombre de la Base de Datos
+             $db = "feriavocacionalcovao";//Nombre de la Base de Datos
 
              if(!$this->mysqli = new mysqli('localhost', $usuario, $contrasena, $db))
              {

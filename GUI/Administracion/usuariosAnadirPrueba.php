@@ -9,9 +9,9 @@
     <!-- IMPORT CSS -->
     <?php
     include '../Default/CSSImports.html';
-    ?>
+    ?>        
 
-    <title>Iniciar Sesión</title>
+    <title>Nuevo Usuario</title>
 
     <!-- START CSS  -->
     <style>
@@ -33,28 +33,47 @@
             <div class="col-12 col-md-8 col-lg-6 col-xl-5 mx-auto bg-white rounded border shadow-sm p-5">
                 <div class="row">
                     <div class="col">
-                        <h1 class="text-center pb-3">Iniciar Sesión</h1>
+                        <h1 class="text-center pb-3">Nuevo Usuario</h1>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <form action="../../BL/LogIn/NuevaSesion.php" method="post">
+                        <form action="../../BL/Usuario/NuevoUsuario.php" method="post">
                             <div class="mb-3">
-                                <label for="correo" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="correo" name="usuario" required>
+                                <label for="cedula" class="form-label">Cedula</label>
+                                <input type="text" class="form-control" id="cedula" name="cedula" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellido1" class="form-label">Apellido 1</label>
+                                <input type="text" class="form-control" id="apellido1" name="apellido1" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellido2" class="form-label">Apellido 2</label>
+                                <input type="text" class="form-control" id="apellido2" name="apellido2" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="correo" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="correo" name="correo" required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Contraseña</label>
                                 <input type="password" class="form-control" id="password" name="password" required>
-                                <div id="PassRecovery" class="form-text">
-                                    <button type="button" class="link-primary bg-transparent" style="border: none" data-bs-toggle="modal" data-bs-target="#modalPassRecovery">
-                                        ¿Olvidó su contraseña?
-                                    </button>
-                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3">Ingresar</button>
+                            <div class="mb-3">
+                                <label for="horario" class="form-label">Perfil</label>
+                                <select id="perfil" name="perfil" class="form-select" required>
+                                    <option selected>Seleccione un Perfil</option>
+                                    <option value="1">SuperAdmin</option>
+                                    <option value="2">Admin</option>
+                                    <option value="3">Guarda</option>
+                                </select>
+                            </div>                           
+                            <button type="submit" class="btn btn-primary mt-3" id="nuevoUsuario">Agregar Usuario</button>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -92,7 +111,7 @@
 
     <!-- START Scripts  -->
     <?php
-    include '../Default/JSImports.html';
+        include '../Default/JSImports.html';        
     ?>
     <!-- END Scripts  -->
 </body>

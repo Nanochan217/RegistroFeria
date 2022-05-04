@@ -58,7 +58,7 @@
         $nuevaCita->setIdEstadoCita(2);
         $nuevaCita->setActive(1);
 
-        if($citaDAL->NuevaCita())
+        if($citaDAL->NuevaCita($nuevaCita))
         {
             //Se obtiene la ID del último registro de la Cita
             $idCita = $citaDAL->UltimaCita();
@@ -68,6 +68,7 @@
             $nuevoAcompanante->setIdTipoAcompanante($tipoAcompanante);
             $nuevoAcompanante->setIdCita($idCita);
             $nuevoAcompanante->setActive(1);
+            $acompananteDAL->NuevoAcompanante($nuevoAcompanante);
         }
         else
         {

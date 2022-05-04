@@ -11,7 +11,7 @@
     include '../Default/CSSImports.html';
     ?>
 
-    <title>{Acción} Exitosa</title>
+    <title> Exitosa</title>
 
     <!-- START CSS  -->
     <style>

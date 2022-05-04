@@ -4,14 +4,15 @@
 
     $verificarCredencial = new DALLogIn();
     $correoUsuario = $_POST['correoRecovery'];
-
+    
     if($verificarCredencial->VerificarCorreoUsuario($correoUsuario))
     {
         echo "¡Correo Enviado!";
     }
     else
     {
-        echo "El correo no existe en el Sistema";
+        //echo "El correo no existe en el Sistema";
+        header("Location: ../../GUI/Index/Index.php");
     }
 
 

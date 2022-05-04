@@ -26,26 +26,29 @@
             return $credencialesSesion;
         }
 
+        //PENDIENTE REVISAR IF DEL CORREO TRAS LA CONSULTA SQL!!!
         function VerificarCorreoUsuario($correoUsuario)
         {
             $resultado = false;
             $correoID = $correoUsuario;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='".$correoUsuario."' AND `ACTIVE`= 1";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='".$correoID."' AND `ACTIVE`= 1";
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
                 $token = md5($correoID).rand(10, 9999);
+
                 //En caso de añadir un tiempo de expiración...
                 //$expFormat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("y"));
                 //$expDate = date("Y-m-d H:i:s", $expFormat);
                 //$update = "";
+
                 $link = "../../GUI/PasswordRecovery.php?key=".$correoID."&token=".$token;//Link generado
                 $tituloCorreo = "Solicitud de Restablecimiento de Contraseña";
-                $cuerpoCorreo = "¡Hemos recibido una solicitud de cambio de contraseña!\nHaz click en el siguiente enlace para restablecer tu contraseña:\n".$link;
-                $cabeceraCorreo = "De: feriavocacionalcovao@gmail.com";
-                if(mail($correoUsuario, $tituloCorreo, $cuerpoCorreo, $cabeceraCorreo))
+                $cuerpoCorreo = "¡Hemos recibido una solicitud de cambio de contraseña! Haz click en el siguiente enlace para restablecer tu contraseña: '".$link."'";                
+                $cuerpoCorreo = wordwrap($cuerpoCorreo, 100, "\n");
+                if(mail($correoID, $tituloCorreo, $cuerpoCorreo))
                 {
                     $resultado = true;
                 }

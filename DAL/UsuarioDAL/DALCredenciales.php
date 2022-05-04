@@ -29,10 +29,10 @@
             {
                 while($filaCredencial = $credencial->fetch_assoc())
                 {
-                    $ultimaCredencial->setId($filaCredencial["ID"]);
-                    $ultimaCredencial->setCorreo($filaCredencial["CORREO"]);
-                    $ultimaCredencial->setContrasena($filaCredencial["CONTRASENA"]);
-                    $ultimaCredencial->setActive($filaCredencial["ACTIVE"]);
+                    $ultimaCredencial->setId($filaCredencial["id"]);
+                    $ultimaCredencial->setCorreo($filaCredencial["correo"]);
+                    $ultimaCredencial->setContrasena($filaCredencial["contrasena"]);
+                    $ultimaCredencial->setActive($filaCredencial["active"]);
                 }
             }
             else
@@ -100,10 +100,10 @@
             {
                 while($filaUsuario = $respuestaDB->fetch_assoc())
                 {
-                    $credencialesDB->setId($filaUsuario["ID"]);
-                    $credencialesDB->setCorreo($filaUsuario["CORREO"]);
-                    $credencialesDB->setContrasena($filaUsuario["CONTRASENA"]);
-                    $credencialesDB->setActive($filaUsuario["ACTIVE"]);
+                    $credencialesDB->setId($filaUsuario["id"]);
+                    $credencialesDB->setCorreo($filaUsuario["correo"]);
+                    $credencialesDB->setContrasena($filaUsuario["contrasena"]);
+                    $credencialesDB->setActive($filaUsuario["active"]);
                 }
             }
             else

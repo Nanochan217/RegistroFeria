@@ -2,38 +2,60 @@
     include '../../Core/Conexion.php';
     include '../../DAL/UsuarioDAL/DALUsuario.php';
     include '../../DAL/UsuarioDAL/DALCredenciales.php';
+    include '../../Entidades/UsuarioEntidades/Credenciales.php';
     include '../../Entidades/UsuarioEntidades/Usuario.php';
 
     $nuevoUsuario = new Usuario();
     $usuarioDAL = new DALUsuario();
-    $usuarioCredencial = new DALCredenciales();
 
-    //Búsqueda de la última credencial añadida (may affect)
-    $ultimaCredencial = $usuarioCredencial->UltimaCredencial();
+    $nuevaCredencial = new Credenciales();
+    $credencialDAL = new DALCredenciales();
 
-    //Captura de Datos del Usuario
-    $cedulaUsuario = $_POST[''];
-    $nombreUsuario = $_POST[''];
-    $apellido1Usuario = $_POST[''];
-    $apellido2Usuario = $_POST[''];
-    $idPerfilUsuario = $_POST[''];
-    $idCredencialUsuario = $ultimaCredencial['ID'];
+    $correoUsuario = $_POST['correo'];
+    $contrasenaUsuario = $_POST['password'];
 
-    //Asignar datos a Usuario
-    $nuevoUsuario->setCedula($cedulaUsuario);
-    $nuevoUsuario->setNombre($nombreUsuario);
-    $nuevoUsuario->setApellido1($apellido1Usuario);
-    $nuevoUsuario->setApellido2($apellido2Usuario);
-    $nuevoUsuario->setIdCredenciales($idCredencialUsuario);
-    $nuevoUsuario->setIdPerfil($idPerfilUsuario);
+    //OBTENCIÓN DE DATOS DESDE EL FRONT
+    $nuevaCredencial->setCorreo($correoUsuario);
+    $nuevaCredencial->setContrasena($contrasenaUsuario);
 
-    //Nuevo Usuario
-    if($usuarioDAL->NuevoUsuario($nuevoUsuario))
+    //Nueva Credencial
+    if($credencialDAL->NuevaCredencial($nuevaCredencial))
     {
-        //Redireccionamiento
+        //Búsqueda de la última credencial añadida
+        $ultimaCredencial = $credencialDAL->UltimaCredencial();
+
+        //Captura de Datos del Usuario
+        $cedulaUsuario = $_POST['cedula'];
+        $nombreUsuario = $_POST['nombre'];
+        $apellido1Usuario = $_POST['apellido1'];
+        $apellido2Usuario = $_POST['apellido2'];
+        $idPerfilUsuario = $_POST['perfil'];
+        $idCredencialUsuario = $ultimaCredencial->getId();
+
+        //Asignar datos a Usuario
+        $nuevoUsuario->setCedula($cedulaUsuario);
+        $nuevoUsuario->setNombre($nombreUsuario);
+        $nuevoUsuario->setApellido1($apellido1Usuario);
+        $nuevoUsuario->setApellido2($apellido2Usuario);
+        $nuevoUsuario->setIdCredenciales($idCredencialUsuario);
+        $nuevoUsuario->setIdPerfil($idPerfilUsuario);
+
+        //Nuevo Usuario
+        if($usuarioDAL->NuevoUsuario($nuevoUsuario))
+        {
+            header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");            
+        }
+        else
+        {
+            header("Location: ../../GUI/Index/Index.php");
+        }
     }
     else
     {
-        //Redireccionamiento
+        header("Location: ../../GUI/Index/Index.php");
     }
+
+    
+
+    
 /////////////////////////////////////////////////////////////////////////////
