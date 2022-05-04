@@ -114,7 +114,7 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                                                 if ($todosPerfiles != null) {
                                                     foreach ($todosPerfiles as $p) {
                                                         if ($t->getIdPerfil() == $p->getId()) {
-                                                            echo $p->getNombre();
+                                                            echo $p->getNombrePerfil();
                                                             break;
                                                         }
                                                     }
