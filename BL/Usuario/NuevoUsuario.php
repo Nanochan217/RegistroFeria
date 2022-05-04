@@ -5,6 +5,7 @@
     include '../../DAL/UsuarioDAL/DALUsuario.php';
     include '../../DAL/UsuarioDAL/DALCredenciales.php';
 
+    $accion = "Nuevo Usuario";
     $nuevoUsuario = new Usuario();
     $usuarioDAL = new DALUsuario();
 
@@ -43,11 +44,13 @@
         //Nuevo Usuario
         if($usuarioDAL->NuevoUsuario($nuevoUsuario))
         {
-            header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");            
+            header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php"); 
+            return $accion;
         }
         else
         {
             header("Location: ../../GUI/Index/Index.php");
+            
         }
     }
     else

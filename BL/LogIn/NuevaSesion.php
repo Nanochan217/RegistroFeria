@@ -3,6 +3,7 @@
     include '../../DAL/UsuarioDAL/DALUsuario.php';
     include '../../DAL/LogInDAL/DALLogIn.php';
     include '../../Entidades/UsuarioEntidades/Credenciales.php';
+    include '../../Entidades/UsuarioEntidades/Usuario.php';
 
     $correoUsuario = $_POST['usuario'];
     $contrasena = $_POST['password'];
@@ -19,7 +20,8 @@
     $estadoSesion = $CredencialesDAL->NuevaSesionUsuario($confirmarSesion);
     if(isset($estadoSesion))
     {
-        if($nuevaSesionUsuario = $UsuarioDAL->BuscarIdUsuario($estadoSesion->getId()))
+        $id = $estadoSesion->getId();
+        if($nuevaSesionUsuario = $UsuarioDAL->BuscarIdUsuario($id))
         {
             if($nuevaSesionUsuario->getIdPerfil()==1)
             {
