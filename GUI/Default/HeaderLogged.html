@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm border-bottom px-5">
     <div class="container-fluid">
-        <a href="../Index/Index.php" class="d-flex gap-3 align-items-center text-dark text-decoration-none">
+        <a href="../Administracion/Index.php" class="d-flex gap-3 align-items-center text-dark text-decoration-none">
             <!-- cambiar!!!!! -->
             <img src="../Assets/Images/logoCovao.png" alt="" height="60" class="d-inline-block align-text-top">
             <span  class="h4 feria pt-1">Feria Vocacional</span>
@@ -16,13 +16,19 @@
             <div class="d-flex gap-3">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../Formulario/Formulario.php">Agendar Cita</a>
+                        <a class="nav-link" id="navAgendarCita" href="../Formulario/Formulario.php">Agendar Cita</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./Registros.php">Registros</a>
+                        <a class="nav-link" id="navEditarFormulario" href="./EditarForm.php">Editar formulario</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./Estadisticas.php">Estadisticas</a>
+                        <a class="nav-link" id="navUsuarios" href="./Usuarios.php">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="navCitas" href="./Citas.php">Citas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="navEstadisticas" href="./Estadisticas.php">Estadisticas</a>
                     </li>
                 </ul>
                 <div class="dropdown dropstart">
@@ -31,7 +37,7 @@
                         <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu shadow dropdown-menu-start" aria-labelledby="opcionesUsuario" style="">
-                        <li><a class="dropdown-item" href="#">Modificar Datos de Acceso</a></li>
+                        <li><a class="dropdown-item" href="./EditarCredenciales.php">Modificar Datos de Acceso</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

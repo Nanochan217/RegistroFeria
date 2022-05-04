@@ -84,7 +84,7 @@
                                         <input type="date" class="form-control" id="dia2" name="dia2" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
                                         <button class="btn btn-outline-primary" type="button" id="selectDia2">Seleccionar</button>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                             <!-- Button Agregar Acompañante -->
                             <div class="d-grid gap-2 mt-3" id="addDia">
@@ -128,7 +128,7 @@
                     <div class="row gap-3 p-0">
                         <div class="col position-relative px-0 py-5">
                             <div class="d-flex gap-3 position-absolute top-0 end-0">
-                                <a href="../Index/Index.php" class="btn btn-danger">Descartar</a>
+                                <a href="./Index.php" class="btn btn-danger">Descartar</a>
                                 <button type="submit" class="btn btn-primary">Enviar Reserva</button>
                             </div>
                         </div>
@@ -178,6 +178,9 @@
     <?php
     include '../Default/JSImports.html';
     ?>
+    <Script>
+        $("#navEditarFormulario").addClass("active");
+    </Script>
     <!-- END Scripts  -->
 </body>
 
