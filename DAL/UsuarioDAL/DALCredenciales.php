@@ -127,6 +127,7 @@
             {
                 while($filaUsuario = $respuestaDB->fetch_assoc())
                 {
+                    //SEGUIR CON ESTA SECCION
                     $credencialesDB->setId($filaUsuario["id"]);
                     $credencialesDB->setCorreo($filaUsuario["correo"]);
                     $credencialesDB->setContrasena($filaUsuario["contrasena"]);
