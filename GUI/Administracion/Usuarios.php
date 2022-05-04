@@ -101,7 +101,7 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                                                 <?php
                                                 if ($todasCredenciales != null) {
                                                     foreach ($todasCredenciales as $c) {
-                                                        if ($t->getIdPerfil() == $c->getId()) {
+                                                        if ($t->getIdCredenciales() == $c->getId()) {
                                                             echo $c->getCorreo();
                                                             break;
                                                         }
@@ -111,10 +111,10 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                                             </td>
                                             <td>
                                                 <?php
-                                                if ($todasCredenciales != null) {
-                                                    foreach ($todasCredenciales as $c) {
-                                                        if ($t->getIdPerfil() == $c->getId()) {
-                                                            echo $c->getCorreo();
+                                                if ($todosPerfiles != null) {
+                                                    foreach ($todosPerfiles as $p) {
+                                                        if ($t->getIdPerfil() == $p->getId()) {
+                                                            echo $p->getNombre();
                                                             break;
                                                         }
                                                     }
