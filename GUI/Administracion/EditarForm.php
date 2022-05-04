@@ -35,82 +35,105 @@
 
                 <!-- START Encabezado de la pagina -->
                 <div class="d-flex gap-4 flex-column align-items-center justify-content-center pt-5 pb-4">
-                    <h1>Citas</h1> <!-- titulo -->
+                    <h1>Editar Formulario</h1> <!-- titulo -->
                 </div>
                 <!-- END Encabezado de la pagina -->
 
-                <div class="row border rounded bg-white shadow-sm p-5 mb-5">
-                    <div class="row g-3 my-3">
-                        <div class="col-md-2 mx-0">
-                            <select id="filtrarDia" name="filtrarDia" class="form-select">
-                                <option value="none" selected disabled hidden>Día</option>
-                                <option>...</option>
-                            </select>
+                <form action="" method="POST" class="row gap-3">
+
+                    <div class="row gapx-4 border rounded bg-white shadow-sm p-5">
+                        <div class="col-md-6">
+                            <h2 class="pb-4">Disponibilidad</h2>
+                            <div class="row g-3">
+                                <div class="col-md-5">
+                                    <label for="fechaInicial" class="form-label">Fecha inicial</label>
+                                    <input type="date" class="form-control" id="fechaInicial" name="fechaInicial" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label for="fechaFinal" class="form-label">Fecha final</label>
+                                    <input type="date" class="form-control" id="fechaFinal" name="fechaFinal" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-2 mx-0">
-                            <select id="filtrarHorario" name="filtrarHorario" class="form-select">
-                                <option value="none" selected disabled hidden>Horario</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 mx-0">
-                            <select id="filtrarConfirmacion" name="filtrarConfirmacion" class="form-select">
-                                <option value="none" selected disabled hidden>Confirmación</option>
-                                <option>No confirmó</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 mx-0">
-                            <select id="filtrarDia" name="filtrarDia" class="form-select">
-                                <option value="none" selected disabled hidden>Asistencia</option>
-                                <option>Si asistió</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 mx-0">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="bi bi-search"></i></span>
-                                <input type="text" class="form-control" id="busqueda" name="busqueda" placeholder="Buscar...">
+                        <div class="col-md-6">
+                            <h2 class="pb-4">Acompañantes</h2>
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label for="maxAcompañantes" class="form-label">Maximo de acompañantes por persona</label>
+                                    <input type="number" class="form-control" id="maxAcompañantes" name="maxAcompañantes" required>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive ">
-                        <table class="table table-hover table-bordered align-middle">
-                            <thead class="table-secondary">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Cédula</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Día</th>
-                                    <th scope="col">Horario</th>
-                                    <th scope="col">Acompañantes</th>
-                                    <th scope="col">Confirmó</th>
-                                    <th scope="col">Asistió</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>303330333</td>
-                                    <td>Bryan Monge Solano</td>
-                                    <td>Lunes 23</td>
-                                    <td>9:00am → 11:00am</td>
-                                    <td>3</td>
-                                    <td class="bg-success bg-opacity-25">Si</td>
-                                    <td class="bg-danger bg-opacity-25">No</td>
-                                    <td>
-                                        <div class="d-flex flex-wrap gap-2 justify-content-center">
-                                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalRegistro">
-                                                <i class="bi bi-arrow-up-left-circle" style="font-size: 20px;"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="bi bi-trash" style="font-size: 20px;"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
 
-                            </tbody>
-                        </table>
+                    <div class="row gap-3 p-0">
+                        <div class="col-lg border rounded shadow-sm bg-white p-5">
+                            <h2 class="pb-4">Días hábiles</h2>
+                            <div class="row g-3">
+                                <div>
+                                    <label for="dia1" class="form-label">Día 1</label>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" id="dia1" name="dia1" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
+                                        <button class="btn btn-outline-primary" type="button" id="selectDia1">Seleccionar</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="dia2" class="form-label">Día 2</label>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" id="dia2" name="dia2" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
+                                        <button class="btn btn-outline-primary" type="button" id="selectDia2">Seleccionar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Button Agregar Acompañante -->
+                            <div class="d-grid gap-2 mt-3" id="addDia">
+                                <button class="btn btn-outline-primary" type="button" id="btnAddDia">+ Agregar día</button>
+                            </div>
+                        </div>
+                        <div class="col-lg border rounded shadow-sm bg-white p-5">
+                            <h2 class="pb-4">Horario del día 1</h2>
+                            <div class="row p-3 gx-3 gapx-4 bg-light border rounded">
+                                <div class="col-md-4 mt-0">
+                                    <label for="horaInicial1" class="form-label">Hora inicial</label>
+                                    <input type="time" class="form-control" id="horaInicial1" name="horaInicial1" required>
+                                </div>
+
+                                <div class="col-md-4 mt-0">
+                                    <label for="horaFinal1" class="form-label">Hora final</label>
+                                    <input type="time" class="form-control" id="horaFinal1" name="horaFinal1" required>
+                                </div>
+                                <div class="col-md-4 mt-0">
+                                    <div class="d-flex flex-column">
+                                        <label for="horaFinal1" class="form-label">Acciones</label>
+
+                                        <div class="d-flex flex-wrap gap-3">
+
+                                            <div class="d-flex flex-column">
+                                                <button class="btn " type="button" id="horarioVisible1"><i style="font-size: 20px; color:#0D6EFD;" class="bi bi-eye"></i></button>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <button class="btn " type="button" id="horarioVisible1"><i style="font-size: 20px; color:red;" class="bi bi-trash3"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Button Agregar Acompañante -->
+                            <div class="d-grid gap-2 mt-3" id="addHorario">
+                                <button class="btn btn-outline-primary" type="button" id="btnAddHorario">+ Agregar horario</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="row gap-3 p-0">
+                        <div class="col position-relative px-0 py-5">
+                            <div class="d-flex gap-3 position-absolute top-0 end-0">
+                                <a href="./Index.php" class="btn btn-danger">Descartar</a>
+                                <button type="submit" class="btn btn-primary">Enviar Reserva</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -155,6 +178,9 @@
     <?php
     include '../Default/JSImports.html';
     ?>
+    <Script>
+        $("#navEditarFormulario").addClass("active");
+    </Script>
     <!-- END Scripts  -->
 </body>
 

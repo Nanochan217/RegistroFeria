@@ -11,7 +11,7 @@
     include '../Default/CSSImports.html';
     ?>
 
-    <title>Registros</title>
+    <title>Usuarios</title>
 
     <!-- START CSS  -->
     <style>
@@ -35,40 +35,29 @@
 
                 <!-- START Encabezado de la pagina -->
                 <div class="d-flex gap-4 flex-column align-items-center justify-content-center pt-5 pb-4">
-                    <h1>Citas</h1> <!-- titulo -->
+                    <h1>Usuarios</h1> <!-- titulo -->
                 </div>
                 <!-- END Encabezado de la pagina -->
 
                 <div class="row border rounded bg-white shadow-sm p-5 mb-5">
-                    <div class="row g-3 my-3">
-                        <div class="col-md-2 mx-0">
+                    <div class="row gap-3 justify-content-between my-3">
+                        <div class="col-auto">
                             <select id="filtrarDia" name="filtrarDia" class="form-select">
-                                <option value="none" selected disabled hidden>Día</option>
+                                <option value="none" selected disabled hidden>Perfil</option>
                                 <option>...</option>
                             </select>
                         </div>
-                        <div class="col-md-2 mx-0">
-                            <select id="filtrarHorario" name="filtrarHorario" class="form-select">
-                                <option value="none" selected disabled hidden>Horario</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 mx-0">
-                            <select id="filtrarConfirmacion" name="filtrarConfirmacion" class="form-select">
-                                <option value="none" selected disabled hidden>Confirmación</option>
-                                <option>No confirmó</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 mx-0">
-                            <select id="filtrarDia" name="filtrarDia" class="form-select">
-                                <option value="none" selected disabled hidden>Asistencia</option>
-                                <option>Si asistió</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 mx-0">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="bi bi-search"></i></span>
-                                <input type="text" class="form-control" id="busqueda" name="busqueda" placeholder="Buscar...">
+                        <div class="col-auto">
+                            <div class="d-flex flex-wrap gap-3">
+                                <div class="">
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                        <input type="text" class="form-control" id="busqueda" name="busqueda" placeholder="Buscar...">
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <a href="./AgregarUsuario.php" class="btn btn-primary">Agregar usuario</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -79,11 +68,10 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">Cédula</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">Día</th>
-                                    <th scope="col">Horario</th>
-                                    <th scope="col">Acompañantes</th>
-                                    <th scope="col">Confirmó</th>
-                                    <th scope="col">Asistió</th>
+                                    <th scope="col">Primer apellido</th>
+                                    <th scope="col">Segundo apellido</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Perfil</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -91,22 +79,20 @@
                                 <tr>
                                     <th scope="row">1</th>
                                     <td>303330333</td>
-                                    <td>Bryan Monge Solano</td>
-                                    <td>Lunes 23</td>
-                                    <td>9:00am → 11:00am</td>
-                                    <td>3</td>
-                                    <td class="bg-success bg-opacity-25">Si</td>
-                                    <td class="bg-danger bg-opacity-25">No</td>
+                                    <td>Bryan</td>
+                                    <td>Monge</td>
+                                    <td>Solano</td>
+                                    <td>thebryanmonge@gmail.com</td>
+                                    <td>SuperAdmin</td>
                                     <td>
                                         <div class="d-flex flex-wrap gap-2 justify-content-center">
-                                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalRegistro">
-                                                <i class="bi bi-arrow-up-left-circle" style="font-size: 20px;"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="bi bi-trash" style="font-size: 20px;"></i></button>
+                                            <a href="./ModificarUsuario.php" class="btn btn-warning btn-sm">
+                                                <i class="bi bi-pencil" style="font-size: 20px;"></i>
+                                            </a>
+                                            <button class="btn btn-danger btn-sm"><i class="bi bi-trash" style="font-size: 20px;"></i></button>
                                         </div>
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -156,7 +142,7 @@
     include '../Default/JSImports.html';
     ?>
     <Script>
-        $("#navCitas").addClass("active");
+        $("#navUsuarios").addClass("active");
     </Script>
     <!-- END Scripts  -->
 </body>

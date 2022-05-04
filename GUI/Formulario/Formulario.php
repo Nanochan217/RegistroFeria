@@ -43,6 +43,7 @@
                         Fecha maxima de registro: <span class="fw-bold" id="fechaMaxima">Lunes 1 de Noviembre</span>
                     </div>
                 </div>
+
                 <!-- Formulario START-->
                 <form action="../PantallasDestino/AcciónExitosa.php" method="POST" class="row gap-3">
 
@@ -200,7 +201,6 @@
     <?php
     include '../Default/JSImports.html';
     ?>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="Formulario.js"></script>
     <!-- END Scripts  -->
 </body>
