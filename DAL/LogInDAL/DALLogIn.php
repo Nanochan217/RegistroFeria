@@ -38,12 +38,6 @@
             if($conexionDB->NuevaConexion($consultaSql))
             {
                 $token = md5($correoID).rand(10, 9999);
-
-                //En caso de añadir un tiempo de expiración...
-                //$expFormat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("y"));
-                //$expDate = date("Y-m-d H:i:s", $expFormat);
-                //$update = "";
-
                 $link = "../../GUI/PasswordRecovery.php?key=".$correoID."&token=".$token;//Link generado
                 $tituloCorreo = "Solicitud de Restablecimiento de Contraseña";
                 $cuerpoCorreo = "¡Hemos recibido una solicitud de cambio de contraseña! Haz click en el siguiente enlace para restablecer tu contraseña: '".$link."'";                
@@ -74,3 +68,8 @@
             return $resultado;
         }
     }
+
+//En caso de añadir un tiempo de expiración...
+//$expFormat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("y"));
+//$expDate = date("Y-m-d H:i:s", $expFormat);
+//$update = "";
