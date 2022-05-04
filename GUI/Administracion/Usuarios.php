@@ -1,9 +1,11 @@
 <?php
 $header = file_get_contents('../Default/Header.html');
-$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
+
+include '../../BL/Usuario/BuscarTodosUsuarios.php';
 ?>
 
 <!doctype html>
@@ -34,7 +36,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
 
     <!-- IMPORT Header -->
     <?php
-    include '../Default/HeaderLogged.html';
+    echo $headerSA;
     ?>
 
     <div class="container">
@@ -84,6 +86,13 @@ $cssDefault = file_get_contents('../Default/Style.css');
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php
+                                if ($todos != null) {
+                                    foreach ($todos as $t) {
+                                        ?>
+                                    }
+                                }
+                                ?>
                                 <tr>
                                     <th scope="row">1</th>
                                     <td>303330333</td>
