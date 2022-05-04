@@ -3,30 +3,27 @@
     {
         function NuevaSesionUsuario(Credenciales $credencialesSesion)
         {
-            $credencial = new Credenciales();
+            //$credencial = new Credenciales();
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM 'CREDENCIALES' WHERE 'CORREO'='".$credencialesSesion->getCorreo()."' 
-                            && 'CONTRASENA'='".$credencialesSesion->getContrasena()."' && 'ACTIVE' = 1";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='".$credencialesSesion->getCorreo()."' 
+                            AND `CONTRASENA` ='".$credencialesSesion->getContrasena()."' AND `ACTIVE` = 1";
             $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
                 while ($filaCredencial = $respuestaDB->fetch_assoc())
                 {
-                    $credencial->setId($filaCredencial['ID']);
-                    $credencial->setCorreo($filaCredencial['CORREO']);
-                    $credencial->setContrasena($filaCredencial['CONTRASENA']);
-                    $credencial->setActive($filaCredencial['ACTIVE']);
+                    $credencialesSesion->setId($filaCredencial["id"]);
                 }
             }
             else
             {
-                $credencial = null;
+                $credencialesSesion = null;
             }
 
             $conexionDB->CerrarConexion();
-            return $credencial;
+            return $credencialesSesion;
         }
 
         function VerificarCorreoUsuario($correoUsuario)
@@ -35,7 +32,7 @@
             $correoID = $correoUsuario;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM 'CREDENCIALES' WHERE 'CORREO' ='".$correoUsuario."' && 'ACTIVE'= 1";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='".$correoUsuario."' AND `ACTIVE`= 1";
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
@@ -44,7 +41,7 @@
                 //$expFormat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("y"));
                 //$expDate = date("Y-m-d H:i:s", $expFormat);
                 //$update = "";
-                $link = "www.nombresitio.com/GUI/PasswordRecovery.php?key=".$correoID."&token=".$token;//Link generado
+                $link = "../../GUI/PasswordRecovery.php?key=".$correoID."&token=".$token;//Link generado
                 $tituloCorreo = "Solicitud de Restablecimiento de Contraseña";
                 $cuerpoCorreo = "¡Hemos recibido una solicitud de cambio de contraseña!\nHaz click en el siguiente enlace para restablecer tu contraseña:\n".$link;
                 $cabeceraCorreo = "De: feriavocacionalcovao@gmail.com";
@@ -63,7 +60,7 @@
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM 'CREDENCIALES' SET 'CONTRASENA'=".$nuevaContraseña." WHERE 'CORREO'=".$correoUsuario;
+            $consultaSql = "SELECT * FROM `CREDENCIALES` SET `CONTRASENA`=".$nuevaContraseña." WHERE `CORREO`=".$correoUsuario;
 
             if($conexionDB->NuevaConexion($consultaSql))
             {

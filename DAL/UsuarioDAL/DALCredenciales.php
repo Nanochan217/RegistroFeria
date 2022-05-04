@@ -6,7 +6,7 @@
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "INSERT INTO 'CREDENCIALES'('CORREO', 'CONTRASENA', 'ACTIVE') 
+            $consultaSql = "INSERT INTO `CREDENCIALES`(`CORREO`, `CONTRASENA`, `ACTIVE`) 
                     VALUES ('".$nuevaCredencial->getCorreo()."','".$nuevaCredencial->getContrasena()."', 1)";
 
             if($conexionDB->NuevaConexion($consultaSql))
@@ -22,7 +22,7 @@
         {
             $ultimaCredencial = new Credenciales();
             $conexionDB = new Conexion();
-            $consultaSql = "SELECT * FROM 'CREDENCIALES' WHERE 'ID'=(SELECT MAX('ID') FROM 'CREDENCIALES') AND 'ACTIVE' = 1;";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `ID`=(SELECT MAX(`ID`) FROM `CREDENCIALES`) AND `ACTIVE` = 1";
             $credencial = $conexionDB->NuevaConexion($consultaSql);
 
             if(mysqli_num_rows($credencial)>0)
@@ -47,8 +47,8 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $consultaSql = "UPDATE 'CREDENCIALES' SET 'CORREO'='".$modificarCredenciales->getCorreo()."' 
-                            SET 'CONTRASENA'='".$modificarCredenciales->getContrasena()."' WHERE 'ID'=".$modificarCredenciales->getId();
+            $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='".$modificarCredenciales->getCorreo()."' 
+                            SET `CONTRASENA`='".$modificarCredenciales->getContrasena()."' WHERE `ID`=".$modificarCredenciales->getId();
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
@@ -63,7 +63,7 @@
             $credencialesDB = array();
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM 'CREDENCIALES' WHERE 'ACTIVE' = 1";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `ACTIVE` = 1";
 
             $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
@@ -92,7 +92,7 @@
             $credencialesDB = new Credenciales();
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM 'CREDENCIALES' WHERE 'ID' = '$idUsuario'";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `ID` = '$idUsuario'";
 
             $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
@@ -120,7 +120,7 @@
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT FROM 'CREDENCIALES' WHERE 'ID'= '".$desactivarCredencial->getId()."' SET 'ACTIVE' =".$desactivarCredencial->getActive();
+            $consultaSql = "SELECT FROM `CREDENCIALES` WHERE `ID`= '".$desactivarCredencial->getId()."' SET `ACTIVE` =".$desactivarCredencial->getActive();
 
             if($conexionDB->NuevaConexion($consultaSql))
             {

@@ -5,7 +5,6 @@
     $verificarCredencial = new DALLogIn();
     $correoUsuario = $_POST['correoRecovery'];
 
-
     if($verificarCredencial->VerificarCorreoUsuario($correoUsuario))
     {
         echo "¡Correo Enviado!";

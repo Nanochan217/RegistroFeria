@@ -1,7 +1,7 @@
 <?php
     include '../../Core/Conexion.php';
     include '../../DAL/UsuarioDAL/DALUsuario.php';
-    include '../../Entidades/UsuarioEntidades/EntidadesCredenciales.php';
+    include '../../Entidades/UsuarioEntidades/Credenciales.php';
 
     $nuevaCredencial = new Credenciales();
     $credencialDAL = new DALCredenciales();

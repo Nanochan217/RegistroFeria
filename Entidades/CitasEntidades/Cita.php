@@ -6,7 +6,7 @@
         private $hora;
         private $confirmado;
         private $idAsistente;
-        private $idAcompanante;
+        //private $idAcompanante;
         private $idEstadoCita;
         private $active;
 
@@ -90,21 +90,21 @@
             $this->idAsistente = $idAsistente;
         }
 
-        /**
-         * @return mixed
-         */
-        public function getIdAcompanante()
-        {
-            return $this->idAcompanante;
-        }
+        ///**
+        // * @return mixed
+        // */
+        //public function getIdAcompanante()
+        //{
+        //    return $this->idAcompanante;
+        //}
 
-        /**
-         * @param mixed $idAcompanante
-         */
-        public function setIdAcompanante($idAcompanante)
-        {
-            $this->idAcompanante = $idAcompanante;
-        }
+        ///**
+        // * @param mixed $idAcompanante
+        // */
+        //public function setIdAcompanante($idAcompanante)
+        //{
+        //    $this->idAcompanante = $idAcompanante;
+        //}
 
         /**
          * @return mixed
