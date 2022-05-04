@@ -115,6 +115,33 @@
             return $credencialesDB;
         }
 
+        function BuscarCoincidencias(Credenciales $buscarCredenciales)
+        {
+            $conexionDB = new Conexion();
+
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CEDULA` = '$idUsuario'";
+
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+            if(mysqli_num_rows($respuestaDB)>0)
+            {
+                while($filaUsuario = $respuestaDB->fetch_assoc())
+                {
+                    $credencialesDB->setId($filaUsuario["id"]);
+                    $credencialesDB->setCorreo($filaUsuario["correo"]);
+                    $credencialesDB->setContrasena($filaUsuario["contrasena"]);
+                    $credencialesDB->setActive($filaUsuario["active"]);
+                }
+            }
+            else
+            {
+                $credencialesDB = null;
+            }
+
+            $conexionDB->CerrarConexion();
+            return $credencialesDB;
+        }
+
         function DesactivarCredencial(Credenciales $desactivarCredencial)
         {
             $resultado = false;
