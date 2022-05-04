@@ -1,3 +1,7 @@
+<?php
+$header = file_get_contents('../Default/Header.html');
+?>
+
 <!doctype html>
 <html lang="es">
 
@@ -26,7 +30,7 @@
 
     <!-- IMPORT Header -->
     <?php
-    include '../Default/Header.html';
+    echo $header;
     ?>
 
     <div class="container">

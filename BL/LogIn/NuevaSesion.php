@@ -5,6 +5,7 @@
     include '../../Entidades/UsuarioEntidades/Credenciales.php';
     include '../../Entidades/UsuarioEntidades/Usuario.php';
 
+
     $correoUsuario = $_POST['usuario'];
     $contrasena = $_POST['password'];
 
