@@ -13,3 +13,7 @@ body {
     background-size: cover;
     font-family: 'Nunito';
 }
+
+.gapx-4{
+    row-gap: 1.5rem !important;
+}

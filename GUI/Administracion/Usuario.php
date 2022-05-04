@@ -11,7 +11,7 @@
     include '../Default/CSSImports.html';
     ?>
 
-    <title>Editar Formulario</title>
+    <title>Usuarios</title>
 
     <!-- START CSS  -->
     <style>
@@ -35,7 +35,7 @@
 
                 <!-- START Encabezado de la pagina -->
                 <div class="d-flex gap-4 flex-column align-items-center justify-content-center pt-5 pb-4">
-                    <h1>Editar Formulario</h1> <!-- titulo -->
+                    <h1>Usuarios</h1> <!-- titulo -->
                 </div>
                 <!-- END Encabezado de la pagina -->
 
@@ -84,7 +84,7 @@
                                         <input type="date" class="form-control" id="dia2" name="dia2" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
                                         <button class="btn btn-outline-primary" type="button" id="selectDia2">Seleccionar</button>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                             <!-- Button Agregar Acompañante -->
                             <div class="d-grid gap-2 mt-3" id="addDia">

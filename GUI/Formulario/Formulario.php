@@ -43,6 +43,7 @@
                         Fecha maxima de registro: <span class="fw-bold" id="fechaMaxima">Lunes 1 de Noviembre</span>
                     </div>
                 </div>
+                
                 <!-- Formulario START-->
                 <form action="../PantallasDestino/AcciónExitosa.php" method="POST" class="row gap-3">
 
