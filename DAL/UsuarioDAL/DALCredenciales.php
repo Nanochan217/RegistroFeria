@@ -72,10 +72,10 @@
                 while($filasCredencial = $respuestaDB->fetch_assoc())
                 {
                     $credencial = new Credenciales();
-                    $credencial->setId($filasCredencial["ID"]);
-                    $credencial->setCorreo($filasCredencial["CORREO"]);
-                    $credencial->setContrasena($filasCredencial["CONTRASENA"]);
-                    $credencial->setActive($filasCredencial['ACTIVE']);
+                    $credencial->setId($filasCredencial["id"]);
+                    $credencial->setCorreo($filasCredencial["correo"]);
+                    $credencial->setContrasena($filasCredencial["contrasena"]);
+                    $credencial->setActive($filasCredencial['active']);
                     $credencialesDB[]=$credencial;
                 }
             }
