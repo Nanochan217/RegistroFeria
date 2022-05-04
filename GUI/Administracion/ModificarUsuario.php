@@ -1,3 +1,11 @@
+<?php
+$header = file_get_contents('../Default/Header.html');
+$footer = file_get_contents('../Default/Footer.html');
+$cssLinks = file_get_contents('../Default/CSSImports.html');
+$jsLinks = file_get_contents('../Default/JSImports.html');
+$cssDefault = file_get_contents('../Default/Style.css');
+?>
+
 <!doctype html>
 <html lang="es">
 
@@ -8,14 +16,14 @@
 
     <!-- IMPORT CSS -->
     <?php
-    include '../Default/CSSImports.html';
+    echo $cssLinks;
     ?>
 
     <title>Modificar Usuario</title>
     <!-- START CSS  -->
     <style>
         <?php
-        include '../Default/Style.css';
+        echo $cssDefault;
         ?>@media (max-width: 768px) {
             #textoEliminar {
                 display: inline !important;
@@ -121,17 +129,17 @@
 
     <!--  Footer  -->
     <?php
-    include '../Default/Footer.html';
+    echo $footer;
     ?>
 
     <!-- START Scripts  -->
     <?php
-    include '../Default/JSImports.html';
+    echo $jsLinks;;
     ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <Script>
         $("#navUsuarios").addClass("active");
-    </Script> 
+    </Script>
     <!-- END Scripts  -->
 </body>
 

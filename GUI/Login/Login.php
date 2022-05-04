@@ -1,3 +1,11 @@
+<?php
+$header = file_get_contents('../Default/Header.html');
+$footer = file_get_contents('../Default/Footer.html');
+$cssLinks = file_get_contents('../Default/CSSImports.html');
+$jsLinks = file_get_contents('../Default/JSImports.html');
+$cssDefault = file_get_contents('../Default/Style.css');
+?>
+
 <!doctype html>
 <html lang="es">
 
@@ -8,7 +16,7 @@
 
     <!-- IMPORT CSS -->
     <?php
-    include '../Default/CSSImports.html';
+    echo $cssLinks;
     ?>
 
     <title>Iniciar Sesión</title>
@@ -16,7 +24,7 @@
     <!-- START CSS  -->
     <style>
         <?php
-        include '../Default/Style.css';
+        echo $cssDefault;
         ?>
     </style>
     <!-- END CSS  -->
@@ -63,7 +71,7 @@
 
     <!--  Footer  -->
     <?php
-    include '../Default/Footer.html';
+    echo $footer;
     ?>
 
     <!-- Modal Password Recovery -->
@@ -92,7 +100,7 @@
 
     <!-- START Scripts  -->
     <?php
-    include '../Default/JSImports.html';
+    echo $jsLinks;;
     ?>
     <!-- END Scripts  -->
 </body>

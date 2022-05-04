@@ -1,3 +1,11 @@
+<?php
+$header = file_get_contents('../Default/Header.html');
+$footer = file_get_contents('../Default/Footer.html');
+$cssLinks = file_get_contents('../Default/CSSImports.html');
+$jsLinks = file_get_contents('../Default/JSImports.html');
+$cssDefault = file_get_contents('../Default/Style.css');
+$recursosExtra = file_get_contents('../Default/RecursosExtra.html');
+?>
 <!doctype html>
 <html lang="es">
 
@@ -8,7 +16,7 @@
 
     <!-- IMPORT CSS -->
     <?php
-    include '../Default/CSSImports.html';
+    echo $cssLinks;
     ?>
 
     <title> Exitosa</title>
@@ -16,7 +24,7 @@
     <!-- START CSS  -->
     <style>
         <?php
-        include '../Default/Style.css';
+        echo $cssDefault;
         ?>
     </style>
     <!-- END CSS  -->
@@ -26,7 +34,7 @@
 
     <!-- IMPORT Header -->
     <?php
-    include '../Default/Header.html';
+    echo $header;
     ?>
 
     <div class="container">
@@ -43,7 +51,7 @@
 
                 <!-- IMPORT Recursos extras -->
                 <?php
-                include '../Default/RecursosExtra.html';
+                echo $recursosExtra;
                 ?>
             </div>
         </div>
@@ -51,12 +59,12 @@
 
     <!-- IMPORT Footer  -->
     <?php
-    include '../Default/Footer.html';
+    echo $footer;
     ?>
 
     <!-- START Scripts  -->
     <?php
-    include '../Default/JSImports.html';
+    echo $jsLinks;;
     ?>
     <!-- END Scripts  -->
 </body>
