@@ -1,11 +1,12 @@
 <?php
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
 
-include '../../BL/Usuario/BuscarTodosUsuarios.php';
+include '../../BL/Usuario/BuscarTodosUsuario.php';
 ?>
 
 <!doctype html>
@@ -87,29 +88,53 @@ include '../../BL/Usuario/BuscarTodosUsuarios.php';
                             </thead>
                             <tbody>
                                 <?php
-                                if ($todos != null) {
-                                    foreach ($todos as $t) {
-                                        ?>
+                                if ($todosUsuarios != null) {
+                                    foreach ($todosUsuarios as $t) {
+                                ?>
+                                        <tr>
+                                            <th scope="row"><?php echo $t->getId() ?></th>
+                                            <td><?php echo $t->getCedula() ?></td>
+                                            <td><?php echo $t->getNombre() ?></td>
+                                            <td><?php echo $t->getApellido1() ?></td>
+                                            <td><?php echo $t->getApellido2() ?></td>
+                                            <td>
+                                                <?php
+                                                if ($todasCredenciales != null) {
+                                                    foreach ($todasCredenciales as $c) {
+                                                        if ($t->getIdPerfil() == $c->getId()) {
+                                                            echo $c->getCorreo();
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                if ($todasCredenciales != null) {
+                                                    foreach ($todasCredenciales as $c) {
+                                                        if ($t->getIdPerfil() == $c->getId()) {
+                                                            echo $c->getCorreo();
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                                    <a href="./ModificarUsuario.php" class="btn btn-warning btn-sm">
+                                                        <i class="bi bi-pencil" style="font-size: 20px;"></i>
+                                                    </a>
+                                                    <button class="btn btn-danger btn-sm"><i class="bi bi-trash" style="font-size: 20px;"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                <?php
                                     }
                                 }
                                 ?>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>303330333</td>
-                                    <td>Bryan</td>
-                                    <td>Monge</td>
-                                    <td>Solano</td>
-                                    <td>thebryanmonge@gmail.com</td>
-                                    <td>SuperAdmin</td>
-                                    <td>
-                                        <div class="d-flex flex-wrap gap-2 justify-content-center">
-                                            <a href="./ModificarUsuario.php" class="btn btn-warning btn-sm">
-                                                <i class="bi bi-pencil" style="font-size: 20px;"></i>
-                                            </a>
-                                            <button class="btn btn-danger btn-sm"><i class="bi bi-trash" style="font-size: 20px;"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
