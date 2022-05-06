@@ -115,32 +115,25 @@
             return $credencialesDB;
         }
 
-        function BuscarCoincidencias(Credenciales $buscarCredenciales)
+        //Funcion para verificar que no existan datos iguales en la DB, en la tabla de Usuarios
+        function BuscarCoincidencias($cedulaUsuario, $correo)
         {
+            $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CEDULA` = '$idUsuario'";
+            $consultaSql = "SELECT * FROM `USUARIO` INNER JOIN `CREDENCIALES` 
+                WHERE `USUARIO.CEDULA` = '".$cedulaUsuario."' OR `CREDENCIALES.CORREO` = '".$correo."'";             
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $resultadoDB = $conexionDB->NuevaConexion($consultaSql);
 
-            if(mysqli_num_rows($respuestaDB)>0)
+            if($resultadoDB)
             {
-                while($filaUsuario = $respuestaDB->fetch_assoc())
-                {
-                    //SEGUIR CON ESTA SECCION
-                    $credencialesDB->setId($filaUsuario["id"]);
-                    $credencialesDB->setCorreo($filaUsuario["correo"]);
-                    $credencialesDB->setContrasena($filaUsuario["contrasena"]);
-                    $credencialesDB->setActive($filaUsuario["active"]);
-                }
-            }
-            else
-            {
-                $credencialesDB = null;
+                //VERIFICAR LOS VALORES DADOS POR LA CONSULTA...
+                $resultado = true;                
             }
 
             $conexionDB->CerrarConexion();
-            return $credencialesDB;
+            return $resultado;
         }
 
         function DesactivarCredencial(Credenciales $desactivarCredencial)
