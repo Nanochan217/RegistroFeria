@@ -16,15 +16,17 @@
     $correoUsuario = $_POST['email'];
     $contrasenaUsuario = $_POST['contrasena'];
 
-    if(!$credencialDAL->BuscarCoincidencias($cedulaUsuario, $correoUsuario))
+
+    if(null != $usuarioDAL->BuscarCedula($cedulaUsuario))
     {
+        //&& $credencialDAL->BuscarCorreo($correoUsuario)
+        //OBTENCIÓN DE DATOS DESDE EL FRONT
+        $nuevaCredencial->setCorreo($correoUsuario);
+        $nuevaCredencial->setContrasena($contrasenaUsuario);
+
         //Nueva Credencial
         if($credencialDAL->NuevaCredencial($nuevaCredencial))
         {
-            //OBTENCIÓN DE DATOS DESDE EL FRONT
-            $nuevaCredencial->setCorreo($correoUsuario);
-            $nuevaCredencial->setContrasena($contrasenaUsuario);
-            
             //Búsqueda de la última credencial añadida
             $ultimaCredencial = $credencialDAL->UltimaCredencial();
 
@@ -47,22 +49,21 @@
             if($usuarioDAL->NuevoUsuario($nuevoUsuario))
             {
                 header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php"); 
-                return $accion;
+                //return $accion;
             }
             else
             {
-                header("Location: ../../GUI/Index/Index.php");
-                
+                header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");                
             }
         }
         else
         {
-            header("Location: ../../GUI/Index/Index.php");
+            header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
         }
     }
     else
     {
-        echo "Ya hay un Usuario registrado con el mismo Correo o # de Cédula";
+        header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
     }
     
 /////////////////////////////////////////////////////////////////////////////

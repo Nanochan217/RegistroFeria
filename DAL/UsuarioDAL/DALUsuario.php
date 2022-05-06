@@ -86,6 +86,29 @@
             return $usuarioDB;
         }
 
+        //Funcion para verificar que no existan datos iguales en la DB
+        function BuscarCedula($cedula)
+        {
+            $resultado = false;
+            $conexionDB = new Conexion();
+
+            $consultaSql = "SELECT * FROM `USUARIO` WHERE `CEDULA` = '".$cedula."'";
+
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+            if(mysqli_num_rows($respuestaDB)>0)
+            {
+                while($filaUsuario = $respuestaDB->fetch_assoc())
+                {
+                    if($cedula != $filaUsuario["cedula"])
+                        $resultado = true;
+                }
+            }
+
+            $conexionDB->CerrarConexion();
+            return $resultado;
+        }
+
         function DesactivarUsuario(Usuario $desactivarUsuario)
         {
             $resultado = false;

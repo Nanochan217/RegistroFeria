@@ -115,21 +115,23 @@
             return $credencialesDB;
         }
 
-        //Funcion para verificar que no existan datos iguales en la DB, en la tabla de Usuarios
-        function BuscarCoincidencias($cedulaUsuario, $correo)
+        //Funcion para verificar que no existan datos iguales en la DB
+        function BuscarCorreo($correo)
         {
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM `USUARIO` INNER JOIN `CREDENCIALES` 
-                WHERE `USUARIO.CEDULA` = '".$cedulaUsuario."' OR `CREDENCIALES.CORREO` = '".$correo."'";             
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correo."'";             
 
-            $resultadoDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
-            if($resultadoDB)
+            if(mysqli_num_rows($respuestaDB)>0)
             {
-                //VERIFICAR LOS VALORES DADOS POR LA CONSULTA...
-                $resultado = true;                
+                while($filaCredencial = $respuestaDB->fetch_assoc())
+                {
+                    if($correo != $filaCredencial["correo"])
+                        $resultado = true;
+                }
             }
 
             $conexionDB->CerrarConexion();
@@ -141,7 +143,7 @@
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT FROM `CREDENCIALES` WHERE `ID`= '".$desactivarCredencial->getId()."' SET `ACTIVE` =".$desactivarCredencial->getActive();
+            $consultaSql = "SELECT FROM `CREDENCIALES` SET `ACTIVE` = '".$desactivarCredencial->getActive()."' WHERE `ID`= '".$desactivarCredencial->getId();
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
