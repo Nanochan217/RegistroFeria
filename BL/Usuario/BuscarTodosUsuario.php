@@ -11,8 +11,19 @@
     $CredencialesDAL = new DALCredenciales();
     $perfilesDAL = new DALPerfiles();
 
+    //Arrays con la información de todos los Usuarios Administrativos
     $todosUsuarios = $UsuarioDAL->BuscarTodosUsuario();
     $todasCredenciales = $CredencialesDAL->BuscarTodasCredenciales();
     $todosPerfiles = $perfilesDAL->BuscarTodosPerfiles();
+
+
+    //JSON para la parte de JS (EN PROCESO...)
+    // $jsonUsuarios = json_encode($todosUsuarios);
+    // $jsonCredenciales = json_encode($todasCredenciales);
+    // $jsonPerfiles = json_encode($todosPerfiles);
+
+    // echo $jsonUsuarios;
+    // echo $jsonCredenciales;
+    // echo $jsonPerfiles;
 ////////////////////////////////////////////////////////////////////////////////
 

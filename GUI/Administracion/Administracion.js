@@ -23,3 +23,22 @@ function NuevoUsuario()
         perfilUsuario: perfil
     });
 }
+
+function BuscarTodosUsuario()
+{
+    var solicitudUsuario = new XMLHttpRequest();
+
+    xmlhttp.onload = function() 
+    {
+        var usuario = JSON.parse(this.responseText);
+        var value = "";
+
+        for (var i in usuario) {
+            //value += "<td>" + usuario[i].'nombre del campo de la fila' + "</td>";
+        }
+        document.getElementById("ID-ETIQUETA").innerHTML = value;
+    }
+
+    solicitudUsuario.open("POST", "../../BL/Usuario/BuscarTodosUsuario.php");
+    solicitudUsuario.send();
+}

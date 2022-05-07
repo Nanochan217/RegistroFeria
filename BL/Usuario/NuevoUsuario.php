@@ -17,6 +17,7 @@
     $contrasenaUsuario = $_POST['contrasena'];
 
 
+    //SEGUIR CON LA VERIFICACION DE CEDULAS Y CORREOS!!!
     if(null != $usuarioDAL->BuscarCedula($cedulaUsuario))
     {
         //&& $credencialDAL->BuscarCorreo($correoUsuario)
