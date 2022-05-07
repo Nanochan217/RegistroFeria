@@ -130,6 +130,8 @@
                 while($filaCredencial = $respuestaDB->fetch_assoc())
                 {
                     if($correo != $filaCredencial["correo"])
+                        break;
+                    else
                         $resultado = true;
                 }
             }

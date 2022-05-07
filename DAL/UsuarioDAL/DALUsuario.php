@@ -101,6 +101,8 @@
                 while($filaUsuario = $respuestaDB->fetch_assoc())
                 {
                     if($cedula != $filaUsuario["cedula"])
+                        break;
+                    else
                         $resultado = true;
                 }
             }

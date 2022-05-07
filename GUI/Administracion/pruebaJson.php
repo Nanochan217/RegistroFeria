@@ -6,7 +6,7 @@ $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
 
-include '../../BL/Usuario/BuscarTodosUsuario.php';
+//include '../../BL/Usuario/BuscarTodosUsuario.php';
 ?>
 
 <!doctype html>
@@ -34,6 +34,7 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
 </head>
 
 <body class="bg-light">
+    <script src="./Administracion.js"></script>
 
     <!-- IMPORT Header -->
     <?php
@@ -86,55 +87,28 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <?php
-                                if ($todosUsuarios != null) {
-                                    foreach ($todosUsuarios as $t) {
-                                ?>
-                                        <tr>
-                                            <th scope="row"><?php echo $t->getId() ?></th>
-                                            <td><?php echo $t->getCedula() ?></td>
-                                            <td><?php echo $t->getNombre() ?></td>
-                                            <td><?php echo $t->getApellido1() ?></td>
-                                            <td><?php echo $t->getApellido2() ?></td>
-                                            <td>
-                                                <?php
-                                                if ($todasCredenciales != null) {
-                                                    foreach ($todasCredenciales as $c) {
-                                                        if ($t->getIdCredenciales() == $c->getId()) {
-                                                            echo $c->getCorreo();
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                if ($todosPerfiles != null) {
-                                                    foreach ($todosPerfiles as $p) {
-                                                        if ($t->getIdPerfil() == $p->getId()) {
-                                                            echo $p->getNombrePerfil();
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex flex-wrap gap-2 justify-content-center">
-                                                    <a href="./ModificarUsuario.php" class="btn btn-warning btn-sm">
-                                                        <i class="bi bi-pencil" style="font-size: 20px;"></i>
-                                                    </a>
-                                                    <button class="btn btn-danger btn-sm"><i class="bi bi-trash" style="font-size: 20px;"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                <?php
-                                    }
-                                }
-                                ?>
-
+                            <tbody>                               
+                                <tr>
+                                    <!-- <th scope="row"></th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                            <a href="./ModificarUsuario.php" class="btn btn-warning btn-sm">
+                                                <i class="bi bi-pencil" style="font-size: 20px;"></i>
+                                            </a>
+                                            <button class="btn btn-danger btn-sm"><i class="bi bi-trash" style="font-size: 20px;"></i></button>
+                                        </div>
+                                    </td> -->
+                                </tr>                            
                             </tbody>
                         </table>
                     </div>

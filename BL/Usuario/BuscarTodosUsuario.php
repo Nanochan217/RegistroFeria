@@ -16,13 +16,15 @@
     $todasCredenciales = $CredencialesDAL->BuscarTodasCredenciales();
     $todosPerfiles = $perfilesDAL->BuscarTodosPerfiles();
 
+    //Convierte el Array de Todos los Usuarios (OJO que solo usuarios)
+    echo json_encode($todosUsuarios);
 
+    //ERAN PRUEBAS!!!
     //JSON para la parte de JS (EN PROCESO...)
-    // $jsonUsuarios = json_encode($todosUsuarios);
+    //$jsonUsuarios = json_encode($todosUsuarios);
     // $jsonCredenciales = json_encode($todasCredenciales);
     // $jsonPerfiles = json_encode($todosPerfiles);
 
-    // echo $jsonUsuarios;
     // echo $jsonCredenciales;
     // echo $jsonPerfiles;
 ////////////////////////////////////////////////////////////////////////////////

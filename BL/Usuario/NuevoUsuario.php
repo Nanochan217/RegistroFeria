@@ -18,9 +18,8 @@
 
 
     //SEGUIR CON LA VERIFICACION DE CEDULAS Y CORREOS!!!
-    if(null != $usuarioDAL->BuscarCedula($cedulaUsuario))
+    if($usuarioDAL->BuscarCedula($cedulaUsuario) == false && $credencialDAL->BuscarCorreo($correoUsuario) == false)
     {
-        //&& $credencialDAL->BuscarCorreo($correoUsuario)
         //OBTENCIÓN DE DATOS DESDE EL FRONT
         $nuevaCredencial->setCorreo($correoUsuario);
         $nuevaCredencial->setContrasena($contrasenaUsuario);
