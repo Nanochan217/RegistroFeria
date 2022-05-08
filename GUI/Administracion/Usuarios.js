@@ -12,8 +12,6 @@ function llenarSelect( nombreSelect, perfiles )
 
 }
 
-
-
 var exampleModal = document.getElementById( 'modalConfirmacion' );
 exampleModal.addEventListener( 'show.bs.modal', function ( event )
 {
