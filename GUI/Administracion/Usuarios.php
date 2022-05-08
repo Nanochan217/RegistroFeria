@@ -194,27 +194,37 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
     <Script>
         $("#navUsuarios").addClass("active");
 
-        var response = <?php echo json_encode($todosUsuarios, JSON_FORCE_OBJECT); ?>;
+        var usuarios = <?php echo json_encode($todosUsuarios, JSON_FORCE_OBJECT); ?>;
+        var credenciales = Object.entries(<?php echo json_encode($todasCredenciales, JSON_FORCE_OBJECT); ?>);
+        var perfiles = Object.entries(<?php echo json_encode($todosPerfiles, JSON_FORCE_OBJECT); ?>);
+        console.log(perfiles)
 
-        // response = $.parseJSON(response);
-
-        $(function() {
-            // $buttons = '<form action="./ModificarUsuario.php" class="d-flex flex-wrap gap-2 justify-content-center"> <button type="submit" value="" class = "btn btn-warning btn-sm" ><i class = "bi bi-pencil" style = "font-size: 20px;" > </i> </button> <button type="submit" class = "btn btn-danger btn-sm" > <i class = "bi bi-trash" style = "font-size: 20px;" > </i></button ></form>';
-
-            $.each(response, function(i, item) {
+        $(document).ready(function() {
+            $.each(usuarios, function(i, item) {
                 var $tr = $('<tr>').append(
                     $('<td>').text(item.id),
                     $('<td>').text(item.cedula),
                     $('<td>').text(item.nombre),
                     $('<td>').text(item.apellido1),
                     $('<td>').text(item.apellido2),
-                    $('<td>').text(item.idCredenciales),
-                    $('<td>').text(item.idPerfil),
+                    $('<td>').text(function() {
+                        for (let i = 0; i < credenciales.length; i++) {
+                            if (credenciales[i][1].id == item.idCredenciales) {
+                                return credenciales[i][1].correo;
+                            }
+                        }
+                    }),
+                    $('<td>').text(function() {
+                        for (let i = 0; i < perfiles.length; i++) {
+                            if (perfiles[i][1].id == item.idPerfil) {
+                                return perfiles[i][1].nombrePerfil;
+                            }
+                        }
+                    }),
                     $('<td>').append(`<form action="./ModificarUsuario.php" method="post" class="d-flex flex-wrap gap-2 justify-content-center"> <button name="id" type="submit" value="${item.id}" class = "btn btn-warning btn-sm" ><i class = "bi bi-pencil" style = "font-size: 20px;" > </i> </button> <button type="submit" class = "btn btn-danger btn-sm" > <i class = "bi bi-trash" style = "font-size: 20px;" > </i></button ></form>`)
                 )
                 var $tbody = $('#usuarios tbody').append($tr);
             });
-            console.log($tbody);
         });
     </Script>
     <!-- END Scripts  -->

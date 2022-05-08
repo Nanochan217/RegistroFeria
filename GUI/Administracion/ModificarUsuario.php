@@ -1,12 +1,16 @@
 <?php
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
 
+include '../../BL/Usuario/BuscarUsuario.php';
+
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
+    $result = BuscarID($id);
 }
 
 
@@ -144,6 +148,19 @@ if (isset($_POST['id'])) {
     ?>
     <Script>
         $("#navUsuarios").addClass("active");
+
+        $(document).ready(function() {
+            var response = <?php echo $result; ?>;
+            console.log(response);
+
+            $("#cedula").val(response.cedula);
+            $("#nombre").val(response.nombre);
+            $("#apellido1").val(response.apellido1);
+            $("#apellido2").val(response.apellido2);
+            $("#email").val(response.idCredenciales);
+            $("#contrasena").val(response.idCredenciales);
+            $("#tipoPerfil").val(response.idPerfil);
+        });
     </Script>
     <!-- END Scripts  -->
 </body>

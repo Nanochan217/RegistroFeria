@@ -23,7 +23,7 @@
 // //         perfilUsuario: perfil
 // //     });
 // // }
-    
+
 
 //     //JSON PARA IMPRIMIR LOS DATOS
 //     //TE DEJO EL LINK DE DONDE SAQUE EL CODIGO
@@ -68,10 +68,17 @@
 //         }
 //     }
 
-    
+
 // var data = <? php echo json_encode( $todosUsuarios, JSON_FORCE_OBJECT ); ?>;
 // console.log( data );
 
 // $
 
 
+function hola() {
+    for ( let i = 0; i < credenciales.length; i++ ) {
+        if ( credenciales[ i ].includes( item.idCredenciales ) ) {
+            alert(credenciales[ i ].correo);
+        }
+    }
+};

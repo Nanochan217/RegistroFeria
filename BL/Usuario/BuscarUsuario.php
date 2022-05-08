@@ -5,11 +5,14 @@
     include '../../Entidades/UsuarioEntidades/Usuario.php';
     include '../../Entidades/UsuarioEntidades/Credenciales.php';
 
-    $UsuarioDAL = new DALUsuario();
     $CredencialesDAL = new DALCredenciales();
+    
+    function BuscarID ($id){
+        $UsuarioDAL = new DALUsuario();
+        return json_encode($UsuarioDAL->BuscarIdUsuario($id));
+    }
 
-    $buscarUsuario = $UsuarioDAL->BuscarIdUsuario();
-    $buscarCredencial = $CredencialesDAL->BuscarIdCredencial();
+    //$buscarCredencial = $CredencialesDAL->BuscarIdCredencial($id);
 
 ////////////////////////////////////////////////////////////////////////////////
 

@@ -43,7 +43,6 @@
                     $usuario->setIdPerfil($filasUsuario["idPerfil"]);
                     $usuario->setActive($filasUsuario['active']);
                 
-
                     $usuariosDB[]= $this->dismount($usuario) ;
                 }
             }
@@ -86,7 +85,8 @@
             {
                 $usuarioDB = null;
             }
-
+            
+            $usuarioDB = $this->dismount($usuarioDB);
             $conexionDB->CerrarConexion();
             return $usuarioDB;
         }

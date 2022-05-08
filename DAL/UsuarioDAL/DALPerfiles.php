@@ -19,7 +19,7 @@
                     $perfil->setNombrePerfil($filasPerfil["nombrePerfil"]);
                     $perfil->setDescripcion($filasPerfil["descripcion"]);
                     $perfil->setActive($filasPerfil['active']);
-                    $perfilesDB[]=$perfil;
+                    $perfilesDB[]= $this->dismount( $perfil);
                 }
             }
             else
@@ -30,4 +30,15 @@
             $conexionDB->CerrarConexion();
             return $perfilesDB;
         }
+        function dismount($object)
+        {
+            $reflectionClass = new ReflectionClass(get_class($object));
+            $array = array();
+            foreach ($reflectionClass->getProperties() as $property) {
+                $property->setAccessible(true);
+                $array[$property->getName()] = $property->getValue($object);
+                $property->setAccessible(false);
+            }
+            return $array;
+        }  
     }
