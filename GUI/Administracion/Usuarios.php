@@ -55,9 +55,8 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                 <div class="row border rounded bg-white shadow-sm p-5 mb-5">
                     <div class="row gap-3 justify-content-between my-3">
                         <div class="col-auto">
-                            <select id="filtrarDia" name="filtrarDia" class="form-select">
-                                <option value="none" selected disabled hidden>Perfil</option>
-                                <option>...</option>
+                            <select id="filtrarPerfil" name="filtrarPerfil" class="form-select">
+                                <option value="none" selected >Todos los perfiles</option>
                             </select>
                         </div>
                         <div class="col-auto">
@@ -89,60 +88,7 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <?php
-                                        // if ($todosUsuarios != null) {
-                                        //     foreach ($todosUsuarios as $t) {
-                                        ?>
-                                        <tr>
-                                            <th scope="row"><?php //echo $t->getId() 
-                                                            ?></th>
-                                            <td><?php //echo $t->getCedula() 
-                                                ?></td>
-                                            <td><?php //echo $t->getNombre() 
-                                                ?></td>
-                                            <td><?php //echo $t->getApellido1() 
-                                                ?></td>
-                                            <td><?php //echo $t->getApellido2() 
-                                                ?></td>
-                                            <td>
-                                                <?php
-                                                // if ($todasCredenciales != null) {
-                                                //     foreach ($todasCredenciales as $c) {
-                                                //         if ($t->getIdCredenciales() == $c->getId()) {
-                                                //             echo $c->getCorreo();
-                                                //             break;
-                                                //         }
-                                                //     }
-                                                // }
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                // if ($todosPerfiles != null) {
-                                                //     foreach ($todosPerfiles as $p) {
-                                                //         if ($t->getIdPerfil() == $p->getId()) {
-                                                //             echo $p->getNombrePerfil();
-                                                //             break;
-                                                //         }
-                                                //     }
-                                                // }
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex flex-wrap gap-2 justify-content-center">
-                                                    <a href="./ModificarUsuario.php" class="btn btn-warning btn-sm">
-                                                        <i class="bi bi-pencil" style="font-size: 20px;"></i>
-                                                    </a>                                                    
-                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalConfirmacion">
-                                                        <i class="bi bi-trash" style="font-size: 20px;"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                <?php
-                                //     }
-                                // }
-                                ?> -->
+
 
                             </tbody>
 
@@ -164,7 +110,7 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="h4 pb-2 ">¿Seguro que desea eliminar a XXXX del Registro de Usuarios?</p>                    
+                    <p class="h4 pb-2 ">¿Seguro que desea eliminar a XXXX del Registro de Usuarios?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" onclick="'../../BL/Usuario/DesactivarUsuario.php'">Eliminar</button>
@@ -217,26 +163,24 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                 )
                 var $tbody = $('#usuarios tbody').append($tr);
             });
+            llenarSelect(); 
         });
 
-        // function llenarSelect() {
-        //     var perfiles = <?php echo json_encode($todosPerfiles) ?>;
-            
+        function llenarSelect() {
+            var perfiles = <?php echo json_encode($todosPerfiles) ?>;
 
-        //     var select = document.getElementById("tipoPerfil");
 
-        //     for (value in perfiles) {
-        //         var option = document.createElement("option");
-        //         option.value = perfiles[value].id
-        //         option.text = perfiles[value].nombrePerfil;
-        //         if (perfiles[value].id == usuario.idPerfil) {
-        //             option.selected = true;
-        //         }
-        //         select.add(option);
-        //     }
+            var select = document.getElementById("filtrarPerfil");
 
-        //     console.log(select.value)   
-        // }
+            for (value in perfiles) {
+                var option = document.createElement("option");
+                option.value = perfiles[value].id;
+                option.text = perfiles[value].nombrePerfil;
+                select.add(option);
+            }
+
+            console.log(select.value)
+        }
     </Script>
     <!-- END Scripts  -->
 </body>
