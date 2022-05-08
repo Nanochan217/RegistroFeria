@@ -47,8 +47,17 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='".$modificarCredenciales->getCorreo()."' 
-                            SET `CONTRASENA`='".$modificarCredenciales->getContrasena()."' WHERE `ID`=".$modificarCredenciales->getId();
+
+            if($modificarCredenciales->getContrasena() == null)
+            {
+                $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='".$modificarCredenciales->getCorreo()."' 
+                    WHERE `ID`=".$modificarCredenciales->getId();
+            }
+            else
+            {
+                $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='".$modificarCredenciales->getCorreo()."', 
+                `CONTRASENA`='".$modificarCredenciales->getContrasena()."' WHERE `ID`=".$modificarCredenciales->getId();
+            }
 
             if($conexionDB->NuevaConexion($consultaSql))
             {

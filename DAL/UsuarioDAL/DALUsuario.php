@@ -20,6 +20,23 @@
             return $resultado;
         }
         
+        function ActualizarUsuario(Usuario $modificarUsuario)
+        {
+            $resultado = false;
+            $conexionDB = new Conexion();
+            $consultaSql = "UPDATE `USUARIO` SET `CEDULA`='".$modificarUsuario->getCedula()."', `NOMBRE`='".$modificarUsuario->getNombre()."',
+                `APELLIDO1`='".$modificarUsuario->getApellido1()."',
+                `APELLIDO2`='".$modificarUsuario->getApellido2()."',
+                `IDPERFIL`='".$modificarUsuario->getIdPerfil()."' WHERE `ID`=".$modificarUsuario->getId();
+
+            if($conexionDB->NuevaConexion($consultaSql))
+            {
+                $resultado = true;
+            }
+            $conexionDB->CerrarConexion();
+            return $resultado;
+        }
+
         function BuscarTodosUsuario()
         {
             $usuariosDB = array();
