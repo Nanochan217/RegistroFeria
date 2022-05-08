@@ -11,8 +11,6 @@ include '../../BL/Usuario/BuscarUsuario.php';
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
 }
-
-
 ?>
 
 <!doctype html>
@@ -129,7 +127,6 @@ if (isset($_POST['id'])) {
                         <div class="col position-relative px-0 py-5">
                             <div class="d-flex gap-3 position-absolute top-0 end-0">
                                 <a href="./Usuarios.php" class="btn btn-danger">Descartar</a>
-                                <!-- <a href="../../BL/Usuario/ActualizarInformacion.php" class="btn btn-primary">Modificar</a> -->
                                 <button type="submit" class="btn btn-primary">Modificar</button>
                             </div>
                         </div>
