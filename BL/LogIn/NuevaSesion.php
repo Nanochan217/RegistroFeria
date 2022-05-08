@@ -22,7 +22,7 @@
     if(isset($estadoSesion))
     {
         $id = $estadoSesion->getId();
-        if($nuevaSesionUsuario = $UsuarioDAL->BuscarIdUsuario($id))
+        if($nuevaSesionUsuario = $UsuarioDAL->BuscarSesionUsuario($id))
         {
             if($nuevaSesionUsuario->getIdPerfil()==1)
             {

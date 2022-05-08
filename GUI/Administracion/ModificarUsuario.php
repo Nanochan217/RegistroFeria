@@ -11,8 +11,6 @@ include '../../BL/Usuario/BuscarUsuario.php';
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
 }
-
-
 ?>
 
 <!doctype html>
@@ -59,7 +57,7 @@ if (isset($_POST['id'])) {
                 </div>
 
                 <!-- Formulario START-->
-                <form action="../PantallasDestino/AcciónExitosa.php" method="POST" class="row gap-3">
+                <form action="../../BL/Usuario/ActualizarInformacion.php" method="POST" class="row gap-3">
 
                     <!-- START Sección de datos del solicitante -->
                     <div class="row border rounded bg-white shadow-sm p-5">
@@ -67,6 +65,12 @@ if (isset($_POST['id'])) {
 
                         <!-- Imputs 1 -->
                         <div class="row">
+
+                            <!-- ID -->
+                            <div class="col-md-3 pb-3" hidden="true">
+                                <label for="idUsuario" class="form-label">ID</label>
+                                <input type="number" class="form-control " id="idUsuario" name="idUsuario" value="">
+                            </div>
 
                             <!-- Cedula -->
                             <div class="col-md-3 pb-3">
@@ -105,7 +109,7 @@ if (isset($_POST['id'])) {
                             <!-- Contrasena -->
                             <div class="col-md-4 pb-3">
                                 <label for="contrasena" class="form-label">Nueva Contraseña</label>
-                                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                                <input type="password" class="form-control" id="contrasena" name="contrasena">
                             </div>
 
                             <!-- Tipo perfil -->
@@ -152,7 +156,7 @@ if (isset($_POST['id'])) {
         var credencial = <?php echo BuscarIDCredencial(json_decode( BuscarIDUsuario($id))->idCredenciales) ?>;
 
         $(document).ready(function() {
-
+            $("#idUsuario").val(usuario.id);
             $("#cedula").val(usuario.cedula);
             $("#nombre").val(usuario.nombre);
             $("#apellido1").val(usuario.apellido1);

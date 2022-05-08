@@ -1,6 +1,7 @@
 <?php
-    if(!isset($_SESSION['IDUSUARIO']))
-        header("Location: ./");
+    session_start();
+    if(!isset($_SESSION['idUsuario']))
+        header("Location: ../../GUI/Index/Index.php");
     //unset($_SESSION["idUsuario"]); DESTRUIR LA VARIABLE GLOBAL SESSION POR ENDE CIERRA LA SESION ACTIVA
 
     include '../../Core/Conexion.php';
@@ -15,35 +16,36 @@
     $credencialDAL = new DALCredenciales();
     $idUsuarioActivo = $_SESSION['idUsuario'];
 
+    echo "<h1>'".$idUsuarioActivo."'</h1>";
     //Busca al Usuario en la sesion para realizar validaciones
     //$usuarioSesion = $usuarioDAL->BuscarIdUsuario($idUsuarioActivo);
 
-    //$usuarioSesion['PERFIL'] = 1 en caso de usar la busqueda por ID
-    if($_SESSION['Perfil'] = 1)
-    {
-        //OBTENCIÓN DE DATOS DE LAS CREDENCIALES
-        $nuevoCorreo = $_POST[''];
-        $nuevaContrasena = $_POST[''];
+    //$usuarioSesion['Perfil'] = 1 en caso de usar la busqueda por ID
+    // if($_SESSION['Perfil'] = 1)
+    // {
+    //     //OBTENCIÓN DE DATOS DE LAS CREDENCIALES
+    //     $nuevoCorreo = $_POST['email'];
+    //     $nuevaContrasena = $_POST['contrasena'];
 
-        //ASIGNACION DE LAS NUEVAS CREDENCIALES
-        $cambiarCredencial->setId($idUsuarioActivo);
-        $cambiarCredencial->setCorreo($nuevoCorreo);
-        $cambiarCredencial->setContrasena($nuevaContrasena);
+    //     //ASIGNACION DE LAS NUEVAS CREDENCIALES
+    //     $cambiarCredencial->setId($idUsuarioActivo);
+    //     $cambiarCredencial->setCorreo($nuevoCorreo);
+    //     $cambiarCredencial->setContrasena($nuevaContrasena);
 
-        //Aplicar Cambios a las Credenciales y Usuarios
-        if($credencialDAL->ActualizarCredenciales($cambiarCredencial))
-        {
-            //Redireccionamiento o Return
-        }
-        else
-        {
-            //Redireccionamiento o Return
-        }
-    }
-    else
-    {
-        //Redireccionamiento Página Principal
-    }
+    //     //Aplicar Cambios a las Credenciales y Usuarios
+    //     if($credencialDAL->ActualizarCredenciales($cambiarCredencial))
+    //     {
+    //         //Redireccionamiento o Return
+    //     }
+    //     else
+    //     {
+    //         //Redireccionamiento o Return
+    //     }
+    // }
+    // else
+    // {
+    //     header("Location: ../../GUI/Index/Index.php");
+    // }
 /////////////////////////////////////////////////////////////////////////////////
 
 //Nuevos Datos del Usuario

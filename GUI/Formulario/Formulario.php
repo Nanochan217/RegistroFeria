@@ -1,4 +1,5 @@
 <?php
+session_start();
 $header = file_get_contents('../Default/Header.html');
 $headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
@@ -37,7 +38,15 @@ $cssDefault = file_get_contents('../Default/Style.css');
 <body class="bg-light">
 
     <?php
-    echo $header;
+    if ($_SESSION["Perfil"]==1) {
+        echo $headerSA;    
+    }
+    else if($_SESSION["Perfil"] == 2){
+        echo $headerA;  
+    }
+    else{
+        echo $header;  
+    }
     ?>
 
     <div class="container">

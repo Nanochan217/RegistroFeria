@@ -1,6 +1,11 @@
 <?php
+session_start();
+if($_SESSION['Perfil'] != 1)
+    header("Location: ../PantallasDestino/AccesoDenegado.php");
+
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
@@ -50,7 +55,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                 </div>
 
                 <!-- Formulario START-->
-                <form action="../PantallasDestino/AcciónExitosa.php" method="POST" class="row gap-3">
+                <form action="../../BL/Usuario/ActualizarCredencial.php" method="POST" class="row gap-3">
 
                     <!-- START Sección de datos del solicitante -->
                     <div class="row border rounded bg-white shadow-sm p-5">
@@ -78,7 +83,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                         <div class="col position-relative px-0 py-5">
                             <div class="d-flex gap-3 position-absolute top-0 end-0">
                                 <a href="./index.php" class="btn btn-danger">Descartar</a>
-                                <button type="submit" class="btn btn-primary">Agregar</button>
+                                <button type="submit" class="btn btn-primary">GUardar Cambios</button>
                             </div>
                         </div>
                     </div>
