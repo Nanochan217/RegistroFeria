@@ -218,6 +218,25 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                 var $tbody = $('#usuarios tbody').append($tr);
             });
         });
+
+        // function llenarSelect() {
+        //     var perfiles = <?php echo json_encode($todosPerfiles) ?>;
+            
+
+        //     var select = document.getElementById("tipoPerfil");
+
+        //     for (value in perfiles) {
+        //         var option = document.createElement("option");
+        //         option.value = perfiles[value].id
+        //         option.text = perfiles[value].nombrePerfil;
+        //         if (perfiles[value].id == usuario.idPerfil) {
+        //             option.selected = true;
+        //         }
+        //         select.add(option);
+        //     }
+
+        //     console.log(select.value)   
+        // }
     </Script>
     <!-- END Scripts  -->
 </body>

@@ -75,10 +75,10 @@
 // $
 
 
-function hola() {
-    for ( let i = 0; i < credenciales.length; i++ ) {
-        if ( credenciales[ i ].includes( item.idCredenciales ) ) {
-            alert(credenciales[ i ].correo);
-        }
-    }
-};
+// function hola() {
+//     for ( let i = 0; i < credenciales.length; i++ ) {
+//         if ( credenciales[ i ].includes( item.idCredenciales ) ) {
+//             alert(credenciales[ i ].correo);
+//         }
+//     }
+// };

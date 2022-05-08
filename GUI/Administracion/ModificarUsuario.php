@@ -104,7 +104,7 @@ if (isset($_POST['id'])) {
 
                             <!-- Contrasena -->
                             <div class="col-md-4 pb-3">
-                                <label for="contrasena" class="form-label">Contraseña</label>
+                                <label for="contrasena" class="form-label">Nueva Contraseña</label>
                                 <input type="password" class="form-control" id="contrasena" name="contrasena" required>
                             </div>
 
@@ -112,8 +112,7 @@ if (isset($_POST['id'])) {
                             <div class="col-md-4 pb-3">
                                 <label for="tipoPerfil" class="form-label">Tipo perfil</label>
                                 <select id="tipoPerfil" name="tipoPerfil" class="form-select" required>
-                                    <option selected>Seleccione un perfil</option>
-                                    <option>...</option>
+                                    <option value="none" selected disabled hidden>Seleccione un perfil</option>
                                 </select>
                             </div>
                         </div>
@@ -147,16 +146,12 @@ if (isset($_POST['id'])) {
     ?>
     <Script>
         $("#navUsuarios").addClass("active");
-
-
-        //var usuario = <?php //echo json_encode($BuscarID($id), JSON_FORCE_OBJECT); 
-                        ?>;
-
+        
+        
+        var usuario = <?php echo BuscarIDUsuario($id) ?>;        
+        var credencial = <?php echo BuscarIDCredencial(json_decode( BuscarIDUsuario($id))->idCredenciales) ?>;
 
         $(document).ready(function() {
-            var usuario = <?php echo BuscarIDUsuario($id) ?>;
-            var credencial = <?php echo BuscarIDCredencial($id) ?>;
-            console.log(credencial)
 
             $("#cedula").val(usuario.cedula);
             $("#nombre").val(usuario.nombre);
@@ -166,10 +161,29 @@ if (isset($_POST['id'])) {
                 if (credencial.id == usuario.idCredenciales) {
                     return credencial.correo;
                 }
-
             });
-            $("#tipoPerfil").val(response.idPerfil);
+            
+            llenarSelect();
         });
+
+        function llenarSelect() {
+            var perfiles = <?php echo BuscarPerfiles($id) ?>;
+            
+
+            var select = document.getElementById("tipoPerfil");
+
+            for (value in perfiles) {
+                var option = document.createElement("option");
+                option.value = perfiles[value].id
+                option.text = perfiles[value].nombrePerfil;
+                if (perfiles[value].id == usuario.idPerfil) {
+                    option.selected = true;
+                }
+                select.add(option);
+            }
+
+            console.log(select.value)   
+        }
     </Script>
     <!-- END Scripts  -->
 </body>
