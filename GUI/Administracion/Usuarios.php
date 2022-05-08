@@ -141,6 +141,9 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                                 ?> -->
 
                             </tbody>
+
+
+
                         </table>
                     </div>
                 </div>
@@ -196,6 +199,8 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
         // response = $.parseJSON(response);
 
         $(function() {
+            // $buttons = '<form action="./ModificarUsuario.php" class="d-flex flex-wrap gap-2 justify-content-center"> <button type="submit" value="" class = "btn btn-warning btn-sm" ><i class = "bi bi-pencil" style = "font-size: 20px;" > </i> </button> <button type="submit" class = "btn btn-danger btn-sm" > <i class = "bi bi-trash" style = "font-size: 20px;" > </i></button ></form>';
+
             $.each(response, function(i, item) {
                 var $tr = $('<tr>').append(
                     $('<td>').text(item.id),
@@ -204,8 +209,9 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                     $('<td>').text(item.apellido1),
                     $('<td>').text(item.apellido2),
                     $('<td>').text(item.idCredenciales),
-                    $('<td>').text(item.idPerfil)
-                    ).appendTo('#usuarios');
+                    $('<td>').text(item.idPerfil),
+                    $('<td>').append(`<form action="./ModificarUsuario.php" method="post" class="d-flex flex-wrap gap-2 justify-content-center"> <button name="id" type="submit" value="${item.id}" class = "btn btn-warning btn-sm" ><i class = "bi bi-pencil" style = "font-size: 20px;" > </i> </button> <button type="submit" class = "btn btn-danger btn-sm" > <i class = "bi bi-trash" style = "font-size: 20px;" > </i></button ></form>`)
+                )
                 var $tbody = $('#usuarios tbody').append($tr);
             });
             console.log($tbody);

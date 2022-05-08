@@ -4,6 +4,12 @@ $headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_con
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
+
+if (isset($_POST['id'])) {
+    $id = $_POST['id'];
+}
+
+
 ?>
 
 <!doctype html>
@@ -62,7 +68,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                             <!-- Cedula -->
                             <div class="col-md-3 pb-3">
                                 <label for="cedula" class="form-label">Cedula</label>
-                                <input type="text" class="form-control " id="cedula" name="cedula" required>
+                                <input type="text" class="form-control " id="cedula" name="cedula" value="" required>
                             </div>
 
                             <!-- Nombre -->
