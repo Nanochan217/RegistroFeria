@@ -74,6 +74,37 @@
         
         }
 
+        function BuscarSesionUsuario($idUsuario)
+        {
+            $usuarioDB = new Usuario();
+            $conexionDB = new Conexion();
+
+            $consultaSql = "SELECT * FROM `USUARIO` WHERE `ID` =".$idUsuario;
+
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+            if(mysqli_num_rows($respuestaDB)>0)
+            {
+                while($filaUsuario = $respuestaDB->fetch_assoc())
+                {
+                    $usuarioDB->setId($filaUsuario["id"]);
+                    $usuarioDB->setCedula($filaUsuario["cedula"]);
+                    $usuarioDB->setNombre($filaUsuario["nombre"]);
+                    $usuarioDB->setApellido1($filaUsuario["apellido1"]);
+                    $usuarioDB->setApellido2($filaUsuario["apellido2"]);
+                    $usuarioDB->setIdCredenciales($filaUsuario["idCredenciales"]);
+                    $usuarioDB->setIdPerfil($filaUsuario["idPerfil"]);
+                    $usuarioDB->setActive($filaUsuario['active']);
+                }
+            }
+            else
+            {
+                $usuarioDB = null;
+            }
+            
+            $conexionDB->CerrarConexion();
+            return $usuarioDB;
+        }
 
         function BuscarIdUsuario($idUsuario)
         {
