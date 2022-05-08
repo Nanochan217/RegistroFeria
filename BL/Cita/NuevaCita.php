@@ -36,7 +36,7 @@
     $tipoAcompanante = $_POST['parentescoAcompanante1'];
 
     //SEGUIR CON LA ADICIÓN DE CITAS (VER SI LOS INPUTS DEL ACOMPANANTE AUTOINCREMENTAN)
-    if($asistenteDAL->BuscarCedula() == false && $acompananteDAL->BuscarCedula() == false)
+    if($asistenteDAL->BuscarCedula($cedulaAsistente) == false && $acompananteDAL->BuscarCedula($cedulaAcompanante) == false)
     {
         //Asignación en el Objeto Asistente con los datos del Formulario
         $nuevoAsistente->setCedula($cedulaAsistente);

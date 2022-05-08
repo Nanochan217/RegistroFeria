@@ -18,4 +18,29 @@
             $conexionDB->CerrarConexion();
             return $resultado;
         }
+
+        //Funcion para verificar que no existan datos iguales en la DB
+        function BuscarCedula($cedula)
+        {
+            $resultado = false;
+            $conexionDB = new Conexion();
+
+            $consultaSql = "SELECT * FROM `ACOMPANANTE` WHERE `CEDULA` = '".$cedula."'";
+
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+            if(mysqli_num_rows($respuestaDB)>0)
+            {
+                while($filaAcompanante = $respuestaDB->fetch_assoc())
+                {
+                    if($cedula != $filaAcompanante["cedula"])
+                        break;
+                    else
+                        $resultado = true;
+                }
+            }
+
+            $conexionDB->CerrarConexion();
+            return $resultado;
+        }
     }
