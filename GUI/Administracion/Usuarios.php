@@ -40,6 +40,8 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
     echo $headerSA;
     ?>
 
+    <!--<script src="./Administracion.js"></script>-->
+
     <div class="container">
         <div class="row">
             <div class="col">
@@ -130,8 +132,10 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                                                 <div class="d-flex flex-wrap gap-2 justify-content-center">
                                                     <a href="./ModificarUsuario.php" class="btn btn-warning btn-sm">
                                                         <i class="bi bi-pencil" style="font-size: 20px;"></i>
-                                                    </a>
-                                                    <button class="btn btn-danger btn-sm"><i class="bi bi-trash" style="font-size: 20px;"></i></button>
+                                                    </a>                                                    
+                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalConfirmacion">
+                                                        <i class="bi bi-trash" style="font-size: 20px;"></i>
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -152,7 +156,7 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistro" aria-hidden="true">
+    <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-labelledby="modalConfirmacion" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -160,22 +164,10 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="h4 pb-2 ">Datos del solicitante</p>
-                    <p class="mb-2">Cédula: <span class="fw-normal" id="cedula">303330333</span></p>
-                    <p class="mb-2">Nombre: <span class="fw-normal" id="cedula">Bryan Monge Solano</span></p>
-                    <p class="mb-2">Correo: <span class="fw-normal" id="cedula">thebryanmonge@gmail.com</span></p>
-                    <p class="mb-2">Teléfono: <span class="fw-normal" id="cedula">8888-8888</span></p>
-                    <p class="mb-2">Colegio Proveniencia: <span class="fw-normal" id="cedula">Colegio Vocacional de Artes y Oficios</span></p>
-                    <hr class="my-4">
-                    <p class="h4 pb-2">Datos de la cita</p>
-                    <p class="mb-2">Día: <span class="fw-normal" id="cedula">Lunes 23</span></p>
-                    <p class="mb-2">Hora: <span class="fw-normal" id="cedula">9:00am → 11:00am</span></p>
-                    <hr class="my-4">
-                    <p class="h4 pb-2">Acompañantes</p>
-                    <p class="mb-2">1- <span class="fw-normal" id="cedula">202220222 Antonia García Mata</span></p>
+                    <p class="h4 pb-2 ">¿Seguro que desea eliminar a XXXX del Registro de Usuarios?</p>                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">Eliminar</button>
+                    <button type="button" class="btn btn-danger" onclick="'../../BL/Usuario/DesactivarUsuario.php'">Eliminar</button>
                     <button type="button" class="btn btn-primary">Aceptar</button>
                 </div>
             </div>
