@@ -1,12 +1,17 @@
 <?php
 session_start();
-if($_SESSION['Perfil'] != 1)
+if ($_SESSION['Perfil'] != 1)
     header("Location: ../PantallasDestino/AccesoDenegado.php");
+
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
+
+include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
+
 ?>
 
 <!doctype html>
@@ -71,8 +76,8 @@ $cssDefault = file_get_contents('../Default/Style.css');
                             <h2 class="pb-4">Acompañantes</h2>
                             <div class="row g-3">
                                 <div class="col-md-12">
-                                    <label for="maxAcompañantes" class="form-label">Maximo de acompañantes por persona</label>
-                                    <input type="number" class="form-control" id="maxAcompañantes" name="maxAcompañantes" required>
+                                    <label for="maxAcompanantes" class="form-label">Maximo de acompañantes por persona</label>
+                                    <input type="number" class="form-control" id="maxAcompanantes" name="maxAcompanantes" required>
                                 </div>
                             </div>
                         </div>
@@ -81,24 +86,63 @@ $cssDefault = file_get_contents('../Default/Style.css');
                     <div class="row gap-3 p-0">
                         <div class="col-lg border rounded shadow-sm bg-white p-5">
                             <h2 class="pb-4">Días hábiles</h2>
-                            <div class="row g-3">
-                                <div>
+                            <!-- START Dia 1 -->
+                            <div class="row p-3 gx-3 gapx-4 bg-light border rounded mb-3">
+                                <div class="col-md-8 mt-0">
                                     <label for="dia1" class="form-label">Día 1</label>
                                     <div class="input-group">
                                         <input type="date" class="form-control" id="dia1" name="dia1" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
-                                        <button class="btn btn-outline-primary" type="button" id="selectDia1">Seleccionar</button>
+                                        <div class="input-group-text">
+                                            <input class="form-check-input mt-0" type="radio" name="diaSeleccionado" id="diaSeleccionado1">
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <label for="dia2" class="form-label">Día 2</label>
+                                <div class="col-md-4 mt-0">
+                                    <div class="d-flex flex-column">
+                                        <label for="horaFinal1" class="form-label">Acciones</label>
+
+                                        <div class="d-flex flex-wrap gap-3">
+
+                                            <div class="d-flex flex-column">
+                                                <button class="btn border-secondary rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:#69727A;" class="bi bi-eye"></i></button>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <button class="btn border-danger rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:red;" class="bi bi-trash3"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- END Dia 1 -->
+                            <!-- START Dia 1 -->
+                            <div class="row p-3 gx-3 gapx-4 bg-light border rounded mb-3">
+                                <div class="col-md-8 mt-0">
+                                    <label for="dia1" class="form-label">Día 1</label>
                                     <div class="input-group">
-                                        <input type="date" class="form-control" id="dia2" name="dia2" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
-                                        <button class="btn btn-outline-primary" type="button" id="selectDia2">Seleccionar</button>
+                                        <input type="date" class="form-control" id="dia1" name="dia1" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
+                                        <div class="input-group-text">
+                                            <input class="form-check-input mt-0" type="radio" name="diaSeleccionado" id="diaSeleccionado2">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="col-md-4 mt-0">
+                                    <div class="d-flex flex-column">
+                                        <label for="horaFinal1" class="form-label">Acciones</label>
+
+                                        <div class="d-flex flex-wrap gap-3">
+
+                                            <div class="d-flex flex-column">
+                                                <button class="btn border-secondary rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:#69727A;" class="bi bi-eye"></i></button>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <button class="btn border-danger rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:red;" class="bi bi-trash3"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- END Dia 1 -->
+
                             <!-- Button Agregar Acompañante -->
-                            <div class="d-grid gap-2 mt-3" id="addDia">
+                            <div class="d-grid gap-2" id="addDia">
                                 <button class="btn btn-outline-primary" type="button" id="btnAddDia">+ Agregar día</button>
                             </div>
                         </div>
@@ -121,10 +165,10 @@ $cssDefault = file_get_contents('../Default/Style.css');
                                         <div class="d-flex flex-wrap gap-3">
 
                                             <div class="d-flex flex-column">
-                                                <button class="btn " type="button" id="horarioVisible1"><i style="font-size: 20px; color:#0D6EFD;" class="bi bi-eye"></i></button>
+                                                <button class="btn border-secondary rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:#69727A;" class="bi bi-eye"></i></button>
                                             </div>
                                             <div class="d-flex flex-column">
-                                                <button class="btn " type="button" id="horarioVisible1"><i style="font-size: 20px; color:red;" class="bi bi-trash3"></i></button>
+                                                <button class="btn border-danger rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:red;" class="bi bi-trash3"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -149,36 +193,6 @@ $cssDefault = file_get_contents('../Default/Style.css');
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistro" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cita #1</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="h4 pb-2 ">Datos del solicitante</p>
-                    <p class="mb-2">Cédula: <span class="fw-normal" id="cedula">303330333</span></p>
-                    <p class="mb-2">Nombre: <span class="fw-normal" id="cedula">Bryan Monge Solano</span></p>
-                    <p class="mb-2">Correo: <span class="fw-normal" id="cedula">thebryanmonge@gmail.com</span></p>
-                    <p class="mb-2">Teléfono: <span class="fw-normal" id="cedula">8888-8888</span></p>
-                    <p class="mb-2">Colegio Proveniencia: <span class="fw-normal" id="cedula">Colegio Vocacional de Artes y Oficios</span></p>
-                    <hr class="my-4">
-                    <p class="h4 pb-2">Datos de la cita</p>
-                    <p class="mb-2">Día: <span class="fw-normal" id="cedula">Lunes 23</span></p>
-                    <p class="mb-2">Hora: <span class="fw-normal" id="cedula">9:00am → 11:00am</span></p>
-                    <hr class="my-4">
-                    <p class="h4 pb-2">Acompañantes</p>
-                    <p class="mb-2">1- <span class="fw-normal" id="cedula">202220222 Antonia García Mata</span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">Eliminar</button>
-                    <button type="button" class="btn btn-primary">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- IMPORT Footer  -->
     <?php
@@ -191,6 +205,17 @@ $cssDefault = file_get_contents('../Default/Style.css');
     ?>
     <Script>
         $("#navEditarFormulario").addClass("active");
+
+        var configuracion = <?php echo BuscarConfiguraciones() ?>;
+        console.log(configuracion);
+
+        $(document).ready(function() {
+            $("#fechaInicial").val(configuracion[0].fechaInicio);
+            $("#fechaFinal").val(configuracion[0].fechaFinal);
+            $("#maxAcompanantes").val(configuracion[0].acompanateMax);
+
+
+        });
     </Script>
     <!-- END Scripts  -->
 </body>
