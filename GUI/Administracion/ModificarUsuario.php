@@ -10,7 +10,6 @@ include '../../BL/Usuario/BuscarUsuario.php';
 
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
-    $result = BuscarID($id);
 }
 
 
@@ -149,16 +148,26 @@ if (isset($_POST['id'])) {
     <Script>
         $("#navUsuarios").addClass("active");
 
-        $(document).ready(function() {
-            var response = <?php echo $result; ?>;
-            console.log(response);
 
-            $("#cedula").val(response.cedula);
-            $("#nombre").val(response.nombre);
-            $("#apellido1").val(response.apellido1);
-            $("#apellido2").val(response.apellido2);
-            $("#email").val(response.idCredenciales);
-            $("#contrasena").val(response.idCredenciales);
+        //var usuario = <?php //echo json_encode($BuscarID($id), JSON_FORCE_OBJECT); 
+                        ?>;
+
+
+        $(document).ready(function() {
+            var usuario = <?php echo BuscarIDUsuario($id) ?>;
+            var credencial = <?php echo BuscarIDCredencial($id) ?>;
+            console.log(credencial)
+
+            $("#cedula").val(usuario.cedula);
+            $("#nombre").val(usuario.nombre);
+            $("#apellido1").val(usuario.apellido1);
+            $("#apellido2").val(usuario.apellido2);
+            $("#email").val(function() {
+                if (credencial.id == usuario.idCredenciales) {
+                    return credencial.correo;
+                }
+
+            });
             $("#tipoPerfil").val(response.idPerfil);
         });
     </Script>

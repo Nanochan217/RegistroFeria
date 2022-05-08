@@ -111,6 +111,7 @@
                 $credencialesDB = null;
             }
 
+            $credencialesDB = $this->dismount($credencialesDB);
             $conexionDB->CerrarConexion();
             return $credencialesDB;
         }
