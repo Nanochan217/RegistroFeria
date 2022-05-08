@@ -1,4 +1,8 @@
-<?php    
+<?php
+    session_start();
+    if($_SESSION['Perfil'] != 1)
+        header("Location: ../../GUI/PantallasDestino/AccesoDenegado.php");
+
     include '../../Core/Conexion.php';
     include '../../DAL/UsuarioDAL/DALUsuario.php';
     include '../../DAL/UsuarioDAL/DALCredenciales.php';
