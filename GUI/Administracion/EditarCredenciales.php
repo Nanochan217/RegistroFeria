@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION['Perfil'] != 1)
+if ($_SESSION['Perfil'] != 1)
     header("Location: ../PantallasDestino/AccesoDenegado.php");
 
 $header = file_get_contents('../Default/Header.html');
@@ -9,6 +9,9 @@ $footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
+
+include '../../BL/Usuario/BuscarUsuario.php';
+
 ?>
 
 <!doctype html>
@@ -83,7 +86,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                         <div class="col position-relative px-0 py-5">
                             <div class="d-flex gap-3 position-absolute top-0 end-0">
                                 <a href="./index.php" class="btn btn-danger">Descartar</a>
-                                <button type="submit" class="btn btn-primary">GUardar Cambios</button>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                             </div>
                         </div>
                     </div>
@@ -104,7 +107,17 @@ $cssDefault = file_get_contents('../Default/Style.css');
     <?php
     echo $jsLinks;;
     ?>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        var credencial = <?php echo BuscarIDCredencial(json_decode(BuscarIDUsuario($_SESSION['Perfil']))->idCredenciales) ?>;
+
+        $(document).ready(function() {
+            $("#email").val(function() {
+                return credencial.correo;
+
+            });
+        });
+    </script>
 
     <!-- END Scripts  -->
 </body>

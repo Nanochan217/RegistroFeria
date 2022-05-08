@@ -11,6 +11,8 @@ $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
 
 include '../../BL/Usuario/BuscarTodosUsuario.php';
+
+
 ?>
 
 <!doctype html>
