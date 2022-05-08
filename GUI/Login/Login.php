@@ -1,7 +1,4 @@
 <?php
-session_start();
-unset($_SESSION);
-
 $header = file_get_contents('../Default/Header.html');
 $headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
@@ -31,6 +28,11 @@ $cssDefault = file_get_contents('../Default/Style.css');
         ?>
     </style>
     <!-- END CSS  -->
+
+    <?php
+        if(!isset($_SESSION))
+            unset($_SESSION);
+    ?>
 </head>
 
 <body class="bg-light">

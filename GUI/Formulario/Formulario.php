@@ -53,7 +53,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                 </div>
 
                 <!-- Formulario START-->
-                <form action="../PantallasDestino/AcciónExitosa.php" method="POST" class="row gap-3">
+                <form action="../../BL/Cita/NuevaCita.php" method="POST" class="row gap-3">
 
                     <!-- START Sección de datos del solicitante -->
                     <div class="row border rounded bg-white shadow-sm p-5">
@@ -188,7 +188,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                         <div class="col position-relative px-0 py-5">
                             <div class="d-flex gap-3 position-absolute top-0 end-0">
                                 <a href="../Index/Index.php" class="btn btn-danger">Descartar</a>
-                                <button type="submit" class="btn btn-primary">Enviar Reserva</button>
+                                <a type="submit" href="../../BL/Cita/NuevaCita.php" class="btn btn-primary">Enviar Reserva</a>
                             </div>
                         </div>
                     </div>
@@ -209,7 +209,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
     <?php
     echo $jsLinks;;
     ?>
-    <script src="Formulario.js"></script>
+    <script src="./Formulario.js"></script>
     <!-- END Scripts  -->
 </body>
 

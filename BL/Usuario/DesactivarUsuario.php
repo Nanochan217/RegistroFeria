@@ -1,6 +1,7 @@
 <?php
-    if(!isset($_SESSION['idUsuario']))
-        header("Location: ../../GUI/Index/Index.php");
+    session_start();
+    if(!isset($_SESSION))
+        header("Location: ../../GUI/PantallasDestino/AccesoDenegado.php");
 
     include '../../Core/Conexion.php';
     include '../../DAL/UsuarioDAL/DALUsuario.php';
@@ -12,7 +13,7 @@
     $desactivarCredencial = new Credenciales();
     $usuarioDAL = new DALUsuario();
     $credencialDAL = new DALCredenciales();
-    $idUsuarioActivo = $_SESSION['idUsuario'];//Se obtiene la ID del Usuario Activo
+    $idUsuario = $_GET[''];//Para obtener de la url la id del usuario
 
     //Busca al Usuario en la sesion para realizar validaciones
     //$usuarioSesion = $usuarioDAL->BuscarIdUsuario($idUsuarioActivo);
@@ -21,9 +22,6 @@
     //Se valida al usuario en sesión si es SuperAdmin
     if($_SESSION['Perfil'] = 1)
     {
-        //OBTENCIÓN DEL ID DEL USUARIO A DESACTIVAR
-        $idUsuario = $_POST[''];
-
         //ASIGNACION DE LAS NUEVAS CREDENCIALES
         $desactivarCredencial->setId($idUsuario);
         $desactivarCredencial->setActive(0);
@@ -33,11 +31,11 @@
         //Aplicar Cambios a las Credenciales y Usuarios
         if($credencialDAL->DesactivarCredencial($desactivarCredencial) && $usuarioDAL->DesactivarUsuario($desactivarUsuario))
         {
-            //Redireccionamiento o Return
+            header("Location: ../../GUI/PantallasDestino/AcciónExistosa.php");
         }
         else
         {
-            //Redireccionamiento o Return
+            header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
         }
     }
     else
