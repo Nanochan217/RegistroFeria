@@ -87,60 +87,9 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                         <div class="col-lg border rounded shadow-sm bg-white p-5">
                             <h2 class="pb-4">Días hábiles</h2>
                             <!-- START Dia 1 -->
-                            <div class="row p-3 gx-3 gapx-4 bg-light border rounded mb-3">
-                                <div class="col-md-8 mt-0">
-                                    <label for="dia1" class="form-label">Día 1</label>
-                                    <div class="input-group">
-                                        <input type="date" class="form-control" id="dia1" name="dia1" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
-                                        <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="diaSeleccionado" id="diaSeleccionado1">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mt-0">
-                                    <div class="d-flex flex-column">
-                                        <label for="horaFinal1" class="form-label">Acciones</label>
+                            <div id="dias">
 
-                                        <div class="d-flex flex-wrap gap-3">
-
-                                            <div class="d-flex flex-column">
-                                                <button class="btn border-secondary rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:#69727A;" class="bi bi-eye"></i></button>
-                                            </div>
-                                            <div class="d-flex flex-column">
-                                                <button class="btn border-danger rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:red;" class="bi bi-trash3"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- END Dia 1 -->
-                            <!-- START Dia 1 -->
-                            <div class="row p-3 gx-3 gapx-4 bg-light border rounded mb-3">
-                                <div class="col-md-8 mt-0">
-                                    <label for="dia1" class="form-label">Día 1</label>
-                                    <div class="input-group">
-                                        <input type="date" class="form-control" id="dia1" name="dia1" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
-                                        <div class="input-group-text">
-                                            <input class="form-check-input mt-0" type="radio" name="diaSeleccionado" id="diaSeleccionado2">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mt-0">
-                                    <div class="d-flex flex-column">
-                                        <label for="horaFinal1" class="form-label">Acciones</label>
-
-                                        <div class="d-flex flex-wrap gap-3">
-
-                                            <div class="d-flex flex-column">
-                                                <button class="btn border-secondary rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:#69727A;" class="bi bi-eye"></i></button>
-                                            </div>
-                                            <div class="d-flex flex-column">
-                                                <button class="btn border-danger rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:red;" class="bi bi-trash3"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- END Dia 1 -->
-
+                            </div>
                             <!-- Button Agregar Acompañante -->
                             <div class="d-grid gap-2" id="addDia">
                                 <button class="btn btn-outline-primary" type="button" id="btnAddDia">+ Agregar día</button>
@@ -207,13 +156,43 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
         $("#navEditarFormulario").addClass("active");
 
         var configuracion = <?php echo BuscarConfiguraciones() ?>;
-        console.log(configuracion);
+        var dias = <?php echo BuscarDiasHabiles() ?>;
+        var horarios = <?php echo BuscarHorarios() ?>;
 
         $(document).ready(function() {
+
             $("#fechaInicial").val(configuracion[0].fechaInicio);
             $("#fechaFinal").val(configuracion[0].fechaFinal);
             $("#maxAcompanantes").val(configuracion[0].acompanateMax);
 
+            $.each(dias, function(i, dia) {
+                $("#dias").append(`<div class="row p-3 gx-3 gapx-4 bg-light border rounded mb-3">
+                                    <div class="col-md-8 mt-0">
+                                        <label for="dia${i+1}" class="form-label">Día ${i+1}</label>
+                                        <div class="input-group">
+                                            <input type="date" class="form-control" id="dia${i+1}" name="dia${i+1}" value="${dia.dia}" min="2022-05-04" max="2022-05-22" required>
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0" type="radio" name="diaSeleccionado" id="diaSeleccionado${i+1}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mt-0">
+                                        <div class="d-flex flex-column">
+                                            <label class="form-label">Acciones</label>
+
+                                            <div class="d-flex flex-wrap gap-3">
+
+                                                <div class="d-flex flex-column">
+                                                    <button class="btn border-secondary rounded-pill" type="button" id="ocultarDia${i+1}"><i style="font-size: 20px; color:#69727A;" class="bi bi-eye"></i></button>
+                                                </div>
+                                                <div class="d-flex flex-column">
+                                                    <button class="btn border-danger rounded-pill" type="button" id="eliminarDia${i+1}"><i style="font-size: 20px; color:red;" class="bi bi-trash3"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`)
+            })
 
         });
     </Script>
