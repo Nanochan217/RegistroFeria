@@ -75,19 +75,20 @@
             }
             else
             {
-                header("Location: ../../GUI/Index/Index.php");
-                echo "Ha ocurrido un error";
+                echo "<h1>NUEVA CITA ERROR</h1>";
+                //header("Location: ../../GUI/Index/Index.php");
             }
         }
         else
         {
-            header("Location: ../../GUI/Index/Index.php");
-            echo "Ha ocurrido un error";
+            echo "<h1>NUEVO ASISTENTE ERROR</h1>";
+            //header("Location: ../../GUI/Index/Index.php");
         }
     }
     else
     {
-        header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+        echo "<h1>CEDULAS IGUALES ERROR</h1>";
+        //header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
     }
 
     
