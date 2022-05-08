@@ -8,7 +8,8 @@ $cssDefault = file_get_contents('../Default/Style.css');
 
 include '../../BL/Usuario/BuscarUsuario.php';
 
-if (isset($_POST['id'])) {
+if (isset($_POST['id']))
+{
     $id = $_POST['id'];
 }
 ?>
@@ -148,12 +149,12 @@ if (isset($_POST['id'])) {
     <?php
     echo $jsLinks;;
     ?>
-    <Script>
+    <script>
         $("#navUsuarios").addClass("active");
-        
-        
-        var usuario = <?php echo BuscarIDUsuario($id) ?>;        
-        var credencial = <?php echo BuscarIDCredencial(json_decode( BuscarIDUsuario($id))->idCredenciales) ?>;
+
+
+        var usuario = <?php echo BuscarIDUsuario($id) ?>;
+        var credencial = <?php echo BuscarIDCredencial(json_decode(BuscarIDUsuario($id))->idCredenciales) ?>;
 
         $(document).ready(function() {
             $("#idUsuario").val(usuario.id);
@@ -166,13 +167,13 @@ if (isset($_POST['id'])) {
                     return credencial.correo;
                 }
             });
-            
+
             llenarSelect();
         });
 
         function llenarSelect() {
             var perfiles = <?php echo BuscarPerfiles() ?>;
-            
+
 
             var select = document.getElementById("tipoPerfil");
 
@@ -186,9 +187,9 @@ if (isset($_POST['id'])) {
                 select.add(option);
             }
 
-            console.log(select.value)   
+            console.log(select.value)
         }
-    </Script>
+    </script>
     <!-- END Scripts  -->
 </body>
 
