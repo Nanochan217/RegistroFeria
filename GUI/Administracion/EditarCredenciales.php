@@ -67,6 +67,12 @@ include '../../BL/Usuario/BuscarUsuario.php';
                         <div class="row">
 
                             <!-- Correo -->
+                            <div class="col-md-6 pb-3" hidden="true">
+                                <label for="id" class="form-label">ID</label>
+                                <input type="text" class="form-control " id="idUsuario" name="idUsuario" value="">
+                            </div>
+
+                            <!-- Correo -->
                             <div class="col-md-6 pb-3">
                                 <label for="email" class="form-label">Correo electrónico</label>
                                 <input type="text" class="form-control " id="email" name="email" required>
@@ -75,7 +81,7 @@ include '../../BL/Usuario/BuscarUsuario.php';
                             <!-- Contrasena -->
                             <div class="col-md-6 pb-3">
                                 <label for="contrasena" class="form-label">Nueva contraseña</label>
-                                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                                <input type="password" class="form-control" id="contrasena" name="contrasena">
                             </div>
 
                         </div>
@@ -109,12 +115,14 @@ include '../../BL/Usuario/BuscarUsuario.php';
     ?>
 
     <script>
-        var credencial = <?php echo BuscarIDCredencial(json_decode(BuscarIDUsuario($_SESSION['Perfil']))->idCredenciales) ?>;
+        var credencial = <?php echo BuscarIDCredencial(json_decode(BuscarIDUsuario($_SESSION['idUsuario']))->idCredenciales) ?>;
 
         $(document).ready(function() {
             $("#email").val(function() {
                 return credencial.correo;
-
+            });
+            $("#idUsuario").val(function() {
+                return credencial.id;
             });
         });
     </script>

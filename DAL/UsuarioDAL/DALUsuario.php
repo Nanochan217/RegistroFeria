@@ -164,12 +164,12 @@
             return $resultado;
         }
 
-        function DesactivarUsuario(Usuario $desactivarUsuario)
+        function DesactivarUsuario($idUsuario)
         {
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT FROM `USUARIO` WHERE `ID`= '".$desactivarUsuario->getId()."' SET `ACTIVE` =".$desactivarUsuario->getActive();
+            $consultaSql = "UPDATE `USUARIO` SET `ACTIVE` = 0 WHERE `ID`= '".$idUsuario."'";
 
             if($conexionDB->NuevaConexion($consultaSql))
             {

@@ -150,20 +150,22 @@
             return $resultado;
         }
 
-        function DesactivarCredencial(Credenciales $desactivarCredencial)
+        function DesactivarCredencial($idUsuario)
         {
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT FROM `CREDENCIALES` SET `ACTIVE` = '".$desactivarCredencial->getActive()."' WHERE `ID`= '".$desactivarCredencial->getId();
+            $consultaSql = "UPDATE `CREDENCIALES` SET `ACTIVE` = 0 WHERE `ID`= '".$idUsuario."'";
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
                 $resultado = true;
             }
+
             $conexionDB->CerrarConexion();
             return $resultado;
         }
+
         function dismount($object)
         {
             $reflectionClass = new ReflectionClass(get_class($object));

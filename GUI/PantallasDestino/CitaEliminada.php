@@ -1,6 +1,7 @@
 <?php
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
@@ -46,7 +47,7 @@ $recursosExtra = file_get_contents('../Default/RecursosExtra.html');
                 <div class="d-flex gap-4 flex-column align-items-center justify-content-center py-5">
                     <h1>Cita eliminada correctamente</h1> <!-- titulo -->
                     <img src="../Assets/Images/CitaEliminada.svg" style="height: 180px;" alt=""> <!-- ilustración -->
-                    <a href="../Formulario/Formulario.php" class="btn btn-primary">Reservar Nueva Cita</a> <!-- botón nueva reserva -->
+                    <a href="../Index/Index.php" class="btn btn-primary">Reservar Nueva Cita</a> <!-- botón nueva reserva -->
                 </div>
                 <!-- END Encabezado de la pagina -->
 
