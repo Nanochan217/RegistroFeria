@@ -1,5 +1,5 @@
 <?php
-    class DALUsuario
+    class DALUsuario 
     {
         //Añade un nuevo Usuario a la Base de Datos
         function NuevoUsuario(Usuario $nuevoUsuario)
@@ -19,7 +19,7 @@
             $conexionDB->CerrarConexion();
             return $resultado;
         }
-
+        
         function BuscarTodosUsuario()
         {
             $usuariosDB = array();
@@ -42,7 +42,9 @@
                     $usuario->setIdCredenciales($filasUsuario["idCredenciales"]);
                     $usuario->setIdPerfil($filasUsuario["idPerfil"]);
                     $usuario->setActive($filasUsuario['active']);
-                    $usuariosDB[]=$usuario;
+                
+
+                    $usuariosDB[]= $this->dismount($usuario) ;
                 }
             }
             else
@@ -52,7 +54,10 @@
 
             $conexionDB->CerrarConexion();
             return $usuariosDB;
+
+        
         }
+
 
         function BuscarIdUsuario($idUsuario)
         {
@@ -126,4 +131,17 @@
             $conexionDB->CerrarConexion();
             return $resultado;
         }
+
+        
+        function dismount($object)
+        {
+            $reflectionClass = new ReflectionClass(get_class($object));
+            $array = array();
+            foreach ($reflectionClass->getProperties() as $property) {
+                $property->setAccessible(true);
+                $array[$property->getName()] = $property->getValue($object);
+                $property->setAccessible(false);
+            }
+            return $array;
+        }   
     }
