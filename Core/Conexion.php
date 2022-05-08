@@ -1,29 +1,28 @@
 <?php
-     class Conexion
-     {
-         private $mysqli;
+class Conexion
+{
+    private $mysqli;
 
-         //Método para abrir una nueva conexión a la Base de Datos con una Consulta (Query)
-         function NuevaConexion($query)
-         {
-             $usuario = "root";
-             $contrasena = "";
-             $db = "feriavocacionalcovao";//Nombre de la Base de Datos
+    //Método para abrir una nueva conexión a la Base de Datos con una Consulta (Query)
+    function NuevaConexion($query)
+    {
+        $usuario = "root";
+        $contrasena = "";
+        $db = "feriavocacionalcovao"; //Nombre de la Base de Datos
 
-             if(!$this->mysqli = new mysqli('localhost', $usuario, $contrasena, $db))
-             {
-                 //Mensaje de error en caso de que no se logre realizar la conexión
-                 die('Error de conexion (' . mysqli_connect_errno() . ') '
-                     . mysqli_connect_error());
-             }
+        if (!$this->mysqli = new mysqli('localhost', $usuario, $contrasena, $db)) {
+            //Mensaje de error en caso de que no se logre realizar la conexión
+            die('Error de conexion (' . mysqli_connect_errno() . ') '
+                . mysqli_connect_error());
+        }
 
-             $this->mysqli->autocommit(TRUE);
-             $respuestaDB = $this->mysqli->query($query);
-             return $respuestaDB;
-         }
+        $this->mysqli->autocommit(TRUE);
+        $respuestaDB = $this->mysqli->query($query);
+        return $respuestaDB;
+    }
 
-         function CerrarConexion()
-         {
-             $this->mysqli->close();
-         }
-     }
+    function CerrarConexion()
+    {
+        $this->mysqli->close();
+    }
+}

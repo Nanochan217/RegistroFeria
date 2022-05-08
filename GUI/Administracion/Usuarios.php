@@ -89,38 +89,43 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                if ($todosUsuarios != null) {
-                                    foreach ($todosUsuarios as $t) {
-                                ?>
+                                <!-- <?php
+                                        // if ($todosUsuarios != null) {
+                                        //     foreach ($todosUsuarios as $t) {
+                                        ?>
                                         <tr>
-                                            <th scope="row"><?php echo $t->getId() ?></th>
-                                            <td><?php echo $t->getCedula() ?></td>
-                                            <td><?php echo $t->getNombre() ?></td>
-                                            <td><?php echo $t->getApellido1() ?></td>
-                                            <td><?php echo $t->getApellido2() ?></td>
+                                            <th scope="row"><?php //echo $t->getId() 
+                                                            ?></th>
+                                            <td><?php //echo $t->getCedula() 
+                                                ?></td>
+                                            <td><?php //echo $t->getNombre() 
+                                                ?></td>
+                                            <td><?php //echo $t->getApellido1() 
+                                                ?></td>
+                                            <td><?php //echo $t->getApellido2() 
+                                                ?></td>
                                             <td>
                                                 <?php
-                                                if ($todasCredenciales != null) {
-                                                    foreach ($todasCredenciales as $c) {
-                                                        if ($t->getIdCredenciales() == $c->getId()) {
-                                                            echo $c->getCorreo();
-                                                            break;
-                                                        }
-                                                    }
-                                                }
+                                                // if ($todasCredenciales != null) {
+                                                //     foreach ($todasCredenciales as $c) {
+                                                //         if ($t->getIdCredenciales() == $c->getId()) {
+                                                //             echo $c->getCorreo();
+                                                //             break;
+                                                //         }
+                                                //     }
+                                                // }
                                                 ?>
                                             </td>
                                             <td>
                                                 <?php
-                                                if ($todosPerfiles != null) {
-                                                    foreach ($todosPerfiles as $p) {
-                                                        if ($t->getIdPerfil() == $p->getId()) {
-                                                            echo $p->getNombrePerfil();
-                                                            break;
-                                                        }
-                                                    }
-                                                }
+                                                // if ($todosPerfiles != null) {
+                                                //     foreach ($todosPerfiles as $p) {
+                                                //         if ($t->getIdPerfil() == $p->getId()) {
+                                                //             echo $p->getNombrePerfil();
+                                                //             break;
+                                                //         }
+                                                //     }
+                                                // }
                                                 ?>
                                             </td>
                                             <td>
@@ -135,11 +140,14 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                                             </td>
                                         </tr>
                                 <?php
-                                    }
-                                }
-                                ?>
+                                //     }
+                                // }
+                                ?> -->
 
                             </tbody>
+
+
+
                         </table>
                     </div>
                 </div>
@@ -177,6 +185,29 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
     ?>
     <Script>
         $("#navUsuarios").addClass("active");
+
+        var response = <?php echo json_encode($todosUsuarios, JSON_FORCE_OBJECT); ?>;
+
+        // response = $.parseJSON(response);
+
+        $(function() {
+            // $buttons = '<form action="./ModificarUsuario.php" class="d-flex flex-wrap gap-2 justify-content-center"> <button type="submit" value="" class = "btn btn-warning btn-sm" ><i class = "bi bi-pencil" style = "font-size: 20px;" > </i> </button> <button type="submit" class = "btn btn-danger btn-sm" > <i class = "bi bi-trash" style = "font-size: 20px;" > </i></button ></form>';
+
+            $.each(response, function(i, item) {
+                var $tr = $('<tr>').append(
+                    $('<td>').text(item.id),
+                    $('<td>').text(item.cedula),
+                    $('<td>').text(item.nombre),
+                    $('<td>').text(item.apellido1),
+                    $('<td>').text(item.apellido2),
+                    $('<td>').text(item.idCredenciales),
+                    $('<td>').text(item.idPerfil),
+                    $('<td>').append(`<form action="./ModificarUsuario.php" method="post" class="d-flex flex-wrap gap-2 justify-content-center"> <button name="id" type="submit" value="${item.id}" class = "btn btn-warning btn-sm" ><i class = "bi bi-pencil" style = "font-size: 20px;" > </i> </button> <button type="submit" class = "btn btn-danger btn-sm" > <i class = "bi bi-trash" style = "font-size: 20px;" > </i></button ></form>`)
+                )
+                var $tbody = $('#usuarios tbody').append($tr);
+            });
+            console.log($tbody);
+        });
     </Script>
     <!-- END Scripts  -->
 </body>
