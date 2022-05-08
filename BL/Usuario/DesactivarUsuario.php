@@ -8,37 +8,24 @@
     include '../../DAL/UsuarioDAL/DALCredenciales.php';
     include '../../Entidades/UsuarioEntidades/Usuario.php';
     include '../../Entidades/UsuarioEntidades/Credenciales.php';
-
-    $desactivarUsuario = new Usuario();
-    $desactivarCredencial = new Credenciales();
+    
     $usuarioDAL = new DALUsuario();
     $credencialDAL = new DALCredenciales();
-    $idUsuario = $_GET[''];//Para obtener de la url la id del usuario
-
-    //Busca al Usuario en la sesion para realizar validaciones
-    //$usuarioSesion = $usuarioDAL->BuscarIdUsuario($idUsuarioActivo);
-    //$usuarioSesion['PERFIL'] = 1 en caso de usar la busqueda de usuarios
+    $idUsuario = $_POST['id'];    
 
     //Se valida al usuario en sesión si es SuperAdmin
-    if($_SESSION['Perfil'] = 1)
-    {
-        //ASIGNACION DE LAS NUEVAS CREDENCIALES
-        $desactivarCredencial->setId($idUsuario);
-        $desactivarCredencial->setActive(0);
-        $desactivarUsuario->setId($idUsuario);
-        $desactivarUsuario->setActive(0);
-
-        //Aplicar Cambios a las Credenciales y Usuarios
-        if($credencialDAL->DesactivarCredencial($desactivarCredencial) && $usuarioDAL->DesactivarUsuario($desactivarUsuario))
+    if($_SESSION['Perfil'] == 1)
+    {        
+        if($credencialDAL->DesactivarCredencial($idUsuario) && $usuarioDAL->DesactivarUsuario($idUsuario))
         {
-            header("Location: ../../GUI/PantallasDestino/AcciónExistosa.php");
+            echo "¡El Usuario ha sido eliminado correctamente!";
         }
         else
         {
-            header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+            echo "Ocurrió un Error, intentelo nuevamente";
         }
     }
     else
     {
-        header("Location: ../../GUI/Index/Index.php");
+        header("Location: ../../GUI/PantallasDestino/AccesoDenegado.php");
     }

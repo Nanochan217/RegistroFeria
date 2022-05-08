@@ -1,6 +1,9 @@
 <?php
+session_start();
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$headerA = file_get_contents('../Default/HeaderA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
@@ -34,7 +37,15 @@ $recursosExtra = file_get_contents('../Default/RecursosExtra.html');
 
     <!-- IMPORT Header -->
     <?php
-    echo $header;
+    if ($_SESSION["Perfil"]==1) {
+        echo $headerSA;    
+    }
+    else if($_SESSION["Perfil"] == 2){
+        echo $headerA;  
+    }
+    else{
+        echo $header;  
+    }
     ?>
 
     <div class="container">

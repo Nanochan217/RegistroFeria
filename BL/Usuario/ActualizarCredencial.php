@@ -14,38 +14,35 @@
     $cambiarCredencial = new Credenciales();
     $usuarioDAL = new DALUsuario();
     $credencialDAL = new DALCredenciales();
-    $idUsuarioActivo = $_SESSION['idUsuario'];
+    $idUsuarioActivo = $_POST['idUsuario'];
 
-    echo "<h1>'".$idUsuarioActivo."'</h1>";
-    //Busca al Usuario en la sesion para realizar validaciones
-    //$usuarioSesion = $usuarioDAL->BuscarIdUsuario($idUsuarioActivo);
 
-    //$usuarioSesion['Perfil'] = 1 en caso de usar la busqueda por ID
-    // if($_SESSION['Perfil'] = 1)
-    // {
-    //     //OBTENCIÓN DE DATOS DE LAS CREDENCIALES
-    //     $nuevoCorreo = $_POST['email'];
-    //     $nuevaContrasena = $_POST['contrasena'];
+    if($_SESSION['idUsuario'] == $idUsuarioActivo)
+    {
+        //OBTENCIÓN DE DATOS DE LAS CREDENCIALES
+        $correo = $_POST['email'];
+        $contrasena = $_POST['contrasena'];
 
-    //     //ASIGNACION DE LAS NUEVAS CREDENCIALES
-    //     $cambiarCredencial->setId($idUsuarioActivo);
-    //     $cambiarCredencial->setCorreo($nuevoCorreo);
-    //     $cambiarCredencial->setContrasena($nuevaContrasena);
+        //ASIGNACION DE LAS NUEVAS CREDENCIALES
+        $cambiarCredencial->setId($idUsuarioActivo);
+        $cambiarCredencial->setCorreo($correo);
+        $cambiarCredencial->setContrasena($contrasena);
 
-    //     //Aplicar Cambios a las Credenciales y Usuarios
-    //     if($credencialDAL->ActualizarCredenciales($cambiarCredencial))
-    //     {
-    //         //Redireccionamiento o Return
-    //     }
-    //     else
-    //     {
-    //         //Redireccionamiento o Return
-    //     }
-    // }
-    // else
-    // {
-    //     header("Location: ../../GUI/Index/Index.php");
-    // }
+        //Aplicar Cambios a las Credenciales y Usuarios
+        if($credencialDAL->ActualizarCredenciales($cambiarCredencial))
+        {
+            header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
+        }
+        else
+        {
+            header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+        }
+    }
+    else
+    {
+        echo "<h1>ESTAS MODIFICANDO DATOS DE OTRA PERSONA, NO TIENES AUTORIZACION</h1>";
+        //header("Location: ../../GUI/Index/Index.php");
+    }
 /////////////////////////////////////////////////////////////////////////////////
 
 //Nuevos Datos del Usuario
