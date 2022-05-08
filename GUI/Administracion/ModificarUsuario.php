@@ -167,7 +167,7 @@ if (isset($_POST['id'])) {
         });
 
         function llenarSelect() {
-            var perfiles = <?php echo BuscarPerfiles($id) ?>;
+            var perfiles = <?php echo BuscarPerfiles() ?>;
             
 
             var select = document.getElementById("tipoPerfil");

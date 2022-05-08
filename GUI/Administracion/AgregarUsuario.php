@@ -1,9 +1,13 @@
 <?php
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
+
+include '../../BL/Usuario/BuscarUsuario.php';
+
 ?>
 
 <!doctype html>
@@ -103,10 +107,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                             <div class="col-md-4 pb-3">
                                 <label for="tipoPerfil" class="form-label">Tipo perfil</label>
                                 <select id="tipoPerfil" name="tipoPerfil" class="form-select" required>
-                                    <option selected>Seleccione un perfil</option>
-                                    <option value="1">SuperAdmin</option>
-                                    <option value="2">Admin</option>
-                                    <option value="3">Guarda</option>
+                                    <option value="none" selected disabled hidden>Seleccione un perfil</option>
                                 </select>
                             </div>
                         </div>
@@ -141,6 +142,22 @@ $cssDefault = file_get_contents('../Default/Style.css');
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <Script>
         $("#navUsuarios").addClass("active");
+        llenarSelect()
+
+        function llenarSelect() {
+            var perfiles = <?php echo BuscarPerfiles() ?>;
+
+            var select = document.getElementById("tipoPerfil");
+
+            for (value in perfiles) {
+                var option = document.createElement("option");
+                option.value = perfiles[value].id
+                option.text = perfiles[value].nombrePerfil;
+                select.add(option);
+            }
+
+            console.log(select.value)
+        }
     </Script>
     <!-- END Scripts  -->
 </body>
