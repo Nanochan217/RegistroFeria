@@ -40,8 +40,6 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
     echo $headerSA;
     ?>
 
-    <!--<script src="./Administracion.js"></script>-->
-
     <div class="container">
         <div class="row">
             <div class="col">
@@ -49,36 +47,42 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                 <!-- START Encabezado de la pagina -->
                 <div class="d-flex gap-4 flex-column align-items-center justify-content-center pt-5 pb-4">
                     <h1>Usuarios</h1> <!-- titulo -->
-                </div>
-                <!-- END Encabezado de la pagina -->
+                </div><!-- END Encabezado de la pagina -->
 
-                <div class="row border rounded bg-white shadow-sm p-5 mb-5">
+                <!-- START Contenedor -->
+                <div class="border rounded bg-white shadow-sm p-5 mb-5">
+
+                    <!-- START Fila de filtros -->
                     <div class="row gap-3 justify-content-between my-3">
+
+                        <!-- START Filtro por perfil -->
                         <div class="col-auto">
-                            <select id="filtrarDia" name="filtrarDia" class="form-select">
-                                <option value="none" selected disabled hidden>Perfil</option>
-                                <option>...</option>
+                            <select id="filtrarPerfil" name="filtrarPerfil" class="form-select">
+                                <option value="none" selected>Todos los perfiles</option>
                             </select>
-                        </div>
+                        </div><!-- END Filtro por perfil -->
+
+                        <!-- START Busqueda -->
                         <div class="col-auto">
                             <div class="d-flex flex-wrap gap-3">
-                                <div class="">
+                                <div>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-search"></i></span>
                                         <input type="text" class="form-control" id="busqueda" name="busqueda" placeholder="Buscar...">
                                     </div>
                                 </div>
-                                <div class="">
-                                    <a href="./AgregarUsuario.php" class="btn btn-primary">Agregar usuario</a>
-                                </div>
+
+                                <a href="./AgregarUsuario.php" class="btn btn-primary">Agregar usuario</a>
+
                             </div>
-                        </div>
-                    </div>
+                        </div><!-- END Busqueda -->
+                    </div><!-- END Fila de filtros -->
+
+                    <!-- START Table -->
                     <div class="table-responsive ">
                         <table id="usuarios" class="table table-hover table-bordered align-middle">
                             <thead class="table-secondary">
                                 <tr>
-                                    <th scope="col">ID</th>
                                     <th scope="col">Cédula</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Primer apellido</th>
@@ -89,68 +93,11 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <?php
-                                        // if ($todosUsuarios != null) {
-                                        //     foreach ($todosUsuarios as $t) {
-                                        ?>
-                                        <tr>
-                                            <th scope="row"><?php //echo $t->getId() 
-                                                            ?></th>
-                                            <td><?php //echo $t->getCedula() 
-                                                ?></td>
-                                            <td><?php //echo $t->getNombre() 
-                                                ?></td>
-                                            <td><?php //echo $t->getApellido1() 
-                                                ?></td>
-                                            <td><?php //echo $t->getApellido2() 
-                                                ?></td>
-                                            <td>
-                                                <?php
-                                                // if ($todasCredenciales != null) {
-                                                //     foreach ($todasCredenciales as $c) {
-                                                //         if ($t->getIdCredenciales() == $c->getId()) {
-                                                //             echo $c->getCorreo();
-                                                //             break;
-                                                //         }
-                                                //     }
-                                                // }
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                // if ($todosPerfiles != null) {
-                                                //     foreach ($todosPerfiles as $p) {
-                                                //         if ($t->getIdPerfil() == $p->getId()) {
-                                                //             echo $p->getNombrePerfil();
-                                                //             break;
-                                                //         }
-                                                //     }
-                                                // }
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex flex-wrap gap-2 justify-content-center">
-                                                    <a href="./ModificarUsuario.php" class="btn btn-warning btn-sm">
-                                                        <i class="bi bi-pencil" style="font-size: 20px;"></i>
-                                                    </a>                                                    
-                                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalConfirmacion">
-                                                        <i class="bi bi-trash" style="font-size: 20px;"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                <?php
-                                //     }
-                                // }
-                                ?> -->
-
+                                <!-- Contenido de la tabla -->
                             </tbody>
-
-
-
                         </table>
-                    </div>
-                </div>
+                    </div><!-- END Table -->
+                </div><!-- END Contenedor -->
             </div>
         </div>
     </div>
@@ -160,15 +107,15 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cita #1</h5>
+                    <h5 class="modal-title">¿Seguro que desea eliminar al usuario?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <p class="h4 pb-2 ">¿Seguro que desea eliminar a XXXX del Registro de Usuarios?</p>                    
+                <div class="modal-body" id="modalBody">
+
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-danger" onclick="'../../BL/Usuario/DesactivarUsuario.php'">Eliminar</button>
-                    <button type="button" class="btn btn-primary">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -183,32 +130,66 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
     <?php
     echo $jsLinks;;
     ?>
-    <Script>
-        $("#navUsuarios").addClass("active");
+    <script src="./Usuarios.js"></script>
+    <script>
+        var registros = {};
+        $(document).ready(function() {
+            $("#navUsuarios").addClass("active"); //marcar link de la navbar
+            var usuarios = <?php echo BuscarUsuarios() ?>;
+            var credenciales = <?php echo BuscarCredenciales() ?>;
+            var perfiles = <?php echo BuscarPerfiles() ?>;
 
-        var response = <?php echo json_encode($todosUsuarios, JSON_FORCE_OBJECT); ?>;
+            $.each(usuarios, function(i, usuario) {
 
-        // response = $.parseJSON(response);
+                $.each(credenciales, function(i, credencial) {
+                    if (credencial.id == usuario.idCredenciales) $correo = credencial.correo;
+                });
+                $.each(perfiles, function(i, perfil) {
+                    if (perfil.id == usuario.idPerfil) $perfil = perfil.nombrePerfil;
+                });
 
-        $(function() {
-            // $buttons = '<form action="./ModificarUsuario.php" class="d-flex flex-wrap gap-2 justify-content-center"> <button type="submit" value="" class = "btn btn-warning btn-sm" ><i class = "bi bi-pencil" style = "font-size: 20px;" > </i> </button> <button type="submit" class = "btn btn-danger btn-sm" > <i class = "bi bi-trash" style = "font-size: 20px;" > </i></button ></form>';
+                var registro = {
+                    "id": usuario.id,
+                    "cedula": usuario.cedula,
+                    "nombre": usuario.nombre,
+                    "apellido1": usuario.apellido1,
+                    "apellido2": usuario.apellido2,
+                    "correo": $correo,
+                    "perfil": $perfil
+                };
 
-            $.each(response, function(i, item) {
-                var $tr = $('<tr>').append(
-                    $('<td>').text(item.id),
-                    $('<td>').text(item.cedula),
-                    $('<td>').text(item.nombre),
-                    $('<td>').text(item.apellido1),
-                    $('<td>').text(item.apellido2),
-                    $('<td>').text(item.idCredenciales),
-                    $('<td>').text(item.idPerfil),
-                    $('<td>').append(`<form action="./ModificarUsuario.php" method="post" class="d-flex flex-wrap gap-2 justify-content-center"> <button name="id" type="submit" value="${item.id}" class = "btn btn-warning btn-sm" ><i class = "bi bi-pencil" style = "font-size: 20px;" > </i> </button> <button type="submit" class = "btn btn-danger btn-sm" > <i class = "bi bi-trash" style = "font-size: 20px;" > </i></button ></form>`)
-                )
-                var $tbody = $('#usuarios tbody').append($tr);
+                registros[`${i+1}`] = registro;
             });
-            console.log($tbody);
+
+            console.log(registros)
+
+            llenarTabla("usuarios", registros)
+
+            function llenarTabla(tabla, registros) {
+                $.each(registros, function(i, registro) {
+                    var $tr = $('<tr>').append(
+                        $('<th>').text(registro.cedula),
+                        $('<td>').text(registro.nombre),
+                        $('<td>').text(registro.apellido1),
+                        $('<td>').text(registro.apellido2),
+                        $('<td>').text(registro.correo),
+                        $('<td>').text(registro.perfil),
+                        $('<td>').append(`<form action="./ModificarUsuario.php" method="post" class="d-flex flex-wrap gap-2 justify-content-center">
+                                            <button name="id" type="submit" value="${registro.id}" class = "btn btn-warning btn-sm" >
+                                                <i class = "bi bi-pencil" style = "font-size: 20px;" > </i>
+                                            </button>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#modalConfirmacion" data-bs-whatever="${i}" class = "btn btn-danger btn-sm" >
+                                                <i class = "bi bi-trash" style = "font-size: 20px;" > </i>
+                                            </button >
+                                        </form>`)
+                    );
+                    var $tbody = $(`#${tabla} tbody`).append($tr);
+                })
+            }
+
+            llenarSelect("filtrarPerfil", perfiles);
         });
-    </Script>
+    </script>
     <!-- END Scripts  -->
 </body>
 

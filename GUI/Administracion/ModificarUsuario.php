@@ -1,9 +1,12 @@
 <?php
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
+
+include '../../BL/Usuario/BuscarUsuario.php';
 
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
@@ -101,7 +104,7 @@ if (isset($_POST['id'])) {
 
                             <!-- Contrasena -->
                             <div class="col-md-4 pb-3">
-                                <label for="contrasena" class="form-label">Contraseña</label>
+                                <label for="contrasena" class="form-label">Nueva Contraseña</label>
                                 <input type="password" class="form-control" id="contrasena" name="contrasena" required>
                             </div>
 
@@ -109,8 +112,7 @@ if (isset($_POST['id'])) {
                             <div class="col-md-4 pb-3">
                                 <label for="tipoPerfil" class="form-label">Tipo perfil</label>
                                 <select id="tipoPerfil" name="tipoPerfil" class="form-select" required>
-                                    <option selected>Seleccione un perfil</option>
-                                    <option>...</option>
+                                    <option value="none" selected disabled hidden>Seleccione un perfil</option>
                                 </select>
                             </div>
                         </div>
@@ -144,6 +146,44 @@ if (isset($_POST['id'])) {
     ?>
     <Script>
         $("#navUsuarios").addClass("active");
+        
+        
+        var usuario = <?php echo BuscarIDUsuario($id) ?>;        
+        var credencial = <?php echo BuscarIDCredencial(json_decode( BuscarIDUsuario($id))->idCredenciales) ?>;
+
+        $(document).ready(function() {
+
+            $("#cedula").val(usuario.cedula);
+            $("#nombre").val(usuario.nombre);
+            $("#apellido1").val(usuario.apellido1);
+            $("#apellido2").val(usuario.apellido2);
+            $("#email").val(function() {
+                if (credencial.id == usuario.idCredenciales) {
+                    return credencial.correo;
+                }
+            });
+            
+            llenarSelect();
+        });
+
+        function llenarSelect() {
+            var perfiles = <?php echo BuscarPerfiles() ?>;
+            
+
+            var select = document.getElementById("tipoPerfil");
+
+            for (value in perfiles) {
+                var option = document.createElement("option");
+                option.value = perfiles[value].id
+                option.text = perfiles[value].nombrePerfil;
+                if (perfiles[value].id == usuario.idPerfil) {
+                    option.selected = true;
+                }
+                select.add(option);
+            }
+
+            console.log(select.value)   
+        }
     </Script>
     <!-- END Scripts  -->
 </body>

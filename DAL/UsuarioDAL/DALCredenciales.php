@@ -76,7 +76,7 @@
                     $credencial->setCorreo($filasCredencial["correo"]);
                     $credencial->setContrasena($filasCredencial["contrasena"]);
                     $credencial->setActive($filasCredencial['active']);
-                    $credencialesDB[]=$credencial;
+                    $credencialesDB[]= $this->dismount($credencial);
                 }
             }
             else
@@ -111,6 +111,7 @@
                 $credencialesDB = null;
             }
 
+            $credencialesDB = $this->dismount($credencialesDB);
             $conexionDB->CerrarConexion();
             return $credencialesDB;
         }
@@ -154,4 +155,15 @@
             $conexionDB->CerrarConexion();
             return $resultado;
         }
+        function dismount($object)
+        {
+            $reflectionClass = new ReflectionClass(get_class($object));
+            $array = array();
+            foreach ($reflectionClass->getProperties() as $property) {
+                $property->setAccessible(true);
+                $array[$property->getName()] = $property->getValue($object);
+                $property->setAccessible(false);
+            }
+            return $array;
+        }  
     }
