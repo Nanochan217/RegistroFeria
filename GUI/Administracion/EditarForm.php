@@ -90,43 +90,24 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                             <div id="dias">
 
                             </div>
-                            <!-- Button Agregar Acompañante -->
+                            <!-- Button Agregar dia -->
                             <div class="d-grid gap-2" id="addDia">
                                 <button class="btn btn-outline-primary" type="button" id="btnAddDia">+ Agregar día</button>
                             </div>
                         </div>
-                        <div class="col-lg border rounded shadow-sm bg-white p-5">
-                            <h2 class="pb-4">Horario del día 1</h2>
-                            <div class="row p-3 gx-3 gapx-4 bg-light border rounded">
-                                <div class="col-md-4 mt-0">
-                                    <label for="horaInicial1" class="form-label">Hora inicial</label>
-                                    <input type="time" class="form-control" id="horaInicial1" name="horaInicial1" required>
-                                </div>
-
-                                <div class="col-md-4 mt-0">
-                                    <label for="horaFinal1" class="form-label">Hora final</label>
-                                    <input type="time" class="form-control" id="horaFinal1" name="horaFinal1" required>
-                                </div>
-                                <div class="col-md-4 mt-0">
-                                    <div class="d-flex flex-column">
-                                        <label for="horaFinal1" class="form-label">Acciones</label>
-
-                                        <div class="d-flex flex-wrap gap-3">
-
-                                            <div class="d-flex flex-column">
-                                                <button class="btn border-secondary rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:#69727A;" class="bi bi-eye"></i></button>
-                                            </div>
-                                            <div class="d-flex flex-column">
-                                                <button class="btn border-danger rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:#DC3545;" class="bi bi-trash3"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="col-lg border rounded shadow-sm bg-white p-5" id="contenedorHorarios">
+                            <h2 class="pb-4">Horarios</h2>
+                            <div id="horarios">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <img src="../Assets/Images/seleccionarDia.svg" style="height:200px;">
+                                    <h5 class="text-center mt-4 opacity-75">Seleccione un día para ver los horarios</h5>
                                 </div>
                             </div>
-                            <!-- Button Agregar Acompañante -->
-                            <div class="d-grid gap-2 mt-3" id="addHorario">
+
+                            <!-- Button Agregar horario -->
+                            <!-- <div class="d-grid gap-2" id="addHorario">
                                 <button class="btn btn-outline-primary" type="button" id="btnAddHorario">+ Agregar horario</button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="row gap-3 p-0">
@@ -157,10 +138,9 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
         var configuracion = <?php echo BuscarConfiguraciones() ?>;
         var dias = <?php echo BuscarDiasHabiles() ?>;
-        console.log(typeof(dias));
-        console.log(dias);
-        console.log(dias.length);
         var horarios = <?php echo BuscarHorarios() ?>;
+        var idDia;
+        var diaSeleccionado = false;
 
         $(document).ready(function() {
 
@@ -171,10 +151,6 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             recargarDias();
 
             $("#btnAddDia").click(function() {
-                let fecha = new Date();
-                //let fechaHoy = fecha.getFullYear() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getDate();
-
-
 
                 dias[dias.length] = {
                     "id": UltimoID(),
@@ -183,7 +159,6 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                     "visible": "1",
                     "active": "1"
                 }
-                console.log(dias);
 
                 function fechaHoy() {
                     function pad2(n) {
@@ -208,30 +183,105 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
                 recargarDias();
             });
-            // $(".eliminarDia").click(function() {
-            //     dias[$(this).val()].active = "0";
-            //     console.log(dias)
-            //     recargarDias();
-            // });
+            $("#btnAddHorario").click(function() {
+
+                horarios[horarios.length] = {
+                    "id": UltimoID(),
+                    "horaInicio": horaHoy(),
+                    "horaFinal": horaHoy(),
+                    "aforoMaximo": 300,
+                    "idDiaHabil": idDia,
+                    "visible": "1",
+                    "active": "1"
+                }
+
+                function horaHoy() {
+                    var date = new Date();
+                    var time = date.getHours() + ":00:00";
+
+                    return time;
+                }
+
+                function UltimoID() {
+                    let ultimoID
+                    UltimoID = (parseInt(horarios[horarios.length - 1].id) + 1).toString();
+                    return UltimoID;
+                }
+
+                recargarHorarios();
+                console.log(horarios);
+            });
 
         });
 
-        function eliminarDia(value) {
-            dias[value].active = "0";
-            console.log(dias)
-            recargarDias();
+        function eliminar(value, array) {
+            array[value].active = "0";
+            if (array == dias)
+                recargarDias();
+            else
+                recargarHorarios();
         }
 
-        function ocultarDia(value, id) {
-            if (dias[value].visible == "0") {
-                dias[value].visible = "1"
+        function ocultar(value, array) {
+            if (array[value].visible == "0") {
+                array[value].visible = "1"
             } else {
-                dias[value].visible = "0";
+                array[value].visible = "0";
             }
-            console.log(dias)
-            recargarDias();
+            if (array == dias)
+                recargarDias();
+            else
+                recargarHorarios();
+
         }
 
+        function recargarHorarios() {
+            let contador = 0;
+            $("#horarios").html('')
+            $.each(horarios, function(i, horario) {
+
+                if (horario.active == 1 && horario.idDiaHabil == idDia) {
+                    contador++;
+                    $("#horarios").append(`<div class="row mb-3 mx-0 p-3 gx-3 gapx-4 bg-light border rounded">
+                                                <div class="col-md-4 mt-0">
+                                                    <label for="horaInicial${contador}" class="form-label">Hora inicial</label>
+                                                    <input type="time" class="form-control" id="horaInicial${contador}" name="horaInicial${contador}" value="${horario.horaInicio}" required>
+                                                </div>
+
+                                                <div class="col-md-4 mt-0">
+                                                    <label for="horaFinal${contador}" class="form-label">Hora final</label>
+                                                    <input type="time" class="form-control" id="horaFinal${contador}" name="horaFinal${contador}" value="${horario.horaFinal}" required>
+                                                </div>
+                                                <div class="col-md-4 mt-0">
+                                                    <label for="aforo${contador}" class="form-label">Aforo máximo</label>
+                                                    <input type="number" class="form-control" id="aforo${contador}" name="aforo${contador}" value="${horario.aforoMaximo}" required>
+                                                </div>
+                                                <div class="col-md-4 mt-0">
+                                                    <div class="d-flex flex-column">
+                                                        <label for="horaFinal1" class="form-label">Acciones</label>
+
+                                                        <div class="d-flex flex-wrap gap-3">
+
+                                                            <div class="d-flex flex-column">
+                                                                <button class="btn ${(horario.visible==1) ? "btn-outline-secondary" : "btn-secondary"} rounded-pill" type="button" id="horarioVisible${contador}" value="${i}" onclick="ocultar(this.value, horarios)">${(horario.visible==1) ? '<i style="font-size: 20px; " class="bi bi-eye"></i>' : '<i style="font-size: 20px; " class="bi bi-eye-slash"></i>'}</button>
+                                                            </div>
+                                                            <div class="d-flex flex-column">
+                                                                <button class="btn btn-outline-danger rounded-pill" type="button" id="eliminarHorario${contador}" value="${i}" onclick="eliminar(this.value, horarios)"><i style="font-size: 20px; " class="bi bi-trash3"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>`)
+                }
+            });
+            if (diaSeleccionado == false) {
+                $("#contenedorHorarios").append(`<div class="d-grid gap-2" id="addHorario">
+                                                    <button class="btn btn-outline-primary" type="button" id="btnAddHorario">+ Agregar horario</button>
+                                                </div>`)
+            }
+            diaSeleccionado = true;
+
+        }
 
 
 
@@ -247,7 +297,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                             <div class="input-group">
                                                 <input type="date" class="form-control" id="dia${contador}" name="dia${contador}" value="${dia.dia}" min="2022-05-04" max="2022-05-22" required>
                                                 <div class="input-group-text">
-                                                    <input class="form-check-input mt-0" type="radio" name="diaSeleccionado" id="diaSeleccionado${contador}">
+                                                    <input class="form-check-input mt-0" type="radio" name="diaSeleccionado" id="diaSeleccionado${contador}" onclick="idDia=${dia.id} ,recargarHorarios()">
                                                 </div>
                                             </div>
                                         </div>
@@ -258,10 +308,10 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                                 <div class="d-flex flex-wrap gap-3">
         
                                                     <div class="d-flex flex-column">
-                                                        <button class="btn ${(dia.visible==1) ? "btn-outline-secondary" : "btn-secondary"} rounded-pill" type="button" id="ocultarDia${contador}" value="${i}" onclick="ocultarDia(this.value, this.id)">${(dia.visible==1) ? '<i style="font-size: 20px; " class="bi bi-eye"></i>' : '<i style="font-size: 20px; " class="bi bi-eye-slash"></i>'}</button>
+                                                        <button class="btn ${(dia.visible==1) ? "btn-outline-secondary" : "btn-secondary"} rounded-pill" type="button" id="ocultarDia${contador}" value="${i}" onclick="ocultar(this.value, dias)">${(dia.visible==1) ? '<i style="font-size: 20px; " class="bi bi-eye"></i>' : '<i style="font-size: 20px; " class="bi bi-eye-slash"></i>'}</button>
                                                     </div>
                                                     <div class="d-flex flex-column">
-                                                        <button class="btn btn-outline-danger rounded-pill eliminarDia" type="button" id="eliminarDia${contador}" value="${i}" onclick="eliminarDia(this.value)"><i style="font-size: 20px; " class="bi bi-trash3"></i></button>
+                                                        <button class="btn btn-outline-danger rounded-pill" type="button" id="eliminarDia${contador}" value="${i}" onclick="eliminar(this.value, dias)"><i style="font-size: 20px; " class="bi bi-trash3"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
