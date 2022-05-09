@@ -26,23 +26,22 @@
             return $credencialesSesion;
         }
 
-        //PENDIENTE REVISAR IF DEL CORREO TRAS LA CONSULTA SQL!!!
         function VerificarCorreoUsuario($correoUsuario)
         {
             $resultado = false;
-            $correoID = $correoUsuario;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='".$correoID."' AND `ACTIVE`= 1";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='".$correoUsuario."' AND `ACTIVE`= 1";
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
-                $token = md5($correoID).rand(10, 9999);
-                $link = "../../GUI/PasswordRecovery.php?key=".$correoID."&token=".$token;//Link generado
+                $token = md5($correoUsuario).rand(10, 9999);
+                $link = "../../GUI/PasswordRecovery.php?key=".$correoUsuario."&token=".$token;//Link generado
                 $tituloCorreo = "Solicitud de Restablecimiento de Contraseña";
                 $cuerpoCorreo = "¡Hemos recibido una solicitud de cambio de contraseña! Haz click en el siguiente enlace para restablecer tu contraseña: '".$link."'";                
-                $cuerpoCorreo = wordwrap($cuerpoCorreo, 100, "\n");
-                if(mail($correoID, $tituloCorreo, $cuerpoCorreo))
+                $cuerpoCorreo = wordwrap($cuerpoCorreo, 70);
+
+                if(mail($correoUsuario, $tituloCorreo, $cuerpoCorreo))
                 {
                     $resultado = true;
                 }
