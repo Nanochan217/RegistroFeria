@@ -1,6 +1,8 @@
 <?php
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$headerSA = file_get_contents('../Default/HeaderA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');

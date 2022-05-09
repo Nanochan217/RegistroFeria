@@ -66,7 +66,7 @@ include '../../BL/Usuario/BuscarUsuario.php';
                         <!-- Imputs -->
                         <div class="row">
 
-                            <!-- Correo -->
+                            <!-- ID -->
                             <div class="col-md-6 pb-3" hidden="true">
                                 <label for="id" class="form-label">ID</label>
                                 <input type="text" class="form-control " id="idUsuario" name="idUsuario" value="">

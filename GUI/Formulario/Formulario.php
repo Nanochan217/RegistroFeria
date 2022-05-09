@@ -1,7 +1,9 @@
 <?php
 session_start();
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$headerSA = file_get_contents('../Default/HeaderA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
@@ -116,7 +118,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                                 <label for="colegioProcedencia" class="form-label">Colegio de Procedencia</label>
                                 <select id="colegioProcedencia" name="colegioProcedencia" class="form-select" required>
                                     <option selected>Seleccione un colegio</option>
-                                    <option>...</option>
+                                    <option value="1">...</option>
                                 </select>
                             </div>
                         </div>
@@ -134,20 +136,23 @@ $cssDefault = file_get_contents('../Default/Style.css');
 
                                 <!-- Día -->
                                 <div class="col-md-6 pb-3">
-                                    <label for="dia" class="form-label">Día</label>
-                                    <select id="dia" name="dia" class="form-select" required>
+                                    <label for="fechaCita" class="form-label">Día</label>
+                                    <input type="date" id="fechaCita" name="fechaCita" min="2022-05-10" max="2022-05-12" step="1" />
+                                    <!-- <select id="dia" name="dia" class="form-select" required>
                                         <option selected>Seleccione un día</option>
                                         <option>...</option>
-                                    </select>
+                                    </select> -->
                                 </div>
 
                                 <!-- Hora -->
                                 <div class="col-md-6 pb-3">
                                     <label for="horario" class="form-label">Horario</label>
-                                    <select id="horario" name="horario" class="form-select" required>
+                                    <!--OPCIONAL!!!!-->
+                                    <input type="time" id="horario" name="horario" min="07:00" max="16:20" step="3600" />
+                                    <!-- <select id="horario" name="horario" class="form-select" required>
                                         <option selected>Seleccione una horario</option>
                                         <option>...</option>
-                                    </select>
+                                    </select> -->
                                 </div>
                             </div>
                         </div>
@@ -177,7 +182,11 @@ $cssDefault = file_get_contents('../Default/Style.css');
 
                             <!-- Inputs -->
                             <div id="listaAcompanante" style="display: none;">
-                                <!-- Aquí irán los estudiantes -->
+                                <div class="col-md-6 pb-3" hidden="true">
+                                    <label for="cantidadAcompanantes" class="form-label">Cantidad de Acompanantes</label>
+                                    <input type="text" class="form-control" id="cantidadAcompanantes" name="cantidadAcompanantes" value="">
+                                </div>                                
+                                <!-- Aquí irán los acompanantes -->
                             </div>
 
                             <!-- Button Agregar Acompañante -->
@@ -192,12 +201,12 @@ $cssDefault = file_get_contents('../Default/Style.css');
 
                     </div>
 
-
                     <div class="row gap-3 p-0">
                         <div class="col position-relative px-0 py-5">
                             <div class="d-flex gap-3 position-absolute top-0 end-0">
                                 <a href="../Index/Index.php" class="btn btn-danger">Descartar</a>
-                                <a type="submit" href="../../BL/Cita/NuevaCita.php" class="btn btn-primary">Enviar Reserva</a>
+                                <!-- <a type="submit" href="../../BL/Cita/NuevaCita.php" class="btn btn-primary">Enviar Reserva</a> -->
+                                <button type="submit" id="nuevaCita" class="btn btn-primary">Enviar Reserva</button>
                             </div>
                         </div>
                     </div>

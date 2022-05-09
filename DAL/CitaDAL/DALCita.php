@@ -6,9 +6,9 @@
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaDB = "INSERT INTO `CITA`(`DIA`,`HORA`,`CONFIRMADO`,`IDASISTENTE`,`IDACOMPANANTE`,`IDESTADOCITA`,`ACTIVE`) 
-            VALUES ('".$nuevaCita->getDia()."','".$nuevaCita->getHora()."','".$nuevaCita->getConfirmado()."',
-            '".$nuevaCita->getIdAsistente()."','".$nuevaCita->getIdAcompanante()."','".$nuevaCita->getIdEstadoCita()."','".$nuevaCita->getActive()."')";
+            $consultaDB = "INSERT INTO `CITA` (`DIA`, `HORA`, `CONFIRMADO`, `IDASISTENTE`, `IDESTADOCITA`, `ACTIVE`) 
+            VALUES ('".$nuevaCita->getDia()."', '".$nuevaCita->getHora()."', '".$nuevaCita->getConfirmado()."',
+            '".$nuevaCita->getIdAsistente()."', 2, 1)";
 
             if($conexionDB->NuevaConexion($consultaDB))
             {
@@ -98,12 +98,12 @@
             return $citasSistema;
         }
 
-        function DesactivarCita(Cita $desactivarCita)
+        function DesactivarCita($idCita)
         {
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT FROM `CITA` SET `ACTIVE` ='".$desactivarCita->getActive()."' WHERE `ID`=".$desactivarCita->getId();
+            $consultaSql = "UPDATE `CITA` SET `ACTIVE` = 0 WHERE `ID`='".$idCita."'";
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
