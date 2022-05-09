@@ -83,7 +83,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
     <div class="modal fade" id="modalPassRecovery" tabindex="-1" aria-labelledby="modalPassRecovery" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="../../BL/LogIn/VerificarCorreo.php" method="post">
+                <form action="../../BL/LogIn/VerificarCorreo.php" method="POST">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalPassRecoveryLabel">Recuperar Contraseña</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

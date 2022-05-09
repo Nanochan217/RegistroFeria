@@ -2,17 +2,17 @@
     include '../../Core/Conexion.php';
     include '../../DAL/LogInDAL/DALLogIn.php';
 
-    $verificarCredencial = new DALLogIn();
+    $logInDAL = new DALLogIn();
     $correoUsuario = $_POST['correoRecovery'];
     
-    if($verificarCredencial->VerificarCorreoUsuario($correoUsuario))
+    if($logInDAL->VerificarCorreoUsuario($correoUsuario))
     {
-        echo "¡Correo Enviado!";
+        echo "<h1>¡Correo Enviado!</h1>";
     }
     else
     {
-        //echo "El correo no existe en el Sistema";
-        header("Location: ../../GUI/Index/Index.php");
+        echo "<h1>El correo no existe en el Sistema</h1>";
+        //header("Location: ../../GUI/Login/Login.php");
     }
 
 
