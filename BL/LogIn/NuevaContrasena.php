@@ -4,16 +4,14 @@
 
     $recuperarCredencial = new DALLogIn();
 
-    $correoUsuario = $_GET['key'];//Obtiene el correo de la url desde la variable key
-    $nuevaContrasena1 = $_POST['newPassword1'];
-    $nuevaContrasena2 = $_POST['newPassword2'];
+    $nuevaContrasena1 = $_POST['contrasena1'];
+    $nuevaContrasena2 = $_POST['contrasena2'];
+
     if($nuevaContrasena1 == $nuevaContrasena2)
     {
         if($recuperarCredencial->RestablecerContrasena($correoUsuario, $nuevaContrasena1))
         {
-            echo "¡Contraseña restablecida correctamente!";
-            header("Location: ../../GUI/Login/Login.php");
-            exit();
+            echo "¡Contraseña restablecida correctamente!";            
         }
         else
         {
