@@ -55,12 +55,16 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                 </div>
                 <!-- END Encabezado de la pagina -->
 
-                <form action="" method="POST" class="row gap-3">
+                <form action="../../BL/Configuracion/ModificarConfiguracion.php" method="POST" class="row gap-3">
 
                     <div class="row gapx-4 border rounded bg-white shadow-sm p-5">
                         <div class="col-md-6">
                             <h2 class="pb-4">Disponibilidad</h2>
                             <div class="row g-3">
+                                <div class="col-md-5" hidden="true">
+                                    <label for="idConfiguracion" class="form-label">IDCONFIGURACION</label>
+                                    <input type="text" class="form-control" id="idConfiguracion" name="idConfiguracion" value="">
+                                </div>
                                 <div class="col-md-5">
                                     <label for="fechaInicial" class="form-label">Fecha inicial</label>
                                     <input type="date" class="form-control" id="fechaInicial" name="fechaInicial" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
@@ -114,7 +118,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                         <div class="col position-relative px-0 py-5">
                             <div class="d-flex gap-3 position-absolute top-0 end-0">
                                 <a href="./Index.php" class="btn btn-danger">Descartar</a>
-                                <button type="submit" class="btn btn-primary">Enviar Reserva</button>
+                                <button type="submit" class="btn btn-primary">Enviar Cambios</button>
                             </div>
                         </div>
                     </div>
@@ -183,6 +187,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
                 recargarDias();
             });
+
             $("#btnAddHorario").click(function() {
 
                 horarios[horarios.length] = {
@@ -211,7 +216,6 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                 recargarHorarios();
                 console.log(horarios);
             });
-
         });
 
         function eliminar(value, array) {
@@ -232,7 +236,6 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                 recargarDias();
             else
                 recargarHorarios();
-
         }
 
         function recargarHorarios() {
@@ -242,36 +245,42 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
                 if (horario.active == 1 && horario.idDiaHabil == idDia) {
                     contador++;
-                    $("#horarios").append(`<div class="row mb-3 mx-0 p-3 gx-3 gapx-4 bg-light border rounded">
-                                                <div class="col-md-4 mt-0">
-                                                    <label for="horaInicial${contador}" class="form-label">Hora inicial</label>
-                                                    <input type="time" class="form-control" id="horaInicial${contador}" name="horaInicial${contador}" value="${horario.horaInicio}" required>
-                                                </div>
+                    $("#horarios").append(`
+                        <div class="row mb-3 mx-0 p-3 gx-3 gapx-4 bg-light border rounded">
+                            <div class="col-md-4 mt-0" hidden="true">
+                                <label for="idHorario${contador}" class="form-label">ID</label>
+                                <input type="text" class="form-control" id="idHorario${contador}" name="idHorario${contador}" value="${horario.id}" required>
+                            </div>
+                            <div class="col-md-4 mt-0">
+                                <label for="horaInicial${contador}" class="form-label">Hora inicial</label>
+                                <input type="time" class="form-control" id="horaInicial${contador}" name="horaInicial${contador}" value="${horario.horaInicio}" required>
+                            </div>
 
-                                                <div class="col-md-4 mt-0">
-                                                    <label for="horaFinal${contador}" class="form-label">Hora final</label>
-                                                    <input type="time" class="form-control" id="horaFinal${contador}" name="horaFinal${contador}" value="${horario.horaFinal}" required>
-                                                </div>
-                                                <div class="col-md-4 mt-0">
-                                                    <label for="aforo${contador}" class="form-label">Aforo máximo</label>
-                                                    <input type="number" class="form-control" id="aforo${contador}" name="aforo${contador}" value="${horario.aforoMaximo}" required>
-                                                </div>
-                                                <div class="col-md-4 mt-0">
-                                                    <div class="d-flex flex-column">
-                                                        <label for="horaFinal1" class="form-label">Acciones</label>
+                            <div class="col-md-4 mt-0">
+                                <label for="horaFinal${contador}" class="form-label">Hora final</label>
+                                <input type="time" class="form-control" id="horaFinal${contador}" name="horaFinal${contador}" value="${horario.horaFinal}" required>
+                            </div>
+                            <div class="col-md-4 mt-0">
+                                <label for="aforo${contador}" class="form-label">Aforo máximo</label>
+                                <input type="number" class="form-control" id="aforo${contador}" name="aforo${contador}" value="${horario.aforoMaximo}" required>
+                            </div>
+                            <div class="col-md-4 mt-0">
+                                <div class="d-flex flex-column">
+                                    <label for="horaFinal1" class="form-label">Acciones</label>
 
-                                                        <div class="d-flex flex-wrap gap-3">
+                                    <div class="d-flex flex-wrap gap-3">
 
-                                                            <div class="d-flex flex-column">
-                                                                <button class="btn ${(horario.visible==1) ? "btn-outline-secondary" : "btn-secondary"} rounded-pill" type="button" id="horarioVisible${contador}" value="${i}" onclick="ocultar(this.value, horarios)">${(horario.visible==1) ? '<i style="font-size: 20px; " class="bi bi-eye"></i>' : '<i style="font-size: 20px; " class="bi bi-eye-slash"></i>'}</button>
-                                                            </div>
-                                                            <div class="d-flex flex-column">
-                                                                <button class="btn btn-outline-danger rounded-pill" type="button" id="eliminarHorario${contador}" value="${i}" onclick="eliminar(this.value, horarios)"><i style="font-size: 20px; " class="bi bi-trash3"></i></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>`)
+                                        <div class="d-flex flex-column">
+                                            <button class="btn ${(horario.visible==1) ? "btn-outline-secondary" : "btn-secondary"} rounded-pill" type="button" id="horarioVisible${contador}" value="${i}" onclick="ocultar(this.value, horarios)">${(horario.visible==1) ? '<i style="font-size: 20px; " class="bi bi-eye"></i>' : '<i style="font-size: 20px; " class="bi bi-eye-slash"></i>'}</button>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <button class="btn btn-outline-danger rounded-pill" type="button" id="eliminarHorario${contador}" value="${i}" onclick="eliminar(this.value, horarios)"><i style="font-size: 20px; " class="bi bi-trash3"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `)
                 }
             });
             if (diaSeleccionado == false) {
@@ -291,32 +300,37 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             $.each(dias, function(i, dia) {
                 if (dia.active == 1) {
                     contador++;
-                    $("#dias").append(`<div class="row mx-0 p-3 gx-3 gapx-4 bg-light border rounded mb-3">
-                                        <div class="col-md-8 mt-0">
-                                            <label for="dia${contador}" class="form-label">Día ${contador}</label>
-                                            <div class="input-group">
-                                                <input type="date" class="form-control" id="dia${contador}" name="dia${contador}" value="${dia.dia}" min="2022-05-04" max="2022-05-22" required>
-                                                <div class="input-group-text">
-                                                    <input class="form-check-input mt-0" type="radio" name="diaSeleccionado" id="diaSeleccionado${contador}" onclick="idDia=${dia.id} ,recargarHorarios()">
-                                                </div>
-                                            </div>
+                    $("#dias").append(`
+                        <div class="row mx-0 p-3 gx-3 gapx-4 bg-light border rounded mb-3">
+                            <div class="col-md-8 mt-0" hidden="true">
+                                <label for="dia${contador}" class="form-label">Día ${contador}</label>                                
+                                <input type="text" class="form-control" id="idDia${contador}" name="idDia${contador}" value="${dia.id}">
+                            </div>
+                            <div class="col-md-8 mt-0">
+                                <label for="dia${contador}" class="form-label">Día ${contador}</label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="dia${contador}" name="dia${contador}" value="${dia.dia}" min="2022-05-04" max="2022-05-22" required>
+                                    <div class="input-group-text">
+                                        <input class="form-check-input mt-0" type="radio" name="diaSeleccionado" id="diaSeleccionado${contador}" onclick="idDia=${dia.id} ,recargarHorarios()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-0">
+                                <div class="d-flex flex-column">
+                                    <label class="form-label">Acciones</label>
+
+                                    <div class="d-flex flex-wrap gap-3">
+
+                                        <div class="d-flex flex-column">
+                                            <button class="btn ${(dia.visible==1) ? "btn-outline-secondary" : "btn-secondary"} rounded-pill" type="button" id="ocultarDia${contador}" value="${i}" onclick="ocultar(this.value, dias)">${(dia.visible==1) ? '<i style="font-size: 20px; " class="bi bi-eye"></i>' : '<i style="font-size: 20px; " class="bi bi-eye-slash"></i>'}</button>
                                         </div>
-                                        <div class="col-md-4 mt-0">
-                                            <div class="d-flex flex-column">
-                                                <label class="form-label">Acciones</label>
-        
-                                                <div class="d-flex flex-wrap gap-3">
-        
-                                                    <div class="d-flex flex-column">
-                                                        <button class="btn ${(dia.visible==1) ? "btn-outline-secondary" : "btn-secondary"} rounded-pill" type="button" id="ocultarDia${contador}" value="${i}" onclick="ocultar(this.value, dias)">${(dia.visible==1) ? '<i style="font-size: 20px; " class="bi bi-eye"></i>' : '<i style="font-size: 20px; " class="bi bi-eye-slash"></i>'}</button>
-                                                    </div>
-                                                    <div class="d-flex flex-column">
-                                                        <button class="btn btn-outline-danger rounded-pill" type="button" id="eliminarDia${contador}" value="${i}" onclick="eliminar(this.value, dias)"><i style="font-size: 20px; " class="bi bi-trash3"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="d-flex flex-column">
+                                            <button class="btn btn-outline-danger rounded-pill" type="button" id="eliminarDia${contador}" value="${i}" onclick="eliminar(this.value, dias)"><i style="font-size: 20px; " class="bi bi-trash3"></i></button>
                                         </div>
-                                    </div>`)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`)
                 }
             });
         }

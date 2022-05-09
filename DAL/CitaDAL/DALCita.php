@@ -19,6 +19,7 @@
             return $resultado;
         }
 
+        //OJO CON LA CONSULTA SQL (REVISAR Y COMPARAR CON LA DE USUARIOS...)
         function ModificarCita(Cita $modificarCita)
         {
             $resultado = false;
