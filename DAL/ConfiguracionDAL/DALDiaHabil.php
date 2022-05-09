@@ -22,7 +22,7 @@ class DALDiaHabil
         $DiasHabilesDB = array();
         $conexionDB = new Conexion();
 
-        $consultaSql = "SELECT * FROM `DIAHABIL` WHERE `ACTIVE` = 1";
+        $consultaSql = "SELECT * FROM `DIAHABIL`";
 
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 

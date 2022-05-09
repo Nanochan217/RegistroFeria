@@ -117,7 +117,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                                 <button class="btn border-secondary rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:#69727A;" class="bi bi-eye"></i></button>
                                             </div>
                                             <div class="d-flex flex-column">
-                                                <button class="btn border-danger rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:red;" class="bi bi-trash3"></i></button>
+                                                <button class="btn border-danger rounded-pill" type="button" id="horarioVisible1"><i style="font-size: 20px; color:#DC3545;" class="bi bi-trash3"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -157,6 +157,9 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
         var configuracion = <?php echo BuscarConfiguraciones() ?>;
         var dias = <?php echo BuscarDiasHabiles() ?>;
+        console.log(typeof(dias));
+        console.log(dias);
+        console.log(dias.length);
         var horarios = <?php echo BuscarHorarios() ?>;
 
         $(document).ready(function() {
@@ -165,36 +168,108 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             $("#fechaFinal").val(configuracion[0].fechaFinal);
             $("#maxAcompanantes").val(configuracion[0].acompanateMax);
 
-            $.each(dias, function(i, dia) {
-                $("#dias").append(`<div class="row p-3 gx-3 gapx-4 bg-light border rounded mb-3">
-                                    <div class="col-md-8 mt-0">
-                                        <label for="dia${i+1}" class="form-label">Día ${i+1}</label>
-                                        <div class="input-group">
-                                            <input type="date" class="form-control" id="dia${i+1}" name="dia${i+1}" value="${dia.dia}" min="2022-05-04" max="2022-05-22" required>
-                                            <div class="input-group-text">
-                                                <input class="form-check-input mt-0" type="radio" name="diaSeleccionado" id="diaSeleccionado${i+1}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mt-0">
-                                        <div class="d-flex flex-column">
-                                            <label class="form-label">Acciones</label>
+            recargarDias();
 
-                                            <div class="d-flex flex-wrap gap-3">
+            $("#btnAddDia").click(function() {
+                let fecha = new Date();
+                //let fechaHoy = fecha.getFullYear() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getDate();
 
-                                                <div class="d-flex flex-column">
-                                                    <button class="btn border-secondary rounded-pill" type="button" id="ocultarDia${i+1}"><i style="font-size: 20px; color:#69727A;" class="bi bi-eye"></i></button>
-                                                </div>
-                                                <div class="d-flex flex-column">
-                                                    <button class="btn border-danger rounded-pill" type="button" id="eliminarDia${i+1}"><i style="font-size: 20px; color:red;" class="bi bi-trash3"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>`)
-            })
+
+
+                dias[dias.length] = {
+                    "id": UltimoID(),
+                    "dia": fechaHoy(),
+                    "idConfiguracion": "1",
+                    "visible": "1",
+                    "active": "1"
+                }
+                console.log(dias);
+
+                function fechaHoy() {
+                    function pad2(n) {
+                        return (n < 10 ? '0' : '') + n;
+                    }
+
+                    var date = new Date();
+                    var month = pad2(date.getMonth() + 1); //months (0-11)
+                    var day = pad2(date.getDate()); //day (1-31)
+                    var year = date.getFullYear();
+
+                    var formattedDate = year + "-" + month + "-" + day;
+
+                    return formattedDate;
+                }
+
+                function UltimoID() {
+                    let ultimoID
+                    UltimoID = (parseInt(dias[dias.length - 1].id) + 1).toString();
+                    return UltimoID;
+                }
+
+                recargarDias();
+            });
+            // $(".eliminarDia").click(function() {
+            //     dias[$(this).val()].active = "0";
+            //     console.log(dias)
+            //     recargarDias();
+            // });
 
         });
+
+        function eliminarDia(value) {
+            dias[value].active = "0";
+            console.log(dias)
+            recargarDias();
+        }
+
+        function ocultarDia(value, id) {
+            if (dias[value].visible == "0") {
+                dias[value].visible = "1"
+            } else {
+                dias[value].visible = "0";
+            }
+            console.log(dias)
+            recargarDias();
+        }
+
+
+
+
+        function recargarDias() {
+            let contador = 0;
+            $("#dias").html('')
+            $.each(dias, function(i, dia) {
+                if (dia.active == 1) {
+                    contador++;
+                    $("#dias").append(`<div class="row mx-0 p-3 gx-3 gapx-4 bg-light border rounded mb-3">
+                                        <div class="col-md-8 mt-0">
+                                            <label for="dia${contador}" class="form-label">Día ${contador}</label>
+                                            <div class="input-group">
+                                                <input type="date" class="form-control" id="dia${contador}" name="dia${contador}" value="${dia.dia}" min="2022-05-04" max="2022-05-22" required>
+                                                <div class="input-group-text">
+                                                    <input class="form-check-input mt-0" type="radio" name="diaSeleccionado" id="diaSeleccionado${contador}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mt-0">
+                                            <div class="d-flex flex-column">
+                                                <label class="form-label">Acciones</label>
+        
+                                                <div class="d-flex flex-wrap gap-3">
+        
+                                                    <div class="d-flex flex-column">
+                                                        <button class="btn ${(dia.visible==1) ? "btn-outline-secondary" : "btn-secondary"} rounded-pill" type="button" id="ocultarDia${contador}" value="${i}" onclick="ocultarDia(this.value, this.id)">${(dia.visible==1) ? '<i style="font-size: 20px; " class="bi bi-eye"></i>' : '<i style="font-size: 20px; " class="bi bi-eye-slash"></i>'}</button>
+                                                    </div>
+                                                    <div class="d-flex flex-column">
+                                                        <button class="btn btn-outline-danger rounded-pill eliminarDia" type="button" id="eliminarDia${contador}" value="${i}" onclick="eliminarDia(this.value)"><i style="font-size: 20px; " class="bi bi-trash3"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`)
+                }
+            });
+        }
     </Script>
     <!-- END Scripts  -->
 </body>
