@@ -41,7 +41,7 @@
                 $cuerpoCorreo = "¡Hemos recibido una solicitud de cambio de contraseña! Haz click en el siguiente enlace para restablecer tu contraseña: '".$link."'";                
                 $cuerpoCorreo = wordwrap($cuerpoCorreo, 70);
 
-                if(imap_mail($correoUsuario, $tituloCorreo, $cuerpoCorreo))
+                if(mail($correoUsuario, $tituloCorreo, $cuerpoCorreo))
                 {
                     $resultado = true;
                 }

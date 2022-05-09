@@ -7,6 +7,7 @@ class DALConfiguracion
 
     function ModificarConfiguracion()
     {
+        
     }
 
     function EliminarConfiguracion()

@@ -5,7 +5,7 @@ class DALDiaHabil
     {
     }
 
-    function Modificar()
+    function ModificarDiaHabil()
     {
     }
 
