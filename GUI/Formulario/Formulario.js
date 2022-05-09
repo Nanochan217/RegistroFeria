@@ -100,37 +100,3 @@ function addAcompanante() {
         mostrarMensaje(); //se muestra el mensaje
     }
 }
-
-// function NuevaCita()
-// {           
-//     var asistente = 
-//     {
-//         cedulaAsistente : $("#cedula").val(), 
-//         nombreAsistente : $("#nombre").val(), 
-//         apellido1Asistente : $("#apellido1").val(),
-//         apellido2Asistente : $("#apellido2").val(),
-//         correoElectronicoAsistente : $("#email").val(),
-//         telefonoAsistente : $("#telefono").val(),
-//         colegioProcedenciaAsistente : $("#colegioProcedencia").val()        
-//     };
-
-//     var cita = 
-//     {
-//         diaCita : $("#dia").val(),
-//         horaCita : $("#horario").val()
-//     };
-
-//     var acompanante = 
-//     {
-//         cedulaAcompanante : $("#cedulaAcompanante").val(),
-//         parentescoAsistente : $("#parentescoAcompanante").val(),
-//         cantidadAcompanantes : acompanantes.length
-//     };
-
-//     var nuevoAsistente = JSON.stringify(asistente);
-//     var nuevaCita = JSON.stringify(cita);
-//     var nuevoAcompanante = JSON.stringify(acompanante);
-
-//     $.post("../../BL/Cita/NuevaCita.php", { asistente : nuevoAsistente, cita : nuevaCita, acompanante : nuevoAcompanante});
-//     return false;
-// }
