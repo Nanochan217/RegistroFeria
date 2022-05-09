@@ -30,12 +30,12 @@
     //VER EL WHILE DE ACOMPANANTES PARA HACER EL CICLO CON DIA HABIL Y HORARIO
     //Captura de Datos Dia Habil
     //VER EJEMPLO DE CITAS (LA ITERACION DEL INPUT AL PRESIONAR EL BOTON DE NUEVOS ACOMP.)
-    //$cantidadDias = $_POST['idDia'.$contadorDias];//OJO CON ESTO
+    $cantidadDias = $_POST['cantidadDias'.$contadorDias];//OJO CON ESTO
     $diaHabil = $_POST['dia'.$contadorDias];
 
     //Captura de Datos Horario
     //VER EJEMPLO DE CITAS (LA ITERACION DEL INPUT AL PRESIONAR EL BOTON DE NUEVOS ACOMP.)
-    //$cantidadHorarios = $_POST['idHorario'.$contadorDias];//OJO CON ESTO
+    $cantidadHorarios = $_POST['cantidadHorario'.$contadorHorario];
     $horaInicioHorario = $_POST['horaInicial'.$contadorDias];
     $horaFinalHorario = $_POST['horaFinal'.$contadorDias];
     $aforoMaximo = $_POST['aforo'.$contadorDias];
@@ -84,8 +84,8 @@
     //     //header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
     // }
 
-
-    if($cantidadDias > 1)
+        //OJO CON EL CANTIDADDIAS (DEVUELVE UN SQL NO UN DATO NUMERICO!!!! REVISAR DAL)
+    if($cantidadDias > $diaHabilDAL->cantidadDias($idConfiguracion))
     {
         //SECCION DONDE SE AÑADEN Y SE MODIFICAN LOS DIAS HABILES
         while("EXPRESION")
