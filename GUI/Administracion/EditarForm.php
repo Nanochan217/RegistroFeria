@@ -59,7 +59,12 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
                     <div class="row gapx-4 border rounded bg-white shadow-sm p-5">
                         <div class="col-md-6">
-                            <h2 class="pb-4">Disponibilidad</h2>
+                            <div class="d-flex ">
+                                <h2 class="pb-4">Disponibilidad</h2>
+                                <div class="form-check form-switch mt-2 ms-3 ">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="formActivo" name="formActivo">
+                                </div>
+                            </div>
                             <div class="row g-3">
                                 <div class="col-md-5" hidden="true">
                                     <label for="idConfiguracion" class="form-label">IDCONFIGURACION</label>
@@ -151,6 +156,9 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             $("#fechaInicial").val(configuracion[0].fechaInicio);
             $("#fechaFinal").val(configuracion[0].fechaFinal);
             $("#maxAcompanantes").val(configuracion[0].acompanateMax);
+            console.log(configuracion[0].estadoConfiguracion)
+            // $("#formActivo").prop("checked", configuracion[0].acompanateMax);
+
 
             recargarDias();
 
@@ -231,7 +239,8 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
             function horaHoy() {
                 var date = new Date();
-                var time = date.getHours() + ":00:00";
+                var hora = date.getHours();
+                var time = pad2(hora) + ":00:00";
 
                 return time;
             }
