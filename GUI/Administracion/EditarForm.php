@@ -183,36 +183,68 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
                 recargarDias();
             });
-            $("#btnAddHorario").click(function() {
+            // $("#btnAddHorario").click(function() {
+            //     alert()
+            //     horarios[horarios.length] = {
+            //         "id": UltimoID(),
+            //         "horaInicio": horaHoy(),
+            //         "horaFinal": horaHoy(),
+            //         "aforoMaximo": 300,
+            //         "idDiaHabil": idDia,
+            //         "visible": "1",
+            //         "active": "1"
+            //     }
 
-                horarios[horarios.length] = {
-                    "id": UltimoID(),
-                    "horaInicio": horaHoy(),
-                    "horaFinal": horaHoy(),
-                    "aforoMaximo": 300,
-                    "idDiaHabil": idDia,
-                    "visible": "1",
-                    "active": "1"
-                }
+            //     function horaHoy() {
+            //         var date = new Date();
+            //         var time = date.getHours() + ":00:00";
 
-                function horaHoy() {
-                    var date = new Date();
-                    var time = date.getHours() + ":00:00";
+            //         return time;
+            //     }
 
-                    return time;
-                }
+            //     function UltimoID() {
+            //         let ultimoID
+            //         UltimoID = (parseInt(horarios[horarios.length - 1].id) + 1).toString();
+            //         return UltimoID;
+            //     }
 
-                function UltimoID() {
-                    let ultimoID
-                    UltimoID = (parseInt(horarios[horarios.length - 1].id) + 1).toString();
-                    return UltimoID;
-                }
-
-                recargarHorarios();
-                console.log(horarios);
-            });
+            //     recargarHorarios();
+            //     console.log(horarios);
+            // });
 
         });
+
+        function agregarHorario() {
+            horarios[horarios.length] = {
+                "id": UltimoID(),
+                "horaInicio": horaHoy(),
+                "horaFinal": horaHoy(),
+                "aforoMaximo": 300,
+                "idDiaHabil": idDia,
+                "visible": "1",
+                "active": "1"
+            }
+
+            function horaHoy() {
+                var date = new Date();
+                var time = date.getHours() + ":00:00";
+
+                return time;
+            }
+
+            function pad2(n) {
+                return (n < 10 ? '0' : '') + n;
+            }
+
+            function UltimoID() {
+                let ultimoID
+                UltimoID = (parseInt(horarios[horarios.length - 1].id) + 1).toString();
+                return UltimoID;
+            }
+
+            recargarHorarios();
+            console.log(horarios);
+        }
 
         function eliminar(value, array) {
             array[value].active = "0";
@@ -276,7 +308,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             });
             if (diaSeleccionado == false) {
                 $("#contenedorHorarios").append(`<div class="d-grid gap-2" id="addHorario">
-                                                    <button class="btn btn-outline-primary" type="button" id="btnAddHorario">+ Agregar horario</button>
+                                                    <button class="btn btn-outline-primary" type="button" id="btnAddHorario" onclick="agregarHorario()">+ Agregar horario</button>
                                                 </div>`)
             }
             diaSeleccionado = true;
@@ -286,6 +318,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
 
         function recargarDias() {
+            console.log(dias);
             let contador = 0;
             $("#dias").html('')
             $.each(dias, function(i, dia) {
