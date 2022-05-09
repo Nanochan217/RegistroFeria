@@ -7,10 +7,14 @@
     include '../../Entidades/CitasEntidades/Asistente.php';
     include '../../Entidades/CitasEntidades/Acompanante.php';
 
+    $contador = 1;
     $asistenteDAL = new DALAsistente();
     $citaDAL = new DALCita();
     $acompananteDAL = new DALAcompanante();
-
+    
+    //Cantidad de Acompañantes
+    $cantidadAcompanantes = $_POST['cantidadAcompanantes'];
+    
     //Objetos para almacenar los datos del Formulario
     $nuevoAsistente = new Asistente();
     $nuevoAcompanante = new Acompanante();
@@ -26,17 +30,10 @@
     $colegioAsistente = $_POST['colegioProcedencia'];
 
     // //Datos de la Cita
-    $diaCita = $_POST['dia'];
+    $diaCita = $_POST['fechaCita'];
     $horaCita = $_POST['horario'];
 
-    // //Datos del Acompañante
-    // //¿LAS IDS DE LOS INPUTS DE LA CEDULA Y EL TIPO AUTOINCREMENTAN?
-    $listaAcompanantes = $_POST['listaAcompanante'];//OPCIONAL
-    $cedulaAcompanante = $_POST['cedulaAcompanante1'];
-    $tipoAcompanante = $_POST['parentescoAcompanante1'];
-
-    //SEGUIR CON LA ADICIÓN DE CITAS (VER SI LOS INPUTS DEL ACOMPANANTE AUTOINCREMENTAN)
-    if($asistenteDAL->BuscarCedula($cedulaAsistente) == false && $acompananteDAL->BuscarCedula($cedulaAcompanante) == false)
+    if($asistenteDAL->BuscarCedula($cedulaAsistente) == false)
     {
         //Asignación en el Objeto Asistente con los datos del Formulario
         $nuevoAsistente->setCedula($cedulaAsistente);
@@ -61,34 +58,63 @@
             $nuevaCita->setIdEstadoCita(2);
             $nuevaCita->setActive(1);
 
+            echo "<h1>'".$cantidadAcompanantes."'</h1>";
+            echo "<h1>'".$diaCita." y ".$horaCita."'</h1>";
+
             if($citaDAL->NuevaCita($nuevaCita))
             {
-                //Se obtiene la ID del último registro de la Cita
                 $idCita = $citaDAL->UltimaCita();
 
-                //Asignación en el Objeto Acompanante con los datos del Formulario
-                $nuevoAcompanante->setCedula($cedulaAcompanante);
-                $nuevoAcompanante->setIdTipoAcompanante($tipoAcompanante);
-                $nuevoAcompanante->setIdCita($idCita);
-                $nuevoAcompanante->setActive(1);
-                $acompananteDAL->NuevoAcompanante($nuevoAcompanante);
+                while($contador <= $cantidadAcompanantes)
+                {  
+                    //Datos del Acompañante      
+                    $cedulaAcompanante = $_POST['cedulaAcompanante'.$contador];
+                    $nombreAcompanante = $_POST['nombreAcompanante'.$contador];
+                    $tipoAcompanante = $_POST['parentescoAcompanante'.$contador];
+
+                    //Asignación en el Objeto Acompanante con los datos del Formulario
+                    $nuevoAcompanante->setCedula($cedulaAcompanante);
+                    $nuevoAcompanante->setNombre($nombreAcompanante);
+                    $nuevoAcompanante->setIdTipoAcompanante($tipoAcompanante);
+                    $nuevoAcompanante->setIdCita($idCita);
+                    $nuevoAcompanante->setActive(1);
+
+                    if($acompananteDAL->BuscarCedula($cedulaAcompanante) == false)
+                    {
+                        echo "<h1>'".$cedulaAcompanante."'</h1>";
+                        if($acompananteDAL->NuevoAcompanante($nuevoAcompanante))
+                        {
+                            //Siguiente ciclo...
+                            $contador++;
+                        }
+                        else
+                        {
+                            //echo "<h1>NUEVA ACOMPANANTE ERROR</h1>";
+                            $citaDAL->DesactivarCita($idCita);
+                            $asistenteDAL->DesactivarAsistente($idAsistente);
+                            break;
+                            header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+                        }
+                    }                    
+                }            
             }
             else
             {
-                echo "<h1>NUEVA CITA ERROR</h1>";
-                //header("Location: ../../GUI/Index/Index.php");
+                //echo "<h1>NUEVA CITA ERROR</h1>";
+                $asistenteDAL->DesactivarAsistente($idAsistente);
+                header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
             }
         }
         else
         {
-            echo "<h1>NUEVO ASISTENTE ERROR</h1>";
-            //header("Location: ../../GUI/Index/Index.php");
+            //echo "<h1>NUEVO ASISTENTE ERROR</h1>";
+            header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
         }
     }
     else
     {
-        echo "<h1>CEDULAS IGUALES ERROR</h1>";
-        //header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+        //echo "<h1>CEDULAS IGUALES ERROR</h1>";
+        header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
     }
 
     

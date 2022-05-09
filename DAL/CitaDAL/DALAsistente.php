@@ -6,13 +6,39 @@
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "INSERT INTO `ASISTENTE` (`CEDULA`,`NOMBRE`,`APELLIDO1`,`APELLIDO2`,`CORREO`,`TELEFONO`,`IDCOLEGIOPROCEDENCIA`,`ACTIVE`)
-                            VALUES ('".$nuevoAsistente->getCedula()."','".$nuevoAsistente->getNombre()."','".$nuevoAsistente->getApellido1()."','".$nuevoAsistente->getApellido2()."'
-                            ,'".$nuevoAsistente->getCorreo()."','".$nuevoAsistente->getTelefono()."','".$nuevoAsistente->getIdColegioProcedencia()."','".$nuevoAsistente->getActive()."')";
-
+            $consultaSql = "INSERT INTO `ASISTENTE` (`CEDULA`, `NOMBRE`, `APELLIDO1`, `APELLIDO2`, `CORREO`, `TELEFONO`, `IDCOLEGIOPROCEDENCIA`, `ACTIVE`)
+                VALUES ('".$nuevoAsistente->getCedula()."', '".$nuevoAsistente->getNombre()."', '".$nuevoAsistente->getApellido1()."',
+                '".$nuevoAsistente->getApellido2()."', '".$nuevoAsistente->getCorreo()."', '".$nuevoAsistente->getTelefono()."',
+                '".$nuevoAsistente->getIdColegioProcedencia()."', 1)";
+            
             if($conexionDB->NuevaConexion($consultaSql))
             {
                 $resultado = true;
+            }
+
+            $conexionDB->CerrarConexion();
+            return $resultado;
+        }
+
+        //Funcion para verificar que no existan datos iguales en la DB
+        function BuscarCedula($cedula)
+        {
+            $resultado = false;
+            $conexionDB = new Conexion();
+
+            $consultaSql = "SELECT * FROM `ASISTENTE` WHERE `CEDULA` = '".$cedula."' AND `ACTIVE` = 1";
+
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+            if(mysqli_num_rows($respuestaDB)>0)
+            {
+                while($filaAsistente = $respuestaDB->fetch_assoc())
+                {
+                    if($cedula != $filaAsistente["cedula"])
+                        break;
+                    else
+                        $resultado = true;
+                }
             }
 
             $conexionDB->CerrarConexion();
@@ -41,25 +67,16 @@
             return $ultimoAsistenteDB;
         }
 
-        //Funcion para verificar que no existan datos iguales en la DB
-        function BuscarCedula($cedula)
+        function DesactivarAsistente($idAsistente)
         {
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM `ASISTENTE` WHERE `CEDULA` = '".$cedula."'";
+            $consultaSql = "UPDATE `ASISTENTE` SET `ACTIVE` = 0 WHERE `ID`= '".$idAsistente."'";
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
-
-            if(mysqli_num_rows($respuestaDB)>0)
+            if($conexionDB->NuevaConexion($consultaSql))
             {
-                while($filaAsistente = $respuestaDB->fetch_assoc())
-                {
-                    if($cedula != $filaAsistente["cedula"])
-                        break;
-                    else
-                        $resultado = true;
-                }
+                $resultado = true;
             }
 
             $conexionDB->CerrarConexion();

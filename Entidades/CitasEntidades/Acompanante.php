@@ -3,6 +3,7 @@
     {
         private $id;
         private $cedula;
+        private $nombre;
         private $idTipoAcompanante;
         private $idCita;
         private $active;
@@ -37,6 +38,22 @@
         public function setCedula($cedula)
         {
             $this->cedula = $cedula;
+        }
+        
+        /**
+         * @return mixed
+         */
+        public function getNombre()
+        {
+            return $this->nombre;
+        }
+
+        /**
+         * @param mixed $nombre
+         */
+        public function setNombre($nombre)
+        {
+            $this->nombre = $nombre;
         }
 
         /**
