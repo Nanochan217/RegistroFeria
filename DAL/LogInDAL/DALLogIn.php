@@ -3,7 +3,6 @@
     {
         function NuevaSesionUsuario(Credenciales $credencialesSesion)
         {
-            //$credencial = new Credenciales();
             $conexionDB = new Conexion();
 
             $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='".$credencialesSesion->getCorreo()."' 
@@ -40,7 +39,8 @@
                 $tituloCorreo = "Solicitud de Restablecimiento de Contraseña";
                 $cuerpoCorreo = "¡Hemos recibido una solicitud de cambio de contraseña! Haz click en el siguiente enlace para restablecer tu contraseña: '".$link."'";                
                 $cuerpoCorreo = wordwrap($cuerpoCorreo, 70);
-
+                
+                //La función "Envía el Correo" pero el servidor de SMTP no lo realiza y por ende el receptor no lo recibe...
                 if(mail($correoUsuario, $tituloCorreo, $cuerpoCorreo))
                 {
                     $resultado = true;
@@ -68,7 +68,7 @@
         }
     }
 
-//En caso de añadir un tiempo de expiración...
+//En caso de añadir un tiempo de expiración al Correo Electrónico de Recuperación de Conttraseña...
 //$expFormat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("y"));
 //$expDate = date("Y-m-d H:i:s", $expFormat);
 //$update = "";
