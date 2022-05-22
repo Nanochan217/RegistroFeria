@@ -33,11 +33,26 @@
             $contrasenaUsuario = $credencialesSesion->getContrasena();
             $hash = password_hash($contrasenaUsuario, PASSWORD_DEFAULT);
             
-            if(password_verify($contrasenaUsuario, $hash))
-            {                
-                echo "COINCIDEN? (".$hash.")";
-                echo "AAAA";
+            $consultaHash = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correoUsuario."' AND `ACTIVE` = 1";
+            
+            $HASHBD = $conexionDB->NuevaConexion($consultaHash);
+            
+            if(mysqli_num_rows($HASHBD)>0)
+            {
+                while($filaCredencial = $HASHBD->fetch_assoc())
+                {
+                    if(password_verify($contrasenaUsuario, $filaCredencial["contrasena"]))
+                    {                
+                        echo "COINCIDEN...";
+                    }
+                    else
+                    {
+                        echo "NO COINCIDEN";
+                    }
+                }
             }
+            
+            
             
             
             
