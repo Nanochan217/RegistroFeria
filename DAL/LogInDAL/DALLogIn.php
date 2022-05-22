@@ -31,7 +31,7 @@
             $conexionDB = new Conexion();
             $correoUsuario = $credencialesSesion->getCorreo();
             $contrasenaUsuario = $credencialesSesion->getContrasena();
-            $hash = password_hash($contrasenaUsuario, PASSWORD_DEFAULT);
+            //$hash = password_hash($contrasenaUsuario, PASSWORD_DEFAULT);
             
             $consultaHash = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correoUsuario."' AND `ACTIVE` = 1";
             
@@ -44,10 +44,12 @@
                     if(password_verify($contrasenaUsuario, $filaCredencial["contrasena"]))
                     {                
                         echo "COINCIDEN...";
+                        $conexionDB->CerrarConexion();
                     }
                     else
                     {
                         echo "NO COINCIDEN";
+                        $conexionDB->CerrarConexion();
                     }
                 }
             }
