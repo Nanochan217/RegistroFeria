@@ -41,7 +41,7 @@
             {
                 while($filaCredencial = $HASHBD->fetch_assoc())
                 {
-                    if(false == password_verify($contrasenaUsuario, $filaCredencial["contrasena"]))
+                    if(true == password_verify($contrasenaUsuario, $filaCredencial["contrasena"]))
                     {                
                         echo "COINCIDEN...";
                         $conexionDB->CerrarConexion();
