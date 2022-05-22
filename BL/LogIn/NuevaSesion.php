@@ -10,8 +10,8 @@
     $CredencialesDAL = new DALLogIn();
 
     //Obtencion por medio de POST tanto el Correo como Contraseña ingresados
-    $correoUsuario = $_POST['usuario'];
-    $contrasena = $_POST['password'];
+    $correoUsuario = $_POST['correoPost'];
+    $contrasena = $_POST['contrasenaPost'];
     
     //Objeto de Nueva Sesion para el DAL de Sesion
     $confirmarSesion->setId(null);
@@ -29,19 +29,13 @@
         if($perfilUsuario == 1)
         {
             RestaurarSesion();
-//                if(!isset($_SESSION))
-//                    unset($_SESSION);                
-//                session_start();
             $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
             $_SESSION["Perfil"] = $perfilUsuario;
             header("Location: ../../GUI/Index/Index.php");
         }        
         else if($perfilUsuario == 2)
         {
-            RestaurarSesion();
-//                if(!isset($_SESSION))
-//                    unset($_SESSION);                
-//                session_start();                
+            RestaurarSesion();               
             $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
             $_SESSION["Perfil"] = $perfilUsuario;
             header("Location: ../../GUI/Index/Index.php");
@@ -49,9 +43,6 @@
         else
         {
             RestaurarSesion();
-//                if(!isset($_SESSION))
-//                    unset($_SESSION);
-//                session_start();
             $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
             $_SESSION["Perfil"] = $perfilUsuario;
             header("Location: ../../GUI/Index/Index.php");
@@ -59,8 +50,8 @@
     }
     else
     {
-        echo "Los datos que ha ingresado son incorrectos";
-        header("Location: ../../GUI/Login/Login.php");
+        echo "Correo y/o Contraseña incorrectos <br> Intentelo nuevamente";
+        //header("Location: ../../GUI/Login/Login.php");
     }
 
     function RestaurarSesion()
