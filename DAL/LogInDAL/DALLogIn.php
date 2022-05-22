@@ -33,6 +33,10 @@
                         
             if(password_verify($credencialesSesion->getContrasena(), $nuevasCredenciales->getContrasena()))
             {
+                return $credencialesSesion;
+            }
+            else
+            {
                 $credencialesSesion = null;
             }
             
