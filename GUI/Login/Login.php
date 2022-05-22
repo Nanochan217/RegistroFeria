@@ -51,7 +51,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                 </div>
                 <div class="row">
                     <div class="col">
-                        <form method="post">
+                        <form action="../../BL/LogIn/NuevaSesion.php" method="post">
                             <div class="mb-3" id="errorLogin"></div>
                             <div class="mb-3">
                                 <label for="correo" class="form-label">Correo Electrónico</label>
@@ -106,8 +106,9 @@ $cssDefault = file_get_contents('../Default/Style.css');
 
     <!-- START Scripts  -->
     <?php
-    echo $jsLinks;;
+    echo $jsLinks;
     ?>
+    <script src="./Login.js"></script>
     <!-- END Scripts  -->
 </body>
 
