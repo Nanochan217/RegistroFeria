@@ -25,6 +25,7 @@
             return $credencial;
         }
         
+        //OJO, NO SE CONSIGUE QUE DEVUELVA UN NULO EN CASO DE QUE NO COINCIDAN...
         function NuevaSesionUsuario(Credenciales $credencialesSesion)
         {
             $nuevasCredenciales = new Credenciales();
