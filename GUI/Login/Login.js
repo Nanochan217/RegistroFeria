@@ -1,11 +1,11 @@
 $(document).ready(function () {        
     $("#logIn").click(function (){
-        var correoUsuario = $("#correo").val();
+        var correoUsuario = $("#usuario").val();
         var contrasenaUsuario = $("#password").val();
         
         $.post("../../BL/LogIn/NuevaSesion.php", {
-            correoPost : correoUsuario,
-            contrasenaPost : contrasenaUsuario
+            correo : correoUsuario,
+            contrasena : contrasenaUsuario
         },
         function (respuesta) { $("#errorLogin").html(respuesta); });
     });
