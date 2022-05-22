@@ -4,8 +4,8 @@ $(document).ready(function () {
         var contrasenaUsuario = $("#password").val();
         
         $.post("../../BL/LogIn/NuevaSesion.php", {
-            correo : correoUsuario,
-            contrasena : contrasenaUsuario
+            correoLogIn : correoUsuario,
+            contrasenaLogIn : contrasenaUsuario
         },
         function (respuesta) { $("#errorLogin").html(respuesta); });
     });
