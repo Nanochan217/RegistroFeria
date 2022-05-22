@@ -30,32 +30,33 @@
         {
             $conexionDB = new Conexion();
             $correoUsuario = $credencialesSesion->getCorreo();
-            $contrasenaUsuario = $credencialesSesion->getContrasena();
-            //$hash = password_hash($contrasenaUsuario, PASSWORD_DEFAULT);
+            $contrasenaUsuario = $credencialesSesion->getContrasena();            
             
-            $consultaHash = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correoUsuario."' AND `ACTIVE` = 1";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correoUsuario."' AND `ACTIVE` = 1";
             
-            $HASHBD = $conexionDB->NuevaConexion($consultaHash);
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
             
-            if(mysqli_num_rows($HASHBD)>0)
+            if(mysqli_num_rows($respuestaDB)>0)
             {
-                while($filaCredencial = $HASHBD->fetch_assoc())
+                while($filaCredencial = $respuestaDB->fetch_assoc())
                 {
                     if(password_verify($contrasenaUsuario, $filaCredencial["contrasena"]))
-                    {                
-                        echo "COINCIDEN...";
-                        $conexionDB->CerrarConexion();
+                    {                                                          
+                        $credencialesSesion->setId($filaCredencial["id"]);
                     }
                     else
                     {
-                        echo "NO COINCIDEN";
-                        $conexionDB->CerrarConexion();
+                        $credencialesSesion = null;
                     }
                 }
             }
+            else
+            {
+                $credencialesSesion = null;
+            }
             
-            
-            
+            $conexionDB->CerrarConexion();
+            return $credencialesSesion;
             
             
 //            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correoUsuario."' AND `CONTRASENA` = '".$hash."' AND `ACTIVE` = 1";
