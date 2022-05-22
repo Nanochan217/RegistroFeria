@@ -51,7 +51,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                 </div>
                 <div class="row">
                     <div class="col">
-                        <form action="../../BL/LogIn/NuevaSesion.php" method="post">
+                        <form action="" method="post">
                             <div id="errorLogin"></div>
                             <div class="mb-3">
                                 <label for="correo" class="form-label">Correo Electrónico</label>
