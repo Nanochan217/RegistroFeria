@@ -34,7 +34,7 @@
                         
             //$ver = password_hash($credencialesSesion->getContrasena(), PASSWORD_DEFAULT);
             
-            if(password_verify($credencialesSesion->getContrasena(), $ver))
+            if(password_verify($credencialesSesion->getContrasena(), $nuevasCredenciales->getContrasena()))
             {
                 $credencialesSesion->setId($nuevasCredenciales->getId());
             }
