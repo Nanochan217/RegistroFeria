@@ -10,8 +10,8 @@
     $CredencialesDAL = new DALLogIn();
 
     //Obtencion por medio de POST tanto el Correo como Contraseña ingresados
-    $correoUsuario = $_POST['correo'];
-    $contrasena = $_POST['contrasena'];
+    $correoUsuario = $_POST['correoLogIn'];
+    $contrasena = $_POST['contrasenaLogIn'];
     
     //Objeto de Nueva Sesion para el DAL de Sesion
     $confirmarSesion->setId(null);
