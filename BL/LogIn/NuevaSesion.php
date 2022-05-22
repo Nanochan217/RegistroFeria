@@ -20,48 +20,48 @@
     $confirmarSesion->setActive(1);
 
     $estadoSesion = $CredencialesDAL->NuevaSesionUsuario($confirmarSesion);
-//    if(isset($estadoSesion))
-//    {
-//        $id = $estadoSesion->getId();
-//        $nuevaSesionUsuario = $UsuarioDAL->BuscarSesionUsuario($id);
-//        $perfilUsuario = $nuevaSesionUsuario->getIdPerfil();
-//        
-//        if($perfilUsuario == 1)
-//        {
-//            RestaurarSesion();
-////                if(!isset($_SESSION))
-////                    unset($_SESSION);                
-////                session_start();
-//            $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
-//            $_SESSION["Perfil"] = $perfilUsuario;
-//            header("Location: ../../GUI/Index/Index.php");
-//        }        
-//        else if($perfilUsuario == 2)
-//        {
-//            RestaurarSesion();
-////                if(!isset($_SESSION))
-////                    unset($_SESSION);                
-////                session_start();                
-//            $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
-//            $_SESSION["Perfil"] = $perfilUsuario;
-//            header("Location: ../../GUI/Index/Index.php");
-//        }        
-//        else
-//        {
-//            RestaurarSesion();
-////                if(!isset($_SESSION))
-////                    unset($_SESSION);
-////                session_start();
-//            $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
-//            $_SESSION["Perfil"] = $perfilUsuario;
-//            header("Location: ../../GUI/Index/Index.php");
-//        }        
-//    }
-//    else
-//    {
-//        echo "Los datos que ha ingresado son incorrectos";
-//        header("Location: ../../GUI/Login/Login.php");
-//    }
+    if(isset($estadoSesion))
+    {
+        $id = $estadoSesion->getId();
+        $nuevaSesionUsuario = $UsuarioDAL->BuscarSesionUsuario($id);
+        $perfilUsuario = $nuevaSesionUsuario->getIdPerfil();
+        
+        if($perfilUsuario == 1)
+        {
+            RestaurarSesion();
+//                if(!isset($_SESSION))
+//                    unset($_SESSION);                
+//                session_start();
+            $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
+            $_SESSION["Perfil"] = $perfilUsuario;
+            header("Location: ../../GUI/Index/Index.php");
+        }        
+        else if($perfilUsuario == 2)
+        {
+            RestaurarSesion();
+//                if(!isset($_SESSION))
+//                    unset($_SESSION);                
+//                session_start();                
+            $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
+            $_SESSION["Perfil"] = $perfilUsuario;
+            header("Location: ../../GUI/Index/Index.php");
+        }        
+        else
+        {
+            RestaurarSesion();
+//                if(!isset($_SESSION))
+//                    unset($_SESSION);
+//                session_start();
+            $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
+            $_SESSION["Perfil"] = $perfilUsuario;
+            header("Location: ../../GUI/Index/Index.php");
+        }        
+    }
+    else
+    {
+        echo "Los datos que ha ingresado son incorrectos";
+        header("Location: ../../GUI/Login/Login.php");
+    }
 
     function RestaurarSesion()
     {
