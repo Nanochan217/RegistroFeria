@@ -2,7 +2,7 @@
     class DALLogIn
     {
         function BuscarHashContrasena(Credenciales $credencial)
-        {            
+        {        
             $conexionDB = new Conexion();
             
             $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$credencial->getCorreo()."' AND `ACTIVE` = 1";            
@@ -27,9 +27,11 @@
         
         function NuevaSesionUsuario(Credenciales $credencialesSesion)
         {
-            $credencialesSesion = $this->BuscarHashContrasena($credencialesSesion);
+            $nuevasCredenciales = new Credenciales();
+            
+            $nuevasCredenciales = $this->BuscarHashContrasena($credencialesSesion);            
                         
-            if(!password_verify($contrasenaUsuario, $hashUsuario))
+            if(!password_verify($credencialesSesion->getContrasena(), $nuevasCredenciales->getContrasena()))
             {
                 $credencialesSesion = null;
             }
