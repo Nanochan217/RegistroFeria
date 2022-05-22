@@ -31,7 +31,7 @@
             
             $nuevasCredenciales = $this->BuscarHashContrasena($credencialesSesion);            
                         
-            if(!password_verify($credencialesSesion->getContrasena(), $nuevasCredenciales->getContrasena()))
+            if(password_verify($credencialesSesion->getContrasena(), $nuevasCredenciales->getContrasena()))
             {
                 
                 return $credencialesSesion;
