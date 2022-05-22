@@ -1,6 +1,6 @@
 $(document).ready(function () {        
     $("#logIn").click(function (){
-        var correoUsuario = $("#usuario").val();
+        var correoUsuario = $("#correo").val();
         var contrasenaUsuario = $("#password").val();
         
         $.post("../../BL/LogIn/NuevaSesion.php", {
