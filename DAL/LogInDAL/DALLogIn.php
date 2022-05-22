@@ -1,31 +1,6 @@
 <?php
     class DALLogIn
     {
-//        function BuscarHashContrasena(Credenciales $credencial)
-//        {        
-//            $conexionDB = new Conexion();
-//            
-//            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$credencial->getCorreo()."' AND `ACTIVE` = 1";            
-//            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
-//            
-//            if(mysqli_num_rows($respuestaDB)>0)
-//            {
-//                while($filaCredencial = $respuestaDB->fetch_assoc())
-//                {
-//                    $credencial->setId($filaCredencial["id"]);
-//                    $credencial->setContrasena($filaCredencial["contrasena"]);
-//                }            
-//            }
-//            else
-//            {
-//                $credencial = null;
-//            }       
-//            
-//            $conexionDB->CerrarConexion();
-//            return $credencial;
-//        }
-        
-        //OJO, NO SE CONSIGUE QUE DEVUELVA UN NULO EN CASO DE QUE NO COINCIDAN...
         function NuevaSesionUsuario(Credenciales $credencialesSesion)
         {
             $conexionDB = new Conexion();
@@ -56,47 +31,7 @@
             }
             
             $conexionDB->CerrarConexion();
-            return $credencialesSesion;
-            
-            
-//            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correoUsuario."' AND `CONTRASENA` = '".$hash."' AND `ACTIVE` = 1";
-//            
-//            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
-//            
-//            if(mysqli_num_rows($respuestaDB)>0)
-//            {
-//                while($filaCredencial = $respuestaDB->fetch_assoc())
-//                {
-//                    $credencialesSesion->setId($filaCredencial["id"]);
-//                }            
-//            }
-//            else
-//            {
-//                $credencialesSesion = null;
-//            }
-//            
-//            $conexionDB->CerrarConexion();
-//            return $credencialesSesion;
-            
-            
-            
-            
-//            $nuevasCredenciales = new Credenciales();
-//            
-//            $nuevasCredenciales = $this->BuscarHashContrasena($credencialesSesion);            
-//                        
-//            //$ver = password_hash($credencialesSesion->getContrasena(), PASSWORD_DEFAULT);
-//            
-//            if(password_verify($credencialesSesion->getContrasena(), $nuevasCredenciales->getContrasena()))
-//            {
-//                $credencialesSesion->setId($nuevasCredenciales->getId());
-//            }
-//            else 
-//            {
-//                $credencialesSesion = null;                
-//            }       
-//            
-//            return $credencialesSesion;
+            return $credencialesSesion;                        
         }
 
         function VerificarCorreoUsuario($correoUsuario)
