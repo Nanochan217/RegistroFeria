@@ -23,39 +23,41 @@
     if(isset($estadoSesion))
     {
         $id = $estadoSesion->getId();
-        if($nuevaSesionUsuario = $UsuarioDAL->BuscarSesionUsuario($id))
+        $nuevaSesionUsuario = $UsuarioDAL->BuscarSesionUsuario($id);
+        $perfilUsuario = $nuevaSesionUsuario->getIdPerfil();
+        
+        if($perfilUsuario == 1)
         {
-            if($nuevaSesionUsuario->getIdPerfil()==1)
-            {
-                RestaurarSesion();
+            RestaurarSesion();
 //                if(!isset($_SESSION))
 //                    unset($_SESSION);                
 //                session_start();
-                $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
-                $_SESSION["Perfil"] = 1;
-                header("Location: ../../GUI/Index/Index.php");
-            }
-            else if($nuevaSesionUsuario->getIdPerfil()==2)
-            {
-                RestaurarSesion();
+            $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
+            $_SESSION["Perfil"] = $perfilUsuario;
+            header("Location: ../../GUI/Index/Index.php");
+        }
+        
+        if($perfilUsuario == 2)
+        {
+            RestaurarSesion();
 //                if(!isset($_SESSION))
 //                    unset($_SESSION);                
 //                session_start();                
-                $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
-                $_SESSION["Perfil"] = 2;
-                header("Location: ../../GUI/Index/Index.php");
-            }
-            else
-            {
-                RestaurarSesion();
+            $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
+            $_SESSION["Perfil"] = $perfilUsuario;
+            header("Location: ../../GUI/Index/Index.php");
+        }
+        
+        if($perfilUsuario == 3)
+        {
+            RestaurarSesion();
 //                if(!isset($_SESSION))
 //                    unset($_SESSION);
 //                session_start();
-                $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
-                $_SESSION["Perfil"] = 3;
-                header("Location: ../../GUI/Index/Index.php");
-            }
-        }
+            $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
+            $_SESSION["Perfil"] = $perfilUsuario;
+            header("Location: ../../GUI/Index/Index.php");
+        }        
     }
     else
     {
