@@ -32,7 +32,7 @@
             
             $nuevasCredenciales = $this->BuscarHashContrasena($credencialesSesion);            
                         
-            $ver = password_hash($credencialesSesion->getContrasena(), PASSWORD_DEFAULT);
+            //$ver = password_hash($credencialesSesion->getContrasena(), PASSWORD_DEFAULT);
             
             if(password_verify($credencialesSesion->getContrasena(), $ver))
             {
