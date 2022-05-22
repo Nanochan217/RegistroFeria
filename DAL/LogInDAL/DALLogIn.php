@@ -1,26 +1,38 @@
 <?php
     class DALLogIn
     {
-        function NuevaSesionUsuario(Credenciales $credencialesSesion)
-        {
+        function BuscarHashContrasena(Credenciales $credencial)
+        {            
             $conexionDB = new Conexion();
-
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='".$credencialesSesion->getCorreo()."' 
-                            AND `CONTRASENA` ='".$credencialesSesion->getContrasena()."' AND `ACTIVE` = 1";
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
-
+            $respuestaDB = $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$credencial->getCorreo()."' AND `ACTIVE` = 1";
+            
             if(mysqli_num_rows($respuestaDB)>0)
             {
-                while ($filaCredencial = $respuestaDB->fetch_assoc())
+                while($filaCredencial = $respuestaDB->fetch_assoc())
                 {
-                    $credencialesSesion->setId($filaCredencial["id"]);
-                }
+                    $credencial->setId($filaCredencial["id"]);
+                    $credencial->setContrasena($filaCredencial["contrasena"]);
+                }            
             }
             else
             {
+                $credencial = null;
+            }       
+            
+            $conexionDB->CerrarConexion();
+            return $credencial;
+        }
+        
+        function NuevaSesionUsuario(Credenciales $credencialesSesion)
+        {
+            $conexionDB = new Conexion();                        
+            $credencialesSesion = BuscarHashContrasena($credencialesSesion);
+                        
+            if(!password_verify($contrasenaUsuario, $hashUsuario))
+            {
                 $credencialesSesion = null;
             }
-
+            
             $conexionDB->CerrarConexion();
             return $credencialesSesion;
         }
@@ -51,12 +63,13 @@
             return $resultado;
         }
 
+        //HACER EL ENCRIPTADO DE LA CONTRASEÑA!!!!!!!!!!
         function RestablecerContrasena($correoUsuario, $nuevaContraseña)
         {
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM `CREDENCIALES` SET `CONTRASENA`=".$nuevaContraseña." WHERE `CORREO`=".$correoUsuario;
+            $consultaSql = "UPDATE `CREDENCIALES` SET `CONTRASENA`=".$nuevaContraseña." WHERE `CORREO`=".$correoUsuario;
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
