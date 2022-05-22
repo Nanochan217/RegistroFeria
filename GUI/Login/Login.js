@@ -7,7 +7,8 @@ $(document).ready(function () {
             correoLogIn : correoUsuario,
             contrasenaLogIn : contrasenaUsuario
         },
-        function (respuesta) { $("#errorLogin").html(respuesta); });
+        function (respuesta) { $("#errorLogin").html(respuesta); });        
+        return false;        
     });
     
     //Falta la Confirmación del Correo Electrónico
