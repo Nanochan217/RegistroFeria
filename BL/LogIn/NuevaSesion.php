@@ -20,7 +20,7 @@
     $confirmarSesion->setActive(1);
 
     $estadoSesion = $CredencialesDAL->NuevaSesionUsuario($confirmarSesion);
-    if(!isset($estadoSesion))
+    if(isset($estadoSesion))
     {
         $id = $estadoSesion->getId();
         $nuevaSesionUsuario = $UsuarioDAL->BuscarSesionUsuario($id);
@@ -35,9 +35,8 @@
             $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
             $_SESSION["Perfil"] = $perfilUsuario;
             header("Location: ../../GUI/Index/Index.php");
-        }
-        
-        if($perfilUsuario == 2)
+        }        
+        else if($perfilUsuario == 2)
         {
             RestaurarSesion();
 //                if(!isset($_SESSION))
@@ -46,9 +45,8 @@
             $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
             $_SESSION["Perfil"] = $perfilUsuario;
             header("Location: ../../GUI/Index/Index.php");
-        }
-        
-        if($perfilUsuario == 3)
+        }        
+        else
         {
             RestaurarSesion();
 //                if(!isset($_SESSION))
