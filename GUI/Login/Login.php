@@ -36,7 +36,6 @@ $cssDefault = file_get_contents('../Default/Style.css');
 </head>
 
 <body class="bg-light">
-    <script src="./Login.js"></script>
     <div class="container py-5">
         <div class="row pb-4">
             <div class="col">
@@ -109,6 +108,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
     <?php
     echo $jsLinks;
     ?>
+    <script src="./Login.js"></script>
     <!-- END Scripts  -->
 </body>
 
