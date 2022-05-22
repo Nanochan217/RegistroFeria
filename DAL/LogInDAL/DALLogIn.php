@@ -31,16 +31,12 @@
             
             $nuevasCredenciales = $this->BuscarHashContrasena($credencialesSesion);            
                         
-            if(password_verify($credencialesSesion->getContrasena(), $nuevasCredenciales->getContrasena()))
+            if(isset(password_verify($credencialesSesion->getContrasena(), $nuevasCredenciales->getContrasena())))
             {
-                return $credencialesSesion;
-            }
-            else
-            {
-                $credencialesSesion = null;
-            }
-            
+                
             return $credencialesSesion;
+            }         
+            
         }
 
         function VerificarCorreoUsuario($correoUsuario)
