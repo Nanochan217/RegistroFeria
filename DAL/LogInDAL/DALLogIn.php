@@ -1,29 +1,29 @@
 <?php
     class DALLogIn
     {
-        function BuscarHashContrasena(Credenciales $credencial)
-        {        
-            $conexionDB = new Conexion();
-            
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$credencial->getCorreo()."' AND `ACTIVE` = 1";            
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
-            
-            if(mysqli_num_rows($respuestaDB)>0)
-            {
-                while($filaCredencial = $respuestaDB->fetch_assoc())
-                {
-                    $credencial->setId($filaCredencial["id"]);
-                    $credencial->setContrasena($filaCredencial["contrasena"]);
-                }            
-            }
-            else
-            {
-                $credencial = null;
-            }       
-            
-            $conexionDB->CerrarConexion();
-            return $credencial;
-        }
+//        function BuscarHashContrasena(Credenciales $credencial)
+//        {        
+//            $conexionDB = new Conexion();
+//            
+//            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$credencial->getCorreo()."' AND `ACTIVE` = 1";            
+//            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+//            
+//            if(mysqli_num_rows($respuestaDB)>0)
+//            {
+//                while($filaCredencial = $respuestaDB->fetch_assoc())
+//                {
+//                    $credencial->setId($filaCredencial["id"]);
+//                    $credencial->setContrasena($filaCredencial["contrasena"]);
+//                }            
+//            }
+//            else
+//            {
+//                $credencial = null;
+//            }       
+//            
+//            $conexionDB->CerrarConexion();
+//            return $credencial;
+//        }
         
         //OJO, NO SE CONSIGUE QUE DEVUELVA UN NULO EN CASO DE QUE NO COINCIDAN...
         function NuevaSesionUsuario(Credenciales $credencialesSesion)
@@ -36,6 +36,7 @@
             if(password_verify($contrasenaUsuario, $hash))
             {                
                 echo "COINCIDEN? (".$hash.")";
+                echo "AAAA";
             }
             
             
