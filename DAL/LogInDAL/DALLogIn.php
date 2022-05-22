@@ -33,10 +33,14 @@
                         
             if(password_verify($credencialesSesion->getContrasena(), $nuevasCredenciales->getContrasena()))
             {
-                
-                return $credencialesSesion;
-            }         
+                $credencialesSesion->setId($nuevasCredenciales->getId());
+            }
+            else 
+            {
+                $credencialesSesion = null;                
+            }       
             
+            return $credencialesSesion;
         }
 
         function VerificarCorreoUsuario($correoUsuario)
