@@ -55,7 +55,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                             <div class="mb-3" id="errorLogin"></div>
                             <div class="mb-3">
                                 <label for="correo" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="correo" name="usuario" required>
+                                <input type="email" class="form-control" id="usuario" name="usuario" required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Contraseña</label>
