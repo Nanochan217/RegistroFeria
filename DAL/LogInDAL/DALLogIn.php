@@ -4,7 +4,9 @@
         function BuscarHashContrasena(Credenciales $credencial)
         {            
             $conexionDB = new Conexion();
-            $respuestaDB = $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$credencial->getCorreo()."' AND `ACTIVE` = 1";
+            
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$credencial->getCorreo()."' AND `ACTIVE` = 1";            
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
             
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -25,7 +27,6 @@
         
         function NuevaSesionUsuario(Credenciales $credencialesSesion)
         {
-            $conexionDB = new Conexion();                        
             $credencialesSesion = $this->BuscarHashContrasena($credencialesSesion);
                         
             if(!password_verify($contrasenaUsuario, $hashUsuario))
@@ -33,7 +34,6 @@
                 $credencialesSesion = null;
             }
             
-            $conexionDB->CerrarConexion();
             return $credencialesSesion;
         }
 
