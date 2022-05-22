@@ -3,16 +3,17 @@
     include '../../DAL/UsuarioDAL/DALUsuario.php';
     include '../../DAL/LogInDAL/DALLogIn.php';
     include '../../Entidades/UsuarioEntidades/Credenciales.php';
-    include '../../Entidades/UsuarioEntidades/Usuario.php';
-
-
-    $correoUsuario = $_POST['usuario'];
-    $contrasena = $_POST['password'];
-
+    include '../../Entidades/UsuarioEntidades/Usuario.php';   
+        
     $confirmarSesion = new Credenciales();
     $UsuarioDAL = new DALUsuario();
     $CredencialesDAL = new DALLogIn();
 
+    //Obtencion por medio de POST tanto el Correo como Contraseña ingresados
+    $correoUsuario = $_POST['usuario'];
+    $contrasena = $_POST['password'];
+    
+    //Objeto de Nueva Sesion para el DAL de Sesion
     $confirmarSesion->setId(null);
     $confirmarSesion->setCorreo($correoUsuario);
     $confirmarSesion->setContrasena($contrasena);
@@ -22,45 +23,44 @@
     if(isset($estadoSesion))
     {
         $id = $estadoSesion->getId();
-        if($nuevaSesionUsuario = $UsuarioDAL->BuscarSesionUsuario($id))
+        $nuevaSesionUsuario = $UsuarioDAL->BuscarSesionUsuario($id);
+        $perfilUsuario = $nuevaSesionUsuario->getIdPerfil();
+        
+        if($perfilUsuario == 1)
         {
-            if($nuevaSesionUsuario->getIdPerfil()==1)
-            {
-                if(!isset($_SESSION))
-                    unset($_SESSION);
-                //SuperAdmin
-                session_start();
-                $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
-                $_SESSION["Perfil"] = 1;
-                header("Location: ../../GUI/Index/Index.php");
-            }
-            else if($nuevaSesionUsuario->getIdPerfil()==2)
-            {
-                if(!isset($_SESSION))
-                    unset($_SESSION);
-                //Admin
-                session_start();
-                $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
-                $_SESSION["Perfil"] = 2;
-                header("Location: ../../GUI/Index/Index.php");
-            }
-            else
-            {
-                if(!isset($_SESSION))
-                    unset($_SESSION);
-                session_start();
-                $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
-                $_SESSION["Perfil"] = 3;
-                header("Location: ../../GUI/Index/Index.php");
-            }
-        }
+            RestaurarSesion();
+            $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
+            $_SESSION["Perfil"] = $perfilUsuario;
+            header("Location: ../../GUI/Index/Index.php");
+        }        
+        else if($perfilUsuario == 2)
+        {
+            RestaurarSesion();               
+            $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
+            $_SESSION["Perfil"] = $perfilUsuario;
+            header("Location: ../../GUI/Index/Index.php");
+        }        
+        else
+        {
+            RestaurarSesion();
+            $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
+            $_SESSION["Perfil"] = $perfilUsuario;
+            header("Location: ../../GUI/Index/Index.php");
+        }        
     }
     else
     {
-        echo "Los datos que ha ingresado son incorrectos";
-        header("Location: ../../GUI/Login/Login.php");
+        echo "Correo y/o Contraseña incorrectos <br> Intentelo nuevamente";
+        //header("Location: ../../GUI/Login/Login.php");
     }
 
+    function RestaurarSesion()
+    {
+        if(!isset($_SESSION))
+            unset($_SESSION);
+        return session_start();
+    }
+    
 ////////////////////////////////////////////////////////////////////////////////
 
 

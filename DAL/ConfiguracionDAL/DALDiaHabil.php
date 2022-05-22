@@ -17,6 +17,27 @@ class DALDiaHabil
     {
     }
 
+    function cantidadDias($idConfiguracion)
+    {        
+        $contadorDias = 0;
+        $conexionDB = new Conexion();
+
+        $consultaSql = "SELECT COUNT(`IDCONFIGURACION`) FROM `DIAHABIL` WHERE `IDCONFIGURACION` = '".$idConfiguracion."'";
+        $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+        if($respuestaDB > 0)
+        {
+            $contadorDias = $respuestaDB;
+        }
+        else
+        {
+            $contadorDias = null;
+        }
+        
+        $conexionDB->CerrarConexion();
+        return $contadorDias;
+    }
+
     function BuscarTodas()
     {
         $DiasHabilesDB = array();

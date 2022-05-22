@@ -289,6 +289,10 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                     $("#horarios").append(`
                         <div class="row mb-3 mx-0 p-3 gx-3 gapx-4 bg-light border rounded">
                             <div class="col-md-4 mt-0" hidden="true">
+                                <label for="cantidadHorario${contador}" class="form-label">ID</label>
+                                <input type="text" class="form-control" id="cantidadHorario${contador}" name="cantidadHorario${contador}" value="" required>
+                            </div>
+                            <div class="col-md-4 mt-0" hidden="true">
                                 <label for="idHorario${contador}" class="form-label">ID</label>
                                 <input type="text" class="form-control" id="idHorario${contador}" name="idHorario${contador}" value="${horario.id}" required>
                             </div>
@@ -344,6 +348,10 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                     contador++;
                     $("#dias").append(`
                         <div class="row mx-0 p-3 gx-3 gapx-4 bg-light border rounded mb-3">
+                            <div class="col-md-4 mt-0" hidden="true">
+                                <label for="cantidadDias${contador}" class="form-label">ID</label>
+                                <input type="text" class="form-control" id="cantidadDias${contador}" name="cantidadDias${contador}" value="" required>
+                            </div>  
                             <div class="col-md-8 mt-0" hidden="true">
                                 <label for="dia${contador}" class="form-label">Día ${contador}</label>                                
                                 <input type="text" class="form-control" id="idDia${contador}" name="idDia${contador}" value="${dia.id}">
