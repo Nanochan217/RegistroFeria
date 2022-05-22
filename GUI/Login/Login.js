@@ -4,11 +4,10 @@ $(document).ready(function () {
         var contrasenaUsuario = $("#password").val();
         
         $.post("../../BL/LogIn/NuevaSesion.php", {
-            correoLogIn : correoUsuario,
-            contrasenaLogIn : contrasenaUsuario
+            correoPost : correoUsuario,
+            contrasenaPost : contrasenaUsuario
         },
-        function (respuesta) { $("#errorLogin").html(respuesta); });        
-        return false;        
+        function (respuesta) { $("#errorLogin").html(""+respuesta); });
     });
     
     //Falta la Confirmación del Correo Electrónico
