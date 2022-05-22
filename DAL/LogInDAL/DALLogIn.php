@@ -26,7 +26,7 @@
         function NuevaSesionUsuario(Credenciales $credencialesSesion)
         {
             $conexionDB = new Conexion();                        
-            $credencialesSesion = BuscarHashContrasena($credencialesSesion);
+            $credencialesSesion = $this->BuscarHashContrasena($credencialesSesion);
                         
             if(!password_verify($contrasenaUsuario, $hashUsuario))
             {
