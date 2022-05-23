@@ -59,14 +59,15 @@
             $conexionDB->CerrarConexion();
             return $resultado;
         }
-
-        //HACER EL ENCRIPTADO DE LA CONTRASEÑA!!!!!!!!!!
+        
         function RestablecerContrasena($correoUsuario, $nuevaContraseña)
         {
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "UPDATE `CREDENCIALES` SET `CONTRASENA`=".$nuevaContraseña." WHERE `CORREO`=".$correoUsuario;
+            $contrasenaEncriptada = password_hash($nuevaContraseña, PASSWORD_DEFAULT);
+
+            $consultaSql = "UPDATE `CREDENCIALES` SET `CONTRASENA`=".$contrasenaEncriptada." WHERE `CORREO`=".$correoUsuario;
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
