@@ -66,10 +66,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                 </div>
                             </div>
                             <div class="row g-3">
-                                <div class="col-md-5" hidden="true">
-                                    <label for="idConfiguracion" class="form-label">IDCONFIGURACION</label>
-                                    <input type="text" class="form-control" id="idConfiguracion" name="idConfiguracion" value="">
-                                </div>
+                                <input type="hidden" class="form-control" id="idConfiguracion" name="idConfiguracion" value="1"> <!-- idConfiguracion -->
                                 <div class="col-md-5">
                                     <label for="fechaInicial" class="form-label">Fecha inicial</label>
                                     <input type="date" class="form-control" id="fechaInicial" name="fechaInicial" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
@@ -93,30 +90,31 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                     </div>
 
                     <div class="row gap-3 p-0">
+                        <!-- dias -->
                         <div class="col-lg border rounded shadow-sm bg-white p-5">
                             <h2 class="pb-4">Días hábiles</h2>
-                            <!-- START Dia 1 -->
-                            <div id="dias">
-
-                            </div>
+                            <div id="diasHidden" display="none"></div>
+                            <div id="dias"></div>
                             <!-- Button Agregar dia -->
                             <div class="d-grid gap-2" id="addDia">
-                                <button class="btn btn-outline-primary" type="button" id="btnAddDia">+ Agregar día</button>
+                                <button class="btn btn-outline-primary" type="button" id="btnAddDia" onclick="agregarDia()"><i class="bi bi-plus-circle align-middle lh-1 me-2" style="font-size: 18px;"></i>Agregar día</button>
                             </div>
                         </div>
+                        <!-- horarios -->
                         <div class="col-lg border rounded shadow-sm bg-white p-5" id="contenedorHorarios">
                             <h2 class="pb-4">Horarios</h2>
+                            <div id="horariosHidden" display="none"></div>
                             <div id="horarios">
                                 <div class="d-flex flex-column justify-content-center">
                                     <img src="../Assets/Images/seleccionarDia.svg" style="height:200px;">
                                     <h5 class="text-center mt-4 opacity-75">Seleccione un día para ver los horarios</h5>
                                 </div>
                             </div>
+                            <div class="d-grid gap-2" id="addHorario" style="display: none !important;">
+                                <button class="btn btn-outline-primary" type="button" id="btnAddHorario" onclick="agregarHorario(idDia)"><i class="bi bi-plus-circle align-middle lh-1 me-2" style="font-size: 18px;"></i>Agregar horario</button>
+                            </div>
 
-                            <!-- Button Agregar horario -->
-                            <!-- <div class="d-grid gap-2" id="addHorario">
-                                <button class="btn btn-outline-primary" type="button" id="btnAddHorario">+ Agregar horario</button>
-                            </div> -->
+
                         </div>
                     </div>
                     <div class="row gap-3 p-0">
@@ -143,248 +141,317 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
     echo $jsLinks;;
     ?>
     <Script>
-        $("#navEditarFormulario").addClass("active");
-
         var configuracion = <?php echo BuscarConfiguraciones() ?>;
-        var dias = <?php echo BuscarDiasHabiles() ?>;
-        var horarios = <?php echo BuscarHorarios() ?>;
-        var idDia;
+
+        var diasTemp = <?php echo BuscarDiasHabiles() ?>;
+        var dias = diasTemp.map(function(dia) {
+            dia.existe = true;
+            return dia;
+        });
+
+        var horariosTemp = <?php echo BuscarHorarios() ?>;
+        var horarios = horariosTemp.map(function(horario) {
+            horario.existe = true;
+            return horario;
+        });
+
         var diaSeleccionado = false;
+
+        var diasHidden = [];
+
+        //contadores
+        let contadorDiaShow = 0;
+        let contadorDiaHide = 0;
+
+        //dias y meses
+        var diasSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+        var mesesAnio = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
         $(document).ready(function() {
 
+            //rellena los inputs con los datos provenientes de la BD
             $("#fechaInicial").val(configuracion[0].fechaInicio);
             $("#fechaFinal").val(configuracion[0].fechaFinal);
             $("#maxAcompanantes").val(configuracion[0].acompanateMax);
-            console.log(configuracion[0].estadoConfiguracion)
-            // $("#formActivo").prop("checked", configuracion[0].acompanateMax);
+            (configuracion[0].estadoFormulario == '1') ? $("#formActivo").prop("checked", true): $("#formActivo").prop("checked", false);
 
-
-            recargarDias();
-
-            $("#btnAddDia").click(function() {
-
-                dias[dias.length] = {
-                    "id": UltimoID(),
-                    "dia": fechaHoy(),
-                    "idConfiguracion": "1",
-                    "visible": "1",
-                    "active": "1"
+            //agrega los datos provenientes de la BD a inputs hidden
+            dias.forEach(dia => {
+                agregarDiaInputHidden(dia)
+                if (dia.active == 1) {
+                    agregarDiaUsuario(dia)
                 }
-
-                function fechaHoy() {
-                    function pad2(n) {
-                        return (n < 10 ? '0' : '') + n;
-                    }
-
-                    var date = new Date();
-                    var month = pad2(date.getMonth() + 1); //months (0-11)
-                    var day = pad2(date.getDate()); //day (1-31)
-                    var year = date.getFullYear();
-
-                    var formattedDate = year + "-" + month + "-" + day;
-
-                    return formattedDate;
-                }
-
-                function UltimoID() {
-                    let ultimoID
-                    UltimoID = (parseInt(dias[dias.length - 1].id) + 1).toString();
-                    return UltimoID;
-                }
-
-                recargarDias();
             });
-            // $("#btnAddHorario").click(function() {
-            //     alert()
-            //     horarios[horarios.length] = {
-            //         "id": UltimoID(),
-            //         "horaInicio": horaHoy(),
-            //         "horaFinal": horaHoy(),
-            //         "aforoMaximo": 300,
-            //         "idDiaHabil": idDia,
-            //         "visible": "1",
-            //         "active": "1"
-            //     }
 
-            //     function horaHoy() {
-            //         var date = new Date();
-            //         var time = date.getHours() + ":00:00";
+            horarios.forEach(horario => {
+                agregarHorarioInputHidden(horario);
+            });
 
-            //         return time;
-            //     }
+            tooltips();
 
-            //     function UltimoID() {
-            //         let ultimoID
-            //         UltimoID = (parseInt(horarios[horarios.length - 1].id) + 1).toString();
-            //         return UltimoID;
-            //     }
-
-            //     recargarHorarios();
-            //     console.log(horarios);
-            // });
+            console.table(dias)
+            console.table(horarios)
 
         });
 
-        function agregarHorario() {
-            horarios[horarios.length] = {
-                "id": UltimoID(),
+
+        //agrega un dia al arreglo, inputs hidden y a la interfaz
+        function agregarDia() {
+            //se crea el dia
+            let nuevoDia = {
+                "id": UltimoID(dias),
+                "dia": fechaHoy(),
+                "idConfiguracion": "1",
+                "visible": "1",
+                "active": "1",
+                "existe": false
+            }
+
+            agregarDiaArreglo(nuevoDia); //se agrega al arreglo
+            agregarDiaInputHidden(nuevoDia); //se agrega en inputs hidden
+            agregarDiaUsuario(nuevoDia); //se muestra en pantalla para el usuario
+        }
+
+        //obtener la fecha de hoy
+        function fechaHoy() {
+            var fecha = new Date();
+            var mes = formatearNumero(fecha.getMonth() + 1); //meses (0-11)
+            var dia = formatearNumero(fecha.getDate()); //dias (1-31)
+            var anio = fecha.getFullYear();
+            var fechaFormateada = anio + "-" + mes + "-" + dia;
+
+            return fechaFormateada;
+        }
+
+        //formatea el numero agregando un 0 si el mes o dia son menores a 10
+        function formatearNumero(n) {
+            return (n < 10 ? '0' : '') + n;
+        }
+
+        //obtiene el ultimo ID del arreglo
+        function UltimoID(arreglo) {
+            let ultimoID;
+            ultimoID = (parseInt(arreglo[arreglo.length - 1].id) + 1).toString();
+            return ultimoID;
+        }
+
+        //agregar dia al arreglo
+        function agregarDiaArreglo(dia) {
+            dias[dias.length] = dia;
+        }
+
+        //agregar dia en inputs hidden
+        function agregarDiaInputHidden(dia) {
+            let contenedor = `<div id="dia${dia.id}" hidden="true">
+                                <input type="hidden" id="diaId${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][id]" value="${dia.id}">
+                                <input type="hidden" id="diaDia${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][dia]" value="${dia.dia}">
+                                <input type="hidden" id="diaIdConfiguracion${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][idConfiguracion]" value="${dia.idConfiguracion}">
+                                <input type="hidden" id="diaVisible${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][visible]" value="${dia.visible}">
+                                <input type="hidden" id="diaActive${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][active]" value="${dia.active}">
+                                <input type="hidden" id="diaExiste${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][existe]" value="${dia.existe}">
+                            </div>`
+
+            $('#diasHidden').append(contenedor);
+        }
+
+        //agregar dia a la interfaz
+        function agregarDiaUsuario(dia) {
+            let contenedor = `<div class="row mx-0 p-3 gx-3 gapx-4 bg-light border rounded mb-3" id="diaUsuario${dia.id}">
+                                <div class="col-md-8 mt-0">
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" id="inputDia${dia.id}" value="${dia.dia}" oninput="actualizarDiaInputHidden(${dia.id})" required>
+                                        <div class="input-group-text p-0">
+                                            <label class="py-2 px-3 lh-1" for="seleccionarDia${dia.id}" style="cursor: pointer;">
+                                            <input class="form-check-input mt-0" type="radio" id="seleccionarDia${dia.id}" name="diaSeleccionado" value="${(dia.id)}" onclick="idDia=${dia.id}, mostrarHorarios(this.value)" style="cursor: pointer;">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mt-0">
+                                    <div class="d-flex flex-column">
+                                        <div class="d-grid gap-2 g-2 d-md-block">
+                                            <button class="btn ${(dia.visible==1) ? "btn-light" : "btn-secondary"} border py-1 px-3 me-md-2" type="button" id="ocultarDia${dia.id}" value="${dia.id}" onclick="ocultar(this.value, dias, 'dia')" data-bs-toggle="tooltip" data-bs-placement="top" title="Ocultar día">${(dia.visible==1) ? '<i id="iconoOcultarDia' + dia.id + '" style="font-size: 18px; " class="bi bi-eye"></i>' : '<i id="iconoOcultarDia' + dia.id + '" style="font-size: 18px; " class="bi bi-eye-slash"></i>'}</button>
+                                            <button class="btn btn-danger py-1 px-3" type="button" id="eliminarDia${dia.id}" value="${dia.id}" onclick="eliminar(this.value, dias)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar día"><i style="font-size: 18px; " class="bi bi-trash3"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`
+
+            $('#dias').append(contenedor);
+            tooltips();
+        }
+
+        //eliminar de la interfaz y cambiar active de 1 a 0 en el arreglo y los input hidden
+        function eliminar(id, arreglo) {
+            dias.forEach(dia => {
+                if (dia.id == id) {
+                    dia.active = "0";
+                    $(`#diaActive${id}`).val("0");
+                    $(`#diaUsuario${id}`).remove();
+                    eliminarHorarios(dia.id);
+                }
+            });
+            console.table(dias)
+            console.table(horarios)
+
+        }
+
+        function eliminarHorarios(idDia) {
+            horarios.forEach(horario => {
+                if (horario.idDiaHabil == idDia) {
+                    eliminarHorario(horario.id);
+                }
+            });
+        }
+
+        function eliminarHorario(id) {
+            horarios.forEach(horario => {
+                if (horario.id == id) {
+                    horario.active = "0";
+                    $(`#horarioActive${id}`).val("0");
+                    $(`#horarioUsuario${id}`).remove();
+                }
+            });
+        }
+
+        //eliminar de la interfaz y cambiar active de 1 a 0 en el arreglo y los input hidden
+        function ocultar(id, arreglo, tipo) {
+            arreglo.forEach(item => {
+                if (item.id == id) {
+                    item.visible == "1" ? item.visible = "0" : item.visible = "1";
+                    $(`#${tipo}Visible${id}`).val() == "1" ? $(`#${tipo}Visible${id}`).val("0") : $(`#${tipo}Visible${id}`).val("1");
+                    $(`#ocultar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${id}`).hasClass('btn-light') == true ?
+                        $(`#ocultar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${id}`).removeClass('btn-light').addClass('btn-secondary') :
+                        $(`#ocultar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${id}`).removeClass('btn-secondary').addClass('btn-light');
+
+                    $(`#ocultar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${id}`).hasClass('btn-light') == true ?
+                        $(`#iconoOcultar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${id}`).removeClass('bi bi-eye-slash').addClass('bi bi-eye') :
+                        $(`#iconoOcultar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${id}`).removeClass('bi bi-eye').addClass('bi bi-eye-slash');
+                }
+            });
+        }
+
+        //agrega un horario al arreglo, inputs hidden y a la interfaz
+        function agregarHorario(idDiaHabil) {
+            //se crea el horario
+            let nuevoHorario = {
+                "id": UltimoID(horarios),
                 "horaInicio": horaHoy(),
                 "horaFinal": horaHoy(),
-                "aforoMaximo": 300,
-                "idDiaHabil": idDia,
+                "aforoMaximo": '300',
+                "idDiaHabil": `${idDiaHabil}`, //en proceso
                 "visible": "1",
-                "active": "1"
+                "active": "1",
+                "existe": false
             }
 
-            function horaHoy() {
-                var date = new Date();
-                var hora = date.getHours();
-                var time = pad2(hora) + ":00:00";
+            agregarHorarioArreglo(nuevoHorario); //se agrega al arreglo
+            agregarHorarioInputHidden(nuevoHorario); //se agrega en inputs hidden
+            agregarHorarioUsuario(nuevoHorario); //se muestra en pantalla para el usuario
+            console.table(horarios)
 
-                return time;
-            }
-
-            function pad2(n) {
-                return (n < 10 ? '0' : '') + n;
-            }
-
-            function UltimoID() {
-                let ultimoID
-                UltimoID = (parseInt(horarios[horarios.length - 1].id) + 1).toString();
-                return UltimoID;
-            }
-
-            recargarHorarios();
-            console.log(horarios);
         }
 
-        function eliminar(value, array) {
-            array[value].active = "0";
-            if (array == dias)
-                recargarDias();
-            else
-                recargarHorarios();
+        //obtener la hora de hoy
+        function horaHoy() {
+            var fecha = new Date();
+            var hora = formatearNumero(fecha.getHours()) + ":00:00";
+
+            return hora;
         }
 
-        function ocultar(value, array) {
-            if (array[value].visible == "0") {
-                array[value].visible = "1"
-            } else {
-                array[value].visible = "0";
-            }
-            if (array == dias)
-                recargarDias();
-            else
-                recargarHorarios();
+        //agregar horario al arreglo
+        function agregarHorarioArreglo(horario) {
+            horarios[horarios.length] = horario;
         }
 
-        function recargarHorarios() {
-            let contador = 0;
-            $("#horarios").html('')
-            $.each(horarios, function(i, horario) {
+        //agregar horario en inputs hidden
+        function agregarHorarioInputHidden(horario) {
+            let contenedor = `<div id="horario${horario.id}" hidden="true">
+                                <input type="hidden" id="horarioId${horario.id}" name="fechas[${(horario.idDiaHabil) - 1}][horario][${(horario.id) - 1}][id]" value="${horario.id}">
+                                <input type="hidden" id="horarioHoraInicio${horario.id}" name="fechas[${(horario.idDiaHabil) - 1}][horario][${(horario.id) - 1}][horaInicio]" value="${horario.horaInicio}">
+                                <input type="hidden" id="horarioHoraFinal${horario.id}" name="fechas[${(horario.idDiaHabil) - 1}][horario][${(horario.id) - 1}][horaFinal]" value="${horario.horaFinal}">
+                                <input type="hidden" id="horarioAforoMaximo${horario.id}" name="fechas[${(horario.idDiaHabil) - 1}][horario][${(horario.id) - 1}][aforoMaximo]" value="${horario.aforoMaximo}">
+                                <input type="hidden" id="horarioIdDiaHabil${horario.id}" name="fechas[${(horario.idDiaHabil) - 1}][horario][${(horario.id) - 1}][idDiaHabil]" value="${horario.idDiaHabil}">
+                                <input type="hidden" id="horarioVisible${horario.id}" name="fechas[${(horario.idDiaHabil) - 1}][horario][${(horario.id) - 1}][visible]" value="${horario.visible}">
+                                <input type="hidden" id="horarioActive${horario.id}" name="fechas[${(horario.idDiaHabil) - 1}][horario][${(horario.id) - 1}][active]" value="${horario.active}">
+                                <input type="hidden" id="horarioExiste${horario.id}" name="fechas[${(horario.idDiaHabil) - 1}][horario][${(horario.id) - 1}][existe]" value="${horario.existe}">
+                            </div>`
 
-                if (horario.active == 1 && horario.idDiaHabil == idDia) {
-                    contador++;
-                    $("#horarios").append(`
-                        <div class="row mb-3 mx-0 p-3 gx-3 gapx-4 bg-light border rounded">
-                            <div class="col-md-4 mt-0" hidden="true">
-                                <label for="cantidadHorario${contador}" class="form-label">ID</label>
-                                <input type="text" class="form-control" id="cantidadHorario${contador}" name="cantidadHorario${contador}" value="" required>
-                            </div>
-                            <div class="col-md-4 mt-0" hidden="true">
-                                <label for="idHorario${contador}" class="form-label">ID</label>
-                                <input type="text" class="form-control" id="idHorario${contador}" name="idHorario${contador}" value="${horario.id}" required>
-                            </div>
-                            <div class="col-md-4 mt-0">
-                                <label for="horaInicial${contador}" class="form-label">Hora inicial</label>
-                                <input type="time" class="form-control" id="horaInicial${contador}" name="horaInicial${contador}" value="${horario.horaInicio}" required>
-                            </div>
+            $('#horariosHidden').append(contenedor);
+        }
 
-                            <div class="col-md-4 mt-0">
-                                <label for="horaFinal${contador}" class="form-label">Hora final</label>
-                                <input type="time" class="form-control" id="horaFinal${contador}" name="horaFinal${contador}" value="${horario.horaFinal}" required>
-                            </div>
-                            <div class="col-md-4 mt-0">
-                                <label for="aforo${contador}" class="form-label">Aforo máximo</label>
-                                <input type="number" class="form-control" id="aforo${contador}" name="aforo${contador}" value="${horario.aforoMaximo}" required>
-                            </div>
-                            <div class="col-md-4 mt-0">
-                                <div class="d-flex flex-column">
-                                    <label for="horaFinal1" class="form-label">Acciones</label>
-
-                                    <div class="d-flex flex-wrap gap-3">
-
-                                        <div class="d-flex flex-column">
-                                            <button class="btn ${(horario.visible==1) ? "btn-outline-secondary" : "btn-secondary"} rounded-pill" type="button" id="horarioVisible${contador}" value="${i}" onclick="ocultar(this.value, horarios)">${(horario.visible==1) ? '<i style="font-size: 20px; " class="bi bi-eye"></i>' : '<i style="font-size: 20px; " class="bi bi-eye-slash"></i>'}</button>
-                                        </div>
-                                        <div class="d-flex flex-column">
-                                            <button class="btn btn-outline-danger rounded-pill" type="button" id="eliminarHorario${contador}" value="${i}" onclick="eliminar(this.value, horarios)"><i style="font-size: 20px; " class="bi bi-trash3"></i></button>
-                                        </div>
+        //agregar horario a la interfaz
+        function agregarHorarioUsuario(horario) {
+            let contenedor = `<div class="row mb-3 mx-0 p-3 gx-3 gapx-4 bg-light border rounded" id="horarioUsuario${horario.id}">
+                                
+                                <div class="col-md-6 mt-0">
+                                    <div class="row mx-0 mb-4">
+                                        <label for="inputHoraInicial${horario.id}" class="form-label">Hora inicial</label>
+                                        <input type="time" class="form-control" id="inputHoraInicio${horario.id}" value="${horario.horaInicio}" oninput="actualizarHorarioInputHidden(${horario.id}, 'HoraInicio')" required>
+                                    </div>
+                                    <div class="row mx-0">
+                                        <label for="inputHoraFinal${horario.id}" class="form-label">Hora final</label>
+                                        <input type="time" class="form-control" id="inputHoraFinal${horario.id}" value="${horario.horaFinal}" oninput="actualizarHorarioInputHidden(${horario.id}, 'HoraFinal')" required>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    `)
+                                
+                                <div class="col-md-6 mt-0">
+                                    <div class="row mx-0  mb-4">
+                                        <label for="inputAforo${horario.id}" class="form-label">Aforo máximo</label>
+                                        <input type="number" class="form-control" id="inputAforoMaximo${horario.id}" value="${horario.aforoMaximo}" oninput="actualizarHorarioInputHidden(${horario.id}, 'AforoMaximo')" required>
+                                    </div>
+                                    <div class="row mx-0">
+                                        <div class="d-flex flex-column">
+                                        <label for="horaFinal1" class="form-label">Acciones</label>
+ 
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <div class="d-flex flex-column">
+                                                <button class="btn ${(horario.visible==1) ? "btn-light" : "btn-secondary"} border py-1 px-3" type="button" id="ocultarHorario${horario.id}" value="${horario.id}" onclick="ocultar(this.value, horarios, 'horario')">${(horario.visible==1) ? '<i id="iconoOcultarHorario' + horario.id + '" style="font-size: 18px; " class="bi bi-eye"></i>' : '<i id="iconoOcultarHorario' + horario.id + '" style="font-size: 18px; " class="bi bi-eye-slash"></i>'}</button>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <button class="btn btn-danger py-1 px-3" type="button" id="eliminarHorario${horario.id}" value="${horario.id}" onclick="eliminarHorario(this.value, horarios)"><i style="font-size: 18px; " class="bi bi-trash3"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>`
+
+            $('#horarios').append(contenedor);
+            tooltips();
+        }
+
+        //mostrar los horarios dependiendo del dia seleccionado
+        function mostrarHorarios(idDia) {
+            $('#horarios').html(''); //limpiar contenido
+            horarios.forEach(horario => {
+                if (horario.idDiaHabil == idDia && horario.active == 1) {
+                    agregarHorarioUsuario(horario)
                 }
             });
-            if (diaSeleccionado == false) {
-                $("#contenedorHorarios").append(`<div class="d-grid gap-2" id="addHorario">
-                                                    <button class="btn btn-outline-primary" type="button" id="btnAddHorario" onclick="agregarHorario()">+ Agregar horario</button>
-                                                </div>`)
-            }
-            diaSeleccionado = true;
 
+            $('#addHorario').show();
         }
 
+        function actualizarDiaInputHidden(id) {
+            $(`#diaDia${id}`).val($(`#inputDia${id}`).val());
+        }
 
-
-        function recargarDias() {
-            console.log(dias);
-            let contador = 0;
-            $("#dias").html('')
-            $.each(dias, function(i, dia) {
-                if (dia.active == 1) {
-                    contador++;
-                    $("#dias").append(`
-                        <div class="row mx-0 p-3 gx-3 gapx-4 bg-light border rounded mb-3">
-                            <div class="col-md-4 mt-0" hidden="true">
-                                <label for="cantidadDias${contador}" class="form-label">ID</label>
-                                <input type="text" class="form-control" id="cantidadDias${contador}" name="cantidadDias${contador}" value="" required>
-                            </div>  
-                            <div class="col-md-8 mt-0" hidden="true">
-                                <label for="dia${contador}" class="form-label">Día ${contador}</label>                                
-                                <input type="text" class="form-control" id="idDia${contador}" name="idDia${contador}" value="${dia.id}">
-                            </div>
-                            <div class="col-md-8 mt-0">
-                                <label for="dia${contador}" class="form-label">Día ${contador}</label>
-                                <div class="input-group">
-                                    <input type="date" class="form-control" id="dia${contador}" name="dia${contador}" value="${dia.dia}" min="2022-05-04" max="2022-05-22" required>
-                                    <div class="input-group-text">
-                                        <input class="form-check-input mt-0" type="radio" name="diaSeleccionado" id="diaSeleccionado${contador}" onclick="idDia=${dia.id} ,recargarHorarios()">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mt-0">
-                                <div class="d-flex flex-column">
-                                    <label class="form-label">Acciones</label>
-
-                                    <div class="d-flex flex-wrap gap-3">
-
-                                        <div class="d-flex flex-column">
-                                            <button class="btn ${(dia.visible==1) ? "btn-outline-secondary" : "btn-secondary"} rounded-pill" type="button" id="ocultarDia${contador}" value="${i}" onclick="ocultar(this.value, dias)">${(dia.visible==1) ? '<i style="font-size: 20px; " class="bi bi-eye"></i>' : '<i style="font-size: 20px; " class="bi bi-eye-slash"></i>'}</button>
-                                        </div>
-                                        <div class="d-flex flex-column">
-                                            <button class="btn btn-outline-danger rounded-pill" type="button" id="eliminarDia${contador}" value="${i}" onclick="eliminar(this.value, dias)"><i style="font-size: 20px; " class="bi bi-trash3"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`)
-                }
-            });
+        function actualizarHorarioInputHidden(id, propiedad) {
+            $(`#horario${propiedad}${id}`).val($(`#input${propiedad}${id}`).val());
         }
     </Script>
+
+    <script>
+        function tooltips() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        }
+    </script>
     <!-- END Scripts  -->
 </body>
 

@@ -7,10 +7,10 @@ class DALHorario
         $conexionDB = new Conexion();
 
         $consultaSql = "INSERT INTO `HORARIO` (`HORAINICIO`, `HORAFINAL`, `AFOROMAXIMO`, `IDDIAHABIL`, `VISIBLE`, `ACTIVE`)
-            VALUES ('".$nuevoHorario->getHoraInicio()."', '".$nuevoHorario->getHoraFinal()."', '".$nuevoHorario->getAforoMaximo()."',
-            '".$nuevoHorario->getIdDiaHabil()."', 1, 1)";
+            VALUES ('" . $nuevoHorario->getHoraInicio() . "', '" . $nuevoHorario->getHoraFinal() . "', '" . $nuevoHorario->getAforoMaximo() . "',
+            '" . $nuevoHorario->getIdDiaHabil() . "', 1, 1)";
 
-        if($conexionDB->NuevaConexion($consultaSql))
+        if ($conexionDB->NuevaConexion($consultaSql))
         {
             $resultado = true;
         }
@@ -24,11 +24,11 @@ class DALHorario
         $resultado = false;
         $conexionDB = new Conexion();
         //OJO CON EL WHERE!!!
-        $consultaSql = "UPDATE `HORARIO` SET `HORAINICIO`='".$modificarHorario->getHoraInicio()."',
-        `HORAFINAL`='".$modificarHorario->getHoraFinal()."', `AFOROMAXIMO`='".$modificarHorario->getAforoMaximo()."'
-        WHERE `IDDIAHABIL`='".$modificarHorario->getIdDiaHabil()."'";
+        $consultaSql = "UPDATE `HORARIO` SET `HORAINICIO`='" . $modificarHorario->getHoraInicio() . "',
+        `HORAFINAL`='" . $modificarHorario->getHoraFinal() . "', `AFOROMAXIMO`='" . $modificarHorario->getAforoMaximo() . "'
+        WHERE `IDDIAHABIL`='" . $modificarHorario->getIdDiaHabil() . "'";
         //VER SI SE PUEDE USAR VALUES () EN VEZ DE SETS CONSECUTIVOS
-        if($conexionDB->NuevaConexion($consultaSql))
+        if ($conexionDB->NuevaConexion($consultaSql))
         {
             $resultado = true;
         }
@@ -42,9 +42,9 @@ class DALHorario
         $resultado = false;
         $conexionDB = new Conexion();
         //OJO CON EL WHERE!!!
-        $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 0, `ACTIVE` = 0 WHERE `ID`='".$idHorario."'";
+        $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 0, `ACTIVE` = 0 WHERE `ID`='" . $idHorario . "'";
 
-        if($conexionDB->NuevaConexion($consultaSql))
+        if ($conexionDB->NuevaConexion($consultaSql))
         {
             $resultado = true;
         }
@@ -58,12 +58,12 @@ class DALHorario
         $buscarHorario = new Horario();
         $conexionDB = new Conexion();
 
-        $consultaSql = "SELECT * FROM `HORARIO` WHERE `ID`='".$idHorario."' AND `ACTIVE` = 1";
+        $consultaSql = "SELECT * FROM `HORARIO` WHERE `ID`='" . $idHorario . "' AND `ACTIVE` = 1";
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
-        if(mysqli_num_rows($respuestaDB)>0)
+        if (mysqli_num_rows($respuestaDB) > 0)
         {
-            while($filaHorario = $respuestaDB->fetch_assoc())
+            while ($filaHorario = $respuestaDB->fetch_assoc())
             {
                 $buscarHorario->setId($filaHorario['id']);
                 $buscarHorario->setHoraInicio($filaHorario['horaInicio']);
@@ -77,7 +77,7 @@ class DALHorario
         else
         {
             $buscarHorario = null;
-        }        
+        }
 
         $conexionDB->CerrarConexion();
         return $buscarHorario;
@@ -91,9 +91,9 @@ class DALHorario
         $consultaSql = "SELECT * FROM `HORARIO` WHERE `ID`=(SELECT MAX(`ID`) FROM `HORARIO`) AND `ACTIVE` = 1";
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
-        if(mysqli_num_rows($respuestaDB)>0)
+        if (mysqli_num_rows($respuestaDB) > 0)
         {
-            while($filaHorario = $respuestaDB->fetch_assoc())
+            while ($filaHorario = $respuestaDB->fetch_assoc())
             {
                 $idUltimoHorario = $filaHorario['id'];
             }
@@ -101,7 +101,7 @@ class DALHorario
         else
         {
             $idUltimoHorario = null;
-        }        
+        }
 
         $conexionDB->CerrarConexion();
         return $idUltimoHorario;
@@ -112,7 +112,7 @@ class DALHorario
         $HorariosDB = array();
         $conexionDB = new Conexion();
 
-        $consultaSql = "SELECT * FROM `HORARIO` WHERE `ACTIVE` = 1";
+        $consultaSql = "SELECT * FROM `HORARIO`";
 
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
