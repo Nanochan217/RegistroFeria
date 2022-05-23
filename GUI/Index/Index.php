@@ -3,6 +3,7 @@ session_start();
 
 $header = file_get_contents('../Default/Header.html');
 $headerSA = file_get_contents('../Default/HeaderSA.html');
+$headerA = file_get_contents('../Default/HeaderA.html');
 $footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
@@ -55,7 +56,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
         <div class="row pb-5">
             <div class="col-4-md mx-auto">
                 <div class="d-flex flex-column align-items-center">
-                    <h1 class="text-center">Feria vocacional 2022</h1>
+                    <h1 class="text-center">Feria Vocacional 2022</h1>
                     <p style="width: 70%;" class="text-center py-2 ">
                         La tradicional feria vocacional del Colegio Vocacional de Artes y Oficios volverá a abrirse al publico. Todos los estudiantes que estén interesados en
                         asistir deben reservar una cita.

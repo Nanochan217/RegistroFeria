@@ -2,7 +2,7 @@
 session_start();
 $header = file_get_contents('../Default/Header.html');
 $headerSA = file_get_contents('../Default/HeaderSA.html');
-$headerSA = file_get_contents('../Default/HeaderA.html');
+$headerA = file_get_contents('../Default/HeaderA.html');
 $footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
@@ -110,7 +110,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                             <!-- Telefono -->
                             <div class="col-md-4 pb-3">
                                 <label for="telefono" class="form-label">Telefono</label>
-                                <input type="Number" class="form-control " id="telefono" name="telefono" min="0" required>
+                                <input type="tel" class="form-control " id="telefono" name="telefono" min="0" required>
                             </div>
 
                             <!-- Colegio de procedencia -->

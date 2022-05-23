@@ -1,6 +1,10 @@
 <?php
+session_start();
+
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$headerA = file_get_contents('../Default/HeaderA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
@@ -34,7 +38,18 @@ $cssDefault = file_get_contents('../Default/Style.css');
 
     <!-- IMPORT Header -->
     <?php
-    echo $headerSA;
+
+    if ($_SESSION["Perfil"]==1) {
+        echo $headerSA;    
+    }
+    else if($_SESSION["Perfil"] == 2){
+        echo $headerA;  
+    }
+    else{
+        echo $header;  
+    }
+    
+
     ?>
 
     <div class="container">
@@ -107,7 +122,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                                     <td class="bg-danger bg-opacity-25">No</td>
                                     <td>
                                         <div class="d-flex flex-wrap gap-2 justify-content-center">
-                                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalRegistro">
+                                            <button class="btn btn-primary btn-sm" title="Modificar" data-bs-toggle="modal" data-bs-target="#modalRegistro">
                                                 <i class="bi bi-arrow-up-left-circle" style="font-size: 20px;"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="bi bi-trash" style="font-size: 20px;"></i></button>
@@ -133,18 +148,20 @@ $cssDefault = file_get_contents('../Default/Style.css');
                 </div>
                 <div class="modal-body">
                     <p class="h4 pb-2 ">Datos del solicitante</p>
-                    <p class="mb-2">Cédula: <span class="fw-normal" id="cedula">303330333</span></p>
-                    <p class="mb-2">Nombre: <span class="fw-normal" id="cedula">Bryan Monge Solano</span></p>
-                    <p class="mb-2">Correo: <span class="fw-normal" id="cedula">thebryanmonge@gmail.com</span></p>
-                    <p class="mb-2">Teléfono: <span class="fw-normal" id="cedula">8888-8888</span></p>
-                    <p class="mb-2">Colegio Proveniencia: <span class="fw-normal" id="cedula">Colegio Vocacional de Artes y Oficios</span></p>
+                        <p class="mb-2">Cédula: <span class="fw-normal" id="cedulaAsistente">303330333</span></p>
+                        <p class="mb-2">Nombre: <span class="fw-normal" id="nombreAsistente">Bryan Monge Solano</span></p>
+                        <p class="mb-2">Correo: <span class="fw-normal" id="correoAsistente">thebryanmonge@gmail.com</span></p>
+                        <p class="mb-2">Teléfono: <span class="fw-normal" id="telefonoAsistente">8888-8888</span></p>
+                        <p class="mb-2">Colegio Proveniencia: <span class="fw-normal" id="colegioProcedencia">Colegio Vocacional de Artes y Oficios</span></p>
                     <hr class="my-4">
                     <p class="h4 pb-2">Datos de la cita</p>
-                    <p class="mb-2">Día: <span class="fw-normal" id="cedula">Lunes 23</span></p>
-                    <p class="mb-2">Hora: <span class="fw-normal" id="cedula">9:00am → 11:00am</span></p>
+                        <p class="mb-2">Día: <span class="fw-normal" id="diaCita">Lunes 23</span></p>
+                        <p class="mb-2">Hora: <span class="fw-normal" id="horarioCita">9:00am → 11:00am</span></p>
                     <hr class="my-4">
                     <p class="h4 pb-2">Acompañantes</p>
-                    <p class="mb-2">1- <span class="fw-normal" id="cedula">202220222 Antonia García Mata</span></p>
+                        <p class="mb-2">Cedula- <span class="fw-normal" id="cedulaAcompanante">202220222</span></p>
+                        <p class="mb-2">Nombre- <span class="fw-normal" id="NombreAcompanante">Antonia García Mata</span></p>
+                        <p class="mb-2">Parentesco- <span class="fw-normal" id="parentesco">???</span></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger">Eliminar</button>

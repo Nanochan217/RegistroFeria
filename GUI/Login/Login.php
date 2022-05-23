@@ -26,6 +26,13 @@ $cssDefault = file_get_contents('../Default/Style.css');
         <?php
         echo $cssDefault;
         ?>
+        #errorLogin
+        {
+            border-radius: 25px;
+            text-align: center;
+            color: rgb(255, 0, 0);
+            background-color: rgb(249, 254, 142);
+        }
     </style>
     <!-- END CSS  -->
 
@@ -66,7 +73,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                                     </button>
                                 </div>
                             </div>
-                            <button id="logIn" type="submit" class="btn btn-primary mt-3">Ingresar</button>
+                            <button id="logIn" type="button" class="btn btn-primary mt-3">Ingresar</button>
                         </form>
 
                     </div>

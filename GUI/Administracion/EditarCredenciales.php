@@ -1,10 +1,11 @@
 <?php
 session_start();
-if ($_SESSION['Perfil'] != 1)
+if (!isset($_SESSION))
     header("Location: ../PantallasDestino/AccesoDenegado.php");
 
 $header = file_get_contents('../Default/Header.html');
 $headerSA = file_get_contents('../Default/HeaderSA.html');
+$headerA = file_get_contents('../Default/HeaderA.html');
 $footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
@@ -45,7 +46,20 @@ include '../../BL/Usuario/BuscarUsuario.php';
 <body class="bg-light">
 
     <?php
-    echo $headerSA;
+    
+    if ($_SESSION["Perfil"]==1) {
+        echo $headerSA;
+        $retornar = "../Administracion/Index.php";
+    }
+    else if($_SESSION["Perfil"] == 2){
+        echo $headerA;
+        $retornar = "../Index/Index.php";
+    }
+    else{
+        echo $header;
+        $retornar = "../Index/Index.php";
+    }    
+
     ?>
 
     <div class="container">
@@ -91,7 +105,7 @@ include '../../BL/Usuario/BuscarUsuario.php';
                     <div class="row gap-3 p-0">
                         <div class="col position-relative px-0 py-5">
                             <div class="d-flex gap-3 position-absolute top-0 end-0">
-                                <a href="./index.php" class="btn btn-danger">Descartar</a>
+                                <a href="<?php echo $retornar?>" class="btn btn-danger">Descartar</a>
                                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                             </div>
                         </div>

@@ -5,13 +5,14 @@
     include '../../Entidades/UsuarioEntidades/Credenciales.php';
     include '../../Entidades/UsuarioEntidades/Usuario.php';   
         
+    $accion = "";
     $confirmarSesion = new Credenciales();
     $UsuarioDAL = new DALUsuario();
     $CredencialesDAL = new DALLogIn();
 
     //Obtencion por medio de POST tanto el Correo como Contraseña ingresados
-    $correoUsuario = $_POST['usuario'];
-    $contrasena = $_POST['password'];
+    $correoUsuario = $_POST['correoPost'];
+    $contrasena = $_POST['contrasenaPost'];
     
     //Objeto de Nueva Sesion para el DAL de Sesion
     $confirmarSesion->setId(null);
@@ -31,26 +32,27 @@
             RestaurarSesion();
             $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
             $_SESSION["Perfil"] = $perfilUsuario;
-            header("Location: ../../GUI/Index/Index.php");
+            echo $accion;
         }        
         else if($perfilUsuario == 2)
         {
             RestaurarSesion();               
             $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
             $_SESSION["Perfil"] = $perfilUsuario;
-            header("Location: ../../GUI/Index/Index.php");
+            echo $accion;
         }        
         else
         {
             RestaurarSesion();
             $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
             $_SESSION["Perfil"] = $perfilUsuario;
-            header("Location: ../../GUI/Index/Index.php");
+            echo $accion;
         }        
     }
     else
     {
-        echo "Correo y/o Contraseña incorrectos <br> Intentelo nuevamente";
+        $accion = "Correo y/o Contraseña incorrectos <br> Intentelo nuevamente";
+        echo $accion;
         //header("Location: ../../GUI/Login/Login.php");
     }
 

@@ -53,7 +53,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary">
                             <div class="card-body">
-                                <h5 class="card-title">Configuración Formulario</h5>
+                                <h5 class="card-title">Formulario</h5>
                             </div>
                         </button>
                     </div>
