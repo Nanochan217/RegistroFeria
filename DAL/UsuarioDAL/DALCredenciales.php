@@ -5,14 +5,18 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-
+            $contrasena = $nuevaCredencial->getContrasena();
+            
+            $contrasenaEncriptada = password_hash($contrasena, PASSWORD_DEFAULT);
+            
             $consultaSql = "INSERT INTO `CREDENCIALES`(`CORREO`, `CONTRASENA`, `ACTIVE`) 
-                    VALUES ('".$nuevaCredencial->getCorreo()."','".$nuevaCredencial->getContrasena()."', 1)";
+                    VALUES ('".$nuevaCredencial->getCorreo()."','".$contrasenaEncriptada."', 1)";
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
                 $resultado = true;
             }
+            
             $conexionDB->CerrarConexion();
             return $resultado;
         }
@@ -39,10 +43,12 @@
             {
                 $ultimaCredencial = null;
             }
+            
             $conexionDB->CerrarConexion();
             return $ultimaCredencial;
         }
 
+        //HACER EL ENCRIPTADO DE CONTRASEÑAS
         function ActualizarCredenciales(Credenciales $modificarCredenciales)
         {
             $resultado = false;
@@ -63,6 +69,7 @@
             {
                 $resultado = true;
             }
+            
             $conexionDB->CerrarConexion();
             return $resultado;
         }
@@ -92,6 +99,7 @@
             {
                 $credencialesDB = null;
             }
+            
             $conexionDB->CerrarConexion();
             return $credencialesDB;
         }
@@ -175,6 +183,7 @@
                 $array[$property->getName()] = $property->getValue($object);
                 $property->setAccessible(false);
             }
+            
             return $array;
         }  
     }

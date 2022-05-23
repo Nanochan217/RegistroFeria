@@ -3,27 +3,35 @@
     {
         function NuevaSesionUsuario(Credenciales $credencialesSesion)
         {
-            //$credencial = new Credenciales();
             $conexionDB = new Conexion();
-
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='".$credencialesSesion->getCorreo()."' 
-                            AND `CONTRASENA` ='".$credencialesSesion->getContrasena()."' AND `ACTIVE` = 1";
+            $correoUsuario = $credencialesSesion->getCorreo();
+            $contrasenaUsuario = $credencialesSesion->getContrasena();            
+            
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correoUsuario."' AND `ACTIVE` = 1";
+            
             $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
-
+            
             if(mysqli_num_rows($respuestaDB)>0)
             {
-                while ($filaCredencial = $respuestaDB->fetch_assoc())
+                while($filaCredencial = $respuestaDB->fetch_assoc())
                 {
-                    $credencialesSesion->setId($filaCredencial["id"]);
+                    if(password_verify($contrasenaUsuario, $filaCredencial["contrasena"]))
+                    {                                                          
+                        $credencialesSesion->setId($filaCredencial["id"]);
+                    }
+                    else
+                    {
+                        $credencialesSesion = null;
+                    }
                 }
             }
             else
             {
                 $credencialesSesion = null;
             }
-
+            
             $conexionDB->CerrarConexion();
-            return $credencialesSesion;
+            return $credencialesSesion;                        
         }
 
         function VerificarCorreoUsuario($correoUsuario)
@@ -40,7 +48,8 @@
                 $tituloCorreo = "Solicitud de Restablecimiento de Contraseña";
                 $cuerpoCorreo = "¡Hemos recibido una solicitud de cambio de contraseña! Haz click en el siguiente enlace para restablecer tu contraseña: '".$link."'";                
                 $cuerpoCorreo = wordwrap($cuerpoCorreo, 70);
-
+                
+                //La función "Envía el Correo" pero el servidor de SMTP no lo realiza y por ende el receptor no lo recibe...
                 if(mail($correoUsuario, $tituloCorreo, $cuerpoCorreo))
                 {
                     $resultado = true;
@@ -51,12 +60,13 @@
             return $resultado;
         }
 
+        //HACER EL ENCRIPTADO DE LA CONTRASEÑA!!!!!!!!!!
         function RestablecerContrasena($correoUsuario, $nuevaContraseña)
         {
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM `CREDENCIALES` SET `CONTRASENA`=".$nuevaContraseña." WHERE `CORREO`=".$correoUsuario;
+            $consultaSql = "UPDATE `CREDENCIALES` SET `CONTRASENA`=".$nuevaContraseña." WHERE `CORREO`=".$correoUsuario;
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
@@ -68,7 +78,7 @@
         }
     }
 
-//En caso de añadir un tiempo de expiración...
+//En caso de añadir un tiempo de expiración al Correo Electrónico de Recuperación de Conttraseña...
 //$expFormat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("y"));
 //$expDate = date("Y-m-d H:i:s", $expFormat);
 //$update = "";
