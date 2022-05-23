@@ -53,7 +53,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
 
                 </div>
                 <!-- Formulario START-->
-                <form action="../PantallasDestino/AcciónExitosa.php" method="POST" class="row gap-3">
+                <form action="../../BL/Cita/ModificarCita.php" method="post" class="row gap-3">
 
                     <!-- START Sección de datos del solicitante -->
                     <div class="row border rounded bg-white shadow-sm p-5">
