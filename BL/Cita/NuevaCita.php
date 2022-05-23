@@ -1,16 +1,24 @@
 <?php
+    //include_once '../../Core/DriveAPI/vendor/autoload.php';
+    include '../../Core/GenerarPDF/fpdf/fpdf.php';
     include '../../Core/Conexion.php';
     include '../../DAL/CitaDAL/DALCita.php';
     include '../../DAL/CitaDAL/DALAsistente.php';
     include '../../DAL/CitaDAL/DALAcompanante.php';
+    include '../../DAL/CitaDAL/DALComprobante.php';
     include '../../Entidades/CitasEntidades/Cita.php';
     include '../../Entidades/CitasEntidades/Asistente.php';
     include '../../Entidades/CitasEntidades/Acompanante.php';
-
+    include '../../Entidades/CitasEntidades/Comprobante.php';
+    
+    //APLICAR LOS ARRAYS DESDE EL FORM Y MODIFICAR ESTE CÓDIGO!!!
+    
+    $cedulasRegistradas = array();
     $contador = 1;
     $asistenteDAL = new DALAsistente();
     $citaDAL = new DALCita();
     $acompananteDAL = new DALAcompanante();
+    $comprobanteCita = new DALComprobante();
     
     //Cantidad de Acompañantes
     $cantidadAcompanantes = $_POST['cantidadAcompanantes'];
@@ -19,6 +27,7 @@
     $nuevoAsistente = new Asistente();
     $nuevoAcompanante = new Acompanante();
     $nuevaCita = new Cita();
+    $nuevoComprobante = new Comprobante();
 
     //Datos del Asistente
     $cedulaAsistente = $_POST['cedula'];
@@ -56,10 +65,7 @@
             $nuevaCita->setConfirmado(0);
             $nuevaCita->setIdAsistente($idAsistente);
             $nuevaCita->setIdEstadoCita(2);
-            $nuevaCita->setActive(1);
-
-            echo "<h1>'".$cantidadAcompanantes."'</h1>";
-            echo "<h1>'".$diaCita." y ".$horaCita."'</h1>";
+            $nuevaCita->setActive(1);           
 
             if($citaDAL->NuevaCita($nuevaCita))
             {
@@ -81,7 +87,7 @@
 
                     if($acompananteDAL->BuscarCedula($cedulaAcompanante) == false)
                     {
-                        echo "<h1>'".$cedulaAcompanante."'</h1>";
+                        //echo "<h1>'".$cedulaAcompanante."'</h1>";
                         if($acompananteDAL->NuevoAcompanante($nuevoAcompanante))
                         {
                             //Siguiente ciclo...
@@ -95,8 +101,37 @@
                             break;
                             header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
                         }
-                    }                    
-                }            
+                    }
+                    else
+                    {
+                        //FALTA COMPROBAR (HACER USO DE JSON PARA OBTENER LOS DATOS Y MOSTRARLOS EN UN MODAL DE ADVERTENCIA)
+                        //ESTO CONLLEVARÁ A HACER USO DE OTRO DOCUMENTO DE PHP PARA VERIFICAR LAS CEDULAS (VER NOTAS EN EL CUADERNO)
+                        $cedulasRegistradas[] = $cedulaAcompanante;
+                        $contador++;                        
+                    }
+                }                
+                
+                //Descargará el PDF automáticamente!!! (Debe estar antes del Header pero descarga y no redirecciona... GUARDAR EN DB Y HABILITAR UNA FUNCION DE DESCARGA)
+                $enlaceDocumento = "";//$comprobanteCita->CargarDocumento($comprobanteCita->GenerarPDF($nuevoAsistente , $nuevoAcompanante, $nuevaCita, $contador));
+                if(isset($enlaceDocumento))
+                {
+                    //OBJETO DE COMPROBANTE PARA ALMACENAR EL ENLACE Y DEMAS EN LA DB
+                    $nuevoComprobante->setNombreComprobante("");
+                    $nuevoComprobante->setDescripcion("");
+                    $nuevoComprobante->setFechaComprobante(date('d-m-y h:i:s'));
+                    $nuevoComprobante->setIdCita($idCita);
+                    $nuevoComprobante->setDocumento($enlaceDocumento);
+                    
+                    if($comprobanteCita->NuevoComprobante($nuevoComprobante))
+                    {
+                        header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
+                    }
+                }
+                else
+                {
+                    $a;
+                    //ALGO
+                }                                
             }
             else
             {
@@ -115,12 +150,5 @@
     {
         //echo "<h1>CEDULAS IGUALES ERROR</h1>";
         header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
-    }
-
+    }        
     
-
-
-
-
-
-
