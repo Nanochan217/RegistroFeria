@@ -72,6 +72,7 @@ class DALHorario
                 $buscarHorario->setIdDiaHabil($filaHorario['idDiaHabil']);
                 $buscarHorario->setVisible($filaHorario['visible']);
                 $buscarHorario->setActive($filaHorario['active']);
+                //A
             }
         }
         else

@@ -15,6 +15,7 @@ class DALDiaHabil
 
     function BuscarId($idConfiguracion)
     {
+        //YA VOY MIJO XD
     }
 
     function cantidadDias($idConfiguracion)
