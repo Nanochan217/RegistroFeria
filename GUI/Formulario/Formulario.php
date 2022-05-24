@@ -9,6 +9,7 @@ $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
 
 include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
+//include '../../BL/Cita/BuscarTodosColegio.php';
 
 ?>
 
@@ -231,6 +232,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
     <script>
         var dias = <?php echo BuscarDiasHabiles() ?>;
         var horarios = <?php echo BuscarHorarios() ?>;
+        var colegios = <?php echo BuscarTodosColegios() ?>;
         var fecha = [];
         let contador = 0;
 
