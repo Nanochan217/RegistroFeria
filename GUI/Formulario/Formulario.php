@@ -40,14 +40,17 @@ $cssDefault = file_get_contents('../Default/Style.css');
 <body class="bg-light">
 
     <?php
-    if ($_SESSION["Perfil"]==1) {
-        echo $headerSA;    
+    if ($_SESSION["Perfil"] == 1)
+    {
+        echo $headerSA;
     }
-    else if($_SESSION["Perfil"] == 2){
-        echo $headerA;  
+    else if ($_SESSION["Perfil"] == 2)
+    {
+        echo $headerA;
     }
-    else{
-        echo $header;  
+    else
+    {
+        echo $header;
     }
     ?>
 
@@ -117,8 +120,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                             <div class="col-md-4 pb-3">
                                 <label for="colegioProcedencia" class="form-label">Colegio de Procedencia</label>
                                 <select id="colegioProcedencia" name="colegioProcedencia" class="form-select" required>
-                                    <option selected>Seleccione un colegio</option>
-                                    <option value="1">...</option>
+                                    <option value="none" selected disabled hidden>Seleccione un colegio</option>
                                 </select>
                             </div>
                         </div>
@@ -137,22 +139,17 @@ $cssDefault = file_get_contents('../Default/Style.css');
                                 <!-- Día -->
                                 <div class="col-md-6 pb-3">
                                     <label for="fechaCita" class="form-label">Día</label>
-                                    <input type="date" id="fechaCita" name="fechaCita" min="2022-05-10" max="2022-05-12" step="1" />
-                                    <!-- <select id="dia" name="dia" class="form-select" required>
-                                        <option selected>Seleccione un día</option>
-                                        <option>...</option>
-                                    </select> -->
+                                    <select id="fechaCita" name="fechaCita" class="form-select" required>
+                                        <option value="none" selected disabled hidden>Seleccione un día</option>
+                                    </select>
                                 </div>
 
                                 <!-- Hora -->
                                 <div class="col-md-6 pb-3">
                                     <label for="horario" class="form-label">Horario</label>
-                                    <!--OPCIONAL!!!!-->
-                                    <input type="time" id="horario" name="horario" min="07:00" max="16:20" step="3600" />
-                                    <!-- <select id="horario" name="horario" class="form-select" required>
-                                        <option selected>Seleccione una horario</option>
-                                        <option>...</option>
-                                    </select> -->
+                                    <select id="horario" name="horario" class="form-select" required>
+                                        <option value="none" selected disabled hidden>Seleccione un horario</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -185,7 +182,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                                 <div class="col-md-6 pb-3" hidden="true">
                                     <label for="cantidadAcompanantes" class="form-label">Cantidad de Acompanantes</label>
                                     <input type="text" class="form-control" id="cantidadAcompanantes" name="cantidadAcompanantes" value="">
-                                </div>                                
+                                </div>
                                 <!-- Aquí irán los acompanantes -->
                             </div>
 
