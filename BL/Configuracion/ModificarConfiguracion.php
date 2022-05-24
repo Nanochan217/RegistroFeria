@@ -7,8 +7,9 @@
     include '../../Entidades/ConfiguracionEntidades/DiaHabil.php';
     include '../../Entidades/ConfiguracionEntidades/Horario.php';
     
-    
-
+    //Adaptar para los Arrays provenientes del FRONT
+    //Revisar parte de JS y HTML para verificar como extraer dichos datos
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 

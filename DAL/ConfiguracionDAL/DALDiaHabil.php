@@ -1,21 +1,49 @@
 <?php
 class DALDiaHabil
 {
-    function Nuevo()
+    function NuevoDiaHabil()
     {
+
     }
 
     function ModificarDiaHabil()
     {
+
     }
 
-    function Eliminar()
+    function DesactivarDiaHabil()
     {
+
     }
 
-    function BuscarId($idConfiguracion)
+    function BuscarIdDia($idDia)
     {
-        //YA VOY MIJO XD
+        $buscarDia = new DiaHabil();
+        $conexionDB = new Conexion();
+
+        $consultaSql = "SELECT * FROM `DIAHABIL` WHERE `ID` =".$idDia;
+
+        $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+        if(mysqli_num_rows($respuestaDB)>0)
+        {
+            while($filaHorario = $respuestaDB->fetch_assoc())
+            {
+                $buscarDia->setId($filaHorario['id']);
+                $buscarDia->setDia($filaHorario['dia']);
+                $buscarDia->setidConfiguracion($filaHorario['idConfiguracion']);
+                $buscarDia->setVisible($filaHorario['visible']);
+                $buscarDia->setActive($filaHorario['active']);                
+            }
+        }
+        else
+        {
+            $buscarDia = null;
+        }
+
+        $buscarDia = $this->dismount($buscarDia);
+        $conexionDB->CerrarConexion();
+        return $buscarDia;
     }
 
     function cantidadDias($idConfiguracion)
