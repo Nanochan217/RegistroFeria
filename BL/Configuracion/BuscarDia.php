@@ -2,7 +2,7 @@
 
 include '../../Core/Conexion.php';
 include '../../DAL/ConfiguracionDAL/DALDiaHabil.php';
-include '../../Entidades/ConfiguracionesEntidades/DiaHabil.php';
+include '../../Entidades/ConfiguracionEntidades/DiaHabil.php';
 
 function BuscarIDDia($id)
 {

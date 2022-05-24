@@ -2,7 +2,7 @@
 
 include '../../Core/Conexion.php';
 include '../../DAL/ConfiguracionDAL/DALHorario.php';
-include '../../Entidades/ConfiguracionesEntidades/Horario.php';
+include '../../Entidades/ConfiguracionEntidades/Horario.php';
 
 function BuscarIDHorario($id)
 {
