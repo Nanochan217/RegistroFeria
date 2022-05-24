@@ -40,7 +40,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
     <!-- END CSS  -->
 </head>
 
-<body class="bg-light" onload="cargarDias()">
+<body class="bg-light" onload="cargarDias(), cargarColegios()">
 
     <?php
     if ($_SESSION["Perfil"] == 1)
@@ -229,10 +229,9 @@ include '../../BL/Cita/BuscarTodosDatos.php';
     ?>
     <script src="./Formulario.js"></script>
     <script>
-        var dias = <?php echo BuscarDiasHabiles() ?>;
+        var dias = <?php echo BuscarDias() ?>;
         var horarios = <?php echo BuscarHorarios() ?>;
-        //var colegios = <?php //echo BuscarTodosColegios() 
-                            ?>;
+        var colegios = <?php echo BuscarTodosColegios() ?>;
         var fecha = [];
         let contador = 0;
 
@@ -247,11 +246,9 @@ include '../../BL/Cita/BuscarTodosDatos.php';
         }
 
         function cargarColegios() {
-            dias.forEach(dia => {
-                if (dia.visible == 1 && dia.active == 1) {
-
-                    let fecha = formatearDia(dia.dia);
-                    $("#diaCita").append(`<option value="${dia.id}">${fecha[0]} ${fecha[1]} de ${fecha[2]}</option>`)
+            colegios.forEach(colegio => {
+                if (colegio.active == 1) {
+                    $("#colegioProcedencia").append(`<option value="${colegio.id}">${colegio.nombre}</option>`)
                 }
             });
         }
