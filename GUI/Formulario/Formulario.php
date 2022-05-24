@@ -7,6 +7,9 @@ $footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
+
+include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
+
 ?>
 
 <!doctype html>
@@ -138,16 +141,16 @@ $cssDefault = file_get_contents('../Default/Style.css');
 
                                 <!-- Día -->
                                 <div class="col-md-6 pb-3">
-                                    <label for="fechaCita" class="form-label">Día</label>
-                                    <select id="fechaCita" name="fechaCita" class="form-select" required>
+                                    <label for="diaCita" class="form-label">Día</label>
+                                    <select id="diaCita" name="diaCita" class="form-select" required>
                                         <option value="none" selected disabled hidden>Seleccione un día</option>
                                     </select>
                                 </div>
 
                                 <!-- Hora -->
                                 <div class="col-md-6 pb-3">
-                                    <label for="horario" class="form-label">Horario</label>
-                                    <select id="horario" name="horario" class="form-select" required>
+                                    <label for="horarioCita" class="form-label">Horario</label>
+                                    <select id="horarioCita" name="horarioCita" class="form-select" required>
                                         <option value="none" selected disabled hidden>Seleccione un horario</option>
                                     </select>
                                 </div>
@@ -225,6 +228,17 @@ $cssDefault = file_get_contents('../Default/Style.css');
     echo $jsLinks;;
     ?>
     <script src="./Formulario.js"></script>
+    <script>
+        var dias = <?php echo BuscarDiasHabiles() ?>;
+        var horarios = <?php echo BuscarHorarios() ?>;
+
+        console.table(dias)
+        console.table(horarios)
+
+        function cargarDias() {
+            $("#diaCita")
+        }
+    </script>
     <!-- END Scripts  -->
 </body>
 
