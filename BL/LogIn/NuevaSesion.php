@@ -53,7 +53,6 @@
     {
         $accion = "Correo y/o Contraseña incorrectos <br> Intentelo nuevamente";
         echo $accion;
-        //header("Location: ../../GUI/Login/Login.php");
     }
 
     function RestaurarSesion()

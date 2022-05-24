@@ -9,7 +9,6 @@ $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
 
 include '../../BL/Cita/BuscarTodosDatos.php';
-
 ?>
 
 <!doctype html>
