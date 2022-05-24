@@ -5,8 +5,8 @@ include '../../DAL/CitaDAL/DALColegioProcedencia.php';
 include '../../DAL/ConfiguracionDAL/DALDiaHabil.php';
 include '../../DAL/ConfiguracionDAL/DALHorario.php';
 include '../../Entidades/CitasEntidades/ColegioProcedencia.php';
-include '../../Entidades/ConfiguracionesEntidades/DiaHabil.php';
-include '../../Entidades/ConfiguracionesEntidades/Horario.php';
+include '../../Entidades/ConfiguracionEntidades/DiaHabil.php';
+include '../../Entidades/ConfiguracionEntidades/Horario.php';
 
 function BuscarHorarios()
 {
