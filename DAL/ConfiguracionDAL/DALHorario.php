@@ -7,8 +7,8 @@ class DALHorario
         $conexionDB = new Conexion();
 
         $consultaSql = "INSERT INTO `HORARIO` (`HORAINICIO`, `HORAFINAL`, `AFOROMAXIMO`, `IDDIAHABIL`, `VISIBLE`, `ACTIVE`)
-            VALUES ('" . $nuevoHorario->getHoraInicio() . "', '" . $nuevoHorario->getHoraFinal() . "', '" . $nuevoHorario->getAforoMaximo() . "',
-            '" . $nuevoHorario->getIdDiaHabil() . "', 1, 1)";
+            VALUES ('".$nuevoHorario->getHoraInicio()."', '".$nuevoHorario->getHoraFinal()."', '".$nuevoHorario->getAforoMaximo()."',
+            '".$nuevoHorario->getIdDiaHabil()."', 1, 1)";
 
         if ($conexionDB->NuevaConexion($consultaSql))
         {
@@ -23,26 +23,10 @@ class DALHorario
     {
         $resultado = false;
         $conexionDB = new Conexion();
-        //OJO CON EL WHERE!!!
+
         $consultaSql = "UPDATE `HORARIO` SET `HORAINICIO`='" . $modificarHorario->getHoraInicio() . "',
-        `HORAFINAL`='" . $modificarHorario->getHoraFinal() . "', `AFOROMAXIMO`='" . $modificarHorario->getAforoMaximo() . "'
-        WHERE `IDDIAHABIL`='" . $modificarHorario->getIdDiaHabil() . "'";
-        //VER SI SE PUEDE USAR VALUES () EN VEZ DE SETS CONSECUTIVOS
-        if ($conexionDB->NuevaConexion($consultaSql))
-        {
-            $resultado = true;
-        }
-
-        $conexionDB->CerrarConexion();
-        return $resultado;
-    }
-
-    function EliminarHorario($idHorario)
-    {
-        $resultado = false;
-        $conexionDB = new Conexion();
-        //OJO CON EL WHERE!!!
-        $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 0, `ACTIVE` = 0 WHERE `ID`='" . $idHorario . "'";
+            `HORAFINAL`='".$modificarHorario->getHoraFinal()."', `AFOROMAXIMO`='".$modificarHorario->getAforoMaximo()."'
+            WHERE `IDDIAHABIL`='".$modificarHorario->getIdDiaHabil()."'";
 
         if ($conexionDB->NuevaConexion($consultaSql))
         {
@@ -52,6 +36,22 @@ class DALHorario
         $conexionDB->CerrarConexion();
         return $resultado;
     }
+
+    // function EliminarHorario($idHorario)
+    // {
+    //     $resultado = false;
+    //     $conexionDB = new Conexion();
+    //     //OJO CON EL WHERE!!!
+    //     $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 0, `ACTIVE` = 0 WHERE `ID`='" . $idHorario . "'";
+
+    //     if ($conexionDB->NuevaConexion($consultaSql))
+    //     {
+    //         $resultado = true;
+    //     }
+
+    //     $conexionDB->CerrarConexion();
+    //     return $resultado;
+    // }
 
     function BuscarIdHorario($idHorario)
     {

@@ -1,20 +1,39 @@
 <?php
 class DALDiaHabil
 {
-    function NuevoDiaHabil()
+    function NuevoDiaHabil(DiaHabil $nuevoDiaHabil)
     {
+        $resultado = false;
+        $conexionDB = new Conexion();
 
+        $consultaSql = "INSERT INTO `DIAHABIL` (`DIA`,`IDCONFIGURACION`,`VISIBLE`,`ACTIVE`)
+        VALUES ('".$nuevoDiaHabil->getDia()."', 1, 1, 1)";
+
+        if($conexionDB->NuevaConexion($consultaSql))
+        {
+            $resultado = true;
+        }
+
+        $conexionDB->CerrarConexion();
+        return $resultado;
     }
 
-    function ModificarDiaHabil()
+    function ModificarDiaHabil(DiaHabil $modificarDiaHabil)
     {
+        $resultado = false;
+        $conexionDB = new Conexion();
 
-    }
+        $consultaSql = "UPDATE `DIAHABIL` SET `DIA` = '".$modificarDiaHabil->getDia()."'
+        WHERE `ID` = 1";
 
-    function DesactivarDiaHabil()
-    {
+        if($conexionDB->NuevaConexion($consultaSql))
+        {
+            $resultado = true;
+        }
 
-    }
+        $conexionDB->CerrarConexion();
+        return $resultado;
+    }    
 
     function BuscarIdDia($idDia)
     {
