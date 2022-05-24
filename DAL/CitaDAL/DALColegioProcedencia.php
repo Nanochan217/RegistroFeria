@@ -7,13 +7,13 @@ class DALColegioProcedencia
         $buscarColegio = new ColegioProcedencia();
         $conexionDB = new Conexion();
 
-        $consultaSql = "SELECT * FROM `COLEGIOPROCEDENCIA` WHERE `ID` =".$idColegio;
+        $consultaSql = "SELECT * FROM `COLEGIOPROCEDENCIA` WHERE `ID` =" . $idColegio;
 
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
-        if(mysqli_num_rows($respuestaDB)>0)
+        if (mysqli_num_rows($respuestaDB) > 0)
         {
-            while($filaColegio = $respuestaDB->fetch_assoc())
+            while ($filaColegio = $respuestaDB->fetch_assoc())
             {
                 $buscarColegio->setId($filaColegio["id"]);
                 $buscarColegio->setNombre($filaColegio["nombre"]);
@@ -27,7 +27,7 @@ class DALColegioProcedencia
 
         $buscarColegio = $this->dismount($buscarColegio);
         $conexionDB->CerrarConexion();
-        return $buscarColegio;    
+        return $buscarColegio;
     }
 
     function BuscarTodos()
@@ -46,7 +46,7 @@ class DALColegioProcedencia
                 $colegiosProcedencia = new ColegioProcedencia();
                 $colegiosProcedencia->setId($filasColegios["id"]);
                 $colegiosProcedencia->setNombre($filasColegios["nombre"]);
-                $colegiosProcedencia->setActive($filasColegios["active"]);                
+                $colegiosProcedencia->setActive($filasColegios["active"]);
 
                 $ColegiosDB[] = $this->dismount($colegiosProcedencia);
             }
@@ -59,7 +59,7 @@ class DALColegioProcedencia
         $conexionDB->CerrarConexion();
         return $ColegiosDB;
     }
-    
+
     function dismount($object)
     {
         $reflectionClass = new ReflectionClass(get_class($object));
