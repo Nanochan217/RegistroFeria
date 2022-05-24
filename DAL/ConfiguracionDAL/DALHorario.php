@@ -58,12 +58,13 @@ class DALHorario
         $buscarHorario = new Horario();
         $conexionDB = new Conexion();
 
-        $consultaSql = "SELECT * FROM `HORARIO` WHERE `ID`='" . $idHorario . "' AND `ACTIVE` = 1";
+        $consultaSql = "SELECT * FROM `HORARIO` WHERE `ID` =".$idHorario;
+
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
-        if (mysqli_num_rows($respuestaDB) > 0)
+        if(mysqli_num_rows($respuestaDB)>0)
         {
-            while ($filaHorario = $respuestaDB->fetch_assoc())
+            while($filaHorario = $respuestaDB->fetch_assoc())
             {
                 $buscarHorario->setId($filaHorario['id']);
                 $buscarHorario->setHoraInicio($filaHorario['horaInicio']);
@@ -72,7 +73,6 @@ class DALHorario
                 $buscarHorario->setIdDiaHabil($filaHorario['idDiaHabil']);
                 $buscarHorario->setVisible($filaHorario['visible']);
                 $buscarHorario->setActive($filaHorario['active']);
-                //A
             }
         }
         else
@@ -80,8 +80,9 @@ class DALHorario
             $buscarHorario = null;
         }
 
+        $buscarHorario = $this->dismount($buscarHorario);
         $conexionDB->CerrarConexion();
-        return $buscarHorario;
+        return $buscarHorario;        
     }
 
     function BuscarUltimoHorario()
