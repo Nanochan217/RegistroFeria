@@ -24,3 +24,4 @@ function BuscarHorarios()
     $HorarioDAL = new DALHorario();
     return json_encode($HorarioDAL->BuscarTodas());
 }
+
