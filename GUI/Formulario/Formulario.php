@@ -40,7 +40,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
     <!-- END CSS  -->
 </head>
 
-<body class="bg-light">
+<body class="bg-light" onload="cargarDias()">
 
     <?php
     if ($_SESSION["Perfil"] == 1)
@@ -142,7 +142,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                 <!-- Día -->
                                 <div class="col-md-6 pb-3">
                                     <label for="diaCita" class="form-label">Día</label>
-                                    <select id="diaCita" name="diaCita" class="form-select" required>
+                                    <select id="diaCita" name="diaCita" class="form-select" oninput="cargarHorarios(this.value)" required>
                                         <option value="none" selected disabled hidden>Seleccione un día</option>
                                     </select>
                                 </div>
@@ -150,8 +150,8 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                 <!-- Hora -->
                                 <div class="col-md-6 pb-3">
                                     <label for="horarioCita" class="form-label">Horario</label>
-                                    <select id="horarioCita" name="horarioCita" class="form-select" required>
-                                        <option value="none" selected disabled hidden>Seleccione un horario</option>
+                                    <select id="horarioCita" name="horarioCita" class="form-select" required disabled>
+                                        <option value="none" selected disabled hidden>Seleccione un dia primero</option>
                                     </select>
                                 </div>
                             </div>
@@ -231,12 +231,53 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
     <script>
         var dias = <?php echo BuscarDiasHabiles() ?>;
         var horarios = <?php echo BuscarHorarios() ?>;
-
-        console.table(dias)
-        console.table(horarios)
+        var fecha = [];
+        let contador = 0;
 
         function cargarDias() {
-            $("#diaCita")
+            dias.forEach(dia => {
+                if (dia.visible == 1 && dia.active == 1) {
+
+                    let fecha = formatearDia(dia.dia);
+                    $("#diaCita").append(`<option value="${dia.id}">${fecha[0]} ${fecha[1]} de ${fecha[2]}</option>`)
+                }
+            });
+        }
+
+        function cargarColegios() {
+            dias.forEach(dia => {
+                if (dia.visible == 1 && dia.active == 1) {
+
+                    let fecha = formatearDia(dia.dia);
+                    $("#diaCita").append(`<option value="${dia.id}">${fecha[0]} ${fecha[1]} de ${fecha[2]}</option>`)
+                }
+            });
+        }
+
+        function formatearDia(fecha) {
+            let diasSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+            let mesAnio = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            let fechaNueva = new Date(fecha);
+
+            return [diasSemana[fechaNueva.getDay()], fechaNueva.getDate() + 1, mesAnio[fechaNueva.getMonth()]]
+        }
+
+        function cargarHorarios(idDia) {
+            let contadorHorarios = 0;
+            $("#horarioCita").html("")
+            $("#horarioCita").append(`<option value="none" selected disabled hidden>Seleccione un horario</option>`)
+            horarios.forEach(horario => {
+                if (horario.idDiaHabil == idDia) {
+                    $("#horarioCita").append(`<option value="${horario.id}">${horario.horaInicio} - ${horario.horaFinal}</option>`)
+                    $("#horarioCita").prop("disabled", false);
+                    contadorHorarios++;
+                }
+            });
+            if (contadorHorarios == 0) {
+                $("#horarioCita").prop("disabled", true);
+                $("#horarioCita").html("")
+                $("#horarioCita").append(`<option value="none" selected disabled hidden>Sin horarios disponibles</option>`)
+            }
         }
     </script>
     <!-- END Scripts  -->
