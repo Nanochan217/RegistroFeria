@@ -1,21 +1,63 @@
 <?php
 class DALConfiguracion
 {
-    function NuevaConfiguracion()
-    {
-    }
+    // function NuevaConfiguracion()
+    // {
+    // }
 
-    function ModificarConfiguracion()
+    function ModificarConfiguracion(Configuracion $nuevaConfiguracion)
     {
+        $conexionDB = new Conexion();
+        $resultado = false;
+
+        $consultaSql = "UPDATE `CONFIGURACION` 
+            SET `FECHAINICIO` = '".$nuevaConfiguracion->getFechaInicio()."', 
+            `FECHAFINAL` = '".$nuevaConfiguracion->getFechaFinal()."', 
+            `ACOMPANANTESMAXIMO` = '".$nuevaConfiguracion->getAcompanantesMax()."' 
+            WHERE `ID` = 1";
         
+        if($conexionDB->NuevaConexion($consultaSql))
+        {
+            $resultado = true;
+        }
+
+        $conexionDB->CerrarConexion();
+        return $resultado;
     }
 
-    function EliminarConfiguracion()
+    function DesactivarConfiguracion()
     {
+        $conexionDB = new Conexion();
+        $resultado = false;
+
+        $consultaSql = "UPDATE `CONFIGURACION`, `DIAHABIL`, `HORARIO`
+            SET `CONFIGURACION.ESTADOCONFIGURACION` = 0, `DIAHABIL.VISIBLE` = 0, 
+            `HORARIO.VISIBLE` = 0 WHERE `CONFIGURACION.ID` = 1";
+
+        if($conexionDB->NuevaConexion($consultaSql))
+        {
+            $resultado = true;
+        }
+
+        $conexionDB->CerrarConexion();
+        return $resultado;
     }
 
-    function BuscarConfiguracionId($idConfiguracion)
+    function ActivarConfiguracion()
     {
+        $conexionDB = new Conexion();
+        $resultado = false;
+
+        $consultaSql = "UPDATE `CONFIGURACION`, `DIAHABIL`, `HORARIO`
+        SET `CONFIGURACION.ESTADOCONFIGURACION` = 1, `DIAHABIL.VISIBLE` = 1, 
+        `HORARIO.VISIBLE` = 1 WHERE `CONFIGURACION.ID` = 1";
+        if($conexionDB->NuevaConexion($consultaSql))
+        {
+            $resultado = true;
+        }
+
+        $conexionDB->CerrarConexion();
+        return $resultado;
     }
 
     function BuscarTodasConfiguraciones()
