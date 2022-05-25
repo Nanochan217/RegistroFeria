@@ -20,6 +20,8 @@
     $acompananteDAL = new DALAcompanante();
     $comprobanteCita = new DALComprobante();
     
+    //Estado de los Acompañantes
+    $estadoAcompanantes = $_POST['estadoAcompanantes'];
     //Cantidad de Acompañantes
     $cantidadAcompanantes = $_POST['cantidadAcompanantes'];
     
@@ -39,8 +41,8 @@
     $colegioAsistente = $_POST['colegioProcedencia'];
 
     // //Datos de la Cita
-    $diaCita = $_POST['fechaCita'];
-    $horaCita = $_POST['horario'];
+    $diaCita = $_POST['diaCita'];
+    $horaCita = $_POST['horarioCita'];
 
     if($asistenteDAL->BuscarCedula($cedulaAsistente) == false)
     {
@@ -71,67 +73,54 @@
             {
                 $idCita = $citaDAL->UltimaCita();
 
-                while($contador <= $cantidadAcompanantes)
-                {  
-                    //Datos del Acompañante      
-                    $cedulaAcompanante = $_POST['cedulaAcompanante'.$contador];
-                    $nombreAcompanante = $_POST['nombreAcompanante'.$contador];
-                    $tipoAcompanante = $_POST['parentescoAcompanante'.$contador];
+                // if($estadoAcompanantes !== "N")
+                // {
+                    while($contador <= $cantidadAcompanantes)
+                    {  
+                        //Datos del Acompañante      
+                        $cedulaAcompanante = $_POST['cedulaAcompanante'.$contador];
+                        $nombreAcompanante = $_POST['nombreAcompanante'.$contador];
+                        $tipoAcompanante = $_POST['parentescoAcompanante'.$contador];
 
-                    //Asignación en el Objeto Acompanante con los datos del Formulario
-                    $nuevoAcompanante->setCedula($cedulaAcompanante);
-                    $nuevoAcompanante->setNombre($nombreAcompanante);
-                    $nuevoAcompanante->setIdTipoAcompanante($tipoAcompanante);
-                    $nuevoAcompanante->setIdCita($idCita);
-                    $nuevoAcompanante->setActive(1);
+                        //Asignación en el Objeto Acompanante con los datos del Formulario
+                        $nuevoAcompanante->setCedula($cedulaAcompanante);
+                        $nuevoAcompanante->setNombre($nombreAcompanante);
+                        $nuevoAcompanante->setIdTipoAcompanante($tipoAcompanante);
+                        $nuevoAcompanante->setIdCita($idCita);
+                        $nuevoAcompanante->setActive(1);
 
-                    if($acompananteDAL->BuscarCedula($cedulaAcompanante) == false)
-                    {
-                        //echo "<h1>'".$cedulaAcompanante."'</h1>";
-                        if($acompananteDAL->NuevoAcompanante($nuevoAcompanante))
+                        if($acompananteDAL->BuscarCedula($cedulaAcompanante) == false)
                         {
-                            //Siguiente ciclo...
-                            $contador++;
+                            //echo "<h1>'".$cedulaAcompanante."'</h1>";
+                            if($acompananteDAL->NuevoAcompanante($nuevoAcompanante))
+                            {
+                                //Siguiente ciclo...
+                                $contador++;
+                            }
+                            else
+                            {
+                                //echo "<h1>NUEVA ACOMPANANTE ERROR</h1>";
+                                $citaDAL->DesactivarCita($idCita);
+                                $asistenteDAL->DesactivarAsistente($idAsistente);
+                                break;
+                                header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+                            }
                         }
-                        else
-                        {
-                            //echo "<h1>NUEVA ACOMPANANTE ERROR</h1>";
-                            $citaDAL->DesactivarCita($idCita);
-                            $asistenteDAL->DesactivarAsistente($idAsistente);
-                            break;
-                            header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
-                        }
+                        // else
+                        // {
+                        //     //FALTA COMPROBAR (HACER USO DE JSON PARA OBTENER LOS DATOS Y MOSTRARLOS EN UN MODAL DE ADVERTENCIA)
+                        //     //ESTO CONLLEVARÁ A HACER USO DE OTRO DOCUMENTO DE PHP PARA VERIFICAR LAS CEDULAS (VER NOTAS EN EL CUADERNO)
+                        //     $cedulasRegistradas[] = $cedulaAcompanante;
+                        //     $contador++;                        
+                        // }
                     }
-                    else
-                    {
-                        //FALTA COMPROBAR (HACER USO DE JSON PARA OBTENER LOS DATOS Y MOSTRARLOS EN UN MODAL DE ADVERTENCIA)
-                        //ESTO CONLLEVARÁ A HACER USO DE OTRO DOCUMENTO DE PHP PARA VERIFICAR LAS CEDULAS (VER NOTAS EN EL CUADERNO)
-                        $cedulasRegistradas[] = $cedulaAcompanante;
-                        $contador++;                        
-                    }
-                }                
-                
-                //Descargará el PDF automáticamente!!! (Debe estar antes del Header pero descarga y no redirecciona... GUARDAR EN DB Y HABILITAR UNA FUNCION DE DESCARGA)
-                $enlaceDocumento = "";//$comprobanteCita->CargarDocumento($comprobanteCita->GenerarPDF($nuevoAsistente , $nuevoAcompanante, $nuevaCita, $contador));
-                if(isset($enlaceDocumento))
-                {
-                    //OBJETO DE COMPROBANTE PARA ALMACENAR EL ENLACE Y DEMAS EN LA DB
-                    $nuevoComprobante->setNombreComprobante("");
-                    $nuevoComprobante->setDescripcion("");
-                    $nuevoComprobante->setFechaComprobante(date('d-m-y h:i:s'));
-                    $nuevoComprobante->setIdCita($idCita);
-                    $nuevoComprobante->setDocumento($enlaceDocumento);
-                    
-                    if($comprobanteCita->NuevoComprobante($nuevoComprobante))
-                    {
+
+                    //if($contador == $cantidadAcompanantes)
                         header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
-                    }
-                }
-                else
-                {
-                    $a;
-                    //ALGO
-                }                                
+                //}                
+                                                                                
+                // $comprobanteCita->GenerarPDF($nuevoAsistente , $nuevoAcompanante, $nuevaCita, $contador);
+                // echo "../../ComprobantesCita/ComprobanteCita#".$idCita.".pdf";
             }
             else
             {

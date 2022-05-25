@@ -157,7 +157,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                         </div>
                         <!-- END Sección de fecha de la cita -->
 
-                        <!-- START Sección de acompañantes -->
+                        <!-- START Sección de acompañantes -->                        
                         <div class="col-md border rounded shadow-sm bg-white p-5">
                             <div class="d-flex gap-3 flex-wrap pb-4">
                                 <h2>Acompañantes</h2>
