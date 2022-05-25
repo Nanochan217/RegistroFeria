@@ -159,45 +159,39 @@ include '../../BL/Cita/BuscarTodosDatos.php';
 
                         <!-- START Sección de acompañantes -->                        
                         <div class="col-md border rounded shadow-sm bg-white p-5">
-                            <input type="text" name="estadoAcompanantes" id="estadoAcompanantes" value="N" hidden> 
-                            <div class="d-flex gap-3 pb-4 flex-wrap">
+                            <div class="d-flex gap-3 flex-wrap pb-4">
                                 <h2>Acompañantes</h2>
 
                                 <!-- Radio Buttons -->
                                 <div class="d-flex gap-4 pt-2">
-
                                     <!-- Si -->
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="acompanante" id="acompananteSI" required>
+                                        <input class="form-check-input" type="radio" name="acompanante" id="acompananteSI" onclick="alternarAcompanantes('mostrar')" required>
                                         <label class="form-check-label" for="acompananteSI">Sí</label>
                                     </div>
 
                                     <!-- No -->
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="acompanante" id="acompananteNo" checked required>
+                                        <input class="form-check-input" type="radio" name="acompanante" id="acompananteNo" onclick="alternarAcompanantes('ocultar')" checked required>
                                         <label class="form-check-label" for="acompananteNo">No</label>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Inputs -->
-                            <div id="listaAcompanante" style="display: none;">
-                                <div class="col-md-6 pb-3" hidden="true">
-                                    <label for="cantidadAcompanantes" class="form-label">Cantidad de Acompanantes</label>
-                                    <input type="text" class="form-control" id="cantidadAcompanantes" name="cantidadAcompanantes" value="">
-                                </div>
-                                <!-- Aquí irán los acompanantes -->
+                            <div id="acompanantesHidden" display="none"></div>
+                            <div id="acompanantes" style="display: none;">ola
+
                             </div>
 
-                            <!-- Button Agregar Acompañante -->
-                            <div class="d-grid gap-2" id="addAcompanante" style="display: none!important;">
-                                <button class="btn btn-outline-primary" type="button" id="btnAddAcompanante">+ Agregar acompañante</button>
+                            <!-- Button Agregar acompañante -->
+                            <div class="d-grid gap-2" id="addAcompanante" style="display:none !important;">
+                                <button class="btn btn-outline-primary" type="button" id="btnAddAcompanante" onclick="agregarAcompanante()"><i class="bi bi-plus-circle align-middle lh-1 me-2" style="font-size: 18px;"></i>Agregar acompanante</button>
                             </div>
-                            <div class="alert alert-secondary" id="AcompananteMsj" role="alert">
+
+                            <div class="alert alert-secondary" id="acompananteMsj" role="alert">
                                 No asistirás con ningún acompañante
                             </div>
-                        </div>
-                        <!-- END Sección de acompañantes -->
+                        </div> <!-- END Sección de acompañantes -->
 
                     </div>
 
@@ -278,8 +272,26 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                 $("#horarioCita").append(`<option value="none" selected disabled hidden>Sin horarios disponibles</option>`)
             }
         }
-    </script>
+
+        function alternarAcompanantes(alternar) {
+            if (alternar == 'mostrar') {
+                $("#acompanantes").show();
+                $("#acompananteMsj").hide();
+                $("#addAcompanante").show();
+            } else if (alternar == 'ocultar') {
+                $("#acompanantes").hide();
+                $("#acompananteMsj").show();
+                $("#addAcompanante").hide();
+                $("#addAcompanante").prop();
+            }
+        }
+
+        
+        </script>
     <!-- END Scripts  -->
 </body>
 
 </html>
+
+
+
