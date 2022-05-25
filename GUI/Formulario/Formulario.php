@@ -141,7 +141,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                                 <!-- Día -->
                                 <div class="col-md-6 pb-3">
                                     <label for="diaCita" class="form-label">Día</label>
-                                    <select id="diaCita" name="diaCita" class="form-select" oninput="cargarHorarios(this.value)" required>
+                                    <select id="diaCita" name="fechaCita" class="form-select" oninput="cargarHorarios(this.value)" required>
                                         <option value="none" selected disabled hidden>Seleccione un día</option>
                                     </select>
                                 </div>
@@ -149,7 +149,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                                 <!-- Hora -->
                                 <div class="col-md-6 pb-3">
                                     <label for="horarioCita" class="form-label">Horario</label>
-                                    <select id="horarioCita" name="horarioCita" class="form-select" required disabled>
+                                    <select id="horarioCita" name="horario" class="form-select" required disabled>
                                         <option value="none" selected disabled hidden>Seleccione un dia primero</option>
                                     </select>
                                 </div>
@@ -179,7 +179,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                             </div>
 
                             <div id="acompanantesHidden" display="none"></div>
-                            <div id="acompanantes" style="display: none;">ola
+                            <div id="acompanantes" style="display: none;">
 
                             </div>
 
@@ -285,13 +285,8 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                 $("#addAcompanante").prop();
             }
         }
-
-        
-        </script>
+    </script>
     <!-- END Scripts  -->
 </body>
 
 </html>
-
-
-
