@@ -27,8 +27,8 @@
     $configuracion->setFechaFinal($fechaFinal);
     $configuracion->setAcompanantesMax($maxAcompanantes);
 
-    if($configuracionDAL->ModificarConfiguracion($configuracion))
-    {
+    // if($configuracionDAL->ModificarConfiguracion($configuracion))//T
+    // {
         foreach($datosConfiguracion as $datos)
         {
             foreach($datos as $propiedad => $contenido)
@@ -37,17 +37,38 @@
                 {
                     foreach($contenido as $valor)
                     {
-                        $diaHabil->setDia($valor->dia);//????????
-                        $estadoDia = $valor->existe;//???????????
-
-                        if($estadoDia == 1)
-                        {
-                            $diaHabilDAL->NuevoDiaHabil($diaHabil);
-                        }
-                        else
-                        {
-                            $diaHabilDAL->ModificarDiaHabil($diaHabil);
-                        }
+                        // $count = 0;
+                        // while($count <= 4)
+                        // {
+                        //     echo $valor[$count];
+                        //     //$horarios->setHoraInicio($valor[$count]);
+                        //     // $count++;
+                        //     echo $valor[$count];
+                        //     //$horarios->setHoraFinal($valor[$count]);
+                        //     // $count++;
+                        //     echo $valor[$count];
+                        //     //$horarios->setAforoMaximo($valor[$count]);
+                        //     // $count++;
+                        //     echo $valor[$count];
+                        //     //$horarios->setIdDiaHabil($valor[$count]);
+                        //     // $count++;
+                        //     echo $valor[$count];
+                        //     //$estadoHorario = $valor[$count];
+                        //     $count++;
+                        // }
+                        // $var2 = $valor[0];
+                        // echo $var2;
+                        // $diaHabil->setDia($valor['dia']);
+                        // $estadoDia = $valor['existe'];
+                        
+                        // if($estadoDia == 1)
+                        // {
+                        //     $diaHabilDAL->NuevoDiaHabil($diaHabil);
+                        // }
+                        // else
+                        // {
+                        //     $diaHabilDAL->ModificarDiaHabil($diaHabil);
+                        // }
                         // print_r($valor);
                         // echo "<br>";
                     }
@@ -58,20 +79,36 @@
                     {
                         foreach($horario as $valor)
                         {
-                            $horarios->setHoraInicio($valor->HoraInicio);//????????
-                            $horarios->setHoraFinal($valor->HoraFinal);//????????
-                            $horarios->setAforoMaximo($valor->aforoMaximo);//????????
-                            $horarios->setIdDiaHabil($valor->idDiaHabil);//????????
-                            $estadoHorario = $valor->existe;//????????
+                            $count = 0;
+                            while($count <= 4)
+                            {
+                                echo $valor[$count];
+                                //$horarios->setHoraInicio($valor[$count]);
+                                //$count++;
+                                echo $valor[$count];
+                                //$horarios->setHoraFinal($valor[$count]);
+                                //$count++;
+                                echo $valor[$count];
+                                //$horarios->setAforoMaximo($valor[$count]);
+                                //$count++;
+                                echo $valor[$count];
+                                //$horarios->setIdDiaHabil($valor[$count]);
+                                //$count++;
+                                echo $valor[$count];
+                                //$estadoHorario = $valor[$count];
+                                $count++;
+                            }
+                            // $var1 = $valor[0];
+                            // echo $var1;                        
 
-                            if($estadoHorario == 1)
-                            {
-                                $horarioDAL->NuevoHorario($horarios);
-                            }
-                            else
-                            {
-                                $horarioDAL->ModificarHorario($horarios);
-                            }
+                        //    if($estadoHorario == 1)
+                        //     {
+                        //         $horarioDAL->NuevoHorario($horarios);
+                        //     }
+                        //     else
+                        //     {
+                        //         $horarioDAL->ModificarHorario($horarios);
+                        //     }
                             // print_r($valor);
                             // echo "<br>";
                         }
@@ -79,7 +116,7 @@
                 }
             }
         }
-    }
+    //}
 
     //NOMBRES DE LAS PROPIEDADES DE LOS OBJETOS DESDE EL FRONT
     //DIA
@@ -252,3 +289,12 @@
     //     //SECCION DONDE SOLO SE MODIFICAN LOS HORARIOS (EN CASO DE NO AÑADIR NADA)
     // }
     
+
+
+
+    //SQL DE CONFIGURACION PARA PRUEBAS
+    // INSERT INTO configuracion (nombre, descripcion, fechaInicio, fechaFinal, acompanantesMaximo, estadoConfiguracion, active)
+    // VALUES ("a", "a", "2022-05-05", "2022-05-10", 3, 1, 1);
+
+    // INSERT INTO horario (horaInicio, horaFinal, aforoMaximo, idDiaHabil, visible, active)
+    // VALUES ("7:00:00","9:00:00",200,1,1,1);

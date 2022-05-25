@@ -56,28 +56,28 @@ class DALComprobante
 //        //return $enlaceDocumento;
 //    }                                           
     
-    function BuscarDocumento($idComprobanteCita)
-    {
-        //PARA EL BOTON DE DESCARGA O VISUALIZACION DE COMPROBANTE (?) DEVUELVE EL ENLACE... (???)
-    }
+    // function BuscarDocumento($idComprobanteCita)
+    // {
+    //     //PARA EL BOTON DE DESCARGA O VISUALIZACION DE COMPROBANTE (?) DEVUELVE EL ENLACE... (???)
+    // }
     
-    function NuevoComprobante(Comprobante $nuevoComprobante)
-    {
-        $resultado = false;
-        $conexionDB = new Conexion();
+    // function NuevoComprobante(Comprobante $nuevoComprobante)
+    // {
+    //     $resultado = false;
+    //     $conexionDB = new Conexion();
         
-        $consultaSql = "INSERT INTO `COMPROBANTECITA` (`NOMBRECOMPROBANTE`,`DESCRIPCION`,`FECHACOMPROBANTE`,`IDCITA`,`DOCUMENTO`,`ACTIVE`)
-                 VALUES ('".$nuevoComprobante->getNombreComprobante()."', '".$nuevoComprobante->getDescripcion()."', 
-                 '".$nuevoComprobante->getFechaComprobante()."', '".$nuevoComprobante->getIdCita()."', '".$nuevoComprobante->getDocumento()."', 1)";
+    //     $consultaSql = "INSERT INTO `COMPROBANTECITA` (`NOMBRECOMPROBANTE`,`DESCRIPCION`,`FECHACOMPROBANTE`,`IDCITA`,`DOCUMENTO`,`ACTIVE`)
+    //              VALUES ('".$nuevoComprobante->getNombreComprobante()."', '".$nuevoComprobante->getDescripcion()."', 
+    //              '".$nuevoComprobante->getFechaComprobante()."', '".$nuevoComprobante->getIdCita()."', '".$nuevoComprobante->getDocumento()."', 1)";
         
-        if($conexionDB->NuevaConexion($consultaSql))
-        {
-           $resultado = true;
-        }
+    //     if($conexionDB->NuevaConexion($consultaSql))
+    //     {
+    //        $resultado = true;
+    //     }
         
-        $conexionDB->CerrarConexion();
-        return $resultado;
-    }
+    //     $conexionDB->CerrarConexion();
+    //     return $resultado;
+    // }
     
     function GenerarPDF(Asistente $asistenteSolicitante, Acompanante $citaAcompanante, Cita $cita, $cantidad)
     {
@@ -92,6 +92,7 @@ class DALComprobante
         $pdfConfirmacion->Cell(0, 10, utf8_decode('Cantidad de Acompañantes: '.$cantidad), 0, 1);
         while($cantidadAcompanantes <= $cantidad)
         {
+            //OJOOOOOO
             //Buscar una manera de recorrer los acompanantes (?)
             $pdfConfirmacion->Cell(0, 10, utf8_decode('Acompañante #'.$cantidadAcompanantes.': '.$citaAcompanante->getNombre()), 0, 1);
             $cantidadAcompanantes++;
@@ -102,10 +103,12 @@ class DALComprobante
         $pdfConfirmacion->Cell(0, 10, utf8_decode('¡No olvides confirmar tu reserva mediante el correo que te enviaremos pronto!'), 0, 1);
         $pdfConfirmacion->Cell(0, 10, utf8_decode('Con cariño, COVAO <3'), 0, 1);
         //$pdfConfirmacion->Ln(); SALTO DE LINEA
+        
         //Incluir imagenes al PDF
         $pdfConfirmacion->Image('../../GUI/Assets/Images/logoCovao.png', null, null, 80);
         //D = Descargar, F = local, I = una dirección concreta (?) OJOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-        return $pdfConfirmacion->Output('D', 'ComprobanteCita#'.$citaAcompanante->getIdCita().'.pdf');
+        return $pdfConfirmacion->Output('F', '../../ComprobantesCita/ComprobanteCita#'.$citaAcompanante->getIdCita().'.pdf', true); // save into some other location
+        //return $pdfConfirmacion->Output('D', 'ComprobanteCita#'.$citaAcompanante->getIdCita().'.pdf');
     }
 }
 

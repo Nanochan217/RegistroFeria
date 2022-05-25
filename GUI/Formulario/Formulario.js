@@ -18,6 +18,7 @@ $( document ).ready( function () {
         $( "#AcompananteMsj" ).show(); //se muestra el mensaje de que no asistirá con ningún acompañante 
         $( "#AcompananteMsj" ).removeClass( "alert-warning" ).addClass( "alert-secondary" ); //se cambia el color del mensaje a gris
         $( "#AcompananteMsj" ).html( "No asistirás con ningún acompañante" ); //se cambia el mensaje
+        $( "#estadoAcompanantes" ).val("N");
     });
 
     //Al precionar el botón de agregar acompañante
@@ -60,6 +61,7 @@ function mostrarMensaje() {
 
 //función que agrega los acompañantes
 function addAcompanante() {
+    $( "#estadoAcompanantes" ).val("S");
     if ( acompanantes.length < maxAcompanantes ) { //si aún no se alcanza el máximo de acompañantes
         //se guarda el elemento en una variable
         let acompanante = `<!-- Acompanante ${acompanantes.length + 1} --> 
