@@ -21,7 +21,7 @@
     $comprobanteCita = new DALComprobante();
     
     //Estado de los Acompañantes
-    $estadoAcompanantes = $_POST['estadoAcompanantes'];
+    //$estadoAcompanantes = $_POST['estadoAcompanantes'];
     //Cantidad de Acompañantes
     $cantidadAcompanantes = $_POST['cantidadAcompanantes'];
     
@@ -89,23 +89,27 @@
                         $nuevoAcompanante->setIdCita($idCita);
                         $nuevoAcompanante->setActive(1);
 
-                        if($acompananteDAL->BuscarCedula($cedulaAcompanante) == false)
+                        if($cantidadAcompanantes != 0)
                         {
-                            //echo "<h1>'".$cedulaAcompanante."'</h1>";
-                            if($acompananteDAL->NuevoAcompanante($nuevoAcompanante))
+                            if($acompananteDAL->BuscarCedula($cedulaAcompanante) == false)
                             {
-                                //Siguiente ciclo...
-                                $contador++;
-                            }
-                            else
-                            {
-                                //echo "<h1>NUEVA ACOMPANANTE ERROR</h1>";
-                                $citaDAL->DesactivarCita($idCita);
-                                $asistenteDAL->DesactivarAsistente($idAsistente);
-                                break;
-                                header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+                                //echo "<h1>'".$cedulaAcompanante."'</h1>";
+                                if($acompananteDAL->NuevoAcompanante($nuevoAcompanante))
+                                {
+                                    //Siguiente ciclo...
+                                    $contador++;
+                                }
+                                else
+                                {
+                                    //echo "<h1>NUEVA ACOMPANANTE ERROR</h1>";
+                                    $citaDAL->DesactivarCita($idCita);
+                                    $asistenteDAL->DesactivarAsistente($idAsistente);
+                                    break;
+                                    header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+                                }
                             }
                         }
+                        
                         // else
                         // {
                         //     //FALTA COMPROBAR (HACER USO DE JSON PARA OBTENER LOS DATOS Y MOSTRARLOS EN UN MODAL DE ADVERTENCIA)
