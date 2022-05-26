@@ -47,8 +47,7 @@
             $conexionDB->CerrarConexion();
             return $ultimaCredencial;
         }
-
-        //HACER EL ENCRIPTADO DE CONTRASEÑAS
+        
         function ActualizarCredenciales(Credenciales $modificarCredenciales)
         {
             $resultado = false;
@@ -61,8 +60,9 @@
             }
             else
             {
+                $contraseñaEncriptada = password_hash($modificarCredenciales->getContrasena(), PASSWORD_DEFAULT);
                 $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='".$modificarCredenciales->getCorreo()."', 
-                `CONTRASENA`='".$modificarCredenciales->getContrasena()."' WHERE `ID`=".$modificarCredenciales->getId();
+                `CONTRASENA`='".$contraseñaEncriptada."' WHERE `ID`=".$modificarCredenciales->getId();
             }
 
             if($conexionDB->NuevaConexion($consultaSql))
@@ -187,3 +187,5 @@
             return $array;
         }  
     }
+
+///////////////////////////////////////////////////////////////////////////////////////////

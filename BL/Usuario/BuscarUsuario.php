@@ -7,8 +7,7 @@ include '../../Entidades/UsuarioEntidades/Usuario.php';
 include '../../Entidades/UsuarioEntidades/Credenciales.php';
 include '../../Entidades/UsuarioEntidades/Perfil.php';
 
-$CredencialesDAL = new DALCredenciales();
-
+//Funciones para buscar a un Usuario por ID y sus Perfiles
 function BuscarIDUsuario($id)
 {
     $UsuarioDAL = new DALUsuario();

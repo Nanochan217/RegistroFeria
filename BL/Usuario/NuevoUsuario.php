@@ -16,27 +16,22 @@
     $correoUsuario = $_POST['email'];
     $contrasenaUsuario = $_POST['contrasena'];
 
-
     if($usuarioDAL->BuscarCedula($cedulaUsuario) == false && $credencialDAL->BuscarCorreo($correoUsuario) == false)
-    {
-        //OBTENCIÓN DE DATOS DESDE EL FRONT
+    {        
         $nuevaCredencial->setCorreo($correoUsuario);
         $nuevaCredencial->setContrasena($contrasenaUsuario);
-
-        //Nueva Credencial
+    
         if($credencialDAL->NuevaCredencial($nuevaCredencial))
         {
-            //Búsqueda de la última credencial añadida
+            //Obtener la ID de la credencial recien añadida
             $ultimaCredencial = $credencialDAL->UltimaCredencial();
-
-            //Captura de Datos del Usuario
+            
             $nombreUsuario = $_POST['nombre'];
             $apellido1Usuario = $_POST['apellido1'];
             $apellido2Usuario = $_POST['apellido2'];
             $idPerfilUsuario = $_POST['tipoPerfil'];
             $idCredencialUsuario = $ultimaCredencial->getId();
 
-            //Asignar datos a Usuario
             $nuevoUsuario->setCedula($cedulaUsuario);
             $nuevoUsuario->setNombre($nombreUsuario);
             $nuevoUsuario->setApellido1($apellido1Usuario);
@@ -47,8 +42,7 @@
             //Nuevo Usuario
             if($usuarioDAL->NuevoUsuario($nuevoUsuario))
             {
-                header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php"); 
-                //return $accion;
+                header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");                 
             }
             else
             {

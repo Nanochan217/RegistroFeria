@@ -8,7 +8,7 @@ class Conexion
     {
         $usuario = "root";
         $contrasena = "";
-        $db = "feriavocacionalcovao"; //Nombre de la Base de Datos
+        $db = "feriavocacionalcovao";//Nombre de la Base de Datos
 
         if (!$this->mysqli = new mysqli('localhost', $usuario, $contrasena, $db)) {
             //Mensaje de error en caso de que no se logre realizar la conexión
@@ -26,3 +26,5 @@ class Conexion
         $this->mysqli->close();
     }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////

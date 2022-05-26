@@ -8,6 +8,7 @@ include '../../Entidades/ConfiguracionEntidades/Horario.php';
 include '../../Entidades/ConfiguracionEntidades/DiaHabil.php';
 include '../../Entidades/CitasEntidades/ColegioProcedencia.php';
 
+//Buscar Todos los Datos relacionados a Configuracion de Formulario y Citas
 function BuscarHorarios()
 {
     $horarioDAL = new DALHorario();
@@ -25,3 +26,5 @@ function BuscarTodosColegios()
     $colegiosProcedenciaDAL = new DALColegioProcedencia();
     return json_encode($colegiosProcedenciaDAL->BuscarTodos());
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////

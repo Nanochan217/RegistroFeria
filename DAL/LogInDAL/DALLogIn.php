@@ -15,6 +15,7 @@
             {
                 while($filaCredencial = $respuestaDB->fetch_assoc())
                 {
+                    //verifica la contraseña del Log In con el Hash (contraseña encriptada)
                     if(password_verify($contrasenaUsuario, $filaCredencial["contrasena"]))
                     {                                                          
                         $credencialesSesion->setId($filaCredencial["id"]);
@@ -34,6 +35,7 @@
             return $credencialesSesion;                        
         }
 
+        //En proceso...
         function VerificarCorreoUsuario($correoUsuario)
         {
             $resultado = false;
@@ -83,3 +85,5 @@
 //$expFormat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("y"));
 //$expDate = date("Y-m-d H:i:s", $expFormat);
 //$update = "";
+
+///////////////////////////////////////////////////////////////////////////////////////////

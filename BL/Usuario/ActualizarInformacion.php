@@ -1,9 +1,5 @@
-<?php
-    // session_start();
-    // if(!isset($_SESSION['idUsuario']))
-    //     header("Location: ../../GUI/Login/Login.php");
-    //unset($_SESSION["idUsuario"]); DESTRUIR LA VARIABLE GLOBAL SESSION POR ENDE CIERRA LA SESION ACTIVA
-
+<?php    
+    
     include '../../Core/Conexion.php';
     include '../../DAL/UsuarioDAL/DALUsuario.php';
     include '../../DAL/UsuarioDAL/DALCredenciales.php';
@@ -34,15 +30,13 @@
         $usuarioDAL = new DALUsuario();
         $idUsuario = $_POST['idUsuario'];
 
-        //Captura de Datos del Usuario
         $cedulaUsuario = $_POST['cedula'];
         $nombreUsuario = $_POST['nombre'];
         $apellido1Usuario = $_POST['apellido1'];
         $apellido2Usuario = $_POST['apellido2'];
         $idPerfilUsuario = $_POST['tipoPerfil'];
         $idCredencialUsuario = $idUsuario;
-
-        //Asignar datos a Usuario
+        
         $actualizarUsuario->setId($idUsuario);
         $actualizarUsuario->setCedula($cedulaUsuario);
         $actualizarUsuario->setNombre($nombreUsuario);
@@ -60,3 +54,5 @@
             header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
         }
     }
+
+///////////////////////////////////////////////////////////////////////////////////////////

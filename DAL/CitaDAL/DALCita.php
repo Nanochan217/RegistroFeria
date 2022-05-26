@@ -19,7 +19,7 @@
             return $resultado;
         }
 
-        //OJO CON LA CONSULTA SQL (REVISAR Y COMPARAR CON LA DE USUARIOS...)
+        //Necesario revisar (!)
         function ModificarCita(Cita $modificarCita)
         {
             $resultado = false;
@@ -40,8 +40,7 @@
         {
             $citaConsultada = new Cita();
             $conexionDB = new Conexion();
-
-            //PENDIENTE VER COMO BUSCAR LA CEDULA (PROBABLEMENTE SE BUSCARA POR ID)
+            
             $consultaSql = "SELECT * FROM `CITA` WHERE `ACTIVE`=1 AND `IDASISTENTE`=".$idAsistente;
             $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
@@ -137,3 +136,5 @@
             return $ultimaCitaDB;
         }
     }
+
+///////////////////////////////////////////////////////////////////////////////////////////

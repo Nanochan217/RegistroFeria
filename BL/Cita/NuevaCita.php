@@ -1,5 +1,4 @@
-<?php
-    //include_once '../../Core/DriveAPI/vendor/autoload.php';
+<?php    
     include '../../Core/GenerarPDF/fpdf/fpdf.php';
     include '../../Core/Conexion.php';
     include '../../DAL/CitaDAL/DALCita.php';
@@ -9,9 +8,7 @@
     include '../../Entidades/CitasEntidades/Cita.php';
     include '../../Entidades/CitasEntidades/Asistente.php';
     include '../../Entidades/CitasEntidades/Acompanante.php';
-    include '../../Entidades/CitasEntidades/Comprobante.php';
-    
-    //APLICAR LOS ARRAYS DESDE EL FORM Y MODIFICAR ESTE CÓDIGO!!!
+    include '../../Entidades/CitasEntidades/Comprobante.php';        
     
     $cedulasRegistradas = array();
     $contador = 1;
@@ -19,9 +16,7 @@
     $citaDAL = new DALCita();
     $acompananteDAL = new DALAcompanante();
     $comprobanteCita = new DALComprobante();
-    
-    //Estado de los Acompañantes
-    //$estadoAcompanantes = $_POST['estadoAcompanantes'];
+        
     //Cantidad de Acompañantes
     $cantidadAcompanantes = $_POST['cantidadAcompanantes'];
     
@@ -45,8 +40,7 @@
     $horaCita = $_POST['horarioCita'];
 
     if($asistenteDAL->BuscarCedula($cedulaAsistente) == false)
-    {
-        //Asignación en el Objeto Asistente con los datos del Formulario
+    {        
         $nuevoAsistente->setCedula($cedulaAsistente);
         $nuevoAsistente->setNombre($nombreAsistente);
         $nuevoAsistente->setApellido1($apellido1Asistente);
@@ -58,10 +52,9 @@
 
         if($asistenteDAL->NuevoAsistente($nuevoAsistente))
         {
-            //Se obtiene la ID del último registro del Asistente
+            //Se obtiene la ID del último Asistente registrado
             $idAsistente = $asistenteDAL->UltimoAsistente();
-
-            //Asignación en el Objeto Cita con los datos del Formulario
+            
             $nuevaCita->setDia($diaCita);
             $nuevaCita->setHora($horaCita);
             $nuevaCita->setConfirmado(0);
@@ -71,18 +64,16 @@
 
             if($citaDAL->NuevaCita($nuevaCita))
             {
+                //Regresa la última la id de la cita recien registrada
                 $idCita = $citaDAL->UltimaCita();
 
-                // if($estadoAcompanantes !== "N")
-                // {
                     while($contador <= $cantidadAcompanantes)
                     {  
-                        //Datos del Acompañante      
+                        //Datos del Acompañante
                         $cedulaAcompanante = $_POST['cedulaAcompanante'.$contador];
                         $nombreAcompanante = $_POST['nombreAcompanante'.$contador];
                         $tipoAcompanante = $_POST['parentescoAcompanante'.$contador];
 
-                        //Asignación en el Objeto Acompanante con los datos del Formulario
                         $nuevoAcompanante->setCedula($cedulaAcompanante);
                         $nuevoAcompanante->setNombre($nombreAcompanante);
                         $nuevoAcompanante->setIdTipoAcompanante($tipoAcompanante);
@@ -93,10 +84,8 @@
                         {
                             if($acompananteDAL->BuscarCedula($cedulaAcompanante) == false)
                             {
-                                //echo "<h1>'".$cedulaAcompanante."'</h1>";
                                 if($acompananteDAL->NuevoAcompanante($nuevoAcompanante))
                                 {
-                                    //Siguiente ciclo...
                                     $contador++;
                                 }
                                 else
@@ -108,40 +97,26 @@
                                     header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
                                 }
                             }
-                        }
-                        
-                        // else
-                        // {
-                        //     //FALTA COMPROBAR (HACER USO DE JSON PARA OBTENER LOS DATOS Y MOSTRARLOS EN UN MODAL DE ADVERTENCIA)
-                        //     //ESTO CONLLEVARÁ A HACER USO DE OTRO DOCUMENTO DE PHP PARA VERIFICAR LAS CEDULAS (VER NOTAS EN EL CUADERNO)
-                        //     $cedulasRegistradas[] = $cedulaAcompanante;
-                        //     $contador++;                        
-                        // }
-                    }
+                        }                                                
+                    }                    
 
-                    //if($contador == $cantidadAcompanantes)
-                        header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
-                //}                
-                                                                                
-                // $comprobanteCita->GenerarPDF($nuevoAsistente , $nuevoAcompanante, $nuevaCita, $contador);
-                // echo "../../ComprobantesCita/ComprobanteCita#".$idCita.".pdf";
+                header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");                                                                                                                
+                //$comprobanteCita->GenerarPDF($nuevoAsistente , $nuevoAcompanante, $nuevaCita, $contador);                    
             }
             else
-            {
-                //echo "<h1>NUEVA CITA ERROR</h1>";
+            {                
                 $asistenteDAL->DesactivarAsistente($idAsistente);
                 header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
             }
         }
         else
-        {
-            //echo "<h1>NUEVO ASISTENTE ERROR</h1>";
+        {            
             header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
         }
     }
     else
-    {
-        //echo "<h1>CEDULAS IGUALES ERROR</h1>";
+    {        
         header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
     }        
-    
+
+///////////////////////////////////////////////////////////////////////////////////////////

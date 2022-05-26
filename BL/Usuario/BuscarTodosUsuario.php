@@ -7,7 +7,7 @@ include '../../Entidades/UsuarioEntidades/Usuario.php';
 include '../../Entidades/UsuarioEntidades/Credenciales.php';
 include '../../Entidades/UsuarioEntidades/Perfil.php';
 
-
+//Funciones para buscar todos los datos relacionados a Usuarios
 function BuscarUsuarios()
 {
     $UsuarioDAL = new DALUsuario();
@@ -25,6 +25,5 @@ function BuscarPerfiles()
     $perfilesDAL = new DALPerfiles();
     return json_encode($perfilesDAL->BuscarTodosPerfiles());
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////

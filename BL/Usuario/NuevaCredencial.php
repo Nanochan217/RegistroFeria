@@ -3,20 +3,23 @@
     include '../../DAL/UsuarioDAL/DALUsuario.php';
     include '../../Entidades/UsuarioEntidades/Credenciales.php';
 
-    $nuevaCredencial = new Credenciales();
-    $credencialDAL = new DALCredenciales();
+    //EN PROCESO DE DESARROLLO...
 
-    //OBTENCIÓN DE DATOS DESDE EL FRONT
-    $nuevaCredencial->setCorreo($_POST['']);
-    $nuevaCredencial->getContrasena($_POST['']);
+    // $nuevaCredencial = new Credenciales();
+    // $credencialDAL = new DALCredenciales();
 
-    //Nueva Credencial
-    if($credencialDAL->NuevaCredencial($nuevaCredencial))
-    {
-        //Redireccionamiento
-    }
-    else
-    {
-        //Redireccionamiento
-    }
-//////////////////////////////////////////////////////////////
+    // //OBTENCIÓN DE DATOS DESDE EL FRONT
+    // $nuevaCredencial->setCorreo($_POST['']);
+    // $nuevaCredencial->getContrasena($_POST['']);
+
+    // //Nueva Credencial
+    // if($credencialDAL->NuevaCredencial($nuevaCredencial))
+    // {
+    //     //Redireccionamiento
+    // }
+    // else
+    // {
+    //     //Redireccionamiento
+    // }
+
+///////////////////////////////////////////////////////////////////////////////////////////

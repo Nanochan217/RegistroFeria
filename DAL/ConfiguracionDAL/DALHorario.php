@@ -41,7 +41,7 @@ class DALHorario
     // {
     //     $resultado = false;
     //     $conexionDB = new Conexion();
-    //     //OJO CON EL WHERE!!!
+
     //     $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 0, `ACTIVE` = 0 WHERE `ID`='" . $idHorario . "'";
 
     //     if ($conexionDB->NuevaConexion($consultaSql))
@@ -156,3 +156,5 @@ class DALHorario
         return $array;
     }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////

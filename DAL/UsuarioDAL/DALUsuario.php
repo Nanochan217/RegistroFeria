@@ -1,7 +1,6 @@
 <?php
     class DALUsuario 
-    {
-        //Añade un nuevo Usuario a la Base de Datos
+    {        
         function NuevoUsuario(Usuario $nuevoUsuario)
         {
             $resultado = false;
@@ -74,6 +73,7 @@
         
         }
 
+        //Buscar al Usuario durante el LogIn para extraer sus datos
         function BuscarSesionUsuario($idUsuario)
         {
             $usuarioDB = new Usuario();
@@ -192,3 +192,5 @@
             return $array;
         }   
     }
+
+///////////////////////////////////////////////////////////////////////////////////////////

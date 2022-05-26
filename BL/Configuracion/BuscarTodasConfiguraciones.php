@@ -7,6 +7,7 @@ include '../../Entidades/ConfiguracionEntidades/Configuracion.php';
 include '../../Entidades/ConfiguracionEntidades/DiaHabil.php';
 include '../../Entidades/ConfiguracionEntidades/Horario.php';
 
+//Buscar todas las configuraciones y sus datos relacionados
 function BuscarConfiguraciones()
 {
     $ConfiguracionDAL = new DALConfiguracion();
@@ -25,3 +26,4 @@ function BuscarHorarios()
     return json_encode($HorarioDAL->BuscarTodas());
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////

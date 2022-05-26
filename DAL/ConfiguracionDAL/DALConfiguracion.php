@@ -1,10 +1,6 @@
 <?php
 class DALConfiguracion
 {
-    // function NuevaConfiguracion()
-    // {
-    // }
-
     function ModificarConfiguracion(Configuracion $nuevaConfiguracion)
     {
         $conexionDB = new Conexion();
@@ -108,3 +104,5 @@ class DALConfiguracion
         return $array;
     }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////

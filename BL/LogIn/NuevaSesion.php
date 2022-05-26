@@ -55,6 +55,7 @@
         echo $accion;
     }
 
+    //Metodo para destruir cualquier Sesion activa a la hora del log in e iniciar una
     function RestaurarSesion()
     {
         if(!isset($_SESSION))
