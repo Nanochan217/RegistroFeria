@@ -9,11 +9,12 @@
     
     if($logInDAL->VerificarCorreoUsuario($correoUsuario))
     {
-        echo "<h1>¡Correo Enviado!</h1>";
+        echo "¡Correo Enviado a ".$correoUsuario."!<br>
+        Verifica tu bandeja de entrada o de spam y sigue los pasos indicados en el";
     }
     else
     {
-        echo "<h1>El correo no existe en el Sistema</h1>";        
+        echo "El correo: ".$correoUsuario." no está registrado en nuestro Sistema";
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

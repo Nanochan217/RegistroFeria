@@ -45,17 +45,19 @@
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
-                $token = md5($correoUsuario).rand(10, 9999);
-                $link = "../../GUI/PasswordRecovery.php?key=".$correoUsuario."&token=".$token;//Link generado
+                $token = md5($correoUsuario).rand(10, 9999); 
+                $to = $correoUsuario;               
                 $tituloCorreo = "Solicitud de Restablecimiento de Contraseña";
-                $cuerpoCorreo = "¡Hemos recibido una solicitud de cambio de contraseña! Haz click en el siguiente enlace para restablecer tu contraseña: '".$link."'";                
-                $cuerpoCorreo = wordwrap($cuerpoCorreo, 70);
+                $html = "<html><head><title>Document</title></head><body><h1 style='background-color: red;'>Hola q tal</h1></body></html>";
+                $cuerpoCorreo = $html;
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                $headers .= 'From: <feriavocacionalcovao@gmail.com>' . "\r\n";                
                 
-                //La función "Envía el Correo" pero el servidor de SMTP no lo realiza y por ende el receptor no lo recibe...
-                if(mail($correoUsuario, $tituloCorreo, $cuerpoCorreo))
+                if (mail($to, $tituloCorreo, $cuerpoCorreo, $headers))
                 {
                     $resultado = true;
-                }
+                }                
             }
 
             $conexionDB->CerrarConexion();
