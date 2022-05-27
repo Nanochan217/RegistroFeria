@@ -105,7 +105,6 @@ include '../../BL/Cita/BuscarTodosDatos.php';
 
                         <!-- Imputs 2 -->
                         <div class="row">
-
                             <!-- Correo -->
                             <div class="col-md-4 pb-3">
                                 <label for="email" class="form-label">Correo electrónico</label>
