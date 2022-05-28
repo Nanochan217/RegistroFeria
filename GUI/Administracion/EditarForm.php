@@ -62,19 +62,19 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                             <div class="d-flex ">
                                 <h2 class="pb-4">Disponibilidad</h2>
                                 <div class="form-check form-switch mt-2 ms-3 ">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="formActivo" onclick="actualizarEstado()">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="estadoConfiguracion" onclick="actualizarDisponibilidad('estadoConfiguracion')">
                                 </div>
                             </div>
                             <div class="row g-3">
                                 <input type="hidden" class="form-control" id="idConfiguracion" name="idConfiguracion" value="1"> <!-- idConfiguracion -->
                                 <div class="col-md-5">
                                     <label for="fechaInicial" class="form-label">Fecha inicial</label>
-                                    <input type="date" class="form-control" id="fechaInicial" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
+                                    <input type="date" class="form-control" id="fechaInicio" value="2022-05-04" min="2022-05-04" max="2022-05-22" oninput="actualizarDisponibilidad('fechaInicial')" required>
                                 </div>
 
                                 <div class="col-md-5">
                                     <label for="fechaFinal" class="form-label">Fecha final</label>
-                                    <input type="date" class="form-control" id="fechaFinal" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
+                                    <input type="date" class="form-control" id="fechaFinal" value="2022-05-04" min="2022-05-04" max="2022-05-22" oninput="actualizarDisponibilidad('fechaFinal')" required>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                             <div class="row g-3">
                                 <div class="col-md-12">
                                     <label for="maxAcompanantes" class="form-label">Maximo de acompañantes por persona</label>
-                                    <input type="number" class="form-control" id="maxAcompanantes" required>
+                                    <input type="number" class="form-control" id="acompanantesMaximo" min="0" oninput="actualizarAcompanantes()" required>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +126,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
     <button type="button" class="btn btn-primary" id="btnNotificacion" hidden></button>
 
 
-    <div class="toast-container" id="toastContainer"></div>
+    <div class="toast-container" id="contenedorNotificaciones"></div>
 
 
 
@@ -170,10 +170,10 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
         $(document).ready(function() {
 
             //rellena los inputs con los datos provenientes de la BD
-            $("#fechaInicial").val(configuracion[0].fechaInicio);
+            $("#fechaInicio").val(configuracion[0].fechaInicio);
             $("#fechaFinal").val(configuracion[0].fechaFinal);
-            $("#maxAcompanantes").val(configuracion[0].acompanateMax);
-            (configuracion[0].estadoFormulario == '1') ? $("#formActivo").prop("checked", true): $("#formActivo").prop("checked", false);
+            $("#acompanantesMaximo").val(configuracion[0].acompanateMax);
+            (configuracion[0].estadoFormulario == '1') ? $("#estadoConfiguracion").prop("checked", true): $("#estadoConfiguracion").prop("checked", false);
 
             //agrega los datos provenientes de la BD a inputs hidden
             dias.forEach(dia => {
