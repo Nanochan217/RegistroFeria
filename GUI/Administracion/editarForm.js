@@ -6,7 +6,7 @@ function actualizarDisponibilidad( campo )
     {
         let estadoConfiguracion = $( '#estadoConfiguracion' ).prop( 'checked' );
 
-        if(estadoConfiguracion == false)//Habilitar
+        if ( estadoConfiguracion == false )//Habilitar
             var id = 1;
         else//Deshabilitar
             var id = 2;
@@ -28,11 +28,11 @@ function actualizarDisponibilidad( campo )
     }
     else if ( campo == 'fechaInicial' )
     {
-        let fechaInicial = $( '#fechaInicial' ).val();
-        alert(fechaInicial);
-        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaInicial: fechaInicial, campo: campo }, function ( data )
+        let fechaInicial = $( '#fechaInicio' ).val();
+        alert( fechaInicio );
+        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaInicio: fechaInicio, campo: campo }, function ( data )
         {
-        $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
                                                     <div class="toast-body">
@@ -42,16 +42,16 @@ function actualizarDisponibilidad( campo )
                                                 </div>
                                             </div>
                                         </div>`);
-        mostrarNotificacion();
+            mostrarNotificacion();
         } );
     }
     else if ( campo == 'fechaFinal' )
     {
         let fechaFinal = $( '#fechaFinal' ).val();
-        alert(fechaFinal);
+        alert( fechaFinal );
         $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaFinal: fechaFinal, campo: campo }, function ( data )
         {
-        $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
                                                     <div class="toast-body">
@@ -61,9 +61,13 @@ function actualizarDisponibilidad( campo )
                                                 </div>
                                             </div>
                                         </div>`);
-        mostrarNotificacion();
+            mostrarNotificacion();
         } );
-    }    
+    }
+    // else if( campo == 'acompanantesMax' )
+    // {
+
+    // }
 }
 
 function actualizarAcompanantes()
@@ -76,9 +80,9 @@ function actualizarAcompanantes()
         console.log( acompanantesMaximo );
         acompanantesMaximo = Math.abs( parseInt( acompanantesMaximo, 10 ) );
         //alert( acompanantesMaximo );
-        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { acompanantesMaximo: acompanantesMaximo, campo : "acompanantesMaximo" }, function ( data )
+        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { acompanantesMaximo: acompanantesMaximo, campo: "acompanantesMaximo" }, function ( data )
         {
-        $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
                                                     <div class="toast-body">
@@ -88,7 +92,7 @@ function actualizarAcompanantes()
                                                 </div>
                                             </div>
                                         </div>`);
-        mostrarNotificacion();
+            mostrarNotificacion();
         } );
     }
     else if ( isNaN( acompanantesMaximo ) === true )
