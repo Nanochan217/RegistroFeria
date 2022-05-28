@@ -36,16 +36,27 @@
         }
 
         //En proceso...
-        function VerificarCorreoUsuario($correoUsuario)
+        function VerificarCorreoUsuario(Solicitudes $solitudCambioContrasena)
         {
+            $correoUsuario = $solitudCambioContrasena->getCodigoSolicitud();            
             $resultado = false;
             $conexionDB = new Conexion();
 
             $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='".$correoUsuario."' AND `ACTIVE`= 1";
 
             if($conexionDB->NuevaConexion($consultaSql))
-            {
-                $token = md5($correoUsuario).rand(10, 9999); 
+            {            
+                //ADJUNTAR AL LINK COMO VARIABLE DE PHP (?cod=$hashSolicitud)!!
+                $hashSolicitud = crypt($correoUsuario, 'rl');
+
+                //COMENTARIO PARA BRYAN:
+                //USAR: $solitudCambioContrasena->getFechaSolicitud()
+                //USAR: $solitudCambioContrasena->getFechaExpiracion()
+                //ESTO PARA INDICARLE EN EL CORREO A LA PERSONA QUE LA SOLICITUD
+                //FUE EL DIA X Y HORA X y QUE TIENE TIEMPO 30MINS PARA RESTABLECERLA
+                //E INDICARLE QUE EXPIRA EL DIA X Y HORA X
+                //TY!!!
+
                 $to = $correoUsuario;               
                 $tituloCorreo = "Solicitud de Restablecimiento de Contraseña";
                 $html = "<html><head><title>Document</title></head><body><h1 style='background-color: red;'>Hola q tal</h1></body></html>";
@@ -55,8 +66,8 @@
                 $headers .= 'From: <feriavocacionalcovao@gmail.com>' . "\r\n";                
                 
                 if (mail($to, $tituloCorreo, $cuerpoCorreo, $headers))
-                {
-                    $resultado = true;
+                {                    
+                    $resultado = true;                    
                 }                
             }
 
@@ -64,6 +75,53 @@
             return $resultado;
         }
         
+        function NuevaSolicitudContrasena(Solicitudes $nuevaSolicitud)
+        {   
+            $resultado = false;
+            $conexionDB = new Conexion();
+            $codigoNuevaSolicitud = $nuevaSolicitud->getCodigoSolicitud();
+                        
+            $hashSolicitud = crypt($codigoNuevaSolicitud, 'rl');                        
+
+            $consultaSql = "INSERT INTO `SOLICITUDNUEVACONTRASENA` (`FECHASOLICITUD`, `FECHAEXPIRACION`, `CODIGOSOLICITUD`, `ACTIVE`)
+                VALUES ('".$nuevaSolicitud->getFechaSolicitud()."', '".$nuevaSolicitud->getFechaExpiracion()."', '".$hashSolicitud."', 1)";
+                        
+            if($conexionDB->NuevaConexion($consultaSql))
+            {
+                $resultado = true;
+            }
+
+            $conexionDB->CerrarConexion();
+            return $resultado;
+        }
+
+        //Parametro obtenido por GET en el BL de Nueva Contraseña
+        function BuscarSolicitudContrasena($codigoSolicitud)
+        {
+            $resultado = false;
+            $conexionDB = new Conexion();
+
+            $consultaSql = "SELECT * FROM `SOLICITUDNUEVACONTRASENA` WHERE `CODIGOSOLICITUD` = '".$codigoSolicitud."'";
+
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+            if(mysqli_num_rows($respuestaDB)>0)
+            {
+                while($filaSolicitud = $respuestaDB->fetch_assoc())
+                {
+                    if(password_verify($codigoSolicitud, $filaSolicitud["codigoSolicitud"]))
+                    {
+                        //VALIDAR LA FECHA DE EXPIRACION!!! OJO QUE PUEDE SER QUE DEBA HACERSE
+                        //ANTES DEL IF DE PASSWORD VERIFY
+                        $resultado = true;                        
+                    }                                
+                }
+            }
+
+            $conexionDB->CerrarConexion();
+            return $resultado;
+        }
+
         function RestablecerContrasena($correoUsuario, $nuevaContraseña)
         {
             $resultado = false;

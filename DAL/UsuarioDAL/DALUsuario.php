@@ -152,8 +152,32 @@
             if(mysqli_num_rows($respuestaDB)>0)
             {
                 while($filaUsuario = $respuestaDB->fetch_assoc())
-                {
+                {                    
                     if($cedula != $filaUsuario["cedula"])
+                        break;
+                    else
+                        $resultado = true;
+                }
+            }
+
+            $conexionDB->CerrarConexion();
+            return $resultado;
+        }
+
+        function BuscarCorreo($correo)
+        {
+            $resultado = false;
+            $conexionDB = new Conexion();
+
+            $consultaSql = "SELECT * FROM `USUARIO` WHERE `CORREO` = '".$correo."'";
+
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+            if(mysqli_num_rows($respuestaDB)>0)
+            {
+                while($filaUsuario = $respuestaDB->fetch_assoc())
+                {                    
+                    if($correo != $filaUsuario["correo"])
                         break;
                     else
                         $resultado = true;
