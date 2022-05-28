@@ -10,9 +10,7 @@ function actualizarDisponibilidad( campo )
             var id = 1;
         else//Deshabilitar
             var id = 2;
-
-        // alert(id);
-        // alert(estadoConfiguracion);
+        
         $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { estadoConfiguracion: id, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -65,11 +63,7 @@ function actualizarDisponibilidad( campo )
                                         </div>`);
         mostrarNotificacion();
         } );
-    }
-    // else if( campo == 'acompanantesMax' )
-    // {
-        
-    // }
+    }    
 }
 
 function actualizarAcompanantes()
