@@ -32,6 +32,7 @@
             RestaurarSesion();
             $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
             $_SESSION["Perfil"] = $perfilUsuario;
+            $_SESSION["CorreoUsuario"] = $correoUsuario;
             echo $accion;
         }        
         else if($perfilUsuario == 2)
@@ -39,6 +40,7 @@
             RestaurarSesion();               
             $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
             $_SESSION["Perfil"] = $perfilUsuario;
+            $_SESSION["CorreoUsuario"] = $correoUsuario;
             echo $accion;
         }        
         else
@@ -46,6 +48,7 @@
             RestaurarSesion();
             $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
             $_SESSION["Perfil"] = $perfilUsuario;
+            $_SESSION["CorreoUsuario"] = $correoUsuario;
             echo $accion;
         }        
     }
@@ -58,7 +61,7 @@
     //Metodo para destruir cualquier Sesion activa a la hora del log in e iniciar una
     function RestaurarSesion()
     {
-        if(!isset($_SESSION))
+        if(isset($_SESSION))
             unset($_SESSION);
         return session_start();
     }

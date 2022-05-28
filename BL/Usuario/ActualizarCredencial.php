@@ -14,25 +14,63 @@
     $usuarioDAL = new DALUsuario();
     $credencialDAL = new DALCredenciales();    
     $idUsuarioActivo = $_POST['idUsuario'];//Dato de un Input oculto
+    $correoActual = $_SESSION["CorreoUsuario"];
 
     if($_SESSION['idUsuario'] == $idUsuarioActivo)
     {
-        //Datos desde el Formulario del correo y contraseña nuevos
-        $correo = $_POST['email'];
+        //Datos desde el Formulario del correo y contraseña nuevos        
+        $correoNuevo = $_POST['correoInput'];
         $contrasena = $_POST['contrasena'];
         
         $cambiarCredencial->setId($idUsuarioActivo);
-        $cambiarCredencial->setCorreo($correo);
+        $cambiarCredencial->setCorreo($correoNuevo);
         $cambiarCredencial->setContrasena($contrasena);
-                
-        if($credencialDAL->ActualizarCredenciales($cambiarCredencial))
+        
+        if($correoActual == $correoNuevo)
         {
-            header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
+            if($credencialDAL->ActualizarCredenciales($cambiarCredencial))
+            {
+                header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
+            }
+            else
+            {                
+                header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+            }
+        }
+        else if($correoActual == $correoNuevo)
+        {
+            if($credencialDAL->BuscarCorreo($correoNuevo) == false)
+            {                
+                if($credencialDAL->ActualizarCredenciales($cambiarCredencial))
+                {
+                    header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
+                }
+                else
+                {                
+                    header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+                }
+            }            
         }
         else
         {
-            header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
-        }                
+            echo false;
+        }
+
+        // if($credencialDAL->BuscarCorreo(1, $correo))
+        // {
+            // if($credencialDAL->ActualizarCredenciales($cambiarCredencial))
+            // {
+            //     header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
+            // }
+            // else
+            // {                
+            //     header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+            // }
+        // }
+        // else
+        // {
+        //     echo "El correo ".$correo." se encuentra registrado...";
+        // }
     }
     else
     {

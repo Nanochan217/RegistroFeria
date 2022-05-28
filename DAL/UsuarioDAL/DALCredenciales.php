@@ -137,32 +137,7 @@
         function BuscarCorreo($correo)//$funcionSolicitada, 
         {
             $resultado = false;
-            $conexionDB = new Conexion();
-
-            // if($funcionSolicitada == 0)
-            // {
-            //     $consultaSql = "SELECT COUNT(`CORREO`) `IGUALES` FROM `CREDENCIALES` WHERE `CORREO` = '".$correo."'";
-            //     $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
-            //     $correos = mysqli_fetch_array($respuestaDB, MYSQLI_ASSOC);
-            //     $cantidad = $correos['IGUALES'];
-
-            //     if($cantidad == 0)
-            //         $resultado = false;
-            //     else
-            //         $resultado = true;
-            // }
-            // else if($funcionSolicitada == 1)
-            // {
-            //     $consultaSql = "SELECT COUNT(`CORREO`) as `IGUALES` FROM `CREDENCIALES` WHERE `CORREO` = '".$correo."'";
-            //     $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
-            //     $correos = mysqli_fetch_array($respuestaDB, MYSQLI_ASSOC);
-            //     $cantidad = $correos['IGUALES'];
-
-            //     if($cantidad <= 1)                
-            //         $resultado = false;
-            //     else 
-            //         $resultado = true;
-            // }      
+            $conexionDB = new Conexion();                  
                               
             $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correo."'";
             $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
@@ -181,7 +156,7 @@
             $conexionDB->CerrarConexion();
             return $resultado;
         }
-
+        
         function DesactivarCredencial($idUsuario)
         {
             $resultado = false;
@@ -213,3 +188,30 @@
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+//BORRADOR
+
+// if($funcionSolicitada == 0)
+            // {
+            //     $consultaSql = "SELECT COUNT(`CORREO`) `IGUALES` FROM `CREDENCIALES` WHERE `CORREO` = '".$correo."'";
+            //     $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            //     $correos = mysqli_fetch_array($respuestaDB, MYSQLI_ASSOC);
+            //     $cantidad = $correos['IGUALES'];
+
+            //     if($cantidad == 0)
+            //         $resultado = false;
+            //     else
+            //         $resultado = true;
+            // }
+            // else if($funcionSolicitada == 1)
+            // {
+            //     $consultaSql = "SELECT COUNT(`CORREO`) as `IGUALES` FROM `CREDENCIALES` WHERE `CORREO` = '".$correo."'";
+            //     $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            //     $correos = mysqli_fetch_array($respuestaDB, MYSQLI_ASSOC);
+            //     $cantidad = $correos['IGUALES'];
+
+            //     if($cantidad <= 1)                
+            //         $resultado = false;
+            //     else 
+            //         $resultado = true;
+            // }
