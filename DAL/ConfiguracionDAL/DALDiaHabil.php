@@ -65,26 +65,43 @@ class DALDiaHabil
         return $buscarDia;
     }
 
-    function cantidadDias($idConfiguracion)
-    {        
-        $contadorDias = 0;
+    function DeshabilitarDiaHabil()
+    {
+        $resultado = false;
         $conexionDB = new Conexion();
 
-        $consultaSql = "SELECT COUNT(`IDCONFIGURACION`) FROM `DIAHABIL` WHERE `IDCONFIGURACION` = '".$idConfiguracion."'";
-        $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+        //Continue
+        $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0";
 
-        if($respuestaDB > 0)
+        if($conexionDB->NuevaConexion($consultaSql))
         {
-            $contadorDias = $respuestaDB;
+            $resultado = true;
         }
-        else
-        {
-            $contadorDias = null;
-        }
-        
+
         $conexionDB->CerrarConexion();
-        return $contadorDias;
+        return $resultado;
     }
+
+    // function cantidadDias($idConfiguracion)
+    // {        
+    //     $contadorDias = 0;
+    //     $conexionDB = new Conexion();
+
+    //     $consultaSql = "SELECT COUNT(`IDCONFIGURACION`) FROM `DIAHABIL` WHERE `IDCONFIGURACION` = '".$idConfiguracion."'";
+    //     $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+    //     if($respuestaDB > 0)
+    //     {
+    //         $contadorDias = $respuestaDB;
+    //     }
+    //     else
+    //     {
+    //         $contadorDias = null;
+    //     }
+        
+    //     $conexionDB->CerrarConexion();
+    //     return $contadorDias;
+    // }
 
     function BuscarTodas()
     {

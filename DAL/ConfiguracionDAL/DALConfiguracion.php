@@ -21,32 +21,42 @@ class DALConfiguracion
         return $resultado;
     }
 
-    function DesactivarConfiguracion()
+    // function DesactivarConfiguracion()
+    // {
+    //     $conexionDB = new Conexion();
+    //     $resultado = false;
+
+    //     $consultaSql = "UPDATE `CONFIGURACION`, `DIAHABIL`, `HORARIO`
+    //         SET `CONFIGURACION.ESTADOCONFIGURACION` = 0, `DIAHABIL.VISIBLE` = 0, 
+    //         `HORARIO.VISIBLE` = 0 WHERE `CONFIGURACION.ID` = 1";
+
+    //     if($conexionDB->NuevaConexion($consultaSql))
+    //     {
+    //         $resultado = true;
+    //     }
+
+    //     $conexionDB->CerrarConexion();
+    //     return $resultado;
+    // }
+
+    function DisponibilidadConfiguracion($estadoConfiguracion)
     {
         $conexionDB = new Conexion();
         $resultado = false;
-
-        $consultaSql = "UPDATE `CONFIGURACION`, `DIAHABIL`, `HORARIO`
-            SET `CONFIGURACION.ESTADOCONFIGURACION` = 0, `DIAHABIL.VISIBLE` = 0, 
-            `HORARIO.VISIBLE` = 0 WHERE `CONFIGURACION.ID` = 1";
-
-        if($conexionDB->NuevaConexion($consultaSql))
+        
+        if($estadoConfiguracion == false)
         {
-            $resultado = true;
+            $consultaSql = "UPDATE `CONFIGURACION`, `DIAHABIL`, `HORARIO`
+            SET `CONFIGURACION.ESTADOCONFIGURACION` = 0, `DIAHABIL.VISIBLE` = 0, 
+            `HORARIO.VISIBLE` = 0 WHERE `CONFIGURACION.ID` = 1";            
         }
-
-        $conexionDB->CerrarConexion();
-        return $resultado;
-    }
-
-    function ActivarConfiguracion()
-    {
-        $conexionDB = new Conexion();
-        $resultado = false;
-
-        $consultaSql = "UPDATE `CONFIGURACION`, `DIAHABIL`, `HORARIO`
-        SET `CONFIGURACION.ESTADOCONFIGURACION` = 1, `DIAHABIL.VISIBLE` = 1, 
-        `HORARIO.VISIBLE` = 1 WHERE `CONFIGURACION.ID` = 1";
+        else if($estadoConfiguracion == true)
+        {
+            $consultaSql = "UPDATE `CONFIGURACION`, `DIAHABIL`, `HORARIO`
+            SET `CONFIGURACION.ESTADOCONFIGURACION` = 1, `DIAHABIL.VISIBLE` = 1, 
+            `HORARIO.VISIBLE` = 1 WHERE `CONFIGURACION.ID` = 1";
+        }
+        
         if($conexionDB->NuevaConexion($consultaSql))
         {
             $resultado = true;

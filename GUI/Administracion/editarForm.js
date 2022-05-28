@@ -4,7 +4,7 @@ function actualizarEstado()
 {
     let estado = $( '#formActivo' ).prop( 'checked' ) ? "activado" : "desactivado";
 
-    $.post( "enlaceDelBL", { estadoConfiguracion: $( '#formActivo' ).prop( 'checked' ) }, function ( data )
+    $.post( "../../BL/Configuracion/ModificarDisponibilidad.php", { estadoConfiguracion: $( '#formActivo' ).prop( 'checked' ) }, function ( data )
     {
         $( "#toastContainer" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                         <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -19,9 +19,6 @@ function actualizarEstado()
         mostrarNotificacion();
     } );
 }
-
-
-
 
 function mostrarNotificacion()
 {
