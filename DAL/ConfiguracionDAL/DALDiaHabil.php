@@ -1,7 +1,7 @@
 <?php
 class DALDiaHabil
 {
-    function NuevoDiaHabil(DiaHabil $nuevoDiaHabil)
+    function NuevoDiaHabil(DiaHabil $nuevoDiaHabil)//READY
     {
         $resultado = false;
         $conexionDB = new Conexion();
@@ -18,24 +18,24 @@ class DALDiaHabil
         return $resultado;
     }
 
-    function ModificarDiaHabil($numeroFuncion)
+    function ModificarDiaHabil($idDia, $numeroFuncion)
     {
         
         $resultado = false;
         $conexionDB = new Conexion();
 
-        if($numeroFuncion == 1)//Ocultar Visibilidad
+        if($numeroFuncion == 0)//Ocultar Visibilidad
         {
-            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0";
+            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0 WHERE `ID`='".$idDia."'";
         }
-        else if($numeroFuncion == 2)//Desactivar (Eliminar)
+        else if($numeroFuncion == 1)//Habilitar Visibilidad
         {
-            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0 AND `ACTIVE` = 0";
+            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 1 WHERE `ID`='".$idDia."'";
         }
-        else if($numeroFuncion == 3)//Habilitar Visibilidad
+        else if($numeroFuncion == "del")//Desactivar (Eliminar)
         {
-            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 1";
-        }
+            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0 AND `ACTIVE` = 0 WHERE `ID`='".$idDia."'";
+        }        
 
         if($conexionDB->NuevaConexion($consultaSql))
         {
@@ -46,13 +46,13 @@ class DALDiaHabil
         return $resultado;
     }   
 
-    function CambiarDatosDiaHabil(DiaHabil $modificarDiaHabil)
+    function CambiarDatosDiaHabil($idDiaModificar, $nuevoDia)//READY
     {
         $resultado = false;
         $conexionDB = new Conexion();
 
-        $consultaSql = "UPDATE `DIAHABIL` SET `DIA` = '".$modificarDiaHabil->getDia()."'
-        WHERE `ID` = '".$modificarDiaHabil->getId()."'";
+        $consultaSql = "UPDATE `DIAHABIL` SET `DIA` = '".$nuevoDia."'
+        WHERE `ID` = '".$idDiaModificar."'";
 
         if($conexionDB->NuevaConexion($consultaSql))
         {
@@ -91,28 +91,7 @@ class DALDiaHabil
         $buscarDia = $this->dismount($buscarDia);
         $conexionDB->CerrarConexion();
         return $buscarDia;
-    }
-
-    // function cantidadDias($idConfiguracion)
-    // {        
-    //     $contadorDias = 0;
-    //     $conexionDB = new Conexion();
-
-    //     $consultaSql = "SELECT COUNT(`IDCONFIGURACION`) FROM `DIAHABIL` WHERE `IDCONFIGURACION` = '".$idConfiguracion."'";
-    //     $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
-
-    //     if($respuestaDB > 0)
-    //     {
-    //         $contadorDias = $respuestaDB;
-    //     }
-    //     else
-    //     {
-    //         $contadorDias = null;
-    //     }
-        
-    //     $conexionDB->CerrarConexion();
-    //     return $contadorDias;
-    // }
+    }    
 
     function BuscarTodas()
     {
@@ -158,6 +137,27 @@ class DALDiaHabil
         }
         return $array;
     }
+
+    // function cantidadDias($idConfiguracion)
+    // {        
+    //     $contadorDias = 0;
+    //     $conexionDB = new Conexion();
+
+    //     $consultaSql = "SELECT COUNT(`IDCONFIGURACION`) FROM `DIAHABIL` WHERE `IDCONFIGURACION` = '".$idConfiguracion."'";
+    //     $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+    //     if($respuestaDB > 0)
+    //     {
+    //         $contadorDias = $respuestaDB;
+    //     }
+    //     else
+    //     {
+    //         $contadorDias = null;
+    //     }
+        
+    //     $conexionDB->CerrarConexion();
+    //     return $contadorDias;
+    // }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
