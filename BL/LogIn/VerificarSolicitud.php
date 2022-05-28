@@ -6,10 +6,27 @@
     include '../../Entidades/UsuarioEntidades/Solicitudes.php';        
 
     $logInDAL = new DALLogIn();
-    $codigoSolicitud = $_GET['codigo'];
+    $codigoSolicitud = $_GET['cod'];
+    $estado = $logInDAL->BuscarSolicitudContrasena($codigoSolicitud, null);
 
-    if($logInDAL->BuscarSolicitudContrasena($codigoSolicitud))
+    switch($estado)
     {
-        $correo = "";
-        header("Location: ../../BL/LogIn/NuevaContrasena.php?estado='".crypt($correo, 'rl')."'");
+        case "Expirado":
+            //La solicitud de cambio de contraseña ha expirado
+            echo "E";            
+            break;
+        case "Denegado":
+            //Acceso Denegado
+            echo "A";            
+            break;
+        default:
+            echo $estado;//Devuelve el correo al JS (PREGUNTAR A BRYAN SI HAY UNA MANERA DE)
+            //SACAR ESTO DESDE EL JS
+            break;
     }
+
+    // if()
+    // {        
+    //     // $correo = "";
+    //     // header("Location: ../../BL/LogIn/NuevaContrasena.php?estado='".crypt($correo, 'rl')."'");
+    // }

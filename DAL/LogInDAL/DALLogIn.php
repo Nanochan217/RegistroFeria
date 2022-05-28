@@ -53,6 +53,7 @@
                 //ADJUNTAR AL LINK COMO VARIABLE DE PHP (?cod=$hashSolicitud)!!
                 $hashSolicitud = crypt($correoUsuario, 'rl');
                 
+                //PASAR EL CORREO Y EL CODIGO (PA FACILITAR XD)
                 //USAR: $solitudCambioContrasena->getFechaSolicitud()
                 //USAR: $solitudCambioContrasena->getFechaExpiracion()
                 //ESTO PARA INDICARLE EN EL CORREO A LA PERSONA QUE LA SOLICITUD
@@ -98,14 +99,21 @@
         }
 
         //Parametro obtenido por GET en el BL de Nueva Contraseña
-        function BuscarSolicitudContrasena($codigoSolicitud)
+        function BuscarSolicitudContrasena($codigoSolicitud, $correo)
         {
+            $solicitudUsuario = "";
             $fechaConsulta = strtotime(date('d-m-y H:i:s'));            
-            $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM `SOLICITUDNUEVACONTRASENA` WHERE `CODIGOSOLICITUD` = '".$codigoSolicitud."' AND `ACTIVE` = 1";
-
+            if(isset($codigoSolicitud))
+            {
+                $consultaSql = "SELECT * FROM `SOLICITUDNUEVACONTRASENA` WHERE `CODIGOSOLICITUD` = '".$codigoSolicitud."' AND `ACTIVE` = 1";
+            }
+            else if(isset($correo))
+            {
+                $consultaSql = "SELECT * FROM `SOLICITUDNUEVACONTRASENA` WHERE `CORREOUSUARIO` = '".$correo."' AND `ACTIVE` = 1";
+            }
+            
             $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
@@ -117,14 +125,22 @@
                     {
                         if(password_verify($codigoSolicitud, $filaSolicitud["codigoSolicitud"]))
                         {                            
-                            $resultado = true;                        
+                            $solicitudUsuario = $filaSolicitud["correoUsuario"];
                         }
-                    }                    
+                        else
+                        {
+                            $solicitudUsuario = "Denegado";
+                        }
+                    }
+                    else
+                    {
+                        $solicitudUsuario = "Expirado";
+                    }
                 }
             }
 
             $conexionDB->CerrarConexion();
-            return $resultado;
+            return $solicitudUsuario;
         }
 
         function RestablecerContrasena($correoUsuario, $nuevaContraseña)
@@ -145,12 +161,20 @@
             return $resultado;
         }
 
-        function DesactivarSolicitud($codigoSolicitud)
+        function DesactivarSolicitud($codigoSolicitud, $correo)
         {
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "UPDATE `SOLICITUDNUEVACONTRASENA` SET `ACTIVE` = 0 WHERE `CODIGOSOLICITUD` = '".$codigoSolicitud."'";
+            if(isset($codigoSolicitud))
+            {
+                $consultaSql = "UPDATE `SOLICITUDNUEVACONTRASENA` SET `ACTIVE` = 0 WHERE `CODIGOSOLICITUD` = '".$codigoSolicitud."'";
+            }
+            else if(isset($correo))
+            {
+                $consultaSql = "UPDATE `SOLICITUDNUEVACONTRASENA` SET `ACTIVE` = 0 WHERE `CORREOUSUARIO` = '".$correo."'";
+            }
+            
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
