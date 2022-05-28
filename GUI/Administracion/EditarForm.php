@@ -141,7 +141,8 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
     <Script>
         var configuracion = <?php echo BuscarConfiguraciones() ?>;
         var dias = <?php echo BuscarDiasHabiles() ?>;
-        var horarios = <?php echo BuscarHorarios() ?>;
+        // var horarios = <?php //echo BuscarHorarios() 
+                            ?>;
 
 
         $(document).ready(function() {

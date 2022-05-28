@@ -245,31 +245,22 @@ function actualizarDia( idDia, elementoID, campo )
 //mostrar los horarios dependiendo del dia seleccionado
 function mostrarHorarios( idDia )
 {
-    // $( '#horarios' ).html( '' ); //limpiar contenido
-    // horarios.forEach( horario =>
-    // {
-    //     if ( horario.idDiaHabil == idDia && horario.active == 1 )
-    //     {
-    //         agregarHorarioUsuario( horario );
-    //     }
-    // } );
-
-    // $( '#addHorario' ).show();
 
     $.post( "../../BL/Configuracion/BuscarHorariosPorDia.php", { id: idDia, campo: "buscarHorarioIdDia" }, function ( data )
     {
-        alert( data );
-        $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                                            <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                                                <div class="d-flex">
-                                                    <div class="toast-body">
-                                                        ${data == true ? "<b>Día</b> eliminado correctamente" : "Ocurrió un error al intentar eliminar el día "}
-                                                    </div>
-                                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                                                </div>
-                                            </div>
-                                        </div>`);
-        mostrarNotificacion();
+        let horarios = data;
+        
+        console.log( data );
+        console.log( horarios );
+
+        $( '#horarios' ).html( '' ); //limpiar contenido
+        horarios.forEach( horario =>
+        {
+            agregarHorarioUsuario( horario );
+        } );
+
+        $( '#addHorario' ).show();
+
     } );
 }
 
