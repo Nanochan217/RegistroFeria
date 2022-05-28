@@ -5,14 +5,14 @@
 
     $diaHabilDAL = new DALDiaHabil();
     $diaHabil = new DiaHabil();
-    $estadoDia = $_POST[''];
-    
-    // $diaHabil->setDia();
-    // $diaHabil->setidConfiguracion(1);
-    // $diaHabil->setVisible();
-    // $diaHabil->setActive();
 
-    switch($estadoDia)
+    $funcionDia = $_POST[''];
+    $dia = $_POST[''];    
+
+    // $diaHabil->setDia($dia);
+    // $diaHabil->setidConfiguracion(1);    
+
+    switch($funcionDia)
     {
         case "A"://Modificar (Visibilidad o Desactivar)
                 $numeroFuncion = $_POST[''];

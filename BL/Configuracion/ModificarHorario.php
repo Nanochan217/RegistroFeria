@@ -5,13 +5,22 @@
 
     $horarioDAL = new DALHorario();
     $horario = new Horario();
+
+    //Funcion Solicitada
     $funcionHorario = $_POST[''];
-    $idHorario = $_POST[''];    
+
+    //Datos del Horario
+    $idHorario = $_POST['']; 
+    $horaInicio = $_POST[''];
+    $horaFinal = $_POST[''];
+    $aforoMaximo = $_POST[''];
+    $idDiaHabil = $_POST[''];
+    
+
     // $horario->setHoraInicio();
     // $horario->setHoraFinal();
     // $horario->setAforoMaximo();
     // $horario->setIdDiaHabil();
-    // $horario->setAforoMaximo();
     // $horario->setVisible();
     // $horario->setActive();
 
