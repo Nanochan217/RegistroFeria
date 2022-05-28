@@ -121,8 +121,10 @@ function actualizarDia( idDia, elementoID, campo )
     else if ( campo == 'actualizarDiaVisible' )
     {
         let diaVisible = $( `#${elementoID}` ).val();
+        diaVisible == 1 ? diaVisible = 0 : diaVisible = 1;
 
-        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { id: idDia, diaVisible: diaVisible, campo: campo }, function ( data )
+
+        $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idDia, diaVisible: diaVisible, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -140,8 +142,10 @@ function actualizarDia( idDia, elementoID, campo )
     else if ( campo == 'actualizarDiaActive' )
     {
         let diaActive = $( `#${elementoID}` ).val();
+        diaActive == 1 ? diaActive = 0 : diaActive = 1;
 
-        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { id: idDia, diaActive: diaActive, campo: campo }, function ( data )
+        alert( diaActive );
+        $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idDia, diaActive: diaActive, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
