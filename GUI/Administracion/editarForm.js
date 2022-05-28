@@ -27,7 +27,7 @@ function actualizarDisponibilidad( campo )
 
         $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaInicial: fechaInicial, campo: campo }, function ( data )
         {
-        $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
                                                     <div class="toast-body">
@@ -37,7 +37,7 @@ function actualizarDisponibilidad( campo )
                                                 </div>
                                             </div>
                                         </div>`);
-        mostrarNotificacion();
+            mostrarNotificacion();
         } );
     }
     else if ( campo == 'fechaFinal' )
@@ -46,7 +46,7 @@ function actualizarDisponibilidad( campo )
 
         $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaFinal: fechaFinal, campo: campo }, function ( data )
         {
-        $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
                                                     <div class="toast-body">
@@ -56,7 +56,7 @@ function actualizarDisponibilidad( campo )
                                                 </div>
                                             </div>
                                         </div>`);
-        mostrarNotificacion();
+            mostrarNotificacion();
         } );
     }
 }
