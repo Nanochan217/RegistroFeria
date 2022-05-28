@@ -177,7 +177,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
             //agrega los datos provenientes de la BD a inputs hidden
             dias.forEach(dia => {
-                agregarDiaInputHidden(dia)
+                // agregarDiaInputHidden(dia)
                 if (dia.active == 1) {
                     agregarDiaUsuario(dia)
                 }
@@ -208,7 +208,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             }
 
             agregarDiaArreglo(nuevoDia); //se agrega al arreglo
-            agregarDiaInputHidden(nuevoDia); //se agrega en inputs hidden
+            // agregarDiaInputHidden(nuevoDia); //se agrega en inputs hidden
             agregarDiaUsuario(nuevoDia); //se muestra en pantalla para el usuario
         }
 
@@ -241,25 +241,25 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
         }
 
         //agregar dia en inputs hidden
-        function agregarDiaInputHidden(dia) {
-            let contenedor = `<div id="dia${dia.id}" hidden="true">
-                                <input type="hidden" id="diaId${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][id]" value="${dia.id}">
-                                <input type="hidden" id="diaDia${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][dia]" value="${dia.dia}">
-                                <input type="hidden" id="diaIdConfiguracion${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][idConfiguracion]" value="${dia.idConfiguracion}">
-                                <input type="hidden" id="diaVisible${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][visible]" value="${dia.visible}">
-                                <input type="hidden" id="diaActive${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][active]" value="${dia.active}">
-                                <input type="hidden" id="diaExiste${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][existe]" value="${dia.existe}">
-                            </div>`
+        // function agregarDiaInputHidden(dia) {
+        //     let contenedor = `<div id="dia${dia.id}" hidden="true">
+        //                         <input type="hidden" id="diaId${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][id]" value="${dia.id}">
+        //                         <input type="hidden" id="diaDia${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][dia]" value="${dia.dia}">
+        //                         <input type="hidden" id="diaIdConfiguracion${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][idConfiguracion]" value="${dia.idConfiguracion}">
+        //                         <input type="hidden" id="diaVisible${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][visible]" value="${dia.visible}">
+        //                         <input type="hidden" id="diaActive${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][active]" value="${dia.active}">
+        //                         <input type="hidden" id="diaExiste${dia.id}" name="fechas[${(dia.id) - 1}][diaHabil][existe]" value="${dia.existe}">
+        //                     </div>`
 
-            $('#diasHidden').append(contenedor);
-        }
+        //     $('#diasHidden').append(contenedor);
+        // }
 
         //agregar dia a la interfaz
         function agregarDiaUsuario(dia) {
             let contenedor = `<div class="row mx-0 p-3 gx-3 gapx-4 bg-light border rounded mb-3" id="diaUsuario${dia.id}">
                                 <div class="col-md-8 mt-0">
                                     <div class="input-group">
-                                        <input type="date" class="form-control" id="inputDia${dia.id}" value="${dia.dia}" oninput="actualizarDiaInputHidden(${dia.id})" required>
+                                        <input type="date" class="form-control" id="dia${dia.id}" value="${dia.dia}" oninput="actualizarDia(${dia.id}, this.id, 'actualizarDia')" required>
                                         <div class="input-group-text p-0">
                                             <label class="py-2 px-3 lh-1" for="seleccionarDia${dia.id}" style="cursor: pointer;">
                                             <input class="form-check-input mt-0" type="radio" id="seleccionarDia${dia.id}" name="diaSeleccionado" value="${(dia.id)}" onclick="idDia=${dia.id}, mostrarHorarios(this.value)" style="cursor: pointer;">
@@ -270,8 +270,8 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                 <div class="col-md-4 mt-0">
                                     <div class="d-flex flex-column">
                                         <div class="d-grid gap-2 g-2 d-md-block">
-                                            <button class="btn ${(dia.visible==1) ? "btn-light" : "btn-secondary"} border py-1 px-3 me-md-2" type="button" id="ocultarDia${dia.id}" value="${dia.id}" onclick="ocultar(this.value, dias, 'dia')" data-bs-toggle="tooltip" data-bs-placement="top" title="Ocultar día">${(dia.visible==1) ? '<i id="iconoOcultarDia' + dia.id + '" style="font-size: 18px; " class="bi bi-eye"></i>' : '<i id="iconoOcultarDia' + dia.id + '" style="font-size: 18px; " class="bi bi-eye-slash"></i>'}</button>
-                                            <button class="btn btn-danger py-1 px-3" type="button" id="eliminarDia${dia.id}" value="${dia.id}" onclick="eliminar(this.value, dias)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar día"><i style="font-size: 18px; " class="bi bi-trash3"></i></button>
+                                            <button class="btn ${(dia.visible==1) ? "btn-light" : "btn-secondary"} border py-1 px-3 me-md-2" type="button" id="diaVisible${dia.id}" value="${dia.visible}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaVisible')" data-bs-toggle="tooltip" data-bs-placement="top" title="Ocultar día">${(dia.visible==1) ? '<i id="iconoOcultarDia' + dia.id + '" style="font-size: 18px; " class="bi bi-eye"></i>' : '<i id="iconoOcultarDia' + dia.id + '" style="font-size: 18px; " class="bi bi-eye-slash"></i>'}</button>
+                                            <button class="btn btn-danger py-1 px-3" type="button" id="diaActive${dia.id}" value="${dia.active}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaActive')" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar día"><i style="font-size: 18px; " class="bi bi-trash3"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -435,13 +435,13 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             $('#addHorario').show();
         }
 
-        function actualizarDiaInputHidden(id) {
-            $(`#diaDia${id}`).val($(`#inputDia${id}`).val());
-        }
+        // function actualizarDiaInputHidden(id) {
+        //     $(`#diaDia${id}`).val($(`#inputDia${id}`).val());
+        // }
 
-        function actualizarHorarioInputHidden(id, propiedad) {
-            $(`#horario${propiedad}${id}`).val($(`#input${propiedad}${id}`).val());
-        }
+        // function actualizarHorarioInputHidden(id, propiedad) {
+        //     $(`#horario${propiedad}${id}`).val($(`#input${propiedad}${id}`).val());
+        // }
     </Script>
 
     <script>
