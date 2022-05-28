@@ -36,7 +36,11 @@
         }
 
         //En proceso...
-        function VerificarCorreoUsuario(Solicitudes $solitudCambioContrasena)
+        //VALORAR CAMBIAR EL FLUJO DE EJECUCION EN CUYO CASO
+        //SE DEBERA PRIMERO AÑADIR LA SOLICITUD (GENERAR UN STRING ALEAT.) 
+        //Y DESPUES CONSULTAR DICHA TABLA EN LA VERIFICACION DE CORREO
+        //EXTRAER ESOS DATOS Y CONCATENARLOS EN EL HTML...
+        function CorreoRestablecerContrasena(Solicitudes $solitudCambioContrasena)
         {
             $correoUsuario = $solitudCambioContrasena->getCodigoSolicitud();            
             $resultado = false;
@@ -48,14 +52,12 @@
             {            
                 //ADJUNTAR AL LINK COMO VARIABLE DE PHP (?cod=$hashSolicitud)!!
                 $hashSolicitud = crypt($correoUsuario, 'rl');
-
-                //COMENTARIO PARA BRYAN:
+                
                 //USAR: $solitudCambioContrasena->getFechaSolicitud()
                 //USAR: $solitudCambioContrasena->getFechaExpiracion()
                 //ESTO PARA INDICARLE EN EL CORREO A LA PERSONA QUE LA SOLICITUD
                 //FUE EL DIA X Y HORA X y QUE TIENE TIEMPO 30MINS PARA RESTABLECERLA
                 //E INDICARLE QUE EXPIRA EL DIA X Y HORA X
-                //TY!!!
 
                 $to = $correoUsuario;               
                 $tituloCorreo = "Solicitud de Restablecimiento de Contraseña";
@@ -98,10 +100,11 @@
         //Parametro obtenido por GET en el BL de Nueva Contraseña
         function BuscarSolicitudContrasena($codigoSolicitud)
         {
+            $fechaConsulta = strtotime(date('d-m-y H:i:s'));            
             $resultado = false;
             $conexionDB = new Conexion();
 
-            $consultaSql = "SELECT * FROM `SOLICITUDNUEVACONTRASENA` WHERE `CODIGOSOLICITUD` = '".$codigoSolicitud."'";
+            $consultaSql = "SELECT * FROM `SOLICITUDNUEVACONTRASENA` WHERE `CODIGOSOLICITUD` = '".$codigoSolicitud."' AND `ACTIVE` = 1";
 
             $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
@@ -109,12 +112,14 @@
             {
                 while($filaSolicitud = $respuestaDB->fetch_assoc())
                 {
-                    if(password_verify($codigoSolicitud, $filaSolicitud["codigoSolicitud"]))
+                    //OJO
+                    if($fechaConsulta <= strtotime($filaSolicitud["fechaExpiracion"]))
                     {
-                        //VALIDAR LA FECHA DE EXPIRACION!!! OJO QUE PUEDE SER QUE DEBA HACERSE
-                        //ANTES DEL IF DE PASSWORD VERIFY
-                        $resultado = true;                        
-                    }                                
+                        if(password_verify($codigoSolicitud, $filaSolicitud["codigoSolicitud"]))
+                        {                            
+                            $resultado = true;                        
+                        }
+                    }                    
                 }
             }
 
@@ -139,11 +144,22 @@
             $conexionDB->CerrarConexion();
             return $resultado;
         }
-    }
 
-//En caso de añadir un tiempo de expiración al Correo Electrónico de Recuperación de Conttraseña...
-//$expFormat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("y"));
-//$expDate = date("Y-m-d H:i:s", $expFormat);
-//$update = "";
+        function DesactivarSolicitud($codigoSolicitud)
+        {
+            $resultado = false;
+            $conexionDB = new Conexion();
+
+            $consultaSql = "UPDATE `SOLICITUDNUEVACONTRASENA` SET `ACTIVE` = 0 WHERE `CODIGOSOLICITUD` = '".$codigoSolicitud."'";
+
+            if($conexionDB->NuevaConexion($consultaSql))
+            {
+                $resultado = true;
+            }
+
+            $conexionDB->CerrarConexion();
+            return $resultado;
+        }
+    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
