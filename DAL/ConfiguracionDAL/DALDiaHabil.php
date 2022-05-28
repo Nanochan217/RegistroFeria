@@ -34,7 +34,7 @@ class DALDiaHabil
         }
         else if($numeroFuncion == "del")//Desactivar (Eliminar)
         {
-            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0 AND `ACTIVE` = 0 WHERE `ID`='".$idDia."'";
+            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0, `ACTIVE` = 0 WHERE `ID`='".$idDia."'";
         }        
 
         if($conexionDB->NuevaConexion($consultaSql))
