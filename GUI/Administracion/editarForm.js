@@ -122,7 +122,7 @@ function actualizarDia( idDia, elementoID, campo )
     {
         let diaVisible = $( `#${elementoID}` ).val();
         diaVisible == 1 ? diaVisible = 0 : diaVisible = 1;
-
+        $( `#${elementoID}` ).val( diaVisible );
 
         $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idDia, diaVisible: diaVisible, campo: campo }, function ( data )
         {
@@ -137,6 +137,10 @@ function actualizarDia( idDia, elementoID, campo )
                                             </div>
                                         </div>`);
             mostrarNotificacion();
+            if ( data )
+            {
+                cambiarBtnDiaVisible( elementoID, diaVisible );
+            }
         } );
     }
     else if ( campo == 'actualizarDiaActive' )
@@ -144,7 +148,6 @@ function actualizarDia( idDia, elementoID, campo )
         let diaActive = $( `#${elementoID}` ).val();
         diaActive == 1 ? diaActive = 0 : diaActive = 1;
 
-        alert( diaActive );
         $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idDia, diaActive: diaActive, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -158,8 +161,22 @@ function actualizarDia( idDia, elementoID, campo )
                                             </div>
                                         </div>`);
             mostrarNotificacion();
+            eliminarDia( elementoID );
         } );
     }
+}
+
+function cambiarBtnDiaVisible( id, estado )
+{
+    estado == 1 ? $( `#${id}` ).removeClass( "btn-secondary" ).addClass( "btn-light" ) && $( `#${id}` ).html( `<i id="${id}Icono" style="font-size: 18px; " class="bi bi-eye"></i>` ) : $( `#${id}` ).removeClass( "btn-light" ).addClass( "btn-secondary" ) && $( `#${id}` ).html( `<i id="${id}Icono" style="font-size: 18px; " class="bi bi-eye-slash"></i>` );
+}
+
+function eliminarDia( id )
+{
+    let pattern = /\d+/;
+    let nuevoId = id.match( pattern );
+
+    $( `#diaUsuario${nuevoId}` ).remove();
 }
 
 function mostrarNotificacion()

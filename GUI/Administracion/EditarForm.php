@@ -270,7 +270,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                 <div class="col-md-4 mt-0">
                                     <div class="d-flex flex-column">
                                         <div class="d-grid gap-2 g-2 d-md-block">
-                                            <button class="btn ${(dia.visible==1) ? "btn-light" : "btn-secondary"} border py-1 px-3 me-md-2" type="button" id="diaVisible${dia.id}" value="${dia.visible}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaVisible')" data-bs-toggle="tooltip" data-bs-placement="top" title="Ocultar día">${(dia.visible==1) ? '<i id="iconoOcultarDia' + dia.id + '" style="font-size: 18px; " class="bi bi-eye"></i>' : '<i id="iconoOcultarDia' + dia.id + '" style="font-size: 18px; " class="bi bi-eye-slash"></i>'}</button>
+                                            <button class="btn ${(dia.visible==1) ? "btn-light" : "btn-secondary"} border py-1 px-3 me-md-2" type="button" id="diaVisible${dia.id}" value="${dia.visible}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaVisible')" data-bs-toggle="tooltip" data-bs-placement="top" title="Ocultar día">${(dia.visible==1) ? '<i id="diaVisible' + dia.id + 'Icono" style="font-size: 18px; " class="bi bi-eye"></i>' : '<i id="diaVisible' + dia.id + 'Icono" style="font-size: 18px; " class="bi bi-eye-slash"></i>'}</button>
                                             <button class="btn btn-danger py-1 px-3" type="button" id="diaActive${dia.id}" value="${dia.active}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaActive')" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar día"><i style="font-size: 18px; " class="bi bi-trash3"></i></button>
                                         </div>
                                     </div>
@@ -315,21 +315,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
         }
 
         //eliminar de la interfaz y cambiar active de 1 a 0 en el arreglo y los input hidden
-        function ocultar(id, arreglo, tipo) {
-            arreglo.forEach(item => {
-                if (item.id == id) {
-                    item.visible == "1" ? item.visible = "0" : item.visible = "1";
-                    $(`#${tipo}Visible${id}`).val() == "1" ? $(`#${tipo}Visible${id}`).val("0") : $(`#${tipo}Visible${id}`).val("1");
-                    $(`#ocultar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${id}`).hasClass('btn-light') == true ?
-                        $(`#ocultar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${id}`).removeClass('btn-light').addClass('btn-secondary') :
-                        $(`#ocultar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${id}`).removeClass('btn-secondary').addClass('btn-light');
 
-                    $(`#ocultar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${id}`).hasClass('btn-light') == true ?
-                        $(`#iconoOcultar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${id}`).removeClass('bi bi-eye-slash').addClass('bi bi-eye') :
-                        $(`#iconoOcultar${tipo.charAt(0).toUpperCase() + tipo.slice(1)}${id}`).removeClass('bi bi-eye').addClass('bi bi-eye-slash');
-                }
-            });
-        }
 
         //agrega un horario al arreglo, inputs hidden y a la interfaz
         function agregarHorario(idDiaHabil) {
