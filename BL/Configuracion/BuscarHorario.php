@@ -8,7 +8,14 @@ include '../../Entidades/ConfiguracionEntidades/Horario.php';
 function BuscarIDHorario($id)
 {
     $horarioDAL = new DALHorario();
-    return json_encode($horarioDAL->BuscarIdHorario($id));
+    return json_encode($horarioDAL->BuscarHorario(0, $id));
 }
+
+function BuscarHorarioIdDia($idDiaHabil)
+{
+    $horarioDAL = new DALHorario();
+    return json_encode($horarioDAL->BuscarHorario(1, $idDiaHabil));
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////

@@ -64,12 +64,19 @@ class DALHorario
         return $resultado;
     }    
 
-    function BuscarIdHorario($idHorario)
+    function BuscarHorario($funcionSolicitada, $id)
     {
         $buscarHorario = new Horario();
         $conexionDB = new Conexion();
 
-        $consultaSql = "SELECT * FROM `HORARIO` WHERE `ID` =".$idHorario;
+        if($funcionSolicitada == 0)
+        {
+            $consultaSql = "SELECT * FROM `HORARIO` WHERE `ID` = '".$id."' AND `ACTIVE` = 1";
+        }
+        else if($funcionSolicitada == 2)
+        {
+            $consultaSql = "SELECT * FROM `HORARIO` WHERE `IDDIAHABIL` = '".$id."' AND `ACTIVE` = 1";
+        }        
 
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 

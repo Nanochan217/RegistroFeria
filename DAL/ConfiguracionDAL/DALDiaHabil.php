@@ -1,7 +1,7 @@
 <?php
 class DALDiaHabil
 {
-    function NuevoDiaHabil(DiaHabil $nuevoDiaHabil)//READY
+    function NuevoDiaHabil(DiaHabil $nuevoDiaHabil)
     {
         $resultado = false;
         $conexionDB = new Conexion();
@@ -46,7 +46,7 @@ class DALDiaHabil
         return $resultado;
     }   
 
-    function CambiarDatosDiaHabil($idDiaModificar, $nuevoDia)//READY
+    function CambiarDatosDiaHabil($idDiaModificar, $nuevoDia)
     {
         $resultado = false;
         $conexionDB = new Conexion();

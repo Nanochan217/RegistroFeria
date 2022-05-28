@@ -24,7 +24,7 @@
         $cambiarCredencial->setId($idUsuarioActivo);
         $cambiarCredencial->setCorreo($correo);
         $cambiarCredencial->setContrasena($contrasena);
-        
+                
         if($credencialDAL->ActualizarCredenciales($cambiarCredencial))
         {
             header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
@@ -32,7 +32,7 @@
         else
         {
             header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
-        }
+        }                
     }
     else
     {
