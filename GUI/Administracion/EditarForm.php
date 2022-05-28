@@ -69,12 +69,12 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                 <input type="hidden" class="form-control" id="idConfiguracion" name="idConfiguracion" value="1"> <!-- idConfiguracion -->
                                 <div class="col-md-5">
                                     <label for="fechaInicial" class="form-label">Fecha inicial</label>
-                                    <input type="date" class="form-control" id="fechaInicio" value="2022-05-04" min="2022-05-04" max="2022-05-22" onchange="actualizarDisponibilidad('fechaInicial')" required>
+                                    <input type="date" class="form-control" id="fechaInicio" value="2022-05-04" min="2022-05-04" max="2022-05-22" oninput="actualizarDisponibilidad('fechaInicial')" required>
                                 </div>
 
                                 <div class="col-md-5">
                                     <label for="fechaFinal" class="form-label">Fecha final</label>
-                                    <input type="date" class="form-control" id="fechaFinal" value="2022-05-04" min="2022-05-04" max="2022-05-22" onchange="actualizarDisponibilidad('fechaFinal')" required>
+                                    <input type="date" class="form-control" id="fechaFinal" value="2022-05-04" min="2022-05-04" max="2022-05-22" oninput="actualizarDisponibilidad('fechaFinal')" required>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,6 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                         <!-- dias -->
                         <div class="col-lg border rounded shadow-sm bg-white p-5">
                             <h2 class="pb-4">Días hábiles</h2>
-                            <div id="diasHidden" display="none"></div>
                             <div id="dias"></div>
                             <!-- Button Agregar dia -->
                             <div class="d-grid gap-2" id="addDia">
@@ -103,7 +102,6 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                         <!-- horarios -->
                         <div class="col-lg border rounded shadow-sm bg-white p-5" id="contenedorHorarios">
                             <h2 class="pb-4">Horarios</h2>
-                            <div id="horariosHidden" display="none"></div>
                             <div id="horarios">
                                 <div class="d-flex flex-column justify-content-center">
                                     <img src="../Assets/Images/seleccionarDia.svg" style="height:200px;">
@@ -196,7 +194,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                         <input type="date" class="form-control" id="dia${dia.id}" value="${dia.dia}" oninput="actualizarDia(${dia.id}, this.id, 'actualizarDia')" required>
                                         <div class="input-group-text p-0">
                                             <label class="py-2 px-3 lh-1" for="seleccionarDia${dia.id}" style="cursor: pointer;">
-                                            <input class="form-check-input mt-0" type="radio" id="seleccionarDia${dia.id}" name="diaSeleccionado" value="${(dia.id)}" onclick="mostrarHorarios(this.value)" style="cursor: pointer;">
+                                            <input class="form-check-input mt-0" type="radio" id="seleccionarDia${dia.id}" name="diaSeleccionado" value="${(dia.id)}" onclick="mostrarHorarios(${dia.id})" style="cursor: pointer;">
                                             </label>
                                         </div>
                                     </div>
@@ -277,17 +275,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             $('#horarios').append(contenedor);
         }
 
-        //mostrar los horarios dependiendo del dia seleccionado
-        function mostrarHorarios(idDia) {
-            $('#horarios').html(''); //limpiar contenido
-            horarios.forEach(horario => {
-                if (horario.idDiaHabil == idDia && horario.active == 1) {
-                    agregarHorarioUsuario(horario)
-                }
-            });
 
-            $('#addHorario').show();
-        }
     </Script>
 
     <script src="./editarForm.js"></script>

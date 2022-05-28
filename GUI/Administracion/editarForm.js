@@ -173,60 +173,92 @@ function actualizarDia( idDia, elementoID, campo )
 }
 
 //actualiza los diferentes datos del horario
-function actualizarHorario( idHorario, elementoID, campo )
+// function actualizarHorario( idHorario, elementoID, campo )
+// {
+//     if ( campo == 'actualizarDia' )
+//     {
+//         let dia = $( `#${elementoID}` ).val();
+
+//         $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idDia, dia: dia, campo: campo }, function ( data )
+//         {
+//             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+//                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+//                                                 <div class="d-flex">
+//                                                     <div class="toast-body">
+//                                                         ${data == true ? "<b>Día</b> actualizado correctamente" : "Ocurrió un error al intentar actualizar el día"}
+//                                                     </div>
+//                                                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+//                                                 </div>
+//                                             </div>
+//                                         </div>`);
+//             mostrarNotificacion();
+//         } );
+//     }
+//     else if ( campo == 'actualizarDiaVisible' )
+//     {
+//         let diaVisible = $( `#${elementoID}` ).val();
+//         diaVisible == 1 ? diaVisible = 0 : diaVisible = 1;
+//         $( `#${elementoID}` ).val( diaVisible );
+
+//         $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idDia, diaVisible: diaVisible, campo: campo }, function ( data )
+//         {
+//             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+//                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+//                                                 <div class="d-flex">
+//                                                     <div class="toast-body">
+//                                                         ${data == true ? "<b>Visibilidad del día</b> actualizada correctamente" : "Ocurrió un error al intentar actualizar la visibilidad del día "}
+//                                                     </div>
+//                                                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+//                                                 </div>
+//                                             </div>
+//                                         </div>`);
+//             mostrarNotificacion();
+//             if ( data )
+//             {
+//                 cambiarBtnDiaVisible( elementoID, diaVisible );
+//             }
+//         } );
+//     }
+//     else if ( campo == 'actualizarDiaActive' )
+//     {
+//         let diaActive = $( `#${elementoID}` ).val();
+//         diaActive == 1 ? diaActive = 0 : diaActive = 1;
+
+//         $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idDia, diaActive: diaActive, campo: campo }, function ( data )
+//         {
+//             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+//                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+//                                                 <div class="d-flex">
+//                                                     <div class="toast-body">
+//                                                         ${data == true ? "<b>Día</b> eliminado correctamente" : "Ocurrió un error al intentar eliminar el día "}
+//                                                     </div>
+//                                                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+//                                                 </div>
+//                                             </div>
+//                                         </div>`);
+//             mostrarNotificacion();
+//             eliminarDia( elementoID );
+//         } );
+//     }
+// }
+
+//mostrar los horarios dependiendo del dia seleccionado
+function mostrarHorarios( idDia )
 {
-    if ( campo == 'actualizarDia' )
+    $( '#horarios' ).html( '' ); //limpiar contenido
+    horarios.forEach( horario =>
     {
-        let dia = $( `#${elementoID}` ).val();
-
-        $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idDia, dia: dia, campo: campo }, function ( data )
+        if ( horario.idDiaHabil == idDia && horario.active == 1 )
         {
-            $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                                            <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                                                <div class="d-flex">
-                                                    <div class="toast-body">
-                                                        ${data == true ? "<b>Día</b> actualizado correctamente" : "Ocurrió un error al intentar actualizar el día"}
-                                                    </div>
-                                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                                                </div>
-                                            </div>
-                                        </div>`);
-            mostrarNotificacion();
-        } );
-    }
-    else if ( campo == 'actualizarDiaVisible' )
+            agregarHorarioUsuario( horario );
+        }
+    } );
+
+    $( '#addHorario' ).show();
+
+    $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idDia, diaActive: diaActive, campo: campo }, function ( data )
     {
-        let diaVisible = $( `#${elementoID}` ).val();
-        diaVisible == 1 ? diaVisible = 0 : diaVisible = 1;
-        $( `#${elementoID}` ).val( diaVisible );
-
-        $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idDia, diaVisible: diaVisible, campo: campo }, function ( data )
-        {
-            $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                                            <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                                                <div class="d-flex">
-                                                    <div class="toast-body">
-                                                        ${data == true ? "<b>Visibilidad del día</b> actualizada correctamente" : "Ocurrió un error al intentar actualizar la visibilidad del día "}
-                                                    </div>
-                                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                                                </div>
-                                            </div>
-                                        </div>`);
-            mostrarNotificacion();
-            if ( data )
-            {
-                cambiarBtnDiaVisible( elementoID, diaVisible );
-            }
-        } );
-    }
-    else if ( campo == 'actualizarDiaActive' )
-    {
-        let diaActive = $( `#${elementoID}` ).val();
-        diaActive == 1 ? diaActive = 0 : diaActive = 1;
-
-        $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idDia, diaActive: diaActive, campo: campo }, function ( data )
-        {
-            $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
                                                     <div class="toast-body">
@@ -236,10 +268,9 @@ function actualizarHorario( idHorario, elementoID, campo )
                                                 </div>
                                             </div>
                                         </div>`);
-            mostrarNotificacion();
-            eliminarDia( elementoID );
-        } );
-    }
+        mostrarNotificacion();
+        eliminarDia( elementoID );
+    } );
 }
 
 function cambiarBtnDiaVisible( id, estado )
