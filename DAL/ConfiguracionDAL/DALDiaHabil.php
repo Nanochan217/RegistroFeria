@@ -18,13 +18,24 @@ class DALDiaHabil
         return $resultado;
     }
 
-    function ModificarDiaHabil(DiaHabil $modificarDiaHabil)
+    function ModificarDiaHabil($numeroFuncion)
     {
+        
         $resultado = false;
         $conexionDB = new Conexion();
 
-        $consultaSql = "UPDATE `DIAHABIL` SET `DIA` = '".$modificarDiaHabil->getDia()."'
-        WHERE `ID` = 1";
+        if($numeroFuncion == 1)//Ocultar Visibilidad
+        {
+            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0";
+        }
+        else if($numeroFuncion == 2)//Desactivar (Eliminar)
+        {
+            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0 AND `ACTIVE` = 0";
+        }
+        else if($numeroFuncion == 3)//Habilitar Visibilidad
+        {
+            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 1";
+        }
 
         if($conexionDB->NuevaConexion($consultaSql))
         {
@@ -33,7 +44,24 @@ class DALDiaHabil
 
         $conexionDB->CerrarConexion();
         return $resultado;
-    }    
+    }   
+
+    function CambiarDatosDiaHabil(DiaHabil $modificarDiaHabil)
+    {
+        $resultado = false;
+        $conexionDB = new Conexion();
+
+        $consultaSql = "UPDATE `DIAHABIL` SET `DIA` = '".$modificarDiaHabil->getDia()."'
+        WHERE `ID` = '".$modificarDiaHabil->getId()."'";
+
+        if($conexionDB->NuevaConexion($consultaSql))
+        {
+            $resultado = true;
+        }
+
+        $conexionDB->CerrarConexion();
+        return $resultado;
+    }
 
     function BuscarIdDia($idDia)
     {
@@ -63,23 +91,6 @@ class DALDiaHabil
         $buscarDia = $this->dismount($buscarDia);
         $conexionDB->CerrarConexion();
         return $buscarDia;
-    }
-
-    function DeshabilitarDiaHabil()
-    {
-        $resultado = false;
-        $conexionDB = new Conexion();
-
-        //Continue
-        $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0";
-
-        if($conexionDB->NuevaConexion($consultaSql))
-        {
-            $resultado = true;
-        }
-
-        $conexionDB->CerrarConexion();
-        return $resultado;
     }
 
     // function cantidadDias($idConfiguracion)
