@@ -30,51 +30,40 @@
         {
             if($credencialDAL->ActualizarCredenciales($cambiarCredencial))
             {
+                $_SESSION["Accion"] = "¡Credenciales<br>actualizadas correctamente!";
                 header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
             }
             else
-            {                
+            {     
+                $_SESSION["Accion"] = "Ocurrió un error a la hora<br>de cambiar tus credenciales";   
                 header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
             }
         }
-        else if($correoActual == $correoNuevo)
+        else if($correoActual != $correoNuevo)
         {
             if($credencialDAL->BuscarCorreo($correoNuevo) == false)
             {                
                 if($credencialDAL->ActualizarCredenciales($cambiarCredencial))
                 {
+                    $_SESSION["Accion"] = "¡Credenciales<br>actualizadas correctamente!";
                     header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
                 }
                 else
-                {                
+                {             
+                    $_SESSION["Accion"] = "Ocurrió un error a la hora<br>de cambiar tus credenciales";   
                     header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
                 }
-            }            
-        }
-        else
-        {
-            echo false;
-        }
-
-        // if($credencialDAL->BuscarCorreo(1, $correo))
-        // {
-            // if($credencialDAL->ActualizarCredenciales($cambiarCredencial))
-            // {
-            //     header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
-            // }
-            // else
-            // {                
-            //     header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
-            // }
-        // }
-        // else
-        // {
-        //     echo "El correo ".$correo." se encuentra registrado...";
-        // }
+            }
+            else
+            {
+                $_SESSION["Accion"] = "El correo proporcionado (".$correoNuevo." ya existe en nuestro Sistema)";
+                header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+            }
+        }                
     }
     else
     {
-        //Hacer un alert con JS para una mejor visualización de la Alerta
-        echo "<h1>ESTAS MODIFICANDO DATOS DE OTRA PERSONA, NO TIENES AUTORIZACION</h1>";        
+        $_SESSION["Accion"] = "No estas autorizado para<br>modificar estas credenciales";
+        header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
     }
 /////////////////////////////////////////////////////////////////////////////////

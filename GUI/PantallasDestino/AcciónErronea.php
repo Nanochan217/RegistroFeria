@@ -22,7 +22,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
     echo $cssLinks;
     ?>
 
-    <title>{Acción} Falló</title>
+    <title>Fallo</title>
 
     <!-- START CSS  -->
     <style>
@@ -54,7 +54,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
 
                 <!-- START Encabezado de la pagina -->
                 <div class="d-flex gap-4 flex-column align-items-center justify-content-center py-5">
-                    <h1>{Acción} falló</h1> <!-- titulo -->
+                    <h1><? echo $_SESSION["Accion"] ?></h1> <!-- titulo -->
                     <img src="../Assets/Images/Error.svg" style="height: 180px;" alt=""> <!-- ilustración -->
                     <a href="../Index/Index.php" class="btn btn-danger">Volver al inicio</a> <!-- botón nueva reserva -->
                 </div>

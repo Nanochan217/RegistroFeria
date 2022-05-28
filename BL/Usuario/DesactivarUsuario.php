@@ -13,7 +13,6 @@
     $credencialDAL = new DALCredenciales();
     $idUsuario = $_POST['id'];    
 
-    //Se valida al usuario en sesión si es SuperAdmin
     if($_SESSION['Perfil'] == 1)
     {        
         if($credencialDAL->DesactivarCredencial($idUsuario) && $usuarioDAL->DesactivarUsuario($idUsuario))

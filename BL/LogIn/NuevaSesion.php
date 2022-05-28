@@ -33,6 +33,7 @@
             $_SESSION["idUsuario"] = $nuevaSesionUsuario->getId();
             $_SESSION["Perfil"] = $perfilUsuario;
             $_SESSION["CorreoUsuario"] = $correoUsuario;
+            $_SESSION["Accion"] = "";
             echo $accion;
         }        
         else if($perfilUsuario == 2)
