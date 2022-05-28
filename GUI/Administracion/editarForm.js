@@ -28,9 +28,8 @@ function actualizarDisponibilidad( campo )
     }
     else if ( campo == 'fechaInicial' )
     {
-        let fechaInicial = $( '#fechaInicio' ).val();
-        alert( fechaInicio );
-        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaInicio: fechaInicio, campo: campo }, function ( data )
+        let fechaInicial = $( '#fechaInicio' ).val();        
+        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaInicio: fechaInicial, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -63,11 +62,7 @@ function actualizarDisponibilidad( campo )
                                         </div>`);
             mostrarNotificacion();
         } );
-    }
-    // else if( campo == 'acompanantesMax' )
-    // {
-
-    // }
+    }    
 }
 
 function actualizarAcompanantes()

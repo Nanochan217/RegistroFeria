@@ -27,7 +27,7 @@
             break;
 
         case "fechaInicial";
-                $fechaInicial = $_POST['fechaInicial'];
+                $fechaInicial = $_POST['fechaInicio'];
                 if($configuracionDAL->ModificarConfiguracion($fechaInicial, null, null))
                 {
                     echo true;
