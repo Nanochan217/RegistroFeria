@@ -6,7 +6,14 @@ function actualizarDisponibilidad( campo )
     {
         let estadoConfiguracion = $( '#estadoConfiguracion' ).prop( 'checked' );
 
-        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { estadoConfiguracion: estadoConfiguracion, campo: campo }, function ( data )
+        if(estadoConfiguracion == false)//Habilitar
+            var id = 1;
+        else//Deshabilitar
+            var id = 2;
+
+        // alert(id);
+        // alert(estadoConfiguracion);
+        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { estadoConfiguracion: id, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -24,7 +31,7 @@ function actualizarDisponibilidad( campo )
     else if ( campo == 'fechaInicial' )
     {
         let fechaInicial = $( '#fechaInicial' ).val();
-
+        alert(fechaInicial);
         $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaInicial: fechaInicial, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -43,7 +50,7 @@ function actualizarDisponibilidad( campo )
     else if ( campo == 'fechaFinal' )
     {
         let fechaFinal = $( '#fechaFinal' ).val();
-
+        alert(fechaFinal);
         $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaFinal: fechaFinal, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -59,6 +66,10 @@ function actualizarDisponibilidad( campo )
             mostrarNotificacion();
         } );
     }
+    // else if( campo == 'acompanantesMax' )
+    // {
+        
+    // }
 }
 
 function actualizarAcompanantes()
@@ -70,9 +81,9 @@ function actualizarAcompanantes()
         $( '#acompanantesMaximo' ).val( acompanantesMaximo );
         console.log( acompanantesMaximo );
         acompanantesMaximo = Math.abs( parseInt( acompanantesMaximo, 10 ) );
-        // alert( acompanantesMaximo );
-        // $.post( "enlaceDelBL", { acompanantesMaximo: acompanantexsMaximo }, function ( data )
-        // {
+        //alert( acompanantesMaximo );
+        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { acompanantesMaximo: acompanantesMaximo, campo : "acompanantesMaximo" }, function ( data )
+        {
         $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
@@ -84,7 +95,7 @@ function actualizarAcompanantes()
                                             </div>
                                         </div>`);
         mostrarNotificacion();
-        // } );
+        } );
     }
     else if ( isNaN( acompanantesMaximo ) === true )
     {

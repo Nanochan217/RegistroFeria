@@ -69,12 +69,12 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                 <input type="hidden" class="form-control" id="idConfiguracion" name="idConfiguracion" value="1"> <!-- idConfiguracion -->
                                 <div class="col-md-5">
                                     <label for="fechaInicial" class="form-label">Fecha inicial</label>
-                                    <input type="date" class="form-control" id="fechaInicio" value="2022-05-04" min="2022-05-04" max="2022-05-22" oninput="actualizarDisponibilidad('fechaInicial')" required>
+                                    <input type="date" class="form-control" id="fechaInicio" value="2022-05-04" min="2022-05-04" max="2022-05-22" onchange="actualizarDisponibilidad('fechaInicial')" required>
                                 </div>
 
                                 <div class="col-md-5">
                                     <label for="fechaFinal" class="form-label">Fecha final</label>
-                                    <input type="date" class="form-control" id="fechaFinal" value="2022-05-04" min="2022-05-04" max="2022-05-22" oninput="actualizarDisponibilidad('fechaFinal')" required>
+                                    <input type="date" class="form-control" id="fechaFinal" value="2022-05-04" min="2022-05-04" max="2022-05-22" onchange="actualizarDisponibilidad('fechaFinal')" required>
                                 </div>
                             </div>
                         </div>
