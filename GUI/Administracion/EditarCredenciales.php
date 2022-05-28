@@ -142,7 +142,7 @@ include '../../BL/Usuario/BuscarUsuario.php';
             });
         });
     </script>
-    <script src="./"></script>
+    <script src="./editarCredenciales.js"></script>
     <!-- END Scripts  -->
 </body>
 

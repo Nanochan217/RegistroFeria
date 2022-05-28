@@ -127,7 +127,41 @@ class DALHorario
         return $idUltimoHorario;
     }
 
-    function BuscarTodas()
+    function BuscarTodosHorarioIdDia($idDia)
+    {
+        $HorariosDB = array();
+        $conexionDB = new Conexion();
+
+        $consultaSql = "SELECT * FROM `HORARIO` WHERE `IDDIAHABIL` = '".$idDia."'";
+
+        $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+
+        if (mysqli_num_rows($respuestaDB) > 0)
+        {
+            while ($filasHorarios = $respuestaDB->fetch_assoc())
+            {
+                $horario = new Horario();
+                $horario->setId($filasHorarios["id"]);
+                $horario->setHoraInicio($filasHorarios["horaInicio"]);
+                $horario->setHoraFinal($filasHorarios["horaFinal"]);
+                $horario->setAforoMaximo($filasHorarios["aforoMaximo"]);
+                $horario->setIdDiaHabil($filasHorarios["idDiaHabil"]);
+                $horario->setVisible($filasHorarios["visible"]);
+                $horario->setActive($filasHorarios['active']);
+
+                $HorariosDB[] = $this->dismount($horario);
+            }
+        }
+        else
+        {
+            $HorariosDB = null;
+        }
+
+        $conexionDB->CerrarConexion();
+        return $HorariosDB;
+    }
+
+    function BuscarTodos()
     {
         $HorariosDB = array();
         $conexionDB = new Conexion();

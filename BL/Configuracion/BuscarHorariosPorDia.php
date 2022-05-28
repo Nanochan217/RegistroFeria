@@ -12,3 +12,10 @@ if ($campo == "buscarHorarioIdDia")
     $horarioDAL = new DALHorario();
     return json_encode($horarioDAL->BuscarHorario(1, $idDia));
 }
+else if($campo == "")
+{
+    $horarioDAL = new DALHorario();
+    return json_encode($horarioDAL->BuscarTodosHorarioIdDia($idDia));
+}
+
+
