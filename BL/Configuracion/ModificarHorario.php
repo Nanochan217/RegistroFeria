@@ -10,53 +10,54 @@
     $funcionHorario = $_POST[''];
 
     //Datos del Horario
-    $idHorario = $_POST['']; 
-    $horaInicio = $_POST[''];
-    $horaFinal = $_POST[''];
-    $aforoMaximo = $_POST[''];
-    $idDiaHabil = $_POST[''];
-    
-
-    // $horario->setHoraInicio();
-    // $horario->setHoraFinal();
-    // $horario->setAforoMaximo();
-    // $horario->setIdDiaHabil();
-    // $horario->setVisible();
-    // $horario->setActive();
+    // $horaInicio = $_POST[''];
+    // $horaFinal = $_POST[''];
+    // $aforoMaximo = $_POST[''];
+    // $idDiaHabil = $_POST[''];        
 
     switch($funcionHorario)
     {
-        case "A"://Modificar (Visibilidad o Desactivar)
-                $numeroFuncion = $_POST[''];
-
-                if($numeroFuncion == 1)//Ocultar Visibilidad
-                {
-                    if($horarioDAL->ModificarHorario(1, $idHorario))
-                        echo true;
-                    else echo false;
-                }
-                else if($numeroFuncion == 2)//Desactivar
-                {
-                    if($horarioDAL->ModificarHorario(2, $idHorario))
-                        echo true;
-                    else echo false;
-                }
-                else if($numeroFuncion == 3)//Habilitar Visibilidad
-                {
-                    if($horarioDAL->ModificarHorario(3, $idHorario))
-                        echo true;
-                    else echo false;
-                }
-            break;
-
-        case "B"://Modificar Datos
-                if($horarioDAL->CambiarDatosHorario($i))
+        case ""://Modificar
+                $idHorario = $_POST['id'];             
+                // $horario->setHoraInicio($horaInicio);
+                // $horario->setHoraFinal($horaFinal);
+                // $horario->setAforoMaximo($aforoMaximo);
+                // $horario->setIdDiaHabil($idDiaHabil);                           
+                if ($horarioDAL->CambiarDatosHorario($idHorario, $horario))
                     echo true;
                 else echo false;
+            break;        
+
+        case ""://Visibilidad
+                $idHorario = $_POST['id'];
+                $numeroFuncion = $_POST[''];
+                if($numeroFuncion == 0)//Habilitar Visibilidad
+                {
+                    if($horarioDAL->ModificarHorario($idHorario, 0))
+                        echo true;
+                    else echo false;
+                }
+                else if($numeroFuncion == 1)//Deshabilitar Visibilidad
+                {
+                    if($horarioDAL->ModificarHorario($idHorario, 1))
+                        echo true;
+                    else echo false;
+                }
+            break;        
+                
+        case ""://Desactivar
+                $idHorario = $_POST['id'];
+                $numeroFuncion = $_POST[''];
+                if($numeroFuncion == 0)//Desactivar
+                {
+                    if($horarioDAL->ModificarHorario($idHorario, "del"))
+                        echo true;
+                    else echo false;
+                }            
             break;
 
-        case "C"://Nuevo Horario
-                if($horarioDAL->NuevoHorario($i))
+        case ""://Nuevo Horario
+                if ($horarioDAL->NuevoHorario($i))
                     echo true;
                 else echo false;
             break;

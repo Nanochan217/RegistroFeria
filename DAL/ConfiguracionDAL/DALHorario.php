@@ -24,18 +24,18 @@ class DALHorario
         $resultado = false;
         $conexionDB = new Conexion();
 
-        if($numeroFuncion == 1)//Ocultar Visibilidad
+        if($numeroFuncion == 0)//Ocultar Visibilidad
         {
             $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 0 WHERE `ID`='".$idHorario."'";
         }
-        else if($numeroFuncion == 2)//Desactivar (Eliminar)
-        {
-            $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 0 AND `ACTIVE` = 0 WHERE `ID`='".$idHorario."'";
-        }
-        else if($numeroFuncion == 3)//Habilitar Visibilidad
+        else if($numeroFuncion == 1)//Habilitar Visibilidad
         {
             $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 1 WHERE `ID`='".$idHorario."'";
         }
+        else if($numeroFuncion == "del")//Desactivar (Eliminar)
+        {
+            $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 0, `ACTIVE` = 0 WHERE `ID`='".$idHorario."'";
+        }        
 
         if($conexionDB->NuevaConexion($consultaSql))
         {
@@ -46,14 +46,14 @@ class DALHorario
         return $resultado;
     }
 
-    function CambiarDatosHorario(Horario $modificarHorario)
+    function CambiarDatosHorario($idHorario, Horario $modificarHorario)
     {
         $resultado = false;
         $conexionDB = new Conexion();
 
         $consultaSql = "UPDATE `HORARIO` SET `HORAINICIO`='" . $modificarHorario->getHoraInicio() . "',
             `HORAFINAL`='".$modificarHorario->getHoraFinal()."', `AFOROMAXIMO`='".$modificarHorario->getAforoMaximo()."'
-            WHERE `ID`='".$modificarHorario->getId()."'";//OJO, NO SE SI ME PASAN EL ID DE DIA O HORARIO
+            WHERE `ID`='".$idHorario."'";//OJO, NO SE SI ME PASAN EL ID DE DIA O HORARIO
 
         if ($conexionDB->NuevaConexion($consultaSql))
         {
