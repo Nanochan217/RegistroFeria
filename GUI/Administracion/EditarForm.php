@@ -143,6 +143,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
         var dias = <?php echo BuscarDiasHabiles() ?>;
         var horarios = <?php echo BuscarHorarios() ?>;
 
+
         $(document).ready(function() {
             //rellena los inputs con los datos provenientes de la BD
             $("#fechaInicio").val(configuracion[0].fechaInicio);
@@ -274,8 +275,6 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
             $('#horarios').append(contenedor);
         }
-
-
     </Script>
 
     <script src="./editarForm.js"></script>

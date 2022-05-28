@@ -245,19 +245,20 @@ function actualizarDia( idDia, elementoID, campo )
 //mostrar los horarios dependiendo del dia seleccionado
 function mostrarHorarios( idDia )
 {
-    $( '#horarios' ).html( '' ); //limpiar contenido
-    horarios.forEach( horario =>
-    {
-        if ( horario.idDiaHabil == idDia && horario.active == 1 )
-        {
-            agregarHorarioUsuario( horario );
-        }
-    } );
+    // $( '#horarios' ).html( '' ); //limpiar contenido
+    // horarios.forEach( horario =>
+    // {
+    //     if ( horario.idDiaHabil == idDia && horario.active == 1 )
+    //     {
+    //         agregarHorarioUsuario( horario );
+    //     }
+    // } );
 
-    $( '#addHorario' ).show();
+    // $( '#addHorario' ).show();
 
-    $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idDia, diaActive: diaActive, campo: campo }, function ( data )
+    $.post( "../../BL/Configuracion/BuscarHorariosPorDia.php", { id: idDia, campo: "buscarHorarioIdDia" }, function ( data )
     {
+        alert( data );
         $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
@@ -269,7 +270,6 @@ function mostrarHorarios( idDia )
                                             </div>
                                         </div>`);
         mostrarNotificacion();
-        eliminarDia( elementoID );
     } );
 }
 
