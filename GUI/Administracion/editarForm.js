@@ -28,7 +28,8 @@ function actualizarDisponibilidad( campo )
     }
     else if ( campo == 'fechaInicial' )
     {
-        let fechaInicial = $( '#fechaInicio' ).val();        
+        let fechaInicial = $( '#fechaInicio' ).val(); 
+               
         $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaInicio: fechaInicial, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -47,7 +48,7 @@ function actualizarDisponibilidad( campo )
     else if ( campo == 'fechaFinal' )
     {
         let fechaFinal = $( '#fechaFinal' ).val();
-        alert( fechaFinal );
+
         $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaFinal: fechaFinal, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -74,7 +75,7 @@ function actualizarAcompanantes()
         $( '#acompanantesMaximo' ).val( acompanantesMaximo );
         console.log( acompanantesMaximo );
         acompanantesMaximo = Math.abs( parseInt( acompanantesMaximo, 10 ) );
-        //alert( acompanantesMaximo );
+
         $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { acompanantesMaximo: acompanantesMaximo, campo: "acompanantesMaximo" }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
