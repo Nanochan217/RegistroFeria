@@ -83,7 +83,7 @@ include '../../BL/Usuario/BuscarUsuario.php';
                             <!-- ID -->
                             <div class="col-md-6 pb-3" hidden="true">
                                 <label for="id" class="form-label">ID</label>
-                                <input type="text" class="form-control " id="idUsuario" name="idUsuario" value="">
+                                <input type="text" class="form-control " id="idUsuario" name="idUsuario" value="" onchange="VerificarCorreo()">
                             </div>
 
                             <!-- Correo -->
@@ -118,6 +118,8 @@ include '../../BL/Usuario/BuscarUsuario.php';
         </div>
     </div>
 
+    <div class="toast-container" id="contenedorNotificaciones"></div>
+
     <!--  Footer  -->
     <?php
     echo $footer;
@@ -140,7 +142,7 @@ include '../../BL/Usuario/BuscarUsuario.php';
             });
         });
     </script>
-
+    <script src="./"></script>
     <!-- END Scripts  -->
 </body>
 
