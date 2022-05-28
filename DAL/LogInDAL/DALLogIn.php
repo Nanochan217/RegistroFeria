@@ -173,8 +173,7 @@
             else if(isset($correo))
             {
                 $consultaSql = "UPDATE `SOLICITUDNUEVACONTRASENA` SET `ACTIVE` = 0 WHERE `CORREOUSUARIO` = '".$correo."'";
-            }
-            
+            }            
 
             if($conexionDB->NuevaConexion($consultaSql))
             {
