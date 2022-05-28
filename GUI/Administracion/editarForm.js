@@ -30,7 +30,7 @@ function actualizarDisponibilidad( campo )
     }
     else if ( campo == 'fechaInicial' )
     {
-        let fechaInicial = $( '#fechaInicio' ).val();
+        let fechaInicio = $( '#fechaInicio' ).val();
         alert( fechaInicio );
         $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaInicio: fechaInicio, campo: campo }, function ( data )
         {
