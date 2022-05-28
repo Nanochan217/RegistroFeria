@@ -102,7 +102,7 @@
         function BuscarSolicitudContrasena($codigoSolicitud, $correo)
         {
             $solicitudUsuario = "";
-            $fechaConsulta = strtotime(date('d-m-y H:i:s'));            
+            $fechaConsulta = strtotime(date("d-m-y H:i:s",time()));            
             $conexionDB = new Conexion();
 
             if(isset($codigoSolicitud))
