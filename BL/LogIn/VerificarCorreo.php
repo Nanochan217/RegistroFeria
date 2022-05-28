@@ -16,13 +16,14 @@
     $logInDAL = new DALLogIn();
     $correoUsuario = $_POST['correoRecovery'];
 
+    $solicitud->setCorreoUsuario($correoUsuario);
     $solicitud->setFechaSolicitud($fechaActual);
     $solicitud->setFechaExpiracion($fechaExpiracion);
     $solicitud->setCodigoSolicitud($correoUsuario);
                
     if(!$usuarioDAL->BuscarCorreo($correoUsuario))
     {
-        if($logInDAL->VerificarCorreoUsuario($solicitud))
+        if($logInDAL->CorreoRestablecerContrasena($solicitud))
         {
             $logInDAL->NuevaSolicitudContrasena($solicitud);
             echo "¡Correo Enviado a ".$correoUsuario."!<br>
