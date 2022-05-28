@@ -45,12 +45,12 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
     echo $headerSA;
     ?>
 
-    <div class="container">
+    <div class="container py-5">
         <div class="row">
             <div class="col">
 
                 <!-- START Encabezado de la pagina -->
-                <div class="d-flex gap-4 flex-column align-items-center justify-content-center pt-5 pb-4">
+                <div class="d-flex gap-4 flex-column align-items-center justify-content-center pb-4">
                     <h1>Editar Formulario</h1> <!-- titulo -->
                 </div>
                 <!-- END Encabezado de la pagina -->
@@ -62,19 +62,19 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                             <div class="d-flex ">
                                 <h2 class="pb-4">Disponibilidad</h2>
                                 <div class="form-check form-switch mt-2 ms-3 ">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="formActivo" name="formActivo">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="formActivo" onclick="actualizarEstado()">
                                 </div>
                             </div>
                             <div class="row g-3">
                                 <input type="hidden" class="form-control" id="idConfiguracion" name="idConfiguracion" value="1"> <!-- idConfiguracion -->
                                 <div class="col-md-5">
                                     <label for="fechaInicial" class="form-label">Fecha inicial</label>
-                                    <input type="date" class="form-control" id="fechaInicial" name="fechaInicial" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
+                                    <input type="date" class="form-control" id="fechaInicial" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
                                 </div>
 
                                 <div class="col-md-5">
                                     <label for="fechaFinal" class="form-label">Fecha final</label>
-                                    <input type="date" class="form-control" id="fechaFinal" name="fechaFinal" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
+                                    <input type="date" class="form-control" id="fechaFinal" value="2022-05-04" min="2022-05-04" max="2022-05-22" required>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                             <div class="row g-3">
                                 <div class="col-md-12">
                                     <label for="maxAcompanantes" class="form-label">Maximo de acompañantes por persona</label>
-                                    <input type="number" class="form-control" id="maxAcompanantes" name="maxAcompanantes" required>
+                                    <input type="number" class="form-control" id="maxAcompanantes" required>
                                 </div>
                             </div>
                         </div>
@@ -117,18 +117,28 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
                         </div>
                     </div>
-                    <div class="row gap-3 p-0">
-                        <div class="col position-relative px-0 py-5">
-                            <div class="d-flex gap-3 position-absolute top-0 end-0">
-                                <a href="./Index.php" class="btn btn-danger">Descartar</a>
-                                <button type="submit" class="btn btn-primary">Enviar Cambios</button>
-                            </div>
-                        </div>
-                    </div>
+
                 </form>
             </div>
         </div>
     </div>
+
+    <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+
+    <div class="toast-container" id="toastContainer">
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="liveToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Hello, world! This is a toast message.
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <!-- IMPORT Footer  -->
@@ -452,6 +462,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             })
         }
     </script>
+    <script src="./editarForm.js"></script>
     <!-- END Scripts  -->
 </body>
 
