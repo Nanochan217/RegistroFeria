@@ -10,16 +10,16 @@
     {
         case "estadoConfiguracion":
                 $estadoConfiguracion = $_POST['estadoConfiguracion'];
-                if(!$estadoConfiguracion)
+                if($estadoConfiguracion == 1)
                 {                    
-                    if($configuracionDAL->DisponibilidadConfiguracion(null))
+                    if($configuracionDAL->DisponibilidadConfiguracion(1))
                     {
                         echo true;
                     }
                 }
-                else if($estadoConfiguracion)
+                else if($estadoConfiguracion == 2)
                 {
-                    if($configuracionDAL->DisponibilidadConfiguracion(true))
+                    if($configuracionDAL->DisponibilidadConfiguracion(2))
                     {
                         echo true;
                     }
@@ -42,10 +42,13 @@
                 }                
             break;
 
-        // case "fechaFinal";
-        //         $fechaFinal = $_POST['fechaFinal'];
-        //         $configuracionDAL->ModificarConfiguracion(null, $fechaFinal, null);
-        //     break;
+        case "acompanantesMaximo";
+                $acompanantesMax = $_POST['acompanantesMaximo'];
+                if($configuracionDAL->ModificarConfiguracion(null, null, $acompanantesMax))
+                {
+                    echo true;
+                }
+            break;
 
         default:
             echo "Ocurrió un error...";

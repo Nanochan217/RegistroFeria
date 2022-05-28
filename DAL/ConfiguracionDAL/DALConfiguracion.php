@@ -54,12 +54,12 @@ class DALConfiguracion
         $conexionDB = new Conexion();
         $resultado = false;
         
-        if(isset($estadoConfiguracion))
+        if($estadoConfiguracion == 1)//Deshabilitar
         {
             $consultaSql = "UPDATE `CONFIGURACION`
             SET `ESTADOCONFIGURACION` = FALSE";
         }
-        else
+        else if($estadoConfiguracion == 2) //Habilitar
         {
             //UPDATE configuracion SET estadoConfiguracion = TRUE;
             $consultaSql = "UPDATE `CONFIGURACION`
