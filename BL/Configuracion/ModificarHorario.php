@@ -1,7 +1,7 @@
 <?php
-    include '../../../Core/Conexion.php';    
-    include '../../../DAL/ConfiguracionDAL/DALHorario.php';
-    include '../../../Entidades/ConfiguracionEntidades/Horario.php';          
+    include '../../Core/Conexion.php';    
+    include '../../DAL/ConfiguracionDAL/DALHorario.php';
+    include '../../Entidades/ConfiguracionEntidades/Horario.php';          
 
     $horarioDAL = new DALHorario();
     $horario = new Horario();

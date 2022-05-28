@@ -1,16 +1,26 @@
 <?php
 class DALConfiguracion
 {
-    function ModificarConfiguracion(Configuracion $nuevaConfiguracion)
+    function ModificarConfiguracion($fechaInicial, $fechaFinal, $acompanantesMax)
     {
         $conexionDB = new Conexion();
         $resultado = false;
 
-        $consultaSql = "UPDATE `CONFIGURACION` 
-            SET `FECHAINICIO` = '".$nuevaConfiguracion->getFechaInicio()."', 
-            `FECHAFINAL` = '".$nuevaConfiguracion->getFechaFinal()."', 
-            `ACOMPANANTESMAXIMO` = '".$nuevaConfiguracion->getAcompanantesMax()."' 
-            WHERE `ID` = 1";
+        if(isset($fechaInicial))
+        {
+            $consultaSql = "UPDATE `CONFIGURACION` 
+            SET `FECHAINICIO` = '".$fechaInicial."' WHERE `ID` = 1";
+        }
+        else if(isset($fechaFinal))
+        {
+            $consultaSql = "UPDATE `CONFIGURACION` 
+            SET `FECHAFINAL` = '".$fechaFinal."' WHERE `ID` = 1";
+        }
+        if(isset($acompanantesMax))
+        {
+            $consultaSql = "UPDATE `CONFIGURACION` 
+            SET `ACOMPANANTESMAXIMO` = '".$acompanantesMax."' WHERE `ID` = 1";
+        }        
         
         if($conexionDB->NuevaConexion($consultaSql))
         {
@@ -19,7 +29,7 @@ class DALConfiguracion
 
         $conexionDB->CerrarConexion();
         return $resultado;
-    }
+    }    
 
     // function DesactivarConfiguracion()
     // {
@@ -44,17 +54,16 @@ class DALConfiguracion
         $conexionDB = new Conexion();
         $resultado = false;
         
-        if($estadoConfiguracion == false)
+        if(isset($estadoConfiguracion))
         {
-            $consultaSql = "UPDATE `CONFIGURACION`, `DIAHABIL`, `HORARIO`
-            SET `CONFIGURACION.ESTADOCONFIGURACION` = 0, `DIAHABIL.VISIBLE` = 0, 
-            `HORARIO.VISIBLE` = 0 WHERE `CONFIGURACION.ID` = 1";            
+            $consultaSql = "UPDATE `CONFIGURACION`
+            SET `ESTADOCONFIGURACION` = FALSE";
         }
-        else if($estadoConfiguracion == true)
+        else
         {
-            $consultaSql = "UPDATE `CONFIGURACION`, `DIAHABIL`, `HORARIO`
-            SET `CONFIGURACION.ESTADOCONFIGURACION` = 1, `DIAHABIL.VISIBLE` = 1, 
-            `HORARIO.VISIBLE` = 1 WHERE `CONFIGURACION.ID` = 1";
+            //UPDATE configuracion SET estadoConfiguracion = TRUE;
+            $consultaSql = "UPDATE `CONFIGURACION`
+            SET `ESTADOCONFIGURACION` = TRUE";
         }
         
         if($conexionDB->NuevaConexion($consultaSql))
@@ -115,4 +124,8 @@ class DALConfiguracion
     }
 }
 
+
+// $consultaSql = "UPDATE `CONFIGURACION`, `DIAHABIL`, `HORARIO`
+// SET `CONFIGURACION.ESTADOCONFIGURACION` = 0, `DIAHABIL.VISIBLE` = 0, 
+// `HORARIO.VISIBLE` = 0 WHERE `CONFIGURACION.ID` = 1"; 
 ///////////////////////////////////////////////////////////////////////////////////////////

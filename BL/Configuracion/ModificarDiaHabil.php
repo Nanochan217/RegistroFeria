@@ -1,7 +1,7 @@
 <?php
-    include '../../../Core/Conexion.php';    
-    include '../../../DAL/ConfiguracionDAL/DALDiaHabil.php';    
-    include '../../../Entidades/ConfiguracionEntidades/DiaHabil.php';    
+    include '../../Core/Conexion.php';    
+    include '../../DAL/ConfiguracionDAL/DALDiaHabil.php';    
+    include '../../Entidades/ConfiguracionEntidades/DiaHabil.php';    
 
     $diaHabilDAL = new DALDiaHabil();
     $diaHabil = new DiaHabil();

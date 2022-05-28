@@ -6,7 +6,7 @@ function actualizarDisponibilidad( campo )
     {
         let estadoConfiguracion = $( '#estadoConfiguracion' ).prop( 'checked' );
 
-        $.post( "../../BL/Configuracion/ModificarDisponibilidad.php", { estadoConfiguracion: estadoConfiguracion, campo: campo }, function ( data )
+        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { estadoConfiguracion: estadoConfiguracion, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -25,8 +25,8 @@ function actualizarDisponibilidad( campo )
     {
         let fechaInicial = $( '#fechaInicial' ).val();
 
-        // $.post( "enlaceDelBL", { fechaInicial: fechaInicial, campo: campo }, function ( data )
-        // {
+        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaInicial: fechaInicial, campo: campo }, function ( data )
+        {
         $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
@@ -38,14 +38,14 @@ function actualizarDisponibilidad( campo )
                                             </div>
                                         </div>`);
         mostrarNotificacion();
-        // } );
+        } );
     }
     else if ( campo == 'fechaFinal' )
     {
         let fechaFinal = $( '#fechaFinal' ).val();
 
-        // $.post( "enlaceDelBL", { fechaFinal: fechaFinal, campo: campo }, function ( data )
-        // {
+        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { fechaFinal: fechaFinal, campo: campo }, function ( data )
+        {
         $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
@@ -57,7 +57,7 @@ function actualizarDisponibilidad( campo )
                                             </div>
                                         </div>`);
         mostrarNotificacion();
-        // } );
+        } );
     }
 }
 
