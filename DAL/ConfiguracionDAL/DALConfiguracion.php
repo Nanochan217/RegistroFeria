@@ -4,7 +4,7 @@ class DALConfiguracion
     function ModificarConfiguracion($fechaInicial, $fechaFinal, $acompanantesMax)
     {
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
         $resultado = false;
 
         if (isset($fechaInicial))
@@ -35,7 +35,7 @@ class DALConfiguracion
     function BuscarEstadoConfiguracion()
     {
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
         $resultado = false;
 
         $consultaSql = "SELECT * FROM `CONFIGURACION` WHERE `ID` = 1 AND 
@@ -54,7 +54,7 @@ class DALConfiguracion
     function DisponibilidadConfiguracion($estadoConfiguracion)
     {
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
         $resultado = false;
 
         if ($estadoConfiguracion == 0) //Deshabilitar
@@ -82,7 +82,7 @@ class DALConfiguracion
     {
         $configuracionesDB = array();
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         $consultaSql = "SELECT * FROM `CONFIGURACION` WHERE `ACTIVE` = 1";
 

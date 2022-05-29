@@ -5,7 +5,7 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "INSERT INTO `ACOMPANANTE` (`CEDULA`, `NOMBRE`,`IDTIPOACOMPANANTE`,`IDCITA`) 
             VALUES ('" . $nuevoAcompanante->getCedula() . "', '" . $nuevoAcompanante->getNombre() . "',
@@ -19,38 +19,51 @@
             $conexionDB->CerrarConexion();
             return $resultado;
         }
-
-        //Funcion para verificar que no existan datos iguales en la DB
+        
         function BuscarCedula($cedula)
         {
-            $resultado = false;
+            $resultado = 0;
+            $contador = 1;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
-            $consultaSql = "SELECT * FROM `ACOMPANANTE` WHERE `CEDULA` = '" . $cedula . "'  AND `ACTIVE` = 1";
-
-            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
-
-            if(mysqli_num_rows($respuestaDB)>0)
+            $primeraConsulta = "SELECT * FROM `ASISTENTE` WHERE `CEDULA` = '" . $cedula . "'  AND `ACTIVE` = 1";
+            $segundaConsulta = "SELECT * FROM `ACOMPANANTE` WHERE `CEDULA` = '" . $cedula . "'  AND `ACTIVE` = 1";
+            
+            while($contador <= 2)
             {
-                while($filaAcompanante = $respuestaDB->fetch_assoc())
+                if($contador == 1)
+                    $respuestaDB = $conexionDB->NuevaConsulta($primeraConsulta);
+                else if($contador == 2)
+                    $respuestaDB = $conexionDB->NuevaConsulta($segundaConsulta);
+
+                if(mysqli_num_rows($respuestaDB)>0)
                 {
-                    if($cedula != $filaAcompanante["cedula"])
-                        break;
-                    else
-                        $resultado = true;
+                    while($fila = $respuestaDB->fetch_assoc())
+                    {
+                        if($cedula != $fila["cedula"])
+                            break;
+                        else
+                            $resultado++;
+                    }
                 }
+                
+                $contador++;
             }
 
             $conexionDB->CerrarConexion();
-            return $resultado;
+            
+            if($resultado == 0)            
+                return true;   
+            else
+                return false;                        
         }
 
         function DesactivarAcompanante($idAcompanante)
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "UPDATE `ACOMPANANTE` SET `ACTIVE` = 0 WHERE `ID`= '" . $idAcompanante . "'";
 

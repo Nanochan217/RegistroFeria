@@ -6,7 +6,7 @@
         {
             $buscarColegio = new ColegioProcedencia();
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "SELECT * FROM `COLEGIOPROCEDENCIA` WHERE `ID` =" . $idColegio;
 
@@ -35,7 +35,7 @@
         {
             $ColegiosDB = array();
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "SELECT * FROM `COLEGIOPROCEDENCIA`";
 

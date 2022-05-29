@@ -3,9 +3,9 @@
     {
         function NuevoAsistente(Asistente $nuevoAsistente)
         {
-            $resultado = false;
+            $resultado = 0;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "INSERT INTO `ASISTENTE` (`CEDULA`, `NOMBRE`, `APELLIDO1`, `APELLIDO2`, `CORREO`, `TELEFONO`, `IDCOLEGIOPROCEDENCIA`)
             VALUES ('" . $nuevoAsistente->getCedula() . "', '" . $nuevoAsistente->getNombre() . "', '" . $nuevoAsistente->getApellido1() . "',
@@ -13,33 +13,70 @@
             '" . $nuevoAsistente->getIdColegioProcedencia() . "')";
             
             if($conexionDB->NuevaConsulta($consultaSql))
-            {
-                $resultado = true;
-            }
+                $resultado = $conexionDB->ObtenerIdUltimoInsert();
+            else
+                $resultado = null;
 
             $conexionDB->CerrarConexion();
             return $resultado;
         }
-
-        //Funcion para verificar que no existan datos iguales en la DB
+        
         function BuscarCedula($cedula)
         {
-            $resultado = false;
+            $resultado = 0;
+            $contador = 1;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
-            $consultaSql = "SELECT * FROM `ASISTENTE` WHERE `CEDULA` = '" . $cedula . "' AND `ACTIVE` = 1";
+            $primeraConsulta = "SELECT * FROM `ASISTENTE` WHERE `CEDULA` = '" . $cedula . "'  AND `ACTIVE` = 1";
+            $segundaConsulta = "SELECT * FROM `ACOMPANANTE` WHERE `CEDULA` = '" . $cedula . "'  AND `ACTIVE` = 1";
+            
+            while($contador <= 2)
+            {
+                if($contador == 1)
+                    $respuestaDB = $conexionDB->NuevaConsulta($primeraConsulta);
+                else if($contador == 2)
+                    $respuestaDB = $conexionDB->NuevaConsulta($segundaConsulta);
 
+                if(mysqli_num_rows($respuestaDB)>0)
+                {
+                    while($fila = $respuestaDB->fetch_assoc())
+                    {
+                        if($cedula != $fila["cedula"])
+                            break;
+                        else
+                            $resultado++;
+                    }
+                }
+
+                $contador++;
+            }
+
+            $conexionDB->CerrarConexion();
+            
+            if($resultado == 0)            
+                return true;   
+            else
+                return false;                        
+        }
+
+        function BuscarCorreo($correo)
+        {
+            $resultado = true;
+            $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion();
+
+            $consultaSql = "SELECT * FROM `ASISTENTE` WHERE `CORREO` = '" . $correo . "'  AND `ACTIVE` = 1";
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
-                while($filaAsistente = $respuestaDB->fetch_assoc())
+                while($fila = $respuestaDB->fetch_assoc())
                 {
-                    if($cedula != $filaAsistente["cedula"])
+                    if($correo != $fila["correo"])
                         break;
                     else
-                        $resultado = true;
+                        $resultado = false;
                 }
             }
 
@@ -47,35 +84,35 @@
             return $resultado;
         }
 
-        function UltimoAsistente()
+        function BuscarTelefono($telefono)
         {
-            $ultimoAsistenteDB = 0;
+            $resultado = true;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
-            $consultaSql = "SELECT * FROM `ASISTENTE` WHERE `ID`=(SELECT MAX(`ID`) FROM `ASISTENTE`) AND `ACTIVE` = 1";
-            $asistente = $conexionDB->NuevaConsulta($consultaSql);
+            $consultaSql = "SELECT * FROM `ASISTENTE` WHERE `TELEFONO` = '" . $telefono . "'  AND `ACTIVE` = 1";
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
-            if(mysqli_num_rows($asistente)>0)
+            if(mysqli_num_rows($respuestaDB)>0)
             {
-                while($filaAsistente = $asistente->fetch_assoc())
+                while($fila = $respuestaDB->fetch_assoc())
                 {
-                    $ultimoAsistenteDB = $filaAsistente["id"];
+                    if($telefono != $fila["telefono"])
+                        break;
+                    else
+                        $resultado = false;
                 }
             }
-            else
-            {
-                $ultimoAsistenteDB = null;
-            }
+
             $conexionDB->CerrarConexion();
-            return $ultimoAsistenteDB;
+            return $resultado;
         }
 
         function DesactivarAsistente($idAsistente)
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "UPDATE `ASISTENTE` SET `ACTIVE` = 0 WHERE `ID`= '" . $idAsistente . "'";
 

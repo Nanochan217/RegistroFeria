@@ -3,18 +3,18 @@
     {
         function NuevaCita(Cita $nuevaCita)
         {
-            $resultado = false;
+            $resultado = 0;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaDB = "INSERT INTO `CITA` (`DIA`, `HORA`, `CONFIRMADO`, `IDASISTENTE`) 
             VALUES ('" . $nuevaCita->getDia() . "', '" . $nuevaCita->getHora() . "', '" . $nuevaCita->getConfirmado() . "',
             '" . $nuevaCita->getIdAsistente() . "')";
 
-            if($conexionDB->NuevaConsulta($consultaDB))
-            {
-                $resultado = true;
-            }
+            if($conexionDB->NuevaConsulta($consultaDB))            
+                $resultado = $conexionDB->ObtenerIdUltimoInsert();
+            else
+                $resultado = null;
 
             $conexionDB->CerrarConexion();
             return $resultado;
@@ -25,7 +25,7 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaDB = "UPDATE `CITA` SET `DIA`='" . $modificarCita->getDia() . "',
             'HORA'='" . $modificarCita->getHora() . "'";
@@ -43,7 +43,7 @@
         {
             $citaConsultada = new Cita();
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
             
             $consultaSql = "SELECT * FROM `CITA` WHERE `ACTIVE`=1 AND `IDASISTENTE`=" . $idAsistente;
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
@@ -74,7 +74,7 @@
         {
             $citasSistema = array();
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "SELECT * FROM `CITAS` WHERE `ACTIVE` = 1";
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
@@ -107,7 +107,7 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "UPDATE `CITA` SET `ACTIVE` = 0 WHERE `ID`='" . $idCita . "'";
 
@@ -124,7 +124,7 @@
         {
             $ultimaCitaDB = 0;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
             
             $consultaSql = "SELECT * FROM `CITA` WHERE `ID`=(SELECT MAX(`ID`) FROM `CITA`) AND `ACTIVE` = 1";
             $cita = $conexionDB->NuevaConsulta($consultaSql);

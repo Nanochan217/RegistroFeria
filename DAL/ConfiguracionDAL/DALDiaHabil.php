@@ -5,7 +5,7 @@ class DALDiaHabil
     {
         $nuevoDia = new DiaHabil();
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         $consultaSql = "INSERT INTO `DIAHABIL` (`DIA`) VALUES ('" . $nuevoDiaHabil . "')";
 
@@ -41,7 +41,7 @@ class DALDiaHabil
 
         $resultado = false;
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         if ($numeroFuncion == 0) //Ocultar Visibilidad
         {
@@ -69,7 +69,7 @@ class DALDiaHabil
     {
         $resultado = false;
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         $consultaSql = "UPDATE `DIAHABIL` SET `DIA` = '" . $nuevoDia . "'
         WHERE `ID` = '" . $idDiaModificar . "'";
@@ -87,7 +87,7 @@ class DALDiaHabil
     {
         $buscarDia = new DiaHabil();
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         $consultaSql = "SELECT * FROM `DIAHABIL` WHERE `ID` =" . $idDia;
 
@@ -118,7 +118,7 @@ class DALDiaHabil
     {
         $DiasHabilesDB = array();
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         $consultaSql = "SELECT * FROM `DIAHABIL`";
 

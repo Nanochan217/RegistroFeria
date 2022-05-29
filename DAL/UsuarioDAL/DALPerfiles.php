@@ -5,7 +5,7 @@
         {
             $perfilesDB = array();
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "SELECT * FROM `PERFIL` WHERE `ACTIVE` = 1";
 

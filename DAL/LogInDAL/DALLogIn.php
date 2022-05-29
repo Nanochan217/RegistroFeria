@@ -4,7 +4,7 @@
         function NuevaSesionUsuario(Credenciales $credencialesSesion)
         {
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $correoUsuario = $credencialesSesion->getCorreo();
             $contrasenaUsuario = $credencialesSesion->getContrasena();            
@@ -41,7 +41,7 @@
         {   
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();            
+            $conexionDB->NuevaConexion();            
 
             $consultaSql = "INSERT INTO `SOLICITUDNUEVACONTRASENA` (`FECHASOLICITUD`, `FECHAEXPIRACION`, `CODIGOSOLICITUD`)
             VALUES ('" . $nuevaSolicitud->getFechaSolicitud() . "', '" . $nuevaSolicitud->getFechaExpiracion() . "', '" . $nuevaSolicitud->getCodigoSolicitud() . "')";
@@ -62,7 +62,7 @@
             date_default_timezone_set("America/Costa_Rica");
             $fechaConsulta = strtotime(date("d-m-y H:i:s",time()));            
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             if(isset($codigoSolicitud))
             {
@@ -105,7 +105,7 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $contrasenaEncriptada = password_hash($nuevaContraseña, PASSWORD_DEFAULT);
 
@@ -124,7 +124,7 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             if(isset($codigoSolicitud))
             {
