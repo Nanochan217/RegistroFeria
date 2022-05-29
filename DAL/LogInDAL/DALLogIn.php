@@ -4,12 +4,14 @@
         function NuevaSesionUsuario(Credenciales $credencialesSesion)
         {
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
+
             $correoUsuario = $credencialesSesion->getCorreo();
             $contrasenaUsuario = $credencialesSesion->getContrasena();            
             
             $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correoUsuario."' AND `ACTIVE` = 1";
             
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
             
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -45,10 +47,11 @@
             $correoUsuario = $solitudCambioContrasena->getCodigoSolicitud();            
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='".$correoUsuario."' AND `ACTIVE`= 1";
 
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {            
                 //ADJUNTAR AL LINK COMO VARIABLE DE PHP (?cod=$hashSolicitud)!!
                 $hashSolicitud = crypt($correoUsuario, 'rl');
@@ -82,6 +85,8 @@
         {   
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
+
             $codigoNuevaSolicitud = $nuevaSolicitud->getCodigoSolicitud();
                         
             $hashSolicitud = crypt($codigoNuevaSolicitud, 'rl');                        
@@ -89,7 +94,7 @@
             $consultaSql = "INSERT INTO `SOLICITUDNUEVACONTRASENA` (`FECHASOLICITUD`, `FECHAEXPIRACION`, `CODIGOSOLICITUD`, `ACTIVE`)
                 VALUES ('".$nuevaSolicitud->getFechaSolicitud()."', '".$nuevaSolicitud->getFechaExpiracion()."', '".$hashSolicitud."', 1)";
                         
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;
             }
@@ -104,6 +109,7 @@
             $solicitudUsuario = "";
             $fechaConsulta = strtotime(date("d-m-y H:i:s",time()));            
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             if(isset($codigoSolicitud))
             {
@@ -114,7 +120,7 @@
                 $consultaSql = "SELECT * FROM `SOLICITUDNUEVACONTRASENA` WHERE `CORREOUSUARIO` = '".$correo."' AND `ACTIVE` = 1";
             }
             
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -147,12 +153,13 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $contrasenaEncriptada = password_hash($nuevaContraseña, PASSWORD_DEFAULT);
 
             $consultaSql = "UPDATE `CREDENCIALES` SET `CONTRASENA`=".$contrasenaEncriptada." WHERE `CORREO`=".$correoUsuario;
 
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;
             }
@@ -165,6 +172,7 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             if(isset($codigoSolicitud))
             {
@@ -175,7 +183,7 @@
                 $consultaSql = "UPDATE `SOLICITUDNUEVACONTRASENA` SET `ACTIVE` = 0 WHERE `CORREOUSUARIO` = '".$correo."'";
             }            
 
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;
             }

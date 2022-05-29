@@ -6,10 +6,11 @@
         {
             $buscarColegio = new ColegioProcedencia();
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "SELECT * FROM `COLEGIOPROCEDENCIA` WHERE `ID` =" . $idColegio;
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if (mysqli_num_rows($respuestaDB) > 0)
             {
@@ -34,10 +35,11 @@
         {
             $ColegiosDB = array();
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "SELECT * FROM `COLEGIOPROCEDENCIA`";
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if (mysqli_num_rows($respuestaDB) > 0)
             {

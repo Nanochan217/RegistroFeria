@@ -5,13 +5,14 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "INSERT INTO `ASISTENTE` (`CEDULA`, `NOMBRE`, `APELLIDO1`, `APELLIDO2`, `CORREO`, `TELEFONO`, `IDCOLEGIOPROCEDENCIA`, `ACTIVE`)
                 VALUES ('".$nuevoAsistente->getCedula()."', '".$nuevoAsistente->getNombre()."', '".$nuevoAsistente->getApellido1()."',
                 '".$nuevoAsistente->getApellido2()."', '".$nuevoAsistente->getCorreo()."', '".$nuevoAsistente->getTelefono()."',
                 '".$nuevoAsistente->getIdColegioProcedencia()."', 1)";
             
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;
             }
@@ -25,10 +26,11 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "SELECT * FROM `ASISTENTE` WHERE `CEDULA` = '".$cedula."' AND `ACTIVE` = 1";
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -49,8 +51,10 @@
         {
             $ultimoAsistenteDB = 0;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
+
             $consultaSql = "SELECT * FROM `ASISTENTE` WHERE `ID`=(SELECT MAX(`ID`) FROM `ASISTENTE`) AND `ACTIVE` = 1";
-            $asistente = $conexionDB->NuevaConexion($consultaSql);
+            $asistente = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($asistente)>0)
             {
@@ -71,10 +75,11 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "UPDATE `ASISTENTE` SET `ACTIVE` = 0 WHERE `ID`= '".$idAsistente."'";
 
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;
             }

@@ -5,12 +5,13 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "INSERT INTO `USUARIO`(`CEDULA`, `NOMBRE`, `APELLIDO1`, `APELLIDO2`, `IDCREDENCIALES`, `IDPERFIL`, `ACTIVE`) 
                     VALUES ('".$nuevoUsuario->getCedula()."','".$nuevoUsuario->getNombre()."','".$nuevoUsuario->getApellido1()."',
                     '".$nuevoUsuario->getApellido2()."','".$nuevoUsuario->getIdCredenciales()."','".$nuevoUsuario->getIdPerfil()."', 1)";
 
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;
             }
@@ -23,12 +24,14 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
+
             $consultaSql = "UPDATE `USUARIO` SET `CEDULA`='".$modificarUsuario->getCedula()."', `NOMBRE`='".$modificarUsuario->getNombre()."',
                 `APELLIDO1`='".$modificarUsuario->getApellido1()."',
                 `APELLIDO2`='".$modificarUsuario->getApellido2()."',
                 `IDPERFIL`='".$modificarUsuario->getIdPerfil()."' WHERE `ID`=".$modificarUsuario->getId();
 
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;
             }
@@ -40,10 +43,11 @@
         {
             $usuariosDB = array();
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "SELECT * FROM `USUARIO` WHERE `ACTIVE` = 1";
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -78,10 +82,11 @@
         {
             $usuarioDB = new Usuario();
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "SELECT * FROM `USUARIO` WHERE `ID` =".$idUsuario;
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -110,10 +115,11 @@
         {
             $usuarioDB = new Usuario();
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "SELECT * FROM `USUARIO` WHERE `ID` =".$idUsuario;
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -144,10 +150,11 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "SELECT * FROM `USUARIO` WHERE `CEDULA` = '".$cedula."'";
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -168,10 +175,11 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "SELECT * FROM `USUARIO` WHERE `CORREO` = '".$correo."'";
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -192,10 +200,11 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "UPDATE `USUARIO` SET `ACTIVE` = 0 WHERE `ID`= '".$idUsuario."'";
 
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;
             }
