@@ -1,21 +1,39 @@
 <?php
 class DALDiaHabil
 {
-    function NuevoDiaHabil(DiaHabil $nuevoDiaHabil)
+    function NuevoDiaHabil($nuevoDiaHabil)
     {
-        $resultado = false;
+        $nuevoDia = new DiaHabil();
         $conexionDB = new Conexion();
 
         $consultaSql = "INSERT INTO `DIAHABIL` (`DIA`,`IDCONFIGURACION`,`VISIBLE`,`ACTIVE`)
-        VALUES ('".$nuevoDiaHabil->getDia()."', 1, 1, 1)";
+        VALUES ('".$nuevoDiaHabil."', 1, 1, 1)";
 
         if($conexionDB->NuevaConexion($consultaSql))
         {
-            $resultado = true;
+            $conexionDB->CerrarConexion();
+            $consultaSql2 = "SELECT * FROM `DIAHABIL` WHERE `DIA` = '".$nuevoDiaHabil."' AND `ACTIVE` = 1";
+            $respuestaDB = $conexionDB->NuevaConexion($consultaSql2);
+
+            if(mysqli_num_rows($respuestaDB)>0)
+            {
+                while($filaDiaHabil = $respuestaDB->fetch_assoc())
+                {
+                    $nuevoDia->setId($filaDiaHabil['id']);
+                    $nuevoDia->setDia($filaDiaHabil['dia']);
+                    $nuevoDia->setidConfiguracion($filaDiaHabil['idConfiguracion']);
+                    $nuevoDia->setVisible($filaDiaHabil['visible']);
+                    $nuevoDia->setActive($filaDiaHabil['active']);                
+                }
+            }
+            else
+            {
+                $nuevoDia = null;
+            }            
         }
 
         $conexionDB->CerrarConexion();
-        return $resultado;
+        return $nuevoDia;
     }
 
     function ModificarDiaHabil($idDia, $numeroFuncion)
