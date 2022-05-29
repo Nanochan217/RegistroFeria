@@ -11,9 +11,9 @@ class DALDiaHabil
 
         if ($conexionDB->NuevaConexion($consultaSql))
         {
-            $conexionDB->CerrarConexion();
-            $consultaSql2 = "SELECT * FROM `DIAHABIL` WHERE `DIA` = '" . $nuevoDiaHabil . "' AND `ACTIVE` = 1";
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql2);
+            //$conexionDB->CerrarConexion();
+            $consultaSql2 = "SELECT * FROM `DIAHABIL` WHERE `DIA` = '".$nuevoDiaHabil."' AND `ACTIVE` = 1";
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql2);
 
             if (mysqli_num_rows($respuestaDB) > 0)
             {
