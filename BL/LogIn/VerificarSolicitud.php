@@ -13,19 +13,15 @@
     {
         case "Expirado":
             //La solicitud de cambio de contraseña ha expirado
-            echo "E";            
+            header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");            
             break;
         case "Denegado":
             //Acceso Denegado
-            echo "A";            
+            header("Location: ../../GUI/PantallasDestino/AccesoDenegado.php");
             break;
         default:
-            echo json_encode($estado);
+            header("Location: ../../BL/LogIn/NuevaContrasena.php?email=".$estado);
             break;
-    }
+    }    
 
-    // if()
-    // {        
-    //     // $correo = "";
-    //     // header("Location: ../../BL/LogIn/NuevaContrasena.php?estado='".crypt($correo, 'rl')."'");
-    // }
+    
