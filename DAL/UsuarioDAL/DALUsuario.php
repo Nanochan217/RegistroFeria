@@ -5,7 +5,7 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "INSERT INTO `USUARIO`(`CEDULA`, `NOMBRE`, `APELLIDO1`, `APELLIDO2`, `IDCREDENCIALES`, `IDPERFIL`) 
             VALUES ('" . $nuevoUsuario->getCedula() . "','" . $nuevoUsuario->getNombre() . "','" . $nuevoUsuario->getApellido1() . "',
@@ -24,7 +24,7 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "UPDATE `USUARIO` SET `CEDULA`='" . $modificarUsuario->getCedula() . "', `NOMBRE`='" . $modificarUsuario->getNombre() . "',
             `APELLIDO1`='" . $modificarUsuario->getApellido1() . "',
@@ -43,7 +43,7 @@
         {
             $usuariosDB = array();
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "SELECT * FROM `USUARIO` WHERE `ACTIVE` = 1";
 
@@ -82,7 +82,7 @@
         {
             $usuarioDB = new Usuario();
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "SELECT * FROM `USUARIO` WHERE `ID` =" . $idUsuario;
 
@@ -115,7 +115,7 @@
         {
             $usuarioDB = new Usuario();
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "SELECT * FROM `USUARIO` WHERE `ID` =" . $idUsuario;
 
@@ -150,7 +150,7 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "SELECT * FROM `USUARIO` WHERE `CEDULA` = '" . $cedula . "'";
 
@@ -175,7 +175,7 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "SELECT * FROM `USUARIO` WHERE `CORREO` = '" . $correo . "'";
 
@@ -200,7 +200,7 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion2();
+            $conexionDB->NuevaConexion();
 
             $consultaSql = "UPDATE `USUARIO` SET `ACTIVE` = 0 WHERE `ID`= '" . $idUsuario . "'";
 

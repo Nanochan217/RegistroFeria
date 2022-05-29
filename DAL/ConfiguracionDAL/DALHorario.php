@@ -4,7 +4,7 @@ class DALHorario
     function NuevoHorario(Horario $nuevoHorario)
     {        
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         $consultaSql = "INSERT INTO `HORARIO` (`HORAINICIO`, `HORAFINAL`, `IDDIAHABIL`)
         VALUES ('" . $nuevoHorario->getHoraInicio() . "', '" . $nuevoHorario->getHoraFinal() . "',
@@ -45,7 +45,7 @@ class DALHorario
     {
         $resultado = false;
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         if ($numeroFuncion == 0) //Ocultar Visibilidad
         {
@@ -73,7 +73,7 @@ class DALHorario
     {
         $resultado = false;
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         $consultaSql = "UPDATE `HORARIO` SET `HORAINICIO`='" . $horaInicio . "'            
         WHERE `ID`='" . $idHorario . "'";
@@ -91,7 +91,7 @@ class DALHorario
     {
         $resultado = false;
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         $consultaSql = "UPDATE `HORARIO` SET `HORAFINAL`='" . $horaFinal . "' 
         WHERE `ID`='" . $idHorario . "'";
@@ -109,7 +109,7 @@ class DALHorario
     {
         $resultado = false;
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         $consultaSql = "UPDATE `HORARIO` SET `AFOROMAXIMO`='" . $aforoMaximo . "'
         WHERE `ID`='" . $idHorario . "'";
@@ -127,7 +127,7 @@ class DALHorario
     {
         $buscarHorario = new Horario();
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         if ($funcionSolicitada == 0)
         {
@@ -167,7 +167,7 @@ class DALHorario
     {
         $idUltimoHorario = 0;
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         $consultaSql = "SELECT * FROM `HORARIO` WHERE `ID` = (SELECT MAX(`ID`) FROM `HORARIO`) AND `ACTIVE` = 1";
         $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
@@ -192,7 +192,7 @@ class DALHorario
     {
         $HorariosDB = array();
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         $consultaSql = "SELECT * FROM `HORARIO` WHERE `IDDIAHABIL` = '".$idDia."' AND `ACTIVE` = 1";
 
@@ -227,7 +227,7 @@ class DALHorario
     {
         $HorariosDB = array();
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
+        $conexionDB->NuevaConexion();
 
         $consultaSql = "SELECT * FROM `HORARIO`";
 
