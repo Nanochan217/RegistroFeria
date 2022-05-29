@@ -20,7 +20,7 @@
     $correoUsuario = $_POST['email'];
     $contrasenaUsuario = $_POST['contrasena'];
 
-    if($usuarioDAL->BuscarCedula($cedulaUsuario) == false && $credencialDAL->BuscarCorreo(0, $correoUsuario) == false)
+    if($usuarioDAL->BuscarCedula($cedulaUsuario) == false && $credencialDAL->BuscarCorreo($correoUsuario) == false)
     {        
         $nuevaCredencial->setCorreo($correoUsuario);
         $nuevaCredencial->setContrasena($contrasenaUsuario);

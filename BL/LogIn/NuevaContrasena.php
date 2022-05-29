@@ -5,30 +5,39 @@
     
     $logInDAL = new DALLogIn();
 
-    $correoUsuario = $_POST['codigo'];
+    $correoUsuario = $_GET['email'];
     $nuevaContrasena1 = $_POST['contrasena1'];
     $nuevaContrasena2 = $_POST['contrasena2'];    
     $correoUsuario = $logInDAL->BuscarSolicitudContrasena(null, $correoUsuario);
 
-    switch($correoUsuario)
+    if($nuevaContrasena1 == $nuevaContrasena2)
     {
-        case "Expirado":
-            echo "La solicitud de cambio de contraseña ha expirado";
-            break;
-        case "Denegado":
-            echo "Acceso Denegado";
-            break;
-        default:            
-            if($logInDAL->RestablecerContrasena($correoUsuario, $nuevaContrasena1))
-            {
-                $logInDAL->DesactivarSolicitud(null, $correoUsuario);
-                echo "¡Contraseña restablecida correctamente!";            
-            }
-            else
-            {
-                echo "Ha ocurrido un error...";
-            }           
-            break;
+        switch($correoUsuario)
+        {
+            case "Expirado":
+                //La solicitud de cambio de contraseña ha expirado
+                header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+                break;
+            case "Denegado":
+                //Acceso Denegado
+                header("Location: ../../GUI/PantallasDestino/AccesoDenegado.php");
+                break;
+            default:            
+                if($logInDAL->RestablecerContrasena($correoUsuario, $nuevaContrasena1))
+                {
+                    if($logInDAL->DesactivarSolicitud(null, $correoUsuario))
+                        echo "¡Contraseña restablecida correctamente!";            
+                }
+                else
+                {
+                    echo "Ha ocurrido un error...";
+                }           
+                break;
+        }
+    }
+    else
+    {
+        echo "¡Las contraseñas no coinciden!";
     }
 
     // if($correoUsuario)
