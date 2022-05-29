@@ -13,56 +13,64 @@ $horario = new Horario();
 //Funcion Solicitada
 $funcionHorario = $_POST['campo'];
 
-//Datos del Horario
-// $horaInicio = $_POST[''];
-// $horaFinal = $_POST[''];
-// $aforoMaximo = $_POST[''];
-// $idDiaHabil = $_POST[''];        
-
 switch ($funcionHorario)
 {
-    case "": //Modificar
-        $idHorario = $_POST['id'];
-        // $horario->setHoraInicio($horaInicio);
-        // $horario->setHoraFinal($horaFinal);
-        // $horario->setAforoMaximo($aforoMaximo);
-        // $horario->setIdDiaHabil($idDiaHabil);                           
-        if ($horarioDAL->CambiarDatosHorario($idHorario, $horario))
-            echo true;
-        else echo false;
+    case "": //Modificar Hora Inicio
+            $idHorario = $_POST['id'];
+            $horaInicio = $_POST[''];                                       
+            if ($horarioDAL->CambiarHoraInicio($idHorario, $horaInicio))
+                echo true;
+            else echo false;
         break;
+
+    case "": //Modificar Hora Final
+            $idHorario = $_POST['id'];
+            $horaFinal = $_POST[''];
+            if ($horarioDAL->CambiarHoraFinal($idHorario, $horaFinal))
+                echo true;
+            else echo false;
+        break;
+
+    case "": //Modificar Aforo Maximo
+            $idHorario = $_POST['id'];
+            $aforoMaximo = $_POST[''];
+            if ($horarioDAL->CambiarAforoMaximo($idHorario, $aforoMaximo))
+                echo true;
+            else echo false;
+        break;
+
     case "actualizarHorarioVisible":
-        $idHorario = $_POST['id'];
-        $numeroFuncion = $_POST['horarioVisible'];
-        if ($numeroFuncion == 0) //Habilitar Visibilidad
-        {
-            if ($horarioDAL->ModificarHorario($idHorario, 0))
-                echo true;
-            else echo false;
-        }
-        else if ($numeroFuncion == 1) //Deshabilitar Visibilidad
-        {
-            if ($horarioDAL->ModificarHorario($idHorario, 1))
-                echo true;
-            else echo false;
-        }
+            $idHorario = $_POST['id'];
+            $numeroFuncion = $_POST['horarioVisible'];
+            if ($numeroFuncion == 0) //Habilitar Visibilidad
+            {
+                if ($horarioDAL->ModificarHorario($idHorario, 0))
+                    echo true;
+                else echo false;
+            }
+            else if ($numeroFuncion == 1) //Deshabilitar Visibilidad
+            {
+                if ($horarioDAL->ModificarHorario($idHorario, 1))
+                    echo true;
+                else echo false;
+            }
         break;
 
     case "actualizarHorarioActive":
-        $idHorario = $_POST['id'];
-        $numeroFuncion = $_POST['horarioActive'];
-        if ($numeroFuncion == 0) //Desactivar
-        {
-            if ($horarioDAL->ModificarHorario($idHorario, "del"))
-                echo true;
-            else echo false;
-        }
+            $idHorario = $_POST['id'];
+            $numeroFuncion = $_POST['horarioActive'];
+            if ($numeroFuncion == 0) //Desactivar
+            {
+                if ($horarioDAL->ModificarHorario($idHorario, "del"))
+                    echo true;
+                else echo false;
+            }
         break;
 
     case "": //Nuevo Horario
-        if ($horarioDAL->NuevoHorario($i))
-            echo true;
-        else echo false;
+            if ($horarioDAL->NuevoHorario($i))
+                echo true;
+            else echo false;
         break;
 
     default:

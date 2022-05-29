@@ -46,14 +46,47 @@ class DALHorario
         return $resultado;
     }
 
-    function CambiarDatosHorario($idHorario, Horario $modificarHorario)
+    function CambiarHoraInicio($idHorario, $horaInicio)
     {
         $resultado = false;
         $conexionDB = new Conexion();
 
-        $consultaSql = "UPDATE `HORARIO` SET `HORAINICIO`='" . $modificarHorario->getHoraInicio() . "',
-            `HORAFINAL`='" . $modificarHorario->getHoraFinal() . "', `AFOROMAXIMO`='" . $modificarHorario->getAforoMaximo() . "'
-            WHERE `ID`='" . $idHorario . "'"; //OJO, NO SE SI ME PASAN EL ID DE DIA O HORARIO
+        $consultaSql = "UPDATE `HORARIO` SET `HORAINICIO`='" . $horaInicio . "'            
+        WHERE `ID`='" . $idHorario . "'";
+
+        if ($conexionDB->NuevaConexion($consultaSql))
+        {
+            $resultado = true;
+        }
+
+        $conexionDB->CerrarConexion();
+        return $resultado;
+    }
+
+    function CambiarHoraFinal($idHorario, $horaFinal)
+    {
+        $resultado = false;
+        $conexionDB = new Conexion();
+
+        $consultaSql = "UPDATE `HORARIO` SET `HORAFINAL`='" . $horaFinal . "' 
+        WHERE `ID`='" . $idHorario . "'";
+
+        if ($conexionDB->NuevaConexion($consultaSql))
+        {
+            $resultado = true;
+        }
+
+        $conexionDB->CerrarConexion();
+        return $resultado;
+    }
+
+    function CambiarAforoMaximo($idHorario, $aforoMaximo)
+    {
+        $resultado = false;
+        $conexionDB = new Conexion();
+
+        $consultaSql = "UPDATE `HORARIO` SET `AFOROMAXIMO`='" . $aforoMaximo . "'
+        WHERE `ID`='" . $idHorario . "'";
 
         if ($conexionDB->NuevaConexion($consultaSql))
         {
