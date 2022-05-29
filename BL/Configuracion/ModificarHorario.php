@@ -31,7 +31,7 @@ switch ($funcionHorario)
             echo true;
         else echo false;
         break;
-    case "actualizarHorarioVisible":
+    case "actualizar HorarioVisible":
         $idHorario = $_POST['id'];
         $numeroFuncion = $_POST['horarioVisible'];
         if ($numeroFuncion == 0) //Habilitar Visibilidad
