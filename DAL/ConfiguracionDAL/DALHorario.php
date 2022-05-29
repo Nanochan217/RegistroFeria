@@ -132,7 +132,7 @@ class DALHorario
         $HorariosDB = array();
         $conexionDB = new Conexion();
 
-        $consultaSql = "SELECT * FROM `HORARIO` WHERE `IDDIAHABIL` = '".$idDia."'";
+        $consultaSql = "SELECT * FROM `HORARIO` WHERE `IDDIAHABIL` = '".$idDia."' AND `ACTIVE` = 1";
 
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
