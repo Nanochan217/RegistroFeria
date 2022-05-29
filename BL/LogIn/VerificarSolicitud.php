@@ -20,8 +20,7 @@
             echo "A";            
             break;
         default:
-            echo $estado;//Devuelve el correo al JS (PREGUNTAR A BRYAN SI HAY UNA MANERA DE)
-            //SACAR ESTO DESDE EL JS
+            echo json_encode($estado);
             break;
     }
 

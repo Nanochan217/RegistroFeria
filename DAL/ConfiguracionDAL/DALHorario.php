@@ -12,8 +12,8 @@ class DALHorario
 
         if ($conexionDB->NuevaConsulta($consultaSql))
         {            
-            $consultaSql = "SELECT * FROM `HORARIO` WHERE `HORAINICIO` = '".$nuevoHorario->getHoraInicio()."' AND
-            `HORAFINAL` = '".$nuevoHorario->getHoraFinal()."' AND `VISIBLE` = 1 AND `ACTIVE` = 1";
+            $consultaSql = "SELECT * FROM `HORARIO` WHERE `HORAINICIO` = '" . $nuevoHorario->getHoraInicio() . "' AND
+            `HORAFINAL` = '" . $nuevoHorario->getHoraFinal() . "' AND `VISIBLE` = 1 AND `ACTIVE` = 1";
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if (mysqli_num_rows($respuestaDB) > 0)

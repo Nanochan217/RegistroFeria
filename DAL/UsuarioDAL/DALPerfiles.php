@@ -5,10 +5,11 @@
         {
             $perfilesDB = array();
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "SELECT * FROM `PERFIL` WHERE `ACTIVE` = 1";
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {

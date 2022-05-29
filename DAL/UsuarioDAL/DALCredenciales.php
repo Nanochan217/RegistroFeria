@@ -5,14 +5,16 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
+
             $contrasena = $nuevaCredencial->getContrasena();
             
             $contrasenaEncriptada = password_hash($contrasena, PASSWORD_DEFAULT);
             
-            $consultaSql = "INSERT INTO `CREDENCIALES`(`CORREO`, `CONTRASENA`, `ACTIVE`) 
-                    VALUES ('".$nuevaCredencial->getCorreo()."','".$contrasenaEncriptada."', 1)";
+            $consultaSql = "INSERT INTO `CREDENCIALES`(`CORREO`, `CONTRASENA`) 
+                    VALUES ('" . $nuevaCredencial->getCorreo() . "','" . $contrasenaEncriptada . "')";
 
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;
             }
@@ -26,8 +28,10 @@
         {
             $ultimaCredencial = new Credenciales();
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
+
             $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `ID`=(SELECT MAX(`ID`) FROM `CREDENCIALES`) AND `ACTIVE` = 1";
-            $credencial = $conexionDB->NuevaConexion($consultaSql);
+            $credencial = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($credencial)>0)
             {
@@ -52,20 +56,21 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             if($modificarCredenciales->getContrasena() == null)
             {
-                $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='".$modificarCredenciales->getCorreo()."' 
-                    WHERE `ID`=".$modificarCredenciales->getId();
+                $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='" . $modificarCredenciales->getCorreo() . "' 
+                    WHERE `ID`=" . $modificarCredenciales->getId();
             }
             else
             {
                 $contraseñaEncriptada = password_hash($modificarCredenciales->getContrasena(), PASSWORD_DEFAULT);
-                $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='".$modificarCredenciales->getCorreo()."', 
-                `CONTRASENA`='".$contraseñaEncriptada."' WHERE `ID`=".$modificarCredenciales->getId();
+                $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='" . $modificarCredenciales->getCorreo() . "', 
+                `CONTRASENA`='" . $contraseñaEncriptada . "' WHERE `ID`=" . $modificarCredenciales->getId();
             }
 
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;
             }
@@ -78,10 +83,11 @@
         {
             $credencialesDB = array();
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `ACTIVE` = 1";
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -108,10 +114,11 @@
         {
             $credencialesDB = new Credenciales();
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `ID` = '$idUsuario'";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `ID` = '" . $idUsuario . "'";
 
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -137,10 +144,11 @@
         function BuscarCorreo($correo)//$funcionSolicitada, 
         {
             $resultado = false;
-            $conexionDB = new Conexion();                  
+            $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
                               
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correo."'";
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '" . $correo . "'";
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -161,10 +169,11 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
-            $consultaSql = "UPDATE `CREDENCIALES` SET `ACTIVE` = 0 WHERE `ID`= '".$idUsuario."'";
+            $consultaSql = "UPDATE `CREDENCIALES` SET `ACTIVE` = 0 WHERE `ID`= '" . $idUsuario . "'";
 
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;
             }

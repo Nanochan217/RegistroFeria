@@ -4,6 +4,7 @@ class DALConfiguracion
     function ModificarConfiguracion($fechaInicial, $fechaFinal, $acompanantesMax)
     {
         $conexionDB = new Conexion();
+        $conexionDB->NuevaConexion2();
         $resultado = false;
 
         if (isset($fechaInicial))
@@ -22,7 +23,7 @@ class DALConfiguracion
             SET `ACOMPANANTESMAXIMO` = '" . $acompanantesMax . "' WHERE `ID` = 1";
         }
 
-        if ($conexionDB->NuevaConexion($consultaSql))
+        if ($conexionDB->NuevaConsulta($consultaSql))
         {
             $resultado = true;
         }
@@ -34,12 +35,13 @@ class DALConfiguracion
     function BuscarEstadoConfiguracion()
     {
         $conexionDB = new Conexion();
+        $conexionDB->NuevaConexion2();
         $resultado = false;
 
         $consultaSql = "SELECT * FROM `CONFIGURACION` WHERE `ID` = 1 AND 
         `ESTADOCONFIGURACION` = 1 AND `ACTIVE` = 1";
 
-        $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+        $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
         if (mysqli_num_rows($respuestaDB) > 0)
         {
             $resultado = true;
@@ -52,6 +54,7 @@ class DALConfiguracion
     function DisponibilidadConfiguracion($estadoConfiguracion)
     {
         $conexionDB = new Conexion();
+        $conexionDB->NuevaConexion2();
         $resultado = false;
 
         if ($estadoConfiguracion == 0) //Deshabilitar
@@ -66,7 +69,7 @@ class DALConfiguracion
             SET `ESTADOCONFIGURACION` = TRUE";
         }
 
-        if ($conexionDB->NuevaConexion($consultaSql))
+        if ($conexionDB->NuevaConsulta($consultaSql))
         {
             $resultado = true;
         }
@@ -79,10 +82,11 @@ class DALConfiguracion
     {
         $configuracionesDB = array();
         $conexionDB = new Conexion();
+        $conexionDB->NuevaConexion2();
 
         $consultaSql = "SELECT * FROM `CONFIGURACION` WHERE `ACTIVE` = 1";
 
-        $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+        $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
         if (mysqli_num_rows($respuestaDB) > 0)
         {

@@ -5,12 +5,13 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
-            $consultaDB = "INSERT INTO `CITA` (`DIA`, `HORA`, `CONFIRMADO`, `IDASISTENTE`, `IDESTADOCITA`, `ACTIVE`) 
-            VALUES ('".$nuevaCita->getDia()."', '".$nuevaCita->getHora()."', '".$nuevaCita->getConfirmado()."',
-            '".$nuevaCita->getIdAsistente()."', 2, 1)";
+            $consultaDB = "INSERT INTO `CITA` (`DIA`, `HORA`, `CONFIRMADO`, `IDASISTENTE`) 
+            VALUES ('" . $nuevaCita->getDia() . "', '" . $nuevaCita->getHora() . "', '" . $nuevaCita->getConfirmado() . "',
+            '" . $nuevaCita->getIdAsistente() . "')";
 
-            if($conexionDB->NuevaConexion($consultaDB))
+            if($conexionDB->NuevaConsulta($consultaDB))
             {
                 $resultado = true;
             }
@@ -24,10 +25,12 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
-            $consultaDB = "UPDATE `CITA` SET `DIA`='".$modificarCita->getDia()."' SET 'HORA'='".$modificarCita->getHora()."'";
+            $consultaDB = "UPDATE `CITA` SET `DIA`='" . $modificarCita->getDia() . "',
+            'HORA'='" . $modificarCita->getHora() . "'";
 
-            if($conexionDB->NuevaConexion($consultaDB))
+            if($conexionDB->NuevaConsulta($consultaDB))
             {
                 $resultado = true;
             }
@@ -40,9 +43,10 @@
         {
             $citaConsultada = new Cita();
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
             
-            $consultaSql = "SELECT * FROM `CITA` WHERE `ACTIVE`=1 AND `IDASISTENTE`=".$idAsistente;
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $consultaSql = "SELECT * FROM `CITA` WHERE `ACTIVE`=1 AND `IDASISTENTE`=" . $idAsistente;
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -70,9 +74,10 @@
         {
             $citasSistema = array();
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
             $consultaSql = "SELECT * FROM `CITAS` WHERE `ACTIVE` = 1";
-            $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
             {
@@ -102,10 +107,11 @@
         {
             $resultado = false;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
 
-            $consultaSql = "UPDATE `CITA` SET `ACTIVE` = 0 WHERE `ID`='".$idCita."'";
+            $consultaSql = "UPDATE `CITA` SET `ACTIVE` = 0 WHERE `ID`='" . $idCita . "'";
 
-            if($conexionDB->NuevaConexion($consultaSql))
+            if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;
             }
@@ -118,8 +124,10 @@
         {
             $ultimaCitaDB = 0;
             $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion2();
+            
             $consultaSql = "SELECT * FROM `CITA` WHERE `ID`=(SELECT MAX(`ID`) FROM `CITA`) AND `ACTIVE` = 1";
-            $cita = $conexionDB->NuevaConexion($consultaSql);
+            $cita = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($cita)>0)
             {
