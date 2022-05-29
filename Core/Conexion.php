@@ -21,6 +21,13 @@ class Conexion
         return $respuestaDB;
     }
 
+    function NuevaConsulta($query)
+    {        
+        $this->mysqli->autocommit(TRUE);
+        $respuestaDB = $this->mysqli->query($query);
+        return $respuestaDB;
+    }
+
     function CerrarConexion()
     {
         $this->mysqli->close();
