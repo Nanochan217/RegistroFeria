@@ -1,5 +1,4 @@
-<?php    
-    include '../../Core/GenerarPDF/fpdf/fpdf.php';
+<?php        
     include '../../Core/Conexion.php';
     include '../../DAL/CitaDAL/DALCita.php';
     include '../../DAL/CitaDAL/DALAsistente.php';
@@ -7,9 +6,123 @@
     include '../../Entidades/CitasEntidades/Cita.php';
     include '../../Entidades/CitasEntidades/Asistente.php';
     include '../../Entidades/CitasEntidades/Acompanante.php';            
-    
-    // $datosAsistente = $_POST[''];
 
+    $asistenteDAL = new DALAsistente();
+    $citaDAL = new DALCita();
+    $acompananteDAL = new DALAcompanante();
+
+    //Arrays
+    $datosAsistente = $_POST[''];
+    $datosCita = $_POST[''];
+    $datosAcompanante = $_POST[''];
+
+    $idAsistente = NuevoAsistente($datosAsistente);
+    
+    if(isset($idAsistente))
+    {
+        $idCita = CrearCita($datosCita, $idAsistente);
+
+        if(isset($idCita))
+        {
+            if(NuevoAcompanante($datosAcompanante, $idCita))
+                echo true;
+            else
+            {
+                $acompananteDAL->DesactivarAcompanante(null, $idCita);
+                $citaDAL->DesactivarCita($idCita);
+                echo false;
+            }
+        }
+        else
+        {
+            $asistenteDAL->DesactivarAsistente($idAsistente);
+            echo false;
+        }            
+    }
+    else
+    {
+        echo false;
+    }
+
+        
+    function NuevoAsistente($datosNuevoAsistente)
+    {        
+        $asistenteDAL = new DALAsistente();
+        $nuevoAsistente = new Asistente();
+
+        foreach($datosNuevoAsistente as $value)
+        {
+            foreach($value as $datos)
+            {
+                $nuevoAsistente->setCedula($datos['cedula']);
+                $nuevoAsistente->setNombre($datos['nombre']);
+                $nuevoAsistente->setApellido1($datos['apellido1']);
+                $nuevoAsistente->setApellido2($datos['apellido2']);
+                $nuevoAsistente->setCorreo($datos['correo']);
+                $nuevoAsistente->setTelefono($datos['telefono']);
+                $nuevoAsistente->setIdColegioProcedencia($datos['idColegioProcedencia']);
+            }
+        }
+
+        $idNuevoAsistente = $asistenteDAL->NuevoAsistente($nuevoAsistente);
+        
+        if(isset($idNuevoAsistente))        
+            return $idNuevoAsistente;        
+        else
+            return null;
+    }
+
+    function CrearCita($datosNuevoCita, $idAsistenteNuevo)
+    {     
+        $citaDAL = new DALCita();
+        $nuevaCita = new Cita();
+
+        foreach($datosNuevoCita as $value)
+        {
+            foreach($value as $datos)
+            {
+                $nuevaCita->setDia($datos['dia']);
+                $nuevaCita->setHora($datos['hora']);
+                $nuevaCita->setIdAsistente($idAsistenteNuevo);
+            }
+        }
+
+        $idNuevaCita = $citaDAL->NuevaCita($nuevaCita);
+
+        if(isset($idNuevaCita))
+            return $idNuevaCita;
+        else
+            return null;
+    }
+
+    function NuevoAcompanante($datosNuevoAcompanante, $idCitaNueva)
+    {
+        $resultado = true;
+        $acompananteDAL = new DALAcompanante();
+        $nuevoAcompanante = new Acompanante();
+
+        //OJO con el ciclo
+        foreach($datosNuevoAcompanante as $value)
+        {
+            foreach($value as $datos)
+            {
+                $nuevoAcompanante->setCedula($datos['cedula']);
+                $nuevoAcompanante->setNombre($datos['nombre']);
+                $nuevoAcompanante->setIdTipoAcompanante($datos['idTipoAcompanante']);
+                $nuevoAcompanante->setIdCita($idCitaNueva);
+
+                if($acompananteDAL->NuevoAcompanante($nuevoAcompanante))
+                    continue;
+                else
+                {
+                    $resultado = false;
+                    break;
+                }                    
+            }
+        }        
+
+        return $resultado;
+    }
 
     // $cedulasRegistradas = array();
     // $contador = 1;
