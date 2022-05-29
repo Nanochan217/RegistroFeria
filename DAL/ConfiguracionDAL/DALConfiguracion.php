@@ -31,23 +31,23 @@ class DALConfiguracion
         return $resultado;
     }    
 
-    // function DesactivarConfiguracion()
-    // {
-    //     $conexionDB = new Conexion();
-    //     $resultado = false;
+    function BuscarEstadoConfiguracion()
+    {
+        $conexionDB = new Conexion();
+        $resultado = false;
+        
+        $consultaSql = "SELECT * FROM `CONFIGURACION` WHERE `ID` = 1 AND 
+        `ESTADOCONFIGURACION` = 1 AND `ACTIVE` = 1";
 
-    //     $consultaSql = "UPDATE `CONFIGURACION`, `DIAHABIL`, `HORARIO`
-    //         SET `CONFIGURACION.ESTADOCONFIGURACION` = 0, `DIAHABIL.VISIBLE` = 0, 
-    //         `HORARIO.VISIBLE` = 0 WHERE `CONFIGURACION.ID` = 1";
+        $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+        if(mysqli_num_rows($respuestaDB) > 0)
+        {
+            $resultado = true;
+        }
 
-    //     if($conexionDB->NuevaConexion($consultaSql))
-    //     {
-    //         $resultado = true;
-    //     }
-
-    //     $conexionDB->CerrarConexion();
-    //     return $resultado;
-    // }
+        $conexionDB->CerrarConexion();
+        return $resultado;
+    }
 
     function DisponibilidadConfiguracion($estadoConfiguracion)
     {

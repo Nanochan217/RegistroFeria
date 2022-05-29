@@ -7,6 +7,7 @@
     include '../../DAL/ConfiguracionDAL/DALDiaHabil.php';
     include '../../Entidades/ConfiguracionEntidades/DiaHabil.php';
 
+    $diaHabil = new DiaHabil();
     $diaHabilDAL = new DALDiaHabil();
     $funcionDia = $_POST['campo'];
 
@@ -48,10 +49,11 @@
             }
             break;
 
-        case "NUEVO": //Nuevo Dia
-            if ($diaHabilDAL->NuevoDiaHabil($i))
-                echo true;
-            else echo false;
+        case "NUEVO"://Nuevo Dia
+            $nuevoDia = $_POST[''];
+            return $diaHabilDAL->NuevoDiaHabil($nuevoDia);//OBJETO DEL DIA NUEVO
+            //     echo true;
+            // else echo false;
             break;
 
         default:
