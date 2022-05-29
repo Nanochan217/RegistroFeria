@@ -25,9 +25,12 @@
         CambiarInformacion();
     }
     else
+    {
+        //echo "C";
         $_SESSION["Accion"] = "Ocurrió un error a la hora<br>de cambiar las credenciales";   
         header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
-        
+    } 
+    
     //Funcion o metodo para modificar la informacion del Usuario o sobreescribirla
     function CambiarInformacion()
     {
@@ -51,14 +54,15 @@
         $actualizarUsuario->setIdPerfil($idPerfilUsuario);
 
         if($usuarioDAL->ActualizarUsuario($actualizarUsuario))
-        {        
+        {                 
             $_SESSION["Accion"] = "¡Datos del Usuario actualizados correctamente!";   
             header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
         }
         else
         {
+            echo "B";
             $_SESSION["Accion"] = "Ocurrió un error en la modificación de datos";
-            header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+            //header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
         }
     }
 
