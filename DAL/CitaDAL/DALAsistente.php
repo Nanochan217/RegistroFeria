@@ -48,6 +48,8 @@
                             $resultado++;
                     }
                 }
+
+                $contador++;
             }
 
             $conexionDB->CerrarConexion();
