@@ -4,7 +4,6 @@ class DALConfiguracion
     function ModificarConfiguracion($fechaInicial, $fechaFinal, $acompanantesMax)
     {
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
         $resultado = false;
 
         if (isset($fechaInicial))
@@ -20,17 +19,10 @@ class DALConfiguracion
         if (isset($acompanantesMax))
         {
             $consultaSql = "UPDATE `CONFIGURACION` 
-<<<<<<< HEAD
             SET `ACOMPANANTESMAXIMO` = '" . $acompanantesMax . "' WHERE `ID` = 1";
         }
 
         if ($conexionDB->NuevaConexion($consultaSql))
-=======
-            SET `ACOMPANANTESMAXIMO` = '".$acompanantesMax."' WHERE `ID` = 1";
-        }        
-        
-        if($conexionDB->NuevaConsulta($consultaSql))
->>>>>>> f3e00da84d2c38b2c6dafd9556d5615cbde065d5
         {
             $resultado = true;
         }
@@ -42,19 +34,13 @@ class DALConfiguracion
     function BuscarEstadoConfiguracion()
     {
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
         $resultado = false;
 
         $consultaSql = "SELECT * FROM `CONFIGURACION` WHERE `ID` = 1 AND 
         `ESTADOCONFIGURACION` = 1 AND `ACTIVE` = 1";
 
-<<<<<<< HEAD
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
         if (mysqli_num_rows($respuestaDB) > 0)
-=======
-        $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
-        if(mysqli_num_rows($respuestaDB) > 0)
->>>>>>> f3e00da84d2c38b2c6dafd9556d5615cbde065d5
         {
             $resultado = true;
         }
@@ -66,7 +52,6 @@ class DALConfiguracion
     function DisponibilidadConfiguracion($estadoConfiguracion)
     {
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
         $resultado = false;
 
         if ($estadoConfiguracion == 0) //Deshabilitar
@@ -80,8 +65,8 @@ class DALConfiguracion
             $consultaSql = "UPDATE `CONFIGURACION`
             SET `ESTADOCONFIGURACION` = TRUE";
         }
-        
-        if($conexionDB->NuevaConsulta($consultaSql))
+
+        if ($conexionDB->NuevaConexion($consultaSql))
         {
             $resultado = true;
         }
@@ -94,18 +79,17 @@ class DALConfiguracion
     {
         $configuracionesDB = array();
         $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion2();
 
         $consultaSql = "SELECT * FROM `CONFIGURACION` WHERE `ACTIVE` = 1";
 
-        $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
+        $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
         if (mysqli_num_rows($respuestaDB) > 0)
         {
             while ($filasConfiguracion = $respuestaDB->fetch_assoc())
             {
                 $configuracion = new Configuracion();
-                $configuracion->setId($filasConfiguracion["id"]);                
+                $configuracion->setId($filasConfiguracion["id"]);
                 $configuracion->setFechaInicio($filasConfiguracion["fechaInicio"]);
                 $configuracion->setFechaFinal($filasConfiguracion["fechaFinal"]);
                 $configuracion->setAcompanantesMax($filasConfiguracion["acompanantesMaximo"]);
