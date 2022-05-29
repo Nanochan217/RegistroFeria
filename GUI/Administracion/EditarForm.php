@@ -68,13 +68,19 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                             <div class="row g-3">
                                 <input type="hidden" class="form-control" id="idConfiguracion" name="idConfiguracion" value="1"> <!-- idConfiguracion -->
                                 <div class="col-md-5">
-                                    <label for="fechaInicial" class="form-label">Fecha inicial</label>
-                                    <input type="date" class="form-control" id="fechaInicio" value="2022-05-04" min="2022-05-04" max="2022-05-22" oninput="actualizarDisponibilidad('fechaInicial')" required>
+                                    <label for="fechaInicio" class="form-label">Fecha inicial</label>
+                                    <div class="input-group mb-3">
+                                        <input type="date" class="form-control" id="fechaInicio" value="2022-05-04" min="2022-05-04" max="2022-05-22">
+                                        <button class="btn btn-outline-primary" type="button" id="actualizarFechaInicial" onclick="actualizarDisponibilidad('fechaInicial')"><i class="bi bi-arrow-repeat"></i></button>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-5">
                                     <label for="fechaFinal" class="form-label">Fecha final</label>
-                                    <input type="date" class="form-control" id="fechaFinal" value="2022-05-04" min="2022-05-04" max="2022-05-22" oninput="actualizarDisponibilidad('fechaFinal')" required>
+                                    <div class="input-group mb-3">
+                                        <input type="date" class="form-control" id="fechaFinal" value="2022-05-04" min="2022-05-04" max="2022-05-22">
+                                        <button class=" btn btn-outline-primary" type="button" id="actualizarFechaFinal" onclick="actualizarDisponibilidad('fechaFinal')"><i class="bi bi-arrow-repeat"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -82,8 +88,11 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                             <h2 class="pb-4">Acompañantes</h2>
                             <div class="row g-3">
                                 <div class="col-md-12">
-                                    <label for="maxAcompanantes" class="form-label">Maximo de acompañantes por persona</label>
-                                    <input type="number" class="form-control" id="acompanantesMaximo" min="0" oninput="actualizarAcompanantes()" required>
+                                    <label for="acompanantesMaximo" class="form-label">Maximo de acompañantes por persona</label>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control" id="acompanantesMaximo" min="0">
+                                        <button class="btn btn-outline-primary" type="button" id="actualizarAcompanantesMaximo" onclick="actualizarAcompanantes()"><i class="bi bi-arrow-repeat"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -151,12 +160,14 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             $("#acompanantesMaximo").val(configuracion[0].acompanateMax);
             (configuracion[0].estadoFormulario == '1') ? $("#estadoConfiguracion").prop("checked", true): $("#estadoConfiguracion").prop("checked", false);
 
-            //agrega los datos provenientes de la BD a inputs hidden
-            dias.forEach(dia => {
-                if (dia.active == 1) {
-                    agregarDiaUsuario(dia)
-                }
-            });
+            if (dias != null) {
+                //agrega los datos provenientes de la BD a inputs hidden
+                dias.forEach(dia => {
+                    if (dia.active == 1) {
+                        agregarDiaUsuario(dia)
+                    }
+                });
+            }
         });
 
         //agrega un dia a la interfaz
@@ -171,10 +182,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             agregarDiaUsuario(nuevoDia); //se muestra en pantalla para el usuario
         }
 
-        //formatea el numero agregando un 0 si el mes o dia son menores a 10
-        function formatearNumero(n) {
-            return (n < 10 ? '0' : '') + n;
-        }
+
 
         //agregar dia a la interfaz
         function agregarDiaUsuario(dia) {

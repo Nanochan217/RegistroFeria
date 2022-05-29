@@ -24,19 +24,17 @@ function agregarDia()
     } );
 }
 
-function agregarHorario()
+function agregarHorario( idDia )
 {
     //se crea el horario
-    let horario = horaHoy();
-    //se crea el horario
-    let nuevoHorario = {
+    let horario = {
         "horaInicio": horaHoy(),
         "horaFinal": horaHoy(),
-        "idDiaHabil": '', //en proceso!!!!!!!!!!!!!!!!!!!!
+        "idDiaHabil": idDia
     };
 
     //ajax
-    $.post( "../../BL/Configuracion/ModificarhorarioHabil.php", { horario: horario, campo: "nuevohorario" }, function ( data )
+    $.post( "../../BL/Configuracion/ModificarhorarioHabil.php", { horaInicio: horario.horaInicio, horaFinal: horario.horaFinal, idDiaHabil: horario.idDiaHabil, campo: "nuevoHorario" }, function ( data )
     {
         data = JSON.parse( data );
         $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -50,7 +48,7 @@ function agregarHorario()
                                             </div>
                                         </div>`);
         mostrarNotificacion();
-        agregarDiaUsuario( data ); //se muestra en pantalla para el usuario
+        agregarHorarioUsuario( data ); //se muestra en pantalla para el usuario
     } );
 }
 
@@ -64,6 +62,12 @@ function fechaHoy()
     var fechaFormateada = anio + "-" + mes + "-" + dia;
 
     return fechaFormateada;
+}
+
+//formatea el numero agregando un 0 si el mes o dia son menores a 10
+function formatearNumero( n )
+{
+    return ( n < 10 ? '0' : '' ) + n;
 }
 
 //obtener la hora de hoy
@@ -407,7 +411,8 @@ function mostrarHorarios( idDia )
             $( '#addHorario' ).show();
         }
     } );
-    agregarHorario( idDia );
+    $( "#btnAddHorario" ).attr( "onclick", `agregarHorario(${idDia})` );
+
 }
 
 function cambiarBtnVisible( id, estado )

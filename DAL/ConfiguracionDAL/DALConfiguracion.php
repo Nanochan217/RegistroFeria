@@ -6,41 +6,41 @@ class DALConfiguracion
         $conexionDB = new Conexion();
         $resultado = false;
 
-        if(isset($fechaInicial))
+        if (isset($fechaInicial))
         {
             $consultaSql = "UPDATE `CONFIGURACION` 
-            SET `FECHAINICIO` = '".$fechaInicial."' WHERE `ID` = 1";
+            SET `FECHAINICIO` = '" . $fechaInicial . "' WHERE `ID` = 1";
         }
-        else if(isset($fechaFinal))
+        else if (isset($fechaFinal))
         {
             $consultaSql = "UPDATE `CONFIGURACION` 
-            SET `FECHAFINAL` = '".$fechaFinal."' WHERE `ID` = 1";
+            SET `FECHAFINAL` = '" . $fechaFinal . "' WHERE `ID` = 1";
         }
-        if(isset($acompanantesMax))
+        if (isset($acompanantesMax))
         {
             $consultaSql = "UPDATE `CONFIGURACION` 
-            SET `ACOMPANANTESMAXIMO` = '".$acompanantesMax."' WHERE `ID` = 1";
-        }        
-        
-        if($conexionDB->NuevaConexion($consultaSql))
+            SET `ACOMPANANTESMAXIMO` = '" . $acompanantesMax . "' WHERE `ID` = 1";
+        }
+
+        if ($conexionDB->NuevaConexion($consultaSql))
         {
             $resultado = true;
         }
 
         $conexionDB->CerrarConexion();
         return $resultado;
-    }    
+    }
 
     function BuscarEstadoConfiguracion()
     {
         $conexionDB = new Conexion();
         $resultado = false;
-        
+
         $consultaSql = "SELECT * FROM `CONFIGURACION` WHERE `ID` = 1 AND 
         `ESTADOCONFIGURACION` = 1 AND `ACTIVE` = 1";
 
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
-        if(mysqli_num_rows($respuestaDB) > 0)
+        if (mysqli_num_rows($respuestaDB) > 0)
         {
             $resultado = true;
         }
@@ -53,20 +53,20 @@ class DALConfiguracion
     {
         $conexionDB = new Conexion();
         $resultado = false;
-        
-        if($estadoConfiguracion == 0)//Deshabilitar
+
+        if ($estadoConfiguracion == 0) //Deshabilitar
         {
             $consultaSql = "UPDATE `CONFIGURACION`
             SET `ESTADOCONFIGURACION` = FALSE";
         }
-        else if($estadoConfiguracion == 1) //Habilitar
+        else if ($estadoConfiguracion == 1) //Habilitar
         {
             //UPDATE configuracion SET estadoConfiguracion = TRUE;
             $consultaSql = "UPDATE `CONFIGURACION`
             SET `ESTADOCONFIGURACION` = TRUE";
         }
-        
-        if($conexionDB->NuevaConexion($consultaSql))
+
+        if ($conexionDB->NuevaConexion($consultaSql))
         {
             $resultado = true;
         }
@@ -90,8 +90,6 @@ class DALConfiguracion
             {
                 $configuracion = new Configuracion();
                 $configuracion->setId($filasConfiguracion["id"]);
-                $configuracion->setNombre($filasConfiguracion["nombre"]);
-                $configuracion->setDescripcion($filasConfiguracion["descripcion"]);
                 $configuracion->setFechaInicio($filasConfiguracion["fechaInicio"]);
                 $configuracion->setFechaFinal($filasConfiguracion["fechaFinal"]);
                 $configuracion->setAcompanantesMax($filasConfiguracion["acompanantesMaximo"]);
