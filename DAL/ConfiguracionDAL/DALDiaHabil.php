@@ -30,6 +30,7 @@ class DALDiaHabil
                 $nuevoDia = null;
             }
         }
+        
         $nuevoDia = $this->dismount($nuevoDia);
         $conexionDB->CerrarConexion();
         return $nuevoDia;

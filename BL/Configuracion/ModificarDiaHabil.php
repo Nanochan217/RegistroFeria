@@ -51,9 +51,7 @@ switch ($funcionDia)
 
     case "nuevoDia": //Nuevo Dia
         $nuevoDia = $_POST['dia'];
-        echo json_encode($diaHabilDAL->NuevoDiaHabil($nuevoDia)); //OBJETO DEL DIA NUEVO
-        //     echo true;
-        // else echo false;
+        echo json_encode($diaHabilDAL->NuevoDiaHabil($nuevoDia));        
         break;
 
     default:
