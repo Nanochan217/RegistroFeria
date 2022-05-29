@@ -30,7 +30,7 @@
         $_SESSION["Accion"] = "Ocurrió un error a la hora<br>de cambiar las credenciales";   
         header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
     } 
-    
+
     //Funcion o metodo para modificar la informacion del Usuario o sobreescribirla
     function CambiarInformacion()
     {
@@ -60,7 +60,7 @@
         }
         else
         {
-            echo "B";
+            //echo "B";
             $_SESSION["Accion"] = "Ocurrió un error en la modificación de datos";
             //header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
         }
