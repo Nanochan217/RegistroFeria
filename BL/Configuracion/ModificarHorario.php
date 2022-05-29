@@ -1,85 +1,85 @@
 <?php
-    session_start();
-    if ($_SESSION['Perfil'] != 1)
-        header("Location: ../../GUI/PantallasDestino/AccesoDenegado.php");
+session_start();
+if ($_SESSION['Perfil'] != 1)
+    header("Location: ../../GUI/PantallasDestino/AccesoDenegado.php");
 
-    include '../../Core/Conexion.php';
-    include '../../DAL/ConfiguracionDAL/DALHorario.php';
-    include '../../Entidades/ConfiguracionEntidades/Horario.php';
+include '../../Core/Conexion.php';
+include '../../DAL/ConfiguracionDAL/DALHorario.php';
+include '../../Entidades/ConfiguracionEntidades/Horario.php';
 
-    $horarioDAL = new DALHorario();
-    $horario = new Horario();
+$horarioDAL = new DALHorario();
+$horario = new Horario();
 
-    //Funcion Solicitada
-    $funcionHorario = $_POST['campo'];
+//Funcion Solicitada
+$funcionHorario = $_POST['campo'];
 
-    switch ($funcionHorario)
-    {
-        case "actualizarHoraInicio": //Modificar Hora Inicio
-            $idHorario = $_POST['id'];
-            $horaInicio = $_POST['horaInicio'];
-            if ($horarioDAL->CambiarHoraInicio($idHorario, $horaInicio))
+switch ($funcionHorario)
+{
+    case "actualizarHoraInicio": //Modificar Hora Inicio
+        $idHorario = $_POST['id'];
+        $horaInicio = $_POST['horaInicio'];
+        if ($horarioDAL->CambiarHoraInicio($idHorario, $horaInicio))
+            echo true;
+        else echo false;
+        break;
+
+    case "actualizarHoraFinal": //Modificar Hora Final
+        $idHorario = $_POST['id'];
+        $horaFinal = $_POST['horaFinal'];
+        if ($horarioDAL->CambiarHoraFinal($idHorario, $horaFinal))
+            echo true;
+        else echo false;
+        break;
+
+    case "actualizarAforoMaximo": //Modificar Aforo Maximo
+        $idHorario = $_POST['id'];
+        $aforoMaximo = $_POST['aforoMaximo'];
+        if ($horarioDAL->CambiarAforoMaximo($idHorario, $aforoMaximo))
+            echo true;
+        else echo false;
+        break;
+
+    case "actualizarHorarioVisible": //Visibilidad
+        $idHorario = $_POST['id'];
+        $numeroFuncion = $_POST['horarioVisible'];
+        if ($numeroFuncion == 0) //Habilitar Visibilidad
+        {
+            if ($horarioDAL->ModificarHorario($idHorario, 0))
                 echo true;
             else echo false;
-            break;
-
-        case "actualizarHoraFinal": //Modificar Hora Final
-            $idHorario = $_POST['id'];
-            $horaFinal = $_POST['horaFinal'];
-            if ($horarioDAL->CambiarHoraFinal($idHorario, $horaFinal))
+        }
+        else if ($numeroFuncion == 1) //Deshabilitar Visibilidad
+        {
+            if ($horarioDAL->ModificarHorario($idHorario, 1))
                 echo true;
             else echo false;
-            break;
+        }
+        break;
 
-        case "actualizarAforoMaximo": //Modificar Aforo Maximo
-            $idHorario = $_POST['id'];
-            $aforoMaximo = $_POST['aforoMaximo'];
-            if ($horarioDAL->CambiarAforoMaximo($idHorario, $aforoMaximo))
+    case "actualizarHorarioActive": //Eliminado
+        $idHorario = $_POST['id'];
+        $numeroFuncion = $_POST['horarioActive'];
+        if ($numeroFuncion == 0) //Desactivar
+        {
+            if ($horarioDAL->ModificarHorario($idHorario, "del"))
                 echo true;
             else echo false;
-            break;
+        }
+        break;
 
-        case "actualizarHorarioVisible": //Visibilidad
-            $idHorario = $_POST['id'];
-            $numeroFuncion = $_POST['horarioVisible'];
-            if ($numeroFuncion == 0) //Habilitar Visibilidad
-            {
-                if ($horarioDAL->ModificarHorario($idHorario, 0))
-                    echo true;
-                else echo false;
-            }
-            else if ($numeroFuncion == 1) //Deshabilitar Visibilidad
-            {
-                if ($horarioDAL->ModificarHorario($idHorario, 1))
-                    echo true;
-                else echo false;
-            }
-            break;
+    case "nuevoHorario": //Nuevo Horario
+        $horaInicio = $_POST['horaInicio'];
+        $horaFinal = $_POST['horaFinal'];
+        $idDiaHabil = $_POST['idDiaHabil'];
+        $horario->setHoraInicio($horaInicio);
+        $horario->setHoraFinal($horaFinal);
+        $horario->setIdDiaHabil($idDiaHabil);
+        echo json_encode($horarioDAL->NuevoHorario($horario));
+        break;
 
-        case "actualizarHorarioActive": //Eliminado
-            $idHorario = $_POST['id'];
-            $numeroFuncion = $_POST['horarioActive'];
-            if ($numeroFuncion == 0) //Desactivar
-            {
-                if ($horarioDAL->ModificarHorario($idHorario, "del"))
-                    echo true;
-                else echo false;
-            }
-            break;
-
-        case "": //Nuevo Horario
-            $horaInicio = $_POST[''];
-            $horaFinal = $_POST[''];
-            $idDiaHabil = $_POST[''];
-            $horario->setHoraInicio($horaInicio);
-            $horario->setHoraFinal($horaFinal);
-            $horario->setIdDiaHabil($idDiaHabil);
-            echo json_encode($horarioDAL->NuevoHorario($horario));
-            break;
-
-        default:
-            echo "Ocurrió un error";
-            break;
-    }    
+    default:
+        echo "Ocurrió un error";
+        break;
+}    
     
 ///////////////////////////////////////////////////////////////////////////////////////////
