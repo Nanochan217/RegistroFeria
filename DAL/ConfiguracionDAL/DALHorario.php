@@ -161,7 +161,7 @@ class DALHorario
         return $HorariosDB;
     }
 
-    function BuscarTodos()
+    function BuscarTodas()
     {
         $HorariosDB = array();
         $conexionDB = new Conexion();

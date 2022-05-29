@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['Perfil'] != 1)
+if($_SESSION['Perfil'] != 1)
     header("Location: ../PantallasDestino/AccesoDenegado.php");
 
 $header = file_get_contents('../Default/Header.html');

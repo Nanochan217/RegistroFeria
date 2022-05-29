@@ -92,31 +92,38 @@
                                 {
                                     //echo "<h1>NUEVA ACOMPANANTE ERROR</h1>";
                                     $citaDAL->DesactivarCita($idCita);
-                                    $asistenteDAL->DesactivarAsistente($idAsistente);
-                                    break;
+                                    $asistenteDAL->DesactivarAsistente($idAsistente);                                    
                                     header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+                                    echo "Ocurrió un error...<br>Intentelo más tarde...";
                                 }
+                            }
+                            else
+                            {
+                                echo "Ya hay un Acompañante registrado con la cédula: ".$cedulaAcompanante."";
                             }
                         }                                                
                     }                    
 
-                header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");                                                                                                                
-                //$comprobanteCita->GenerarPDF($nuevoAsistente , $nuevoAcompanante, $nuevaCita, $contador);                    
+                header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
+                //echo "Ocurrió un error...<br>Intentelo más tarde...";
             }
             else
             {                
                 $asistenteDAL->DesactivarAsistente($idAsistente);
                 header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+                echo "Ocurrió un error...<br>Intentelo más tarde...";
             }
         }
         else
         {            
             header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+            echo "Ocurrió un error...<br>Intentelo más tarde...";
         }
     }
     else
     {        
         header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+        echo "Ya hay un Asistente registrado con la cedula : ".$cedulaAsistente."";
     }        
 
 ///////////////////////////////////////////////////////////////////////////////////////////

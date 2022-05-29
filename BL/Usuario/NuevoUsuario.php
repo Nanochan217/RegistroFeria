@@ -1,4 +1,8 @@
 <?php
+    session_start();
+    if($_SESSION['Perfil'] != 1)
+        header("Location: ../../GUI/PantallasDestino/AccesoDenegado.php");
+        
     include '../../Core/Conexion.php';
     include '../../Entidades/UsuarioEntidades/Credenciales.php';
     include '../../Entidades/UsuarioEntidades/Usuario.php';
@@ -42,20 +46,24 @@
             //Nuevo Usuario
             if($usuarioDAL->NuevoUsuario($nuevoUsuario))
             {
-                header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");                 
+                $_SESSION["Accion"] = "¡Nuevo Usuario añadido correctamente!";
+                header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
             }
             else
             {
+                $_SESSION["Accion"] = "Ocurrió un error al añadir al Usuario";
                 header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");                
             }
         }
         else
         {
+            $_SESSION["Accion"] = "Ocurrió un error a la<br>hora de añadir la credencial";
             header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
         }
     }
     else
     {
+        $_SESSION["Accion"] = "El cedula ".$cedulaUsuario." o el correo ".$correoUsuario." ya existe en nuestro Sistema";
         header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
     }
     

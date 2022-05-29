@@ -1,6 +1,10 @@
 <?php
+session_start();
+if(!isset($_SESSION))
+    unset($_SESSION);
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
@@ -34,12 +38,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
             background-color: rgb(249, 254, 142);
         }
     </style>
-    <!-- END CSS  -->
-
-    <?php
-        if(!isset($_SESSION))
-            unset($_SESSION);
-    ?>
+    <!-- END CSS  -->    
 </head>
 
 <body class="bg-light">

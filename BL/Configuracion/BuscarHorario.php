@@ -11,11 +11,11 @@ function BuscarIDHorario($id)
     return json_encode($horarioDAL->BuscarHorario(0, $id));
 }
 
-function BuscarHorarioIdDia($idDiaHabil)
-{
-    $horarioDAL = new DALHorario();
-    return json_encode($horarioDAL->BuscarHorario(1, $idDiaHabil));
-}
+// function BuscarHorarioIdDia($idDiaHabil)
+// {
+//     $horarioDAL = new DALHorario();
+//     return json_encode($horarioDAL->BuscarHorario(1, $idDiaHabil));
+// }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////

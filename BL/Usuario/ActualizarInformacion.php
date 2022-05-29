@@ -1,5 +1,9 @@
-<?php    
-    
+<?php  
+    session_start();
+    if(!isset($_SESSION["idUsuario"]))
+        header("Location: ../../GUI/PantallasDestino/AccesoDenegado.php");
+        
+    //HACER VALIDACIONES AQUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     include '../../Core/Conexion.php';
     include '../../DAL/UsuarioDAL/DALUsuario.php';
     include '../../DAL/UsuarioDAL/DALCredenciales.php';
@@ -21,6 +25,7 @@
         CambiarInformacion();
     }
     else
+        $_SESSION["Accion"] = "Ocurrió un error a la hora<br>de cambiar las credenciales";   
         header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
         
     //Funcion o metodo para modificar la informacion del Usuario o sobreescribirla
@@ -47,10 +52,12 @@
 
         if($usuarioDAL->ActualizarUsuario($actualizarUsuario))
         {        
+            $_SESSION["Accion"] = "¡Datos del Usuario actualizados correctamente!";   
             header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
         }
         else
         {
+            $_SESSION["Accion"] = "Ocurrió un error en la modificación de datos";
             header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
         }
     }
