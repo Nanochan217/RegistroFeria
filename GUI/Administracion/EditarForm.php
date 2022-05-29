@@ -102,17 +102,19 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                         <!-- horarios -->
                         <div class="col-lg border rounded shadow-sm bg-white p-5" id="contenedorHorarios">
                             <h2 class="pb-4">Horarios</h2>
+                            <div class="d-flex flex-column justify-content-center" id="sinDatos" style="display:none !important;">
+                                <img src="../Assets/Images/sinDatos.svg" style="height:200px;">
+                                <h5 class="text-center mt-4 opacity-75 pb-3">No hay horarios asociados, agregue uno</h5>
+                            </div>
+                            <div class="d-flex flex-column justify-content-center" id="seleccionarDiaPrimero">
+                                <img src="../Assets/Images/seleccionarDia.svg" style="height:200px;">
+                                <h5 class="text-center mt-4 opacity-75">Seleccione un día para ver los horarios</h5>
+                            </div>
                             <div id="horarios">
-                                <div class="d-flex flex-column justify-content-center">
-                                    <img src="../Assets/Images/seleccionarDia.svg" style="height:200px;">
-                                    <h5 class="text-center mt-4 opacity-75">Seleccione un día para ver los horarios</h5>
-                                </div>
                             </div>
                             <div class="d-grid gap-2" id="addHorario" style="display: none !important;">
                                 <button class="btn btn-outline-primary" type="button" id="btnAddHorario" onclick="agregarHorario(idDia)"><i class="bi bi-plus-circle align-middle lh-1 me-2" style="font-size: 18px;"></i>Agregar horario</button>
                             </div>
-
-
                         </div>
                     </div>
 
@@ -141,9 +143,6 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
     <Script>
         var configuracion = <?php echo BuscarConfiguraciones() ?>;
         var dias = <?php echo BuscarDiasHabiles() ?>;
-        // var horarios = <?php //echo BuscarHorarios() 
-                            ?>;
-
 
         $(document).ready(function() {
             //rellena los inputs con los datos provenientes de la BD
@@ -193,7 +192,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             let contenedor = `<div class="row mx-0 p-3 gx-3 gapx-4 bg-light border rounded mb-3" id="diaUsuario${dia.id}">
                                 <div class="col-md-8 mt-0">
                                     <div class="input-group">
-                                        <input type="date" class="form-control" id="dia${dia.id}" value="${dia.dia}" oninput="actualizarDia(${dia.id}, this.id, 'actualizarDia')" required>
+                                        <input type="date" class="form-control" id="dia${dia.id}" value="${dia.dia}" oninput="actualizarDia(${dia.id}, this.id, 'actualizarDia')" >
                                         <div class="input-group-text p-0">
                                             <label class="py-2 px-3 lh-1" for="seleccionarDia${dia.id}" style="cursor: pointer;">
                                             <input class="form-check-input mt-0" type="radio" id="seleccionarDia${dia.id}" name="diaSeleccionado" value="${(dia.id)}" onclick="mostrarHorarios(${dia.id})" style="cursor: pointer;">
@@ -201,11 +200,18 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                         </div>
                                     </div>
                                 </div>
+                                
+
                                 <div class="col-md-4 mt-0">
-                                    <div class="d-flex flex-column">
-                                        <div class="d-grid gap-2 g-2 d-md-block">
-                                            <button class="btn ${(dia.visible==1) ? "btn-light" : "btn-secondary"} border py-1 px-3 me-md-2" type="button" id="diaVisible${dia.id}" value="${dia.visible}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaVisible')">${(dia.visible==1) ? '<i id="diaVisible' + dia.id + 'Icono" style="font-size: 18px; " class="bi bi-eye"></i>' : '<i id="diaVisible' + dia.id + 'Icono" style="font-size: 18px; " class="bi bi-eye-slash"></i>'}</button>
-                                            <button class="btn btn-danger py-1 px-3" type="button" id="diaActive${dia.id}" value="${dia.active}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaActive')"><i style="font-size: 18px; " class="bi bi-trash3"></i></button>
+                                    
+                                    <div class="row mx-0">
+                                        <div class="d-flex flex-wrap gap-3 px-0 ">
+                                            <div class="d-flex flex-column">
+                                                <button class="btn ${(dia.visible==1) ? "btn-light" : "btn-secondary"} border py-1 px-3 me-md-2" type="button" id="diaVisible${dia.id}" value="${dia.visible}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaVisible')">${(dia.visible==1) ? '<i id="diaVisible' + dia.id + 'Icono" style="font-size: 18px; " class="bi bi-eye"></i>' : '<i id="diaVisible' + dia.id + 'Icono" style="font-size: 18px; " class="bi bi-eye-slash"></i>'}</button>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <button class="btn btn-danger py-1 px-3" type="button" id="diaActive${dia.id}" value="${dia.active}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaActive')"><i style="font-size: 18px; " class="bi bi-trash3"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -242,33 +248,33 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                 
                                 <div class="col-md-6 mt-0">
                                     <div class="row mx-0 mb-4">
-                                        <label for="inputHoraInicial${horario.id}" class="form-label">Hora inicial</label>
-                                        <input type="time" class="form-control" id="inputHoraInicio${horario.id}" value="${horario.horaInicio}" oninput="actualizarHorarioInputHidden(${horario.id}, 'HoraInicio')" required>
+                                        <label for="horaInicio${horario.id}" class="form-label px-0">Hora inicial</label>
+                                        <input type="time" class="form-control" id="horaInicio${horario.id}" value="${horario.horaInicio}" oninput="actualizarHorario(${horario.id}, this.id, 'actualizarHoraInicio')" >
                                     </div>
                                     <div class="row mx-0">
-                                        <label for="inputHoraFinal${horario.id}" class="form-label">Hora final</label>
-                                        <input type="time" class="form-control" id="inputHoraFinal${horario.id}" value="${horario.horaFinal}" oninput="actualizarHorarioInputHidden(${horario.id}, 'HoraFinal')" required>
+                                        <label for="horaFinal${horario.id}" class="form-label px-0">Hora final</label>
+                                        <input type="time" class="form-control" id="horaFinal${horario.id}" value="${horario.horaFinal}" oninput="actualizarHorario(${horario.id}, this.id, 'actualizarHoraFinal')" >
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-6 mt-0">
                                     <div class="row mx-0  mb-4">
-                                        <label for="inputAforo${horario.id}" class="form-label">Aforo máximo</label>
-                                        <input type="number" class="form-control" id="inputAforoMaximo${horario.id}" value="${horario.aforoMaximo}" oninput="actualizarHorarioInputHidden(${horario.id}, 'AforoMaximo')" required>
+                                        <label for="aforoMaximo${horario.id}" class="form-label px-0">Aforo máximo</label>
+                                        <input type="number" class="form-control" id="aforoMaximo${horario.id}" value="${horario.aforoMaximo}" oninput="actualizarHorario(${horario.id}, this.id, 'actualizarAforoMaximo')" >
                                     </div>
                                     <div class="row mx-0">
-                                        <div class="d-flex flex-column">
-                                        <label for="horaFinal1" class="form-label">Acciones</label>
+                                        <div class="d-flex flex-column px-0">
+                                            <label for="horaFinal1" class="form-label">Acciones</label>
  
-                                        <div class="d-flex flex-wrap gap-3">
-                                            <div class="d-flex flex-column">
-                                                <button class="btn ${(horario.visible==1) ? "btn-light" : "btn-secondary"} border py-1 px-3" type="button" id="ocultarHorario${horario.id}" value="${horario.id}" onclick="ocultar(this.value, horarios, 'horario')">${(horario.visible==1) ? '<i id="iconoOcultarHorario' + horario.id + '" style="font-size: 18px; " class="bi bi-eye"></i>' : '<i id="iconoOcultarHorario' + horario.id + '" style="font-size: 18px; " class="bi bi-eye-slash"></i>'}</button>
-                                            </div>
-                                            <div class="d-flex flex-column">
-                                                <button class="btn btn-danger py-1 px-3" type="button" id="eliminarHorario${horario.id}" value="${horario.id}" onclick="eliminarHorario(this.value, horarios)"><i style="font-size: 18px; " class="bi bi-trash3"></i></button>
+                                            <div class="d-flex flex-wrap gap-3">
+                                                <div class="d-flex flex-column">
+                                                    <button class="btn ${(horario.visible==1) ? "btn-light" : "btn-secondary"} border py-1 px-3" type="button" id="horarioVisible${horario.id}" value="${horario.visible}" onclick="actualizarHorario(${horario.id}, this.id, 'actualizarHorarioVisible')">${(horario.visible==1) ? '<i id="iconoOcultarHorario' + horario.id + '" style="font-size: 18px; " class="bi bi-eye"></i>' : '<i id="iconoOcultarHorario' + horario.id + '" style="font-size: 18px; " class="bi bi-eye-slash"></i>'}</button>
+                                                </div>
+                                                <div class="d-flex flex-column">
+                                                    <button class="btn btn-danger py-1 px-3" type="button" id="horarioActive${horario.id}" value="${horario.active}" onclick="actualizarHorario(${horario.id}, this.id, 'actualizarHorarioActive')"><i style="font-size: 18px; " class="bi bi-trash3"></i></button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
                                 </div>
