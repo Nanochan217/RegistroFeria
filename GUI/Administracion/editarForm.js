@@ -6,19 +6,21 @@ function agregarDia()
     let dia = fechaHoy();
 
     //ajax
-    $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { dia: dia }, function ( data )
+    $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { dia: dia, campo: "nuevoDia" }, function ( data )
     {
+        data = JSON.parse( data );
         $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                                            <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                                            <div id="notificacion" class="toast align-items-center text-white ${data != null ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
                                                     <div class="toast-body">
-                                                        ${data == true ? "<b>Día</b> agregado correctamente" : "Ocurrió un error al intentar agregar el día"}
+                                                        ${data != null ? "<b>Día</b> agregado correctamente" : "Ocurrió un error al intentar agregar el día"}
                                                     </div>
                                                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                                                 </div>
                                             </div>
                                         </div>`);
         mostrarNotificacion();
+        console.table( typeof ( data ) );
         agregarDiaUsuario( data ); //se muestra en pantalla para el usuario
     } );
 
