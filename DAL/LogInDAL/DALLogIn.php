@@ -65,7 +65,16 @@
 
                 $to = $correoUsuario;               
                 $tituloCorreo = "Solicitud de Restablecimiento de Contraseña";
-                $html = "<html><head><title>Document</title></head><body><h1 style='background-color: red;'>Hola q tal</h1></body></html>";
+                $html = "
+                    <html>
+                        <head>
+                            <title>Document</title>
+                        </head>
+                        <body>
+                            <h1 style='background-color: red;'>Hola q tal</h1>
+                        </body>
+                    </html>
+                ";
                 $cuerpoCorreo = $html;
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
