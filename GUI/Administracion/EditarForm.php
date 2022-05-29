@@ -171,17 +171,6 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             agregarDiaUsuario(nuevoDia); //se muestra en pantalla para el usuario
         }
 
-        //obtener la fecha de hoy
-        function fechaHoy() {
-            var fecha = new Date();
-            var mes = formatearNumero(fecha.getMonth() + 1); //meses (0-11)
-            var dia = formatearNumero(fecha.getDate()); //dias (1-31)
-            var anio = fecha.getFullYear();
-            var fechaFormateada = anio + "-" + mes + "-" + dia;
-
-            return fechaFormateada;
-        }
-
         //formatea el numero agregando un 0 si el mes o dia son menores a 10
         function formatearNumero(n) {
             return (n < 10 ? '0' : '') + n;
@@ -234,13 +223,6 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
             agregarHorarioUsuario(nuevoHorario); //se muestra en pantalla para el usuario
         }
 
-        //obtener la hora de hoy
-        function horaHoy() {
-            var fecha = new Date();
-            var hora = formatearNumero(fecha.getHours()) + ":00:00";
-
-            return hora;
-        }
 
         //agregar horario a la interfaz
         function agregarHorarioUsuario(horario) {

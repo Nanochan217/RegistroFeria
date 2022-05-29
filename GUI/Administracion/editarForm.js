@@ -20,10 +20,38 @@ function agregarDia()
                                             </div>
                                         </div>`);
         mostrarNotificacion();
-        console.table( typeof ( data ) );
         agregarDiaUsuario( data ); //se muestra en pantalla para el usuario
     } );
+}
 
+function agregarHorario()
+{
+    //se crea el horario
+    let horario = horaHoy();
+    //se crea el horario
+    let nuevoHorario = {
+        "horaInicio": horaHoy(),
+        "horaFinal": horaHoy(),
+        "idDiaHabil": '', //en proceso!!!!!!!!!!!!!!!!!!!!
+    };
+
+    //ajax
+    $.post( "../../BL/Configuracion/ModificarhorarioHabil.php", { horario: horario, campo: "nuevohorario" }, function ( data )
+    {
+        data = JSON.parse( data );
+        $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                                            <div id="notificacion" class="toast align-items-center text-white ${data != null ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                                                <div class="d-flex">
+                                                    <div class="toast-body">
+                                                        ${data != null ? "<b>Día</b> agregado correctamente" : "Ocurrió un error al intentar agregar el día"}
+                                                    </div>
+                                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                </div>
+                                            </div>
+                                        </div>`);
+        mostrarNotificacion();
+        agregarDiaUsuario( data ); //se muestra en pantalla para el usuario
+    } );
 }
 
 //obtener la fecha de hoy
@@ -36,6 +64,15 @@ function fechaHoy()
     var fechaFormateada = anio + "-" + mes + "-" + dia;
 
     return fechaFormateada;
+}
+
+//obtener la hora de hoy
+function horaHoy()
+{
+    var fecha = new Date();
+    var hora = formatearNumero( fecha.getHours() ) + ":00:00";
+
+    return hora;
 }
 
 //actualizar los datos de disponibilidad del formulario
@@ -368,9 +405,9 @@ function mostrarHorarios( idDia )
             $( '#sinDatos' ).attr( "style", "display: flex !important;" );
             $( '#seleccionarDiaPrimero' ).attr( "style", "display: none !important;" );
             $( '#addHorario' ).show();
-
         }
     } );
+    agregarHorario( idDia );
 }
 
 function cambiarBtnVisible( id, estado )
