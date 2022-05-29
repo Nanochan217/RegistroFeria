@@ -27,7 +27,7 @@ class Conexion
         $respuestaDB = $this->mysqli->query($query);
         return $respuestaDB;
     }
-
+    
     function CerrarConexion()
     {
         $this->mysqli->close();
