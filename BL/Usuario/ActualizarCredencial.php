@@ -19,7 +19,7 @@
     if($_SESSION['idUsuario'] == $idUsuarioActivo)
     {
         //Datos desde el Formulario del correo y contraseña nuevos        
-        $correoNuevo = $_POST['correoInput'];
+        $correoNuevo = $_POST['email'];
         $contrasena = $_POST['contrasena'];
         
         $cambiarCredencial->setId($idUsuarioActivo);
@@ -56,14 +56,16 @@
             }
             else
             {
+                echo "Ñ";
                 $_SESSION["Accion"] = "El correo proporcionado (".$correoNuevo." ya existe en nuestro Sistema)";
-                header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+  //              header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
             }
         }                
     }
     else
     {
+        echo "Ñ";
         $_SESSION["Accion"] = "No estas autorizado para<br>modificar estas credenciales";
-        header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+//        header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
     }
 /////////////////////////////////////////////////////////////////////////////////

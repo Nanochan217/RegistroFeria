@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION['Perfil'] != 1)
+if(!isset($_SESSION["idUsuario"]))
     header("Location: ../PantallasDestino/AccesoDenegado.php");
 
 $header = file_get_contents('../Default/Header.html');
@@ -83,7 +83,7 @@ include '../../BL/Usuario/BuscarUsuario.php';
                             <!-- ID -->
                             <div class="col-md-6 pb-3" hidden="true">
                                 <label for="id" class="form-label">ID</label>
-                                <input type="text" class="form-control " id="idUsuario" name="idUsuario" value="" onchange="VerificarCorreo()">
+                                <input type="text" class="form-control " id="idUsuario" name="idUsuario" value="">
                             </div>
 
                             <!-- Correo -->
@@ -118,7 +118,7 @@ include '../../BL/Usuario/BuscarUsuario.php';
         </div>
     </div>
 
-    <div class="toast-container" id="contenedorNotificaciones"></div>
+    <!-- <div class="toast-container" id="contenedorNotificaciones"></div> -->
 
     <!--  Footer  -->
     <?php
@@ -142,7 +142,7 @@ include '../../BL/Usuario/BuscarUsuario.php';
             });
         });
     </script>
-    <script src="./editarCredenciales.js"></script>
+    <!-- <script src="./editarCredenciales.js"></script> -->
     <!-- END Scripts  -->
 </body>
 

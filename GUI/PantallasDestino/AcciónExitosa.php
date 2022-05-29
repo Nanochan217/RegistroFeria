@@ -54,7 +54,7 @@ $recursosExtra = file_get_contents('../Default/RecursosExtra.html');
 
                 <!-- START Encabezado de la pagina -->
                 <div class="d-flex gap-4 flex-column align-items-center justify-content-center py-5">
-                    <h1><? echo $_SESSION["Accion"] ?></h1> <!-- titulo -->
+                    <h2><?php echo $_SESSION["Accion"] ?></h2> <!-- titulo -->
                     <img src="../Assets/Images/realizadoCorrectamente.svg" style="height: 180px;" alt=""> <!-- ilustración -->
                     <a href="../Index/Index.php" class="btn btn-primary">Volver al inicio</a> <!-- botón nueva reserva -->
                 </div>
