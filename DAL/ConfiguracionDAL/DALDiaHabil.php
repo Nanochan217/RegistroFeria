@@ -5,11 +5,12 @@ class DALDiaHabil
     {
         $nuevoDia = new DiaHabil();
         $conexionDB = new Conexion();
-
+        $conexionDB->NuevaConexion2();
+        
         $consultaSql = "INSERT INTO `DIAHABIL` (`DIA`,`IDCONFIGURACION`,`VISIBLE`,`ACTIVE`)
         VALUES ('" . $nuevoDiaHabil . "', 1, 1, 1)";
 
-        if ($conexionDB->NuevaConexion($consultaSql))
+        if ($conexionDB->NuevaConsulta($consultaSql))
         {
             //$conexionDB->CerrarConexion();
             $consultaSql2 = "SELECT * FROM `DIAHABIL` WHERE `DIA` = '".$nuevoDiaHabil."' AND `ACTIVE` = 1";
