@@ -34,7 +34,7 @@ function agregarHorario( idDia )
     };
 
     //ajax
-    $.post( "../../BL/Configuracion/ModificarhorarioHabil.php", { horaInicio: horario.horaInicio, horaFinal: horario.horaFinal, idDiaHabil: horario.idDiaHabil, campo: "nuevoHorario" }, function ( data )
+    $.post( "../../BL/Configuracion/ModificarHorario.php", { horaInicio: horario.horaInicio, horaFinal: horario.horaFinal, idDiaHabil: horario.idDiaHabil, campo: "nuevoHorario" }, function ( data )
     {
         data = JSON.parse( data );
         $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -47,6 +47,7 @@ function agregarHorario( idDia )
                                                 </div>
                                             </div>
                                         </div>`);
+        $( '#sinDatos' ).attr( 'style', 'display:none !important;' );
         mostrarNotificacion();
         agregarHorarioUsuario( data ); //se muestra en pantalla para el usuario
     } );
@@ -148,33 +149,33 @@ function actualizarDisponibilidad( campo )
     }
 }
 
-function formatearInputToNumero( input )
+function formatearInputToNumero( elemento, input )
 {
     let numero = Math.abs( parseInt( input, 10 ) );
     if ( isNaN( numero ) !== true )
     {
-        return numero;
+        $( `#${elemento}` ).val( numero ); //se actualiza el valor en el input
     }
     else if ( isNaN( numero ) === true )
     {
-        return null;
+        $( `#${elemento}` ).val( 0 ); //se actualiza el valor en el input
     }
 }
+
+
 
 //actualizar el numero máximo de acompañantes por persona
 function actualizarAcompanantes()
 {
-    let acompanantesMaximo = formatearInputToNumero( $( '#acompanantesMaximo' ).val() );//se obtiene el valor, se convierte a entero, y se elimina el negativo en caso de tenerlo
+    let acompanantesMaximo = $( '#acompanantesMaximo' ).val();//se obtiene el valor, se convierte a entero, y se elimina el negativo en caso de tenerlo
 
-    //si el valor es diferente a NaN
-    if ( acompanantesMaximo != null )
+
+    $( '#acompanantesMaximo' ).val( acompanantesMaximo ); //se actualiza el valor en el input
+
+    //ajax
+    $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { acompanantesMaximo: acompanantesMaximo, campo: "acompanantesMaximo" }, function ( data )
     {
-        $( '#acompanantesMaximo' ).val( acompanantesMaximo ); //se actualiza el valor en el input
-
-        //ajax
-        $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { acompanantesMaximo: acompanantesMaximo, campo: "acompanantesMaximo" }, function ( data )
-        {
-            $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
                                                     <div class="toast-body">
@@ -184,14 +185,9 @@ function actualizarAcompanantes()
                                                 </div>
                                             </div>
                                         </div>`);
-            mostrarNotificacion();
-        } );
-    }
-    //si el valor es Nan
-    else
-    {
-        $( '#acompanantesMaximo' ).val( 0 ); //se cambia el valor del input a 0
-    }
+
+        mostrarNotificacion();
+    } );
 }
 
 //actualiza los diferentes datos del dia
@@ -308,17 +304,15 @@ function actualizarHorario( idHorario, elementoID, campo )
     }
     else if ( campo == 'actualizarAforoMaximo' )
     {
-        let aforoMaximo = formatearInputToNumero( $( `#${elementoID}` ).val() );//se obtiene el valor, se convierte a entero, y se elimina el negativo en caso de tenerlo
+        let aforoMaximo = $( `#${elementoID}` ).val();//se obtiene el valor, se convierte a entero, y se elimina el negativo en caso de tenerlo
 
-        //si el valor es diferente a NaN
-        if ( aforoMaximo != null )
+
+        $( `#${elementoID}` ).val( aforoMaximo ); //se actualiza el valor en el input
+
+        //ajax
+        $.post( "../../BL/Configuracion/ModificarHorario.php", { id: idHorario, aforoMaximo: aforoMaximo, campo: "actualizarAforoMaximo" }, function ( data )
         {
-            $( `#${elementoID}` ).val( aforoMaximo ); //se actualiza el valor en el input
-
-            //ajax
-            $.post( "../../BL/Configuracion/ModificarHorario.php", { id: idHorario, aforoMaximo: aforoMaximo, campo: "actualizarAforoMaximo" }, function ( data )
-            {
-                $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
                                                     <div class="toast-body">
@@ -328,14 +322,9 @@ function actualizarHorario( idHorario, elementoID, campo )
                                                 </div>
                                             </div>
                                         </div>`);
-                mostrarNotificacion();
-            } );
-        }
-        //si el valor es Nan
-        else
-        {
-            $( `#${elementoID}` ).val( 0 ); //se cambia el valor del input a 0
-        }
+            mostrarNotificacion();
+        } );
+
     }
     else if ( campo == 'actualizarHorarioVisible' )
     {
@@ -386,7 +375,7 @@ function actualizarHorario( idHorario, elementoID, campo )
 }
 
 //mostrar los horarios dependiendo del dia seleccionado
-function mostrarHorarios( idDia )
+function mostrarHorarios( idDia, radioId )
 {
 
     $.post( "../../BL/Configuracion/BuscarHorariosPorDia.php", { id: idDia }, function ( data )
@@ -411,6 +400,17 @@ function mostrarHorarios( idDia )
             $( '#addHorario' ).show();
         }
     } );
+
+    $( ".labelRadio" ).each( function ()
+    {
+        $( this ).html( '<i class="bi bi-circle"></i>' );
+        $( this ).removeClass( 'btn-primary' ).addClass( 'btn-outline-primary' );
+    } );
+
+    let labelRadio = document.querySelector( `[for="${radioId}"]` );
+    labelRadio.innerHTML = '<i class="bi bi-check-circle"></i>';
+    labelRadio.classList.replace( 'btn-outline-primary', 'btn-primary' );
+
     $( "#btnAddHorario" ).attr( "onclick", `agregarHorario(${idDia})` );
 
 }

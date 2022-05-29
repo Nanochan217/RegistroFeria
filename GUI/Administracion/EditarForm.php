@@ -71,7 +71,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                     <label for="fechaInicio" class="form-label">Fecha inicial</label>
                                     <div class="input-group mb-3">
                                         <input type="date" class="form-control" id="fechaInicio" value="2022-05-04" min="2022-05-04" max="2022-05-22">
-                                        <button class="btn btn-outline-primary" type="button" id="actualizarFechaInicial" onclick="actualizarDisponibilidad('fechaInicial')"><i class="bi bi-arrow-repeat"></i></button>
+                                        <button class="btn btn-outline-secondary" type="button" id="actualizarFechaInicial" onclick="actualizarDisponibilidad('fechaInicial')"><i class="bi bi-arrow-repeat"></i></button>
                                     </div>
                                 </div>
 
@@ -79,7 +79,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                     <label for="fechaFinal" class="form-label">Fecha final</label>
                                     <div class="input-group mb-3">
                                         <input type="date" class="form-control" id="fechaFinal" value="2022-05-04" min="2022-05-04" max="2022-05-22">
-                                        <button class=" btn btn-outline-primary" type="button" id="actualizarFechaFinal" onclick="actualizarDisponibilidad('fechaFinal')"><i class="bi bi-arrow-repeat"></i></button>
+                                        <button class=" btn btn-outline-secondary" type="button" id="actualizarFechaFinal" onclick="actualizarDisponibilidad('fechaFinal')"><i class="bi bi-arrow-repeat"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -90,8 +90,10 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                 <div class="col-md-12">
                                     <label for="acompanantesMaximo" class="form-label">Maximo de acompañantes por persona</label>
                                     <div class="input-group mb-3">
-                                        <input type="number" class="form-control" id="acompanantesMaximo" min="0">
-                                        <button class="btn btn-outline-primary" type="button" id="actualizarAcompanantesMaximo" onclick="actualizarAcompanantes()"><i class="bi bi-arrow-repeat"></i></button>
+                                        <input type="number" class="form-control" id="acompanantesMaximo" min="0" oninput="formatearInputToNumero(this.id, this.value)">
+                                        <button class="btn btn-outline-secondary" type="button" id="actualizarAcompanantesMaximo" onclick="actualizarAcompanantes()">
+                                            <i class="bi bi-arrow-repeat" id="acompanantesIcono"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -186,29 +188,27 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
         //agregar dia a la interfaz
         function agregarDiaUsuario(dia) {
-            let contenedor = `<div class="row mx-0 p-3 gx-3 gapx-4 bg-light border rounded mb-3" id="diaUsuario${dia.id}">
-                                <div class="col-md-8 mt-0">
+            let contenedor = `<div class="row mx-0 p-3 gap-3 bg-light border rounded mb-3 justify-content-between" id="diaUsuario${dia.id}">
+                                <div class="col-auto mt-0">
                                     <div class="input-group">
-                                        <input type="date" class="form-control" id="dia${dia.id}" value="${dia.dia}" oninput="actualizarDia(${dia.id}, this.id, 'actualizarDia')" >
-                                        <div class="input-group-text p-0">
-                                            <label class="py-2 px-3 lh-1" for="seleccionarDia${dia.id}" style="cursor: pointer;">
-                                            <input class="form-check-input mt-0" type="radio" id="seleccionarDia${dia.id}" name="diaSeleccionado" value="${(dia.id)}" onclick="mostrarHorarios(${dia.id})" style="cursor: pointer;">
-                                            </label>
-                                        </div>
+                                        <input type="date" class="form-control" id="dia${dia.id}" value="${dia.dia}" >
+                                        <button class="btn btn-outline-secondary" type="button" id="actualizarAcompanantesMaximo" onclick="actualizarDia(${dia.id}, 'dia${dia.id}', 'actualizarDia')">
+                                            <i class="bi bi-arrow-repeat" id="acompanantesIcono"></i>
+                                        </button>
                                     </div>
-                                </div>
-                                
+                                </div>                                
 
-                                <div class="col-md-4 mt-0">
-                                    
-                                    <div class="row mx-0">
-                                        <div class="d-flex flex-wrap gap-3 px-0 ">
-                                            <div class="d-flex flex-column">
-                                                <button class="btn ${(dia.visible==1) ? "btn-light" : "btn-secondary"} border py-1 px-3 me-md-2" type="button" id="diaVisible${dia.id}" value="${dia.visible}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaVisible')">${(dia.visible==1) ? '<i id="diaVisible' + dia.id + 'Icono" style="font-size: 18px; " class="bi bi-eye"></i>' : '<i id="diaVisible' + dia.id + 'Icono" style="font-size: 18px; " class="bi bi-eye-slash"></i>'}</button>
-                                            </div>
-                                            <div class="d-flex flex-column">
-                                                <button class="btn btn-danger py-1 px-3" type="button" id="diaActive${dia.id}" value="${dia.active}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaActive')"><i style="font-size: 18px; " class="bi bi-trash3"></i></button>
-                                            </div>
+                                <div class="col-auto mt-0">
+                                    <div class="d-flex flex gap-1 px-0">
+                                        <div class="d-flex flex-column">
+                                            <label class="btn btn-outline-primary px-3 me-md-2 labelRadio" for="seleccionarDia${dia.id}"><i class="bi bi-circle"></i></label>
+                                            <input class="btn-check" type="radio" id="seleccionarDia${dia.id}" name="diaSeleccionado" value="${(dia.id)}" onclick="mostrarHorarios(${dia.id}, this.id)" style="cursor: pointer;">
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <button class="btn ${(dia.visible==1) ? "btn-light" : "btn-secondary"} border py-1 px-3 me-md-2" type="button" id="diaVisible${dia.id}" value="${dia.visible}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaVisible')">${(dia.visible==1) ? '<i id="diaVisible' + dia.id + 'Icono" style="font-size: 18px; " class="bi bi-eye"></i>' : '<i id="diaVisible' + dia.id + 'Icono" style="font-size: 18px; " class="bi bi-eye-slash"></i>'}</button>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <button class="btn btn-danger py-1 px-3" type="button" id="diaActive${dia.id}" value="${dia.active}" onclick="actualizarDia(${dia.id}, this.id, 'actualizarDiaActive')"><i style="font-size: 18px; " class="bi bi-trash3"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -238,22 +238,37 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                                 
                                 <div class="col-md-6 mt-0">
                                     <div class="row mx-0 mb-4">
-                                        <label for="horaInicio${horario.id}" class="form-label px-0">Hora inicial</label>
-                                        <input type="time" class="form-control" id="horaInicio${horario.id}" value="${horario.horaInicio}" oninput="actualizarHorario(${horario.id}, this.id, 'actualizarHoraInicio')" >
+                                        <label for="horaInicio${horario.id}" class="form-label ">Hora inicial</label>
+                                        <div class="input-group">
+                                            <input type="time" class="form-control" id="horaInicio${horario.id}" value="${horario.horaInicio}">
+                                            <button class="btn btn-outline-secondary" type="button" id="actualizarAcompanantesMaximo" onclick="actualizarHorario(${horario.id}, 'horaInicio${horario.id}', 'actualizarHoraInicio')">
+                                                <i class="bi bi-arrow-repeat" id="acompanantesIcono"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="row mx-0">
-                                        <label for="horaFinal${horario.id}" class="form-label px-0">Hora final</label>
-                                        <input type="time" class="form-control" id="horaFinal${horario.id}" value="${horario.horaFinal}" oninput="actualizarHorario(${horario.id}, this.id, 'actualizarHoraFinal')" >
+                                        <label for="horaFinal${horario.id}" class="form-label ">Hora final</label>
+                                        <div class="input-group">
+                                            <input type="time" class="form-control" id="horaFinal${horario.id}" value="${horario.horaFinal}" >
+                                            <button class="btn btn-outline-secondary" type="button" id="actualizarAcompanantesMaximo" onclick="actualizarHorario(${horario.id}, 'horaFinal${horario.id}', 'actualizarHoraFinal')">
+                                                <i class="bi bi-arrow-repeat" id="acompanantesIcono"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-6 mt-0">
-                                    <div class="row mx-0  mb-4">
-                                        <label for="aforoMaximo${horario.id}" class="form-label px-0">Aforo máximo</label>
-                                        <input type="number" class="form-control" id="aforoMaximo${horario.id}" value="${horario.aforoMaximo}" oninput="actualizarHorario(${horario.id}, this.id, 'actualizarAforoMaximo')" >
+                                    <div class="row mx-0 mb-4">
+                                        <label for="aforoMaximo${horario.id}" class="form-label ">Aforo máximo</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="aforoMaximo${horario.id}" value="${horario.aforoMaximo}" oninput="formatearInputToNumero(this.id, this.value)">
+                                            <button class="btn btn-outline-secondary" type="button" id="actualizarAcompanantesMaximo" onclick="actualizarHorario(${horario.id}, 'aforoMaximo${horario.id}', 'actualizarAforoMaximo')">
+                                                <i class="bi bi-arrow-repeat" id="acompanantesIcono"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="row mx-0">
-                                        <div class="d-flex flex-column px-0">
+                                        <div class="d-flex flex-column ">
                                             <label for="horaFinal1" class="form-label">Acciones</label>
  
                                             <div class="d-flex flex-wrap gap-3">
