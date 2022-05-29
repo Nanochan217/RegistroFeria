@@ -1,5 +1,41 @@
 let data = true;
 
+function agregarDia()
+{
+    //se crea el dia
+    let dia = fechaHoy();
+
+    //ajax
+    $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { dia: dia }, function ( data )
+    {
+        $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                                            <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                                                <div class="d-flex">
+                                                    <div class="toast-body">
+                                                        ${data == true ? "<b>Día</b> agregado correctamente" : "Ocurrió un error al intentar agregar el día"}
+                                                    </div>
+                                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                </div>
+                                            </div>
+                                        </div>`);
+        mostrarNotificacion();
+        agregarDiaUsuario( data ); //se muestra en pantalla para el usuario
+    } );
+
+}
+
+//obtener la fecha de hoy
+function fechaHoy()
+{
+    var fecha = new Date();
+    var mes = formatearNumero( fecha.getMonth() + 1 ); //meses (0-11)
+    var dia = formatearNumero( fecha.getDate() ); //dias (1-31)
+    var anio = fecha.getFullYear();
+    var fechaFormateada = anio + "-" + mes + "-" + dia;
+
+    return fechaFormateada;
+}
+
 //actualizar los datos de disponibilidad del formulario
 function actualizarDisponibilidad( campo )
 {
@@ -192,7 +228,8 @@ function actualizarHorario( idHorario, elementoID, campo )
     {
         let horaInicio = $( `#${elementoID}` ).val();
 
-        $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idHorario, horaInicio: horaInicio, campo: campo }, function ( data )
+
+        $.post( "../../BL/Configuracion/ModificarHorario.php", { id: idHorario, horaInicio: horaInicio, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -211,7 +248,7 @@ function actualizarHorario( idHorario, elementoID, campo )
     {
         let horaFinal = $( `#${elementoID}` ).val();
 
-        $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idHorario, horaFinal: horaFinal, campo: campo }, function ( data )
+        $.post( "../../BL/Configuracion/ModificarHorario.php", { id: idHorario, horaFinal: horaFinal, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -236,13 +273,13 @@ function actualizarHorario( idHorario, elementoID, campo )
             $( `#${elementoID}` ).val( aforoMaximo ); //se actualiza el valor en el input
 
             //ajax
-            $.post( "../../BL/Configuracion/ModificarConfiguracion.php", { aforoMaximo: aforoMaximo, campo: "aforoMaximo" }, function ( data )
+            $.post( "../../BL/Configuracion/ModificarHorario.php", { id: idHorario, aforoMaximo: aforoMaximo, campo: "actualizarAforoMaximo" }, function ( data )
             {
                 $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                                                 <div class="d-flex">
                                                     <div class="toast-body">
-                                                        ${data == true ? "<b>Numero máximo de acompañantes</b> actualizado correctamente" : "Ocurrió un error al intentar actualizar el número máximo de acompañantes"}
+                                                        ${data == true ? "<b>Aforo máximo</b> del horario actualizado correctamente" : "Ocurrió un error al intentar actualizar el aforo máximo del horario"}
                                                     </div>
                                                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                                                 </div>

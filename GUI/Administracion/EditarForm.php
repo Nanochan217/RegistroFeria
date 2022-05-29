@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION['Perfil'] != 1)
+if ($_SESSION['Perfil'] != 1)
     header("Location: ../PantallasDestino/AccesoDenegado.php");
 
 $header = file_get_contents('../Default/Header.html');
@@ -51,7 +51,7 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
                 <!-- START Encabezado de la pagina -->
                 <div class="d-flex gap-4 flex-column align-items-center justify-content-center pb-4">
-                    <h1>Editar Formulario</h1> <!-- titulo -->
+                    <h1>Configuración del Formulario</h1> <!-- titulo -->
                 </div>
                 <!-- END Encabezado de la pagina -->
 
@@ -104,11 +104,11 @@ include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
                             <h2 class="pb-4">Horarios</h2>
                             <div class="d-flex flex-column justify-content-center" id="sinDatos" style="display:none !important;">
                                 <img src="../Assets/Images/sinDatos.svg" style="height:200px;">
-                                <h5 class="text-center mt-4 opacity-75 pb-3">No hay horarios asociados, agregue uno</h5>
+                                <h5 class="text-center mt-4 opacity-75 pb-3">No hay horarios asociados a este día.</h5>
                             </div>
                             <div class="d-flex flex-column justify-content-center" id="seleccionarDiaPrimero">
                                 <img src="../Assets/Images/seleccionarDia.svg" style="height:200px;">
-                                <h5 class="text-center mt-4 opacity-75">Seleccione un día para ver los horarios</h5>
+                                <h5 class="text-center mt-4 opacity-75">Seleccione un día para ver los horarios.</h5>
                             </div>
                             <div id="horarios">
                             </div>
