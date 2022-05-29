@@ -7,72 +7,72 @@ class DALDiaHabil
         $conexionDB = new Conexion();
 
         $consultaSql = "INSERT INTO `DIAHABIL` (`DIA`,`IDCONFIGURACION`,`VISIBLE`,`ACTIVE`)
-        VALUES ('".$nuevoDiaHabil."', 1, 1, 1)";
+        VALUES ('" . $nuevoDiaHabil . "', 1, 1, 1)";
 
-        if($conexionDB->NuevaConexion($consultaSql))
+        if ($conexionDB->NuevaConexion($consultaSql))
         {
             //$conexionDB->CerrarConexion();
             $consultaSql2 = "SELECT * FROM `DIAHABIL` WHERE `DIA` = '".$nuevoDiaHabil."' AND `ACTIVE` = 1";
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql2);
 
-            if(mysqli_num_rows($respuestaDB)>0)
+            if (mysqli_num_rows($respuestaDB) > 0)
             {
-                while($filaDiaHabil = $respuestaDB->fetch_assoc())
+                while ($filaDiaHabil = $respuestaDB->fetch_assoc())
                 {
                     $nuevoDia->setId($filaDiaHabil['id']);
                     $nuevoDia->setDia($filaDiaHabil['dia']);
                     $nuevoDia->setidConfiguracion($filaDiaHabil['idConfiguracion']);
                     $nuevoDia->setVisible($filaDiaHabil['visible']);
-                    $nuevoDia->setActive($filaDiaHabil['active']);                
+                    $nuevoDia->setActive($filaDiaHabil['active']);
                 }
             }
             else
             {
                 $nuevoDia = null;
-            }            
+            }
         }
-
+        $nuevoDia = $this->dismount($nuevoDia);
         $conexionDB->CerrarConexion();
         return $nuevoDia;
     }
 
     function ModificarDiaHabil($idDia, $numeroFuncion)
     {
-        
+
         $resultado = false;
         $conexionDB = new Conexion();
 
-        if($numeroFuncion == 0)//Ocultar Visibilidad
+        if ($numeroFuncion == 0) //Ocultar Visibilidad
         {
-            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0 WHERE `ID`='".$idDia."'";
+            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0 WHERE `ID`='" . $idDia . "'";
         }
-        else if($numeroFuncion == 1)//Habilitar Visibilidad
+        else if ($numeroFuncion == 1) //Habilitar Visibilidad
         {
-            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 1 WHERE `ID`='".$idDia."'";
+            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 1 WHERE `ID`='" . $idDia . "'";
         }
-        else if($numeroFuncion == "del")//Desactivar (Eliminar)
+        else if ($numeroFuncion == "del") //Desactivar (Eliminar)
         {
-            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0, `ACTIVE` = 0 WHERE `ID`='".$idDia."'";
-        }        
+            $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0, `ACTIVE` = 0 WHERE `ID`='" . $idDia . "'";
+        }
 
-        if($conexionDB->NuevaConexion($consultaSql))
+        if ($conexionDB->NuevaConexion($consultaSql))
         {
             $resultado = true;
         }
 
         $conexionDB->CerrarConexion();
         return $resultado;
-    }   
+    }
 
     function CambiarDatosDiaHabil($idDiaModificar, $nuevoDia)
     {
         $resultado = false;
         $conexionDB = new Conexion();
 
-        $consultaSql = "UPDATE `DIAHABIL` SET `DIA` = '".$nuevoDia."'
-        WHERE `ID` = '".$idDiaModificar."'";
+        $consultaSql = "UPDATE `DIAHABIL` SET `DIA` = '" . $nuevoDia . "'
+        WHERE `ID` = '" . $idDiaModificar . "'";
 
-        if($conexionDB->NuevaConexion($consultaSql))
+        if ($conexionDB->NuevaConexion($consultaSql))
         {
             $resultado = true;
         }
@@ -86,19 +86,19 @@ class DALDiaHabil
         $buscarDia = new DiaHabil();
         $conexionDB = new Conexion();
 
-        $consultaSql = "SELECT * FROM `DIAHABIL` WHERE `ID` =".$idDia;
+        $consultaSql = "SELECT * FROM `DIAHABIL` WHERE `ID` =" . $idDia;
 
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
-        if(mysqli_num_rows($respuestaDB)>0)
+        if (mysqli_num_rows($respuestaDB) > 0)
         {
-            while($filaHorario = $respuestaDB->fetch_assoc())
+            while ($filaHorario = $respuestaDB->fetch_assoc())
             {
                 $buscarDia->setId($filaHorario['id']);
                 $buscarDia->setDia($filaHorario['dia']);
                 $buscarDia->setidConfiguracion($filaHorario['idConfiguracion']);
                 $buscarDia->setVisible($filaHorario['visible']);
-                $buscarDia->setActive($filaHorario['active']);                
+                $buscarDia->setActive($filaHorario['active']);
             }
         }
         else
@@ -109,7 +109,7 @@ class DALDiaHabil
         $buscarDia = $this->dismount($buscarDia);
         $conexionDB->CerrarConexion();
         return $buscarDia;
-    }    
+    }
 
     function BuscarTodas()
     {
@@ -172,7 +172,7 @@ class DALDiaHabil
     //     {
     //         $contadorDias = null;
     //     }
-        
+
     //     $conexionDB->CerrarConexion();
     //     return $contadorDias;
     // }
