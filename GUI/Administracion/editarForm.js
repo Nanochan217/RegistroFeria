@@ -158,7 +158,7 @@ function actualizarDia( idDia, elementoID, campo )
             mostrarNotificacion();
             if ( data )
             {
-                cambiarBtnDiaVisible( elementoID, diaVisible );
+                cambiarBtnVisible( elementoID, diaVisible );
             }
         } );
     }
@@ -263,7 +263,7 @@ function actualizarHorario( idHorario, elementoID, campo )
         horarioVisible == 1 ? horarioVisible = 0 : horarioVisible = 1;
         $( `#${elementoID}` ).val( horarioVisible );
 
-        $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idHorario, horarioVisible: horarioVisible, campo: campo }, function ( data )
+        $.post( "../../BL/Configuracion/ModificarHorario.php", { id: idHorario, horarioVisible: horarioVisible, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -278,7 +278,7 @@ function actualizarHorario( idHorario, elementoID, campo )
             mostrarNotificacion();
             if ( data )
             {
-                cambiarBtnDiaVisible( elementoID, diaVisible );//ver
+                cambiarBtnVisible( elementoID, horarioVisible );//ver
             }
         } );
     }
@@ -287,7 +287,7 @@ function actualizarHorario( idHorario, elementoID, campo )
         let horarioActive = $( `#${elementoID}` ).val();
         horarioActive == 1 ? horarioActive = 0 : horarioActive = 1;
 
-        $.post( "../../BL/Configuracion/ModificarDiaHabil.php", { id: idHorario, horarioActive: horarioActive, campo: campo }, function ( data )
+        $.post( "../../BL/Configuracion/ModificarHorario.php", { id: idHorario, horarioActive: horarioActive, campo: campo }, function ( data )
         {
             $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center text-white ${data == true ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -300,7 +300,7 @@ function actualizarHorario( idHorario, elementoID, campo )
                                             </div>
                                         </div>`);
             mostrarNotificacion();
-            eliminarDia( elementoID );
+            eliminarHorario( elementoID );
         } );
     }
 }
@@ -311,7 +311,6 @@ function mostrarHorarios( idDia )
 
     $.post( "../../BL/Configuracion/BuscarHorariosPorDia.php", { id: idDia }, function ( data )
     {
-
         $( '#horarios' ).html( '' ); //limpiar contenido
 
         if ( data != 'null' )
@@ -332,12 +331,10 @@ function mostrarHorarios( idDia )
             $( '#addHorario' ).show();
 
         }
-
-
     } );
 }
 
-function cambiarBtnDiaVisible( id, estado )
+function cambiarBtnVisible( id, estado )
 {
     estado == 1 ? $( `#${id}` ).removeClass( "btn-secondary" ).addClass( "btn-light" ) && $( `#${id}` ).html( `<i id="${id}Icono" style="font-size: 18px; " class="bi bi-eye"></i>` ) : $( `#${id}` ).removeClass( "btn-light" ).addClass( "btn-secondary" ) && $( `#${id}` ).html( `<i id="${id}Icono" style="font-size: 18px; " class="bi bi-eye-slash"></i>` );
 }
@@ -348,6 +345,14 @@ function eliminarDia( id )
     let nuevoId = id.match( pattern );
 
     $( `#diaUsuario${nuevoId}` ).remove();
+}
+
+function eliminarHorario( id )
+{
+    let pattern = /\d+/;
+    let nuevoId = id.match( pattern );
+
+    $( `#horarioUsuario${nuevoId}` ).remove();
 }
 
 function mostrarNotificacion()

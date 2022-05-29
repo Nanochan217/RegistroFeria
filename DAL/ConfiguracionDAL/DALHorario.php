@@ -7,8 +7,8 @@ class DALHorario
         $conexionDB = new Conexion();
 
         $consultaSql = "INSERT INTO `HORARIO` (`HORAINICIO`, `HORAFINAL`, `AFOROMAXIMO`, `IDDIAHABIL`, `VISIBLE`, `ACTIVE`)
-            VALUES ('".$nuevoHorario->getHoraInicio()."', '".$nuevoHorario->getHoraFinal()."', '".$nuevoHorario->getAforoMaximo()."',
-            '".$nuevoHorario->getIdDiaHabil()."', 1, 1)";//OJO CON LOS ID DE DIA HABIL
+            VALUES ('" . $nuevoHorario->getHoraInicio() . "', '" . $nuevoHorario->getHoraFinal() . "', '" . $nuevoHorario->getAforoMaximo() . "',
+            '" . $nuevoHorario->getIdDiaHabil() . "', 1, 1)"; //OJO CON LOS ID DE DIA HABIL
 
         if ($conexionDB->NuevaConexion($consultaSql))
         {
@@ -19,25 +19,25 @@ class DALHorario
         return $resultado;
     }
 
-    function ModificarHorario($numeroFuncion, $idHorario)
+    function ModificarHorario($idHorario, $numeroFuncion)
     {
         $resultado = false;
         $conexionDB = new Conexion();
 
-        if($numeroFuncion == 0)//Ocultar Visibilidad
+        if ($numeroFuncion == 0) //Ocultar Visibilidad
         {
-            $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 0 WHERE `ID`='".$idHorario."'";
+            $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 0 WHERE `ID`='" . $idHorario . "'";
         }
-        else if($numeroFuncion == 1)//Habilitar Visibilidad
+        else if ($numeroFuncion == 1) //Habilitar Visibilidad
         {
-            $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 1 WHERE `ID`='".$idHorario."'";
+            $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 1 WHERE `ID`='" . $idHorario . "'";
         }
-        else if($numeroFuncion == "del")//Desactivar (Eliminar)
+        else if ($numeroFuncion == "del") //Desactivar (Eliminar)
         {
-            $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 0, `ACTIVE` = 0 WHERE `ID`='".$idHorario."'";
-        }        
+            $consultaSql = "UPDATE `HORARIO` SET `VISIBLE` = 0, `ACTIVE` = 0 WHERE `ID`='" . $idHorario . "'";
+        }
 
-        if($conexionDB->NuevaConexion($consultaSql))
+        if ($conexionDB->NuevaConexion($consultaSql))
         {
             $resultado = true;
         }
@@ -52,8 +52,8 @@ class DALHorario
         $conexionDB = new Conexion();
 
         $consultaSql = "UPDATE `HORARIO` SET `HORAINICIO`='" . $modificarHorario->getHoraInicio() . "',
-            `HORAFINAL`='".$modificarHorario->getHoraFinal()."', `AFOROMAXIMO`='".$modificarHorario->getAforoMaximo()."'
-            WHERE `ID`='".$idHorario."'";//OJO, NO SE SI ME PASAN EL ID DE DIA O HORARIO
+            `HORAFINAL`='" . $modificarHorario->getHoraFinal() . "', `AFOROMAXIMO`='" . $modificarHorario->getAforoMaximo() . "'
+            WHERE `ID`='" . $idHorario . "'"; //OJO, NO SE SI ME PASAN EL ID DE DIA O HORARIO
 
         if ($conexionDB->NuevaConexion($consultaSql))
         {
@@ -62,27 +62,27 @@ class DALHorario
 
         $conexionDB->CerrarConexion();
         return $resultado;
-    }    
+    }
 
     function BuscarHorario($funcionSolicitada, $id)
     {
         $buscarHorario = new Horario();
         $conexionDB = new Conexion();
 
-        if($funcionSolicitada == 0)
+        if ($funcionSolicitada == 0)
         {
-            $consultaSql = "SELECT * FROM `HORARIO` WHERE `ID` = '".$id."' AND `ACTIVE` = 1";
+            $consultaSql = "SELECT * FROM `HORARIO` WHERE `ID` = '" . $id . "' AND `ACTIVE` = 1";
         }
-        else if($funcionSolicitada == 2)
+        else if ($funcionSolicitada == 2)
         {
-            $consultaSql = "SELECT * FROM `HORARIO` WHERE `IDDIAHABIL` = '".$id."' AND `ACTIVE` = 1";
-        }        
+            $consultaSql = "SELECT * FROM `HORARIO` WHERE `IDDIAHABIL` = '" . $id . "' AND `ACTIVE` = 1";
+        }
 
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
-        if(mysqli_num_rows($respuestaDB)>0)
+        if (mysqli_num_rows($respuestaDB) > 0)
         {
-            while($filaHorario = $respuestaDB->fetch_assoc())
+            while ($filaHorario = $respuestaDB->fetch_assoc())
             {
                 $buscarHorario->setId($filaHorario['id']);
                 $buscarHorario->setHoraInicio($filaHorario['horaInicio']);
@@ -100,7 +100,7 @@ class DALHorario
 
         $buscarHorario = $this->dismount($buscarHorario);
         $conexionDB->CerrarConexion();
-        return $buscarHorario;        
+        return $buscarHorario;
     }
 
     function BuscarUltimoHorario()
@@ -132,7 +132,7 @@ class DALHorario
         $HorariosDB = array();
         $conexionDB = new Conexion();
 
-        $consultaSql = "SELECT * FROM `HORARIO` WHERE `IDDIAHABIL` = '".$idDia."'";
+        $consultaSql = "SELECT * FROM `HORARIO` WHERE `IDDIAHABIL` = '" . $idDia . "'";
 
         $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
 
