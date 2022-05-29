@@ -9,7 +9,7 @@
             $correoUsuario = $credencialesSesion->getCorreo();
             $contrasenaUsuario = $credencialesSesion->getContrasena();            
             
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correoUsuario."' AND `ACTIVE` = 1";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '" . $correoUsuario . "' AND `ACTIVE` = 1";
             
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
             
@@ -49,7 +49,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='".$correoUsuario."' AND `ACTIVE`= 1";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` ='" . $correoUsuario . "' AND `ACTIVE`= 1";
 
             if($conexionDB->NuevaConsulta($consultaSql))
             {            
@@ -92,7 +92,7 @@
             $hashSolicitud = crypt($codigoNuevaSolicitud, 'rl');                        
 
             $consultaSql = "INSERT INTO `SOLICITUDNUEVACONTRASENA` (`FECHASOLICITUD`, `FECHAEXPIRACION`, `CODIGOSOLICITUD`, `ACTIVE`)
-                VALUES ('".$nuevaSolicitud->getFechaSolicitud()."', '".$nuevaSolicitud->getFechaExpiracion()."', '".$hashSolicitud."', 1)";
+                VALUES ('" . $nuevaSolicitud->getFechaSolicitud() . "', '" . $nuevaSolicitud->getFechaExpiracion() . "', '" . $hashSolicitud . "', 1)";
                         
             if($conexionDB->NuevaConsulta($consultaSql))
             {
@@ -113,11 +113,11 @@
 
             if(isset($codigoSolicitud))
             {
-                $consultaSql = "SELECT * FROM `SOLICITUDNUEVACONTRASENA` WHERE `CODIGOSOLICITUD` = '".$codigoSolicitud."' AND `ACTIVE` = 1";
+                $consultaSql = "SELECT * FROM `SOLICITUDNUEVACONTRASENA` WHERE `CODIGOSOLICITUD` = '" . $codigoSolicitud . "' AND `ACTIVE` = 1";
             }
             else if(isset($correo))
             {
-                $consultaSql = "SELECT * FROM `SOLICITUDNUEVACONTRASENA` WHERE `CORREOUSUARIO` = '".$correo."' AND `ACTIVE` = 1";
+                $consultaSql = "SELECT * FROM `SOLICITUDNUEVACONTRASENA` WHERE `CORREOUSUARIO` = '" . $correo . "' AND `ACTIVE` = 1";
             }
             
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
@@ -157,7 +157,7 @@
 
             $contrasenaEncriptada = password_hash($nuevaContraseña, PASSWORD_DEFAULT);
 
-            $consultaSql = "UPDATE `CREDENCIALES` SET `CONTRASENA`=".$contrasenaEncriptada." WHERE `CORREO`=".$correoUsuario;
+            $consultaSql = "UPDATE `CREDENCIALES` SET `CONTRASENA`='" . $contrasenaEncriptada . "' WHERE `CORREO`=" . $correoUsuario;
 
             if($conexionDB->NuevaConsulta($consultaSql))
             {
@@ -176,11 +176,11 @@
 
             if(isset($codigoSolicitud))
             {
-                $consultaSql = "UPDATE `SOLICITUDNUEVACONTRASENA` SET `ACTIVE` = 0 WHERE `CODIGOSOLICITUD` = '".$codigoSolicitud."'";
+                $consultaSql = "UPDATE `SOLICITUDNUEVACONTRASENA` SET `ACTIVE` = 0 WHERE `CODIGOSOLICITUD` = '" . $codigoSolicitud . "'";
             }
             else if(isset($correo))
             {
-                $consultaSql = "UPDATE `SOLICITUDNUEVACONTRASENA` SET `ACTIVE` = 0 WHERE `CORREOUSUARIO` = '".$correo."'";
+                $consultaSql = "UPDATE `SOLICITUDNUEVACONTRASENA` SET `ACTIVE` = 0 WHERE `CORREOUSUARIO` = '" . $correo . "'";
             }            
 
             if($conexionDB->NuevaConsulta($consultaSql))

@@ -7,9 +7,9 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "INSERT INTO `USUARIO`(`CEDULA`, `NOMBRE`, `APELLIDO1`, `APELLIDO2`, `IDCREDENCIALES`, `IDPERFIL`, `ACTIVE`) 
-                    VALUES ('".$nuevoUsuario->getCedula()."','".$nuevoUsuario->getNombre()."','".$nuevoUsuario->getApellido1()."',
-                    '".$nuevoUsuario->getApellido2()."','".$nuevoUsuario->getIdCredenciales()."','".$nuevoUsuario->getIdPerfil()."', 1)";
+            $consultaSql = "INSERT INTO `USUARIO`(`CEDULA`, `NOMBRE`, `APELLIDO1`, `APELLIDO2`, `IDCREDENCIALES`, `IDPERFIL`) 
+            VALUES ('" . $nuevoUsuario->getCedula() . "','" . $nuevoUsuario->getNombre() . "','" . $nuevoUsuario->getApellido1() . "',
+            '" . $nuevoUsuario->getApellido2() . "','" . $nuevoUsuario->getIdCredenciales() . "','" . $nuevoUsuario->getIdPerfil() . "')";
 
             if($conexionDB->NuevaConsulta($consultaSql))
             {
@@ -26,10 +26,10 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "UPDATE `USUARIO` SET `CEDULA`='".$modificarUsuario->getCedula()."', `NOMBRE`='".$modificarUsuario->getNombre()."',
-                `APELLIDO1`='".$modificarUsuario->getApellido1()."',
-                `APELLIDO2`='".$modificarUsuario->getApellido2()."',
-                `IDPERFIL`='".$modificarUsuario->getIdPerfil()."' WHERE `ID`=".$modificarUsuario->getId();
+            $consultaSql = "UPDATE `USUARIO` SET `CEDULA`='" . $modificarUsuario->getCedula() . "', `NOMBRE`='" . $modificarUsuario->getNombre() . "',
+            `APELLIDO1`='" . $modificarUsuario->getApellido1() . "',
+            `APELLIDO2`='" . $modificarUsuario->getApellido2() . "',
+            `IDPERFIL`='" . $modificarUsuario->getIdPerfil() . "' WHERE `ID`=" . $modificarUsuario->getId();
 
             if($conexionDB->NuevaConsulta($consultaSql))
             {
@@ -84,7 +84,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "SELECT * FROM `USUARIO` WHERE `ID` =".$idUsuario;
+            $consultaSql = "SELECT * FROM `USUARIO` WHERE `ID` =" . $idUsuario;
 
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
@@ -117,7 +117,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "SELECT * FROM `USUARIO` WHERE `ID` =".$idUsuario;
+            $consultaSql = "SELECT * FROM `USUARIO` WHERE `ID` =" . $idUsuario;
 
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
@@ -152,7 +152,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "SELECT * FROM `USUARIO` WHERE `CEDULA` = '".$cedula."'";
+            $consultaSql = "SELECT * FROM `USUARIO` WHERE `CEDULA` = '" . $cedula . "'";
 
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
@@ -177,7 +177,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "SELECT * FROM `USUARIO` WHERE `CORREO` = '".$correo."'";
+            $consultaSql = "SELECT * FROM `USUARIO` WHERE `CORREO` = '" . $correo . "'";
 
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
@@ -202,7 +202,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "UPDATE `USUARIO` SET `ACTIVE` = 0 WHERE `ID`= '".$idUsuario."'";
+            $consultaSql = "UPDATE `USUARIO` SET `ACTIVE` = 0 WHERE `ID`= '" . $idUsuario . "'";
 
             if($conexionDB->NuevaConsulta($consultaSql))
             {

@@ -7,10 +7,9 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "INSERT INTO `ACOMPANANTE` (`CEDULA`, `NOMBRE`,`IDTIPOACOMPANANTE`,`IDCITA`,`ACTIVE`) 
-                            VALUES ('".$nuevoAcompanante->getCedula()."', '".$nuevoAcompanante->getNombre()."',
-                            '".$nuevoAcompanante->getIdTipoAcompanante()."','".$nuevoAcompanante->getIdCita()."',
-                            '".$nuevoAcompanante->getActive()."')";
+            $consultaSql = "INSERT INTO `ACOMPANANTE` (`CEDULA`, `NOMBRE`,`IDTIPOACOMPANANTE`,`IDCITA`) 
+            VALUES ('" . $nuevoAcompanante->getCedula() . "', '" . $nuevoAcompanante->getNombre() . "',
+            '" . $nuevoAcompanante->getIdTipoAcompanante() . "','" . $nuevoAcompanante->getIdCita() . "')";
 
             if($conexionDB->NuevaConsulta($consultaSql))
             {
@@ -28,7 +27,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "SELECT * FROM `ACOMPANANTE` WHERE `CEDULA` = '".$cedula."'  AND `ACTIVE` = 1";
+            $consultaSql = "SELECT * FROM `ACOMPANANTE` WHERE `CEDULA` = '" . $cedula . "'  AND `ACTIVE` = 1";
 
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
@@ -53,7 +52,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "UPDATE `ACOMPANANTE` SET `ACTIVE` = 0 WHERE `ID`= '".$idAcompanante."'";
+            $consultaSql = "UPDATE `ACOMPANANTE` SET `ACTIVE` = 0 WHERE `ID`= '" . $idAcompanante . "'";
 
             if($conexionDB->NuevaConsulta($consultaSql))
             {

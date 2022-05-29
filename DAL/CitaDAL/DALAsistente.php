@@ -7,10 +7,10 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "INSERT INTO `ASISTENTE` (`CEDULA`, `NOMBRE`, `APELLIDO1`, `APELLIDO2`, `CORREO`, `TELEFONO`, `IDCOLEGIOPROCEDENCIA`, `ACTIVE`)
-                VALUES ('".$nuevoAsistente->getCedula()."', '".$nuevoAsistente->getNombre()."', '".$nuevoAsistente->getApellido1()."',
-                '".$nuevoAsistente->getApellido2()."', '".$nuevoAsistente->getCorreo()."', '".$nuevoAsistente->getTelefono()."',
-                '".$nuevoAsistente->getIdColegioProcedencia()."', 1)";
+            $consultaSql = "INSERT INTO `ASISTENTE` (`CEDULA`, `NOMBRE`, `APELLIDO1`, `APELLIDO2`, `CORREO`, `TELEFONO`, `IDCOLEGIOPROCEDENCIA`)
+            VALUES ('" . $nuevoAsistente->getCedula() . "', '" . $nuevoAsistente->getNombre() . "', '" . $nuevoAsistente->getApellido1() . "',
+            '" . $nuevoAsistente->getApellido2() . "', '" . $nuevoAsistente->getCorreo() . "', '" . $nuevoAsistente->getTelefono() . "',
+            '" . $nuevoAsistente->getIdColegioProcedencia() . "')";
             
             if($conexionDB->NuevaConsulta($consultaSql))
             {
@@ -28,7 +28,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "SELECT * FROM `ASISTENTE` WHERE `CEDULA` = '".$cedula."' AND `ACTIVE` = 1";
+            $consultaSql = "SELECT * FROM `ASISTENTE` WHERE `CEDULA` = '" . $cedula . "' AND `ACTIVE` = 1";
 
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
@@ -77,7 +77,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "UPDATE `ASISTENTE` SET `ACTIVE` = 0 WHERE `ID`= '".$idAsistente."'";
+            $consultaSql = "UPDATE `ASISTENTE` SET `ACTIVE` = 0 WHERE `ID`= '" . $idAsistente . "'";
 
             if($conexionDB->NuevaConsulta($consultaSql))
             {

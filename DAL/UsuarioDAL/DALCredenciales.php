@@ -11,8 +11,8 @@
             
             $contrasenaEncriptada = password_hash($contrasena, PASSWORD_DEFAULT);
             
-            $consultaSql = "INSERT INTO `CREDENCIALES`(`CORREO`, `CONTRASENA`, `ACTIVE`) 
-                    VALUES ('".$nuevaCredencial->getCorreo()."','".$contrasenaEncriptada."', 1)";
+            $consultaSql = "INSERT INTO `CREDENCIALES`(`CORREO`, `CONTRASENA`) 
+                    VALUES ('" . $nuevaCredencial->getCorreo() . "','" . $contrasenaEncriptada . "')";
 
             if($conexionDB->NuevaConsulta($consultaSql))
             {
@@ -60,14 +60,14 @@
 
             if($modificarCredenciales->getContrasena() == null)
             {
-                $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='".$modificarCredenciales->getCorreo()."' 
-                    WHERE `ID`=".$modificarCredenciales->getId();
+                $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='" . $modificarCredenciales->getCorreo() . "' 
+                    WHERE `ID`=" . $modificarCredenciales->getId();
             }
             else
             {
                 $contraseñaEncriptada = password_hash($modificarCredenciales->getContrasena(), PASSWORD_DEFAULT);
-                $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='".$modificarCredenciales->getCorreo()."', 
-                `CONTRASENA`='".$contraseñaEncriptada."' WHERE `ID`=".$modificarCredenciales->getId();
+                $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='" . $modificarCredenciales->getCorreo() . "', 
+                `CONTRASENA`='" . $contraseñaEncriptada . "' WHERE `ID`=" . $modificarCredenciales->getId();
             }
 
             if($conexionDB->NuevaConsulta($consultaSql))
@@ -116,7 +116,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `ID` = '$idUsuario'";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `ID` = '" . $idUsuario . "'";
 
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
@@ -147,7 +147,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
                               
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '".$correo."'";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '" . $correo . "'";
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)
@@ -171,7 +171,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion2();
 
-            $consultaSql = "UPDATE `CREDENCIALES` SET `ACTIVE` = 0 WHERE `ID`= '".$idUsuario."'";
+            $consultaSql = "UPDATE `CREDENCIALES` SET `ACTIVE` = 0 WHERE `ID`= '" . $idUsuario . "'";
 
             if($conexionDB->NuevaConsulta($consultaSql))
             {
