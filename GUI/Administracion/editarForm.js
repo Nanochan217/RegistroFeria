@@ -82,7 +82,7 @@ function formatearInputToNumero( input )
     }
 }
 
-//actualizar el numeor máximo de acompañantes por persona
+//actualizar el numero máximo de acompañantes por persona
 function actualizarAcompanantes()
 {
     let acompanantesMaximo = formatearInputToNumero( $( '#acompanantesMaximo' ).val() );//se obtiene el valor, se convierte a entero, y se elimina el negativo en caso de tenerlo
