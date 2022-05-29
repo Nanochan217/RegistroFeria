@@ -11,10 +11,10 @@ include '../../Entidades/ConfiguracionEntidades/DiaHabil.php';
 include '../../Entidades/CitasEntidades/ColegioProcedencia.php';
 
 //Buscar Todos los Datos relacionados a Configuracion de Formulario y Citas
-function BuscarEstadoConfiguracion()
+function BuscarConfiguracion()
 {
     $configuracionDAL = new DALConfiguracion();
-    return $configuracionDAL->BuscarEstadoConfiguracion();
+    return json_encode($configuracionDAL->BuscarTodasConfiguraciones());
 }
 
 function BuscarHorarios()

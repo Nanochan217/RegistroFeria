@@ -64,7 +64,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                 <div class="pt-5 pb-4">
                     <h1 class="text-center">Reservar Cita</h1>
                     <div class="alert alert-warning text-center small my-3 py-1 mx-auto" style="width: fit-content;" role="alert">
-                        Fecha maxima de registro: <span class="fw-bold" id="fechaMaxima">Lunes 1 de Noviembre</span>
+                        Fecha maxima para reservar: <span class="fw-bold" id="fechaMaxima"></span>
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
 
                             <!-- Cedula -->
                             <div class="col-md-3 pb-3">
-                                <label for="cedula" class="form-label">Cedula</label>
+                                <label for="cedula" class="form-label">Cédula</label>
                                 <input type="text" class="form-control " id="cedula" name="cedula" required>
                             </div>
 
@@ -108,12 +108,12 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                             <!-- Correo -->
                             <div class="col-md-4 pb-3">
                                 <label for="email" class="form-label">Correo electrónico</label>
-                                <input type="text" class="form-control " id="email" name="email" required>
+                                <input type="email" class="form-control " id="email" name="email" required>
                             </div>
 
                             <!-- Telefono -->
                             <div class="col-md-4 pb-3">
-                                <label for="telefono" class="form-label">Telefono</label>
+                                <label for="telefono" class="form-label">Teléfono</label>
                                 <input type="tel" class="form-control " id="telefono" name="telefono" min="0" required>
                             </div>
 
@@ -156,7 +156,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                         </div>
                         <!-- END Sección de fecha de la cita -->
 
-                        <!-- START Sección de acompañantes -->                        
+                        <!-- START Sección de acompañantes -->
                         <div class="col-md border rounded shadow-sm bg-white p-5">
                             <div class="d-flex gap-3 flex-wrap pb-4">
                                 <h2>Acompañantes</h2>
@@ -222,11 +222,15 @@ include '../../BL/Cita/BuscarTodosDatos.php';
     ?>
     <script src="./Formulario.js"></script>
     <script>
+        var configuracion = <?php echo BuscarConfiguracion() ?>;
         var dias = <?php echo BuscarDias() ?>;
         var horarios = <?php echo BuscarHorarios() ?>;
         var colegios = <?php echo BuscarTodosColegios() ?>;
         var fecha = [];
-        let contador = 0;
+
+        let fechaMaxima = formatearDia(configuracion[0].fechaFinal)
+        fechaMaxima = `${fechaMaxima[0]} ${fechaMaxima[1]} de ${fechaMaxima[2]}`
+        $("#fechaMaxima").html(fechaMaxima)
 
         function cargarDias() {
             dias.forEach(dia => {
