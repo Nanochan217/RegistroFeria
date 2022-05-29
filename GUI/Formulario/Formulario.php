@@ -122,6 +122,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                                 <label for="colegioProcedencia" class="form-label">Colegio de Procedencia</label>
                                 <select id="colegioProcedencia" name="colegioProcedencia" class="form-select" required>
                                     <option value="none" selected disabled hidden>Seleccione un colegio</option>
+                                    <option value="otro">Otro</option>
                                 </select>
                             </div>
                         </div>
@@ -159,32 +160,31 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                         <!-- START Sección de acompañantes -->
                         <div class="col-md border rounded shadow-sm bg-white p-5">
                             <div class="d-flex gap-3 flex-wrap pb-4">
-                                <h2>Acompañantes</h2>
+                                <h2>Acompañantes <span class="text-muted h5">máx(<span id="maxAcompanantesTitulo"></span>)</span></h2>
 
                                 <!-- Radio Buttons -->
                                 <div class="d-flex gap-4 pt-2">
                                     <!-- Si -->
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="acompanante" id="acompananteSI" onclick="alternarAcompanantes('mostrar')" required>
+                                        <input class="form-check-input" type="radio" name="acompanante" id="acompananteSI" onclick="alternarAcompanantes('si')" required>
                                         <label class="form-check-label" for="acompananteSI">Sí</label>
                                     </div>
 
                                     <!-- No -->
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="acompanante" id="acompananteNo" onclick="alternarAcompanantes('ocultar')" checked required>
+                                        <input class="form-check-input" type="radio" name="acompanante" id="acompananteNo" onclick="alternarAcompanantes('no')" checked required>
                                         <label class="form-check-label" for="acompananteNo">No</label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div id="acompanantesHidden" display="none"></div>
-                            <div id="acompanantes" style="display: none;">
+                            <div id="acompanantes">
 
                             </div>
 
                             <!-- Button Agregar acompañante -->
                             <div class="d-grid gap-2" id="addAcompanante" style="display:none !important;">
-                                <button class="btn btn-outline-primary" type="button" id="btnAddAcompanante" onclick="agregarAcompanante()"><i class="bi bi-plus-circle align-middle lh-1 me-2" style="font-size: 18px;"></i>Agregar acompanante</button>
+                                <button class="btn btn-outline-primary" type="button" id="acompananteAddBtn" onclick="crearAcompanate()"><i class="bi bi-plus-circle align-middle lh-1 me-2" style="font-size: 18px;"></i>Agregar acompanante</button>
                             </div>
 
                             <div class="alert alert-secondary" id="acompananteMsj" role="alert">
@@ -211,6 +211,10 @@ include '../../BL/Cita/BuscarTodosDatos.php';
         </div>
     </div>
 
+    <button type="button" class="btn btn-primary" id="btnNotificacion" hidden></button>
+    <div class="toast-container" id="contenedorNotificaciones"></div>
+
+
     <!--  Footer  -->
     <?php
     echo $footer;
@@ -220,8 +224,10 @@ include '../../BL/Cita/BuscarTodosDatos.php';
     <?php
     echo $jsLinks;;
     ?>
-    <script src="./Formulario.js"></script>
     <script>
+        var acompanantes = [];
+        contadorAcompanante = 0;
+
         var configuracion = <?php echo BuscarConfiguracion() ?>;
         var dias = <?php echo BuscarDias() ?>;
         var horarios = <?php echo BuscarHorarios() ?>;
@@ -232,10 +238,11 @@ include '../../BL/Cita/BuscarTodosDatos.php';
         fechaMaxima = `${fechaMaxima[0]} ${fechaMaxima[1]} de ${fechaMaxima[2]}`
         $("#fechaMaxima").html(fechaMaxima)
 
+        $("#maxAcompanantesTitulo").html(configuracion[0].acompanateMax)
+
         function cargarDias() {
             dias.forEach(dia => {
                 if (dia.visible == 1 && dia.active == 1) {
-
                     let fecha = formatearDia(dia.dia);
                     $("#diaCita").append(`<option value="${dia.id}">${fecha[0]} ${fecha[1]} de ${fecha[2]}</option>`)
                 }
@@ -276,17 +283,96 @@ include '../../BL/Cita/BuscarTodosDatos.php';
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
         function alternarAcompanantes(alternar) {
-            if (alternar == 'mostrar') {
-                $("#acompanantes").show();
-                $("#acompananteMsj").hide();
-                $("#addAcompanante").show();
-            } else if (alternar == 'ocultar') {
-                $("#acompanantes").hide();
+            if (alternar === 'si') {
+                if (acompanantes.length == 0) {
+                    crearAcompanate();
+                    $("#acompananteMsj").hide();
+                    $("#addAcompanante").attr('style', 'display: grid !important;');
+                }
+            } else if (alternar === 'no') {
+                acompanantes = [];
                 $("#acompananteMsj").show();
-                $("#addAcompanante").hide();
-                $("#addAcompanante").prop();
+                $("#addAcompanante").attr('style', 'display: none !important;');
+                $('#acompanantes').html('');
             }
+        }
+
+        function crearAcompanate() {
+            if (acompanantes.length < configuracion[0].acompanateMax) {
+                contadorAcompanante++
+                let acompanante = {
+                    "id": contadorAcompanante,
+                    "cedula": null,
+                    "nombre": null,
+                    "idTipoAcompanante": null
+                };
+
+                acompanantes.push(acompanante);
+                mostrarAcompanante(acompanante);
+            } else {
+                $("#contenedorNotificaciones").html(`<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                                            <div id="notificacion" class="toast align-items-center  bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                                                <div class="d-flex">
+                                                    <div class="toast-body">
+                                                        Haz alcanzado el número máximo de acompañantes
+                                                    </div>
+                                                    <button type="button" class="btn-close  me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                </div>
+                                            </div>
+                                        </div>`);
+                mostrarNotificacion();
+
+            }
+        }
+
+        function mostrarAcompanante(acompanante) {
+            let contenedor = `<div class="row mb-3 mx-0 p-3 gx-3 gapx-4 bg-light border rounded" id="acompanante${acompanante.id}">
+                        <div class="col-md-6 mt-0">
+                            <label for="acompananteCedula${acompanante.id}" class="form-label ">Cedula</label>
+                            <input type="text" class="form-control" id="acompananteCedula${acompanante.id}" name="acompanantes[${acompanante.id - 1}][cedula]" >
+                        </div>
+                        <div class="col-md-6 mt-0">
+                            <label for="acompananteNombre${acompanante.id}" class="form-label ">Nombre</label>
+                            <input type="text" class="form-control" id="acompananteNombre${acompanante.id}" name="acompanantes[${acompanante.id - 1}][nombre]" >
+                        </div>
+                        <div class="col-md-6 mt-0">
+                            <label for="acompananteTipo${acompanante.id}" class="form-label ">Parentesco</label>
+                            <select class="form-select" id="acompananteTipo${acompanante.id}" name="acompanantes[${acompanante.id - 1}][idTipoAcompanante]">
+                                <option value="none" selected disabled hidden>Seleccione un parentesco</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mt-0">
+                            <div class="d-flex flex-column">
+                                <label for="acompananteTipo${acompanante.id}" class="form-label ">Eliminar acompañante</label>
+                                <button class="btn btn-danger py-1 px-3" type="button" id="acompananteTipo${acompanante.id}" value="${acompanante.id}" onclick="borrarAcompanante(this.value)"><i style="font-size: 18px; " class="bi bi-trash3"></i></button>
+                            </div>
+                        </div>
+                    </div>`;
+
+            $("#acompanantes").append(contenedor);
+
+        }
+
+        function borrarAcompanante(idAcompanante) {
+            $.each(acompanantes, (index, acompanante) => {
+                console.log(acompanante);
+                if (idAcompanante == acompanante.id) {
+                    acompanantes.splice(index, 1);
+                    return false;
+                }
+            });
+
+            $(`#acompanante${idAcompanante}`).remove();
+            console.table(acompanantes);
+        }
+
+        function mostrarNotificacion() {
+            var notificacion = document.getElementById('notificacion');
+            var toast = new bootstrap.Toast(notificacion);
+            toast.show();
         }
     </script>
     <!-- END Scripts  -->
