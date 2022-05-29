@@ -21,13 +21,26 @@ class Conexion
         return $respuestaDB;
     }
 
+    function NuevaConexion2()
+    {
+        $usuario = "root";
+        $contrasena = "";
+        $db = "feriavocacionalcovao";//Nombre de la Base de Datos
+
+        if (!$this->mysqli = new mysqli('localhost', $usuario, $contrasena, $db)) {
+            //Mensaje de error en caso de que no se logre realizar la conexión
+            die('Error de conexion (' . mysqli_connect_errno() . ') '
+                . mysqli_connect_error());
+        }        
+    }
+
     function NuevaConsulta($query)
     {        
         $this->mysqli->autocommit(TRUE);
         $respuestaDB = $this->mysqli->query($query);
         return $respuestaDB;
     }
-
+    
     function CerrarConexion()
     {
         $this->mysqli->close();
