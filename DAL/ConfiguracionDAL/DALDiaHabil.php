@@ -6,15 +6,13 @@ class DALDiaHabil
         $nuevoDia = new DiaHabil();
         $conexionDB = new Conexion();
         $conexionDB->NuevaConexion2();
-        
-        $consultaSql = "INSERT INTO `DIAHABIL` (`DIA`,`IDCONFIGURACION`,`VISIBLE`,`ACTIVE`)
-        VALUES ('" . $nuevoDiaHabil . "', 1, 1, 1)";
+
+        $consultaSql = "INSERT INTO `DIAHABIL` (`DIA`) VALUES ('" . $nuevoDiaHabil . "')";
 
         if ($conexionDB->NuevaConsulta($consultaSql))
-        {
-            //$conexionDB->CerrarConexion();
-            $consultaSql2 = "SELECT * FROM `DIAHABIL` WHERE `DIA` = '".$nuevoDiaHabil."' AND `ACTIVE` = 1";
-            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql2);
+        {            
+            $consultaSql = "SELECT * FROM `DIAHABIL` WHERE `DIA` = '".$nuevoDiaHabil."' AND `ACTIVE` = 1";
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if (mysqli_num_rows($respuestaDB) > 0)
             {
@@ -32,6 +30,7 @@ class DALDiaHabil
                 $nuevoDia = null;
             }
         }
+        
         $nuevoDia = $this->dismount($nuevoDia);
         $conexionDB->CerrarConexion();
         return $nuevoDia;
@@ -42,6 +41,7 @@ class DALDiaHabil
 
         $resultado = false;
         $conexionDB = new Conexion();
+        $conexionDB->NuevaConexion2();
 
         if ($numeroFuncion == 0) //Ocultar Visibilidad
         {
@@ -56,7 +56,7 @@ class DALDiaHabil
             $consultaSql = "UPDATE `DIAHABIL` SET `VISIBLE` = 0, `ACTIVE` = 0 WHERE `ID`='" . $idDia . "'";
         }
 
-        if ($conexionDB->NuevaConexion($consultaSql))
+        if ($conexionDB->NuevaConsulta($consultaSql))
         {
             $resultado = true;
         }
@@ -69,11 +69,12 @@ class DALDiaHabil
     {
         $resultado = false;
         $conexionDB = new Conexion();
+        $conexionDB->NuevaConexion2();
 
         $consultaSql = "UPDATE `DIAHABIL` SET `DIA` = '" . $nuevoDia . "'
         WHERE `ID` = '" . $idDiaModificar . "'";
 
-        if ($conexionDB->NuevaConexion($consultaSql))
+        if ($conexionDB->NuevaConsulta($consultaSql))
         {
             $resultado = true;
         }
@@ -86,10 +87,11 @@ class DALDiaHabil
     {
         $buscarDia = new DiaHabil();
         $conexionDB = new Conexion();
+        $conexionDB->NuevaConexion2();
 
         $consultaSql = "SELECT * FROM `DIAHABIL` WHERE `ID` =" . $idDia;
 
-        $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+        $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
         if (mysqli_num_rows($respuestaDB) > 0)
         {
@@ -116,10 +118,11 @@ class DALDiaHabil
     {
         $DiasHabilesDB = array();
         $conexionDB = new Conexion();
+        $conexionDB->NuevaConexion2();
 
         $consultaSql = "SELECT * FROM `DIAHABIL`";
 
-        $respuestaDB = $conexionDB->NuevaConexion($consultaSql);
+        $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
         if (mysqli_num_rows($respuestaDB) > 0)
         {
