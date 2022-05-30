@@ -1,5 +1,5 @@
 <?php
-    class DALUsuario 
+    class DALUsuario
     {        
         function NuevoUsuario(Usuario $nuevoUsuario)
         {
