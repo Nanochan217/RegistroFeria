@@ -30,7 +30,7 @@
     $nuevoUsuario->setApellido2($apellido2Usuario);    
     $nuevoUsuario->setIdPerfil($idPerfilUsuario);
 
-    if(!$usuarioDAL->BuscarCedula($cedulaUsuario) && !$usuarioDAL->BuscarCorreo($correoUsuario))
+    if($usuarioDAL->BuscarCedula($cedulaUsuario) == false && $usuarioDAL->BuscarCorreo($correoUsuario) == false)
     {
         $idCredenciales = NuevaCredencial($correoUsuario, $contrasena);
 
