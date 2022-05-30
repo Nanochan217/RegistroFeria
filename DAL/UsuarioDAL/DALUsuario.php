@@ -1,5 +1,5 @@
 <?php
-    class DALUsuario 
+    class DALUsuario
     {        
         function NuevoUsuario(Usuario $nuevoUsuario)
         {
@@ -35,6 +35,7 @@
             {
                 $resultado = true;
             }
+
             $conexionDB->CerrarConexion();
             return $resultado;
         }
@@ -72,9 +73,7 @@
             }
 
             $conexionDB->CerrarConexion();
-            return $usuariosDB;
-
-        
+            return $usuariosDB;        
         }
 
         //Buscar al Usuario durante el LogIn para extraer sus datos
