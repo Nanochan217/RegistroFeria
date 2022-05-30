@@ -87,28 +87,26 @@ function CrearCita($datosNuevoCita, $idAsistenteNuevo)
 
 function NuevoAcompanante($datosNuevoAcompanante, $idCitaNueva)
 {
+    $contador = 0;
     $resultado = true;
     $acompananteDAL = new DALAcompanante();
-    $nuevoAcompanante = new Acompanante();
+    $nuevoAcompanante = new Acompanante();    
 
     //OJO con el ciclo
     foreach ($datosNuevoAcompanante as $value)
-    {
-        foreach ($value as $datos)
-        {
-            $nuevoAcompanante->setCedula($datos['cedula']);
-            $nuevoAcompanante->setNombre($datos['nombre']);
-            $nuevoAcompanante->setIdTipoAcompanante($datos['idTipoAcompanante']);
-            $nuevoAcompanante->setIdCita($idCitaNueva);
+    {        
+        $nuevoAcompanante->setCedula($value["cedula"]);
+        $nuevoAcompanante->setNombre($value["nombre"]);
+        $nuevoAcompanante->setIdTipoAcompanante($value["idTipoAcompanante"]);
+        $nuevoAcompanante->setIdCita($idCitaNueva);
 
-            if ($acompananteDAL->NuevoAcompanante($nuevoAcompanante))
-                continue;
-            else
-            {
-                $resultado = false;
-                break;
-            }
-        }
+        if ($acompananteDAL->NuevoAcompanante($nuevoAcompanante))
+            continue;
+        else
+        {
+            $resultado = false;
+            break;
+        }        
     }
 
     return $resultado;
