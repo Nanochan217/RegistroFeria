@@ -51,16 +51,22 @@
         $asistenteDAL = new DALAsistente();
         $nuevoAsistente = new Asistente();
 
-        foreach ($datosNuevoAsistente as $datos => $valor)
-        {            
-            $nuevoAsistente->setCedula($datos[$valor]);
-            $nuevoAsistente->setNombre($datos[$valor]);
-            $nuevoAsistente->setApellido1($datos[$valor]);
-            $nuevoAsistente->setApellido2($datos[$valor]);
-            $nuevoAsistente->setCorreo($datos[$valor]);
-            $nuevoAsistente->setTelefono($datos[$valor]);
-            $nuevoAsistente->setIdColegioProcedencia($datos[$valor]);
+        for($i = 0; $i < count($datosNuevoAsistente); $i++)
+        {
+            echo $datosNuevoAsistente[$i];
         }
+
+
+        // foreach ($datosNuevoAsistente as $datos => $valor)
+        // {            
+        //     $nuevoAsistente->setCedula($datos[$valor]);
+        //     $nuevoAsistente->setNombre($datos[$valor]);
+        //     $nuevoAsistente->setApellido1($datos[$valor]);
+        //     $nuevoAsistente->setApellido2($datos[$valor]);
+        //     $nuevoAsistente->setCorreo($datos[$valor]);
+        //     $nuevoAsistente->setTelefono($datos[$valor]);
+        //     $nuevoAsistente->setIdColegioProcedencia($datos[$valor]);
+        // }
 
         $idNuevoAsistente = $asistenteDAL->NuevoAsistente($nuevoAsistente);
 
