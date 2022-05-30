@@ -43,4 +43,16 @@ function BuscarTodosTiposAcompanantes()
     return json_encode($tipoAcompananteDAL->BuscarTodos());
 }
 
+// INSERT INTO TipoAcompanante (tipoAcompanante)
+// VALUES ("Padre/Madre");
+
+// INSERT INTO TipoAcompanante (tipoAcompanante)
+// VALUES ("Encargado Legal");
+
+// INSERT INTO TipoAcompanante (tipoAcompanante)
+// VALUES ("Amigo(a)");
+
+// INSERT INTO TipoAcompanante (tipoAcompanante)
+// VALUES ("Otro...");
+
 ///////////////////////////////////////////////////////////////////////////////////////////
