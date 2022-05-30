@@ -469,7 +469,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
             let contenedor = `<div class="row mb-3 mx-0 p-3 gx-3 gapx-4 bg-light border rounded" id="acompanante${acompanante.id}">
                         <div class="col-md-6 mt-0">
                             <label for="acompananteCedula${acompanante.id}" class="form-label">Cédula</label>
-                            <input type="text" class="form-control cedulaAcompanante" id="acompananteCedula${acompanante.id}" name="acompanantes[acompanante${acompanante.id}][cedula]" onfocusout="validarAcompanantes('cedula', ${acompanante.id})" required>
+                            <input type="text" class="form-control cedulaAcompanante" id="acompananteCedula${acompanante.id}" name="acompanantes[${acompanante.id}][cedula]" onfocusout="validarAcompanantes('cedula', ${acompanante.id})" required>
                             <div class="invalid-feedback" id="cedulaVacia">
                                 Digite una cédula.
                             </div>
@@ -479,14 +479,14 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                         </div>
                         <div class="col-md-6 mt-0">
                             <label for="acompananteNombre${acompanante.id}" class="form-label ">Nombre</label>
-                            <input type="text" class="form-control" id="acompananteNombre${acompanante.id}" name="acompanantes[acompanante${acompanante.id}][nombre]" required>
+                            <input type="text" class="form-control" id="acompananteNombre${acompanante.id}" name="acompanantes[${acompanante.id}][nombre]" required>
                             <div class="invalid-feedback" id="cedulaVacia">
                                 Digite un nombre.
                             </div>
                         </div>
                         <div class="col-md-6 mt-0">
                             <label for="acompananteTipo${acompanante.id}" class="form-label ">Parentesco</label>
-                            <select class="form-select" id="acompananteTipo${acompanante.id}" name="acompanantes[acompanante${acompanante.id}][idTipoAcompanante]" required>
+                            <select class="form-select" id="acompananteTipo${acompanante.id}" name="acompanantes[${acompanante.id}][idTipoAcompanante]" required>
                                 <option value="" selected disabled hidden>Seleccione un parentesco</option>
                                 <option value="1" >1</option>
                             </select>
