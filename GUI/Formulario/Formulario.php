@@ -187,7 +187,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                                 <!-- Día -->
                                 <div class="col-md-6 pb-3">
                                     <label for="diaCita" class="form-label">Día</label>
-                                    <select id="diaCita" class="form-select" oninput="cargarHorarios(this.value)" required>
+                                    <select id="diaCita" class="form-select"  oninput="cargarHorarios(this.value)" required>
                                         <option value="" selected disabled hidden>Seleccione un día</option>
                                     </select>
                                     <input type="hidden" name="cita[fechaCita]">
