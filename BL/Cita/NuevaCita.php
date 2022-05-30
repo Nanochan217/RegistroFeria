@@ -53,13 +53,13 @@
 
         foreach ($datosNuevoAsistente as $datos)
         {            
-            $nuevoAsistente->setCedula($datos['cedula']);
-            $nuevoAsistente->setNombre($datos['nombre']);
-            $nuevoAsistente->setApellido1($datos['apellido1']);
-            $nuevoAsistente->setApellido2($datos['apellido2']);
-            $nuevoAsistente->setCorreo($datos['correo']);
-            $nuevoAsistente->setTelefono($datos['telefono']);
-            $nuevoAsistente->setIdColegioProcedencia($datos['idColegioProcedencia']);            
+            $nuevoAsistente->setCedula($datosNuevoAsistente[$datos]);
+            $nuevoAsistente->setNombre($datosNuevoAsistente[$datos]);
+            $nuevoAsistente->setApellido1($datosNuevoAsistente[$datos]);
+            $nuevoAsistente->setApellido2($datosNuevoAsistente[$datos]);
+            $nuevoAsistente->setCorreo($datosNuevoAsistente[$datos]);
+            $nuevoAsistente->setTelefono($datosNuevoAsistente[$datos]);
+            $nuevoAsistente->setIdColegioProcedencia($datosNuevoAsistente[$datos]);
         }
 
         $idNuevoAsistente = $asistenteDAL->NuevoAsistente($nuevoAsistente);

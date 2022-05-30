@@ -3,7 +3,7 @@
     {
         function NuevaCredencial(Credenciales $nuevaCredencial)
         {
-            $resultado = false;
+            $resultado = 0;
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion();
 
@@ -14,10 +14,10 @@
             $consultaSql = "INSERT INTO `CREDENCIALES`(`CORREO`, `CONTRASENA`) 
                     VALUES ('" . $nuevaCredencial->getCorreo() . "','" . $contrasenaEncriptada . "')";
 
-            if($conexionDB->NuevaConsulta($consultaSql))
-            {
+            if($conexionDB->NuevaConsulta($consultaSql))            
                 $resultado = true;
-            }
+            else
+                $resultado = null;
             
             $conexionDB->CerrarConexion();
             return $resultado;
