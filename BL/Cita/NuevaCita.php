@@ -49,10 +49,7 @@ else
 function NuevoAsistente($datosNuevoAsistente)
 {
     $asistenteDAL = new DALAsistente();
-    $nuevoAsistente = new Asistente();
-
-
-    // var_dump($datosNuevoAsistente);
+    $nuevoAsistente = new Asistente();    
 
     $nuevoAsistente->setCedula($datosNuevoAsistente["cedula"]);
     $nuevoAsistente->setNombre($datosNuevoAsistente["nombre"]);
@@ -75,13 +72,10 @@ function CrearCita($datosNuevoCita, $idAsistenteNuevo)
 {
     $citaDAL = new DALCita();
     $nuevaCita = new Cita();
-
-    foreach ($datosNuevoCita as $datos)
-    {
-        $nuevaCita->setDia($datos['fechaCita']);
-        $nuevaCita->setHora($datos['horario']);
-        $nuevaCita->setIdAsistente($idAsistenteNuevo);
-    }
+    
+    $nuevaCita->setDia($datosNuevoCita['fechaCita']);
+    $nuevaCita->setHora($datosNuevoCita['horario']);
+    $nuevaCita->setIdAsistente($idAsistenteNuevo);
 
     $idNuevaCita = $citaDAL->NuevaCita($nuevaCita);
 
