@@ -34,5 +34,4 @@ function BuscarTodosColegios()
     $colegiosProcedenciaDAL = new DALColegioProcedencia();
     return json_encode($colegiosProcedenciaDAL->BuscarTodos());
 }
-
 ///////////////////////////////////////////////////////////////////////////////////////////
