@@ -342,6 +342,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                         event.stopPropagation()
 
                         let form1 = $('form');
+                        console.log(form1.serialize())
                         var actionUrl = form.getAttribute('action');
 
                         $.ajax({
