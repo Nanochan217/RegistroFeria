@@ -176,7 +176,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion();
 
-            $consultaSql = "SELECT * FROM `USUARIO` WHERE `CORREO` = '" . $correo . "'";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '" . $correo . "'";
 
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
