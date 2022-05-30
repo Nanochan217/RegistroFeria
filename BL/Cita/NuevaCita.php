@@ -49,7 +49,7 @@ else
 function NuevoAsistente($datosNuevoAsistente)
 {
     $asistenteDAL = new DALAsistente();
-    $nuevoAsistente = new Asistente();    
+    $nuevoAsistente = new Asistente();
 
     $nuevoAsistente->setCedula($datosNuevoAsistente["cedula"]);
     $nuevoAsistente->setNombre($datosNuevoAsistente["nombre"]);
@@ -72,7 +72,7 @@ function CrearCita($datosNuevoCita, $idAsistenteNuevo)
 {
     $citaDAL = new DALCita();
     $nuevaCita = new Cita();
-    
+
     $nuevaCita->setDia($datosNuevoCita['fechaCita']);
     $nuevaCita->setHora($datosNuevoCita['horario']);
     $nuevaCita->setIdAsistente($idAsistenteNuevo);
@@ -94,7 +94,7 @@ function NuevoAcompanante($datosNuevoAcompanante, $idCitaNueva)
 
     //OJO con el ciclo
     foreach ($datosNuevoAcompanante as $value)
-    {        
+    {
         $nuevoAcompanante->setCedula($value["cedula"]);
         $nuevoAcompanante->setNombre($value["nombre"]);
         $nuevoAcompanante->setIdTipoAcompanante($value["idTipoAcompanante"]);
@@ -106,7 +106,7 @@ function NuevoAcompanante($datosNuevoAcompanante, $idCitaNueva)
         {
             $resultado = false;
             break;
-        }        
+        }
     }
 
     return $resultado;
