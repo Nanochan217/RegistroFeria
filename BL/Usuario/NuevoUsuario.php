@@ -37,13 +37,17 @@
         if(isset($idCredenciales))
         {        
             if(NuevoUsuario($nuevoUsuario, $idCredenciales))
-                echo true;
+                echo "AÑADIDO";
             else
-                echo false;
+                echo "NO AÑADIDO";
         }
         else
-            echo false;
-    }        
+            echo "NO NUEVA CREDENCIAL";
+    }
+    else
+    {
+        echo "AH";
+    }
 
     function NuevaCredencial($correo, $contrasena)
     {
