@@ -35,6 +35,7 @@
             {
                 $resultado = true;
             }
+
             $conexionDB->CerrarConexion();
             return $resultado;
         }
@@ -72,9 +73,7 @@
             }
 
             $conexionDB->CerrarConexion();
-            return $usuariosDB;
-
-        
+            return $usuariosDB;        
         }
 
         //Buscar al Usuario durante el LogIn para extraer sus datos
