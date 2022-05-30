@@ -1,89 +1,93 @@
-<?php        
+<?php
     include '../../Core/Conexion.php';
     include '../../DAL/CitaDAL/DALCita.php';
     include '../../DAL/CitaDAL/DALAsistente.php';
-    include '../../DAL/CitaDAL/DALAcompanante.php';    
+    include '../../DAL/CitaDAL/DALAcompanante.php';
     include '../../Entidades/CitasEntidades/Cita.php';
     include '../../Entidades/CitasEntidades/Asistente.php';
-    include '../../Entidades/CitasEntidades/Acompanante.php';            
+    include '../../Entidades/CitasEntidades/Acompanante.php';
 
     $asistenteDAL = new DALAsistente();
     $citaDAL = new DALCita();
     $acompananteDAL = new DALAcompanante();
 
     //Arrays
-    $datosAsistente = $_POST[''];
-    $datosCita = $_POST[''];
-    $datosAcompanante = $_POST[''];
+    $datosAsistente = $_POST['asistente'];
+    $datosCita = $_POST['cita'];
+    $datosAcompanante = $_POST['acompanantes'];
+    echo "ola";
 
     $idAsistente = NuevoAsistente($datosAsistente);
-    
-    if(isset($idAsistente))
+
+    if (isset($idAsistente))
     {
         $idCita = CrearCita($datosCita, $idAsistente);
 
-        if(isset($idCita))
+        if (isset($idCita))
         {
-            if(NuevoAcompanante($datosAcompanante, $idCita))
-                echo true;
+            if (NuevoAcompanante($datosAcompanante, $idCita))
+                echo 1;
             else
             {
                 $acompananteDAL->DesactivarAcompanante(null, $idCita);
                 $citaDAL->DesactivarCita($idCita);
-                echo false;
+                echo 0;
             }
         }
         else
         {
             $asistenteDAL->DesactivarAsistente($idAsistente);
-            echo false;
-        }            
+            echo 0;
+        }
     }
     else
     {
-        echo false;
+        echo 0;
     }
 
-        
+
     function NuevoAsistente($datosNuevoAsistente)
-    {        
+    {
         $asistenteDAL = new DALAsistente();
         $nuevoAsistente = new Asistente();
 
-        foreach($datosNuevoAsistente as $datos)
-        {
+        foreach ($datosNuevoAsistente as $datos)
+        {            
             $nuevoAsistente->setCedula($datos['cedula']);
             $nuevoAsistente->setNombre($datos['nombre']);
             $nuevoAsistente->setApellido1($datos['apellido1']);
             $nuevoAsistente->setApellido2($datos['apellido2']);
             $nuevoAsistente->setCorreo($datos['correo']);
             $nuevoAsistente->setTelefono($datos['telefono']);
-            $nuevoAsistente->setIdColegioProcedencia($datos['idColegioProcedencia']);
+            $nuevoAsistente->setIdColegioProcedencia($datos['idColegioProcedencia']);            
         }
 
         $idNuevoAsistente = $asistenteDAL->NuevoAsistente($nuevoAsistente);
-        
-        if(isset($idNuevoAsistente))        
-            return $idNuevoAsistente;        
+
+        if (isset($idNuevoAsistente))
+            return $idNuevoAsistente;
         else
             return null;
     }
 
     function CrearCita($datosNuevoCita, $idAsistenteNuevo)
-    {     
+    {
         $citaDAL = new DALCita();
         $nuevaCita = new Cita();
 
-        foreach($datosNuevoCita as $datos)
-        {            
-            $nuevaCita->setDia($datos['dia']);
-            $nuevaCita->setHora($datos['hora']);
-            $nuevaCita->setIdAsistente($idAsistenteNuevo);            
+        foreach ($datosNuevoCita as $value)
+        {
+            foreach ($value as $datos)
+            {
+                $nuevaCita->setDia($datos['fechaCita']);
+                $nuevaCita->setHora($datos['horario']);
+                $nuevaCita->setIdAsistente($idAsistenteNuevo);
+            }
         }
 
         $idNuevaCita = $citaDAL->NuevaCita($nuevaCita);
 
-        if(isset($idNuevaCita))
+        if (isset($idNuevaCita))
             return $idNuevaCita;
         else
             return null;
@@ -96,24 +100,24 @@
         $nuevoAcompanante = new Acompanante();
 
         //OJO con el ciclo
-        foreach($datosNuevoAcompanante as $value)
+        foreach ($datosNuevoAcompanante as $value)
         {
-            foreach($value as $datos)
+            foreach ($value as $datos)
             {
                 $nuevoAcompanante->setCedula($datos['cedula']);
                 $nuevoAcompanante->setNombre($datos['nombre']);
                 $nuevoAcompanante->setIdTipoAcompanante($datos['idTipoAcompanante']);
                 $nuevoAcompanante->setIdCita($idCitaNueva);
 
-                if($acompananteDAL->NuevoAcompanante($nuevoAcompanante))
+                if ($acompananteDAL->NuevoAcompanante($nuevoAcompanante))
                     continue;
                 else
                 {
                     $resultado = false;
                     break;
-                }                    
+                }
             }
-        }        
+        }
 
         return $resultado;
     }
