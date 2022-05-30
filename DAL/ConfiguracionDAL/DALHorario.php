@@ -133,7 +133,7 @@ class DALHorario
         {
             $consultaSql = "SELECT * FROM `HORARIO` WHERE `ID` = '" . $id . "' AND `ACTIVE` = 1";
         }
-        else if ($funcionSolicitada == 2)
+        else if ($funcionSolicitada == 1)
         {
             $consultaSql = "SELECT * FROM `HORARIO` WHERE `IDDIAHABIL` = '" . $id . "' AND `ACTIVE` = 1";
         }

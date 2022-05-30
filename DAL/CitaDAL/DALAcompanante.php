@@ -47,7 +47,7 @@
                             $resultado++;
                     }
                 }
-                
+
                 $contador++;
             }
 
@@ -59,14 +59,17 @@
                 return false;                        
         }
 
-        function DesactivarAcompanante($idAcompanante)
+        function DesactivarAcompanante($idAcompanante, $idCita)
         {
             $resultado = false;
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion();
 
-            $consultaSql = "UPDATE `ACOMPANANTE` SET `ACTIVE` = 0 WHERE `ID`= '" . $idAcompanante . "'";
-
+            if(isset($idAcompanante))            
+                $consultaSql = "UPDATE `ACOMPANANTE` SET `ACTIVE` = 0 WHERE `ID`= '" . $idAcompanante . "'";
+            else if(isset($idCita))
+                $consultaSql = "UPDATE `ACOMPANANTE` SET `ACTIVE` = 0 WHERE `IDCITA`= '" . $idCita . "'";
+            
             if($conexionDB->NuevaConsulta($consultaSql))
             {
                 $resultado = true;

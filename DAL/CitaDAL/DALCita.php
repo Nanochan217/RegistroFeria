@@ -66,6 +66,7 @@
                 $citaConsultada = null;
             }
 
+            $citaConsultada = $this->dismount($citaConsultada);
             $conexionDB->CerrarConexion();
             return $citaConsultada;
         }
@@ -91,14 +92,14 @@
                     $citas->setIdAsistente($filasCitas["idAsistente"]);
                     $citas->setIdEstadoCita($filasCitas["idEstadoCita"]);
                     $citas->setActive($filasCitas["active"]);
-                    $citasSistema[]=$citas;
+                    $citasSistema[]= $this->dismount($citas);
                 }
             }
             else
             {
                 $citasSistema = null;
             }
-
+           
             $conexionDB->CerrarConexion();
             return $citasSistema;
         }
@@ -118,30 +119,19 @@
 
             $conexionDB->CerrarConexion();
             return $resultado;
-        }
+        }                
 
-        function UltimaCita()
+        function dismount($object)
         {
-            $ultimaCitaDB = 0;
-            $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion();
-            
-            $consultaSql = "SELECT * FROM `CITA` WHERE `ID`=(SELECT MAX(`ID`) FROM `CITA`) AND `ACTIVE` = 1";
-            $cita = $conexionDB->NuevaConsulta($consultaSql);
-
-            if(mysqli_num_rows($cita)>0)
+            $reflectionClass = new ReflectionClass(get_class($object));
+            $array = array();
+            foreach ($reflectionClass->getProperties() as $property)
             {
-                while($filaCita = $cita->fetch_assoc())
-                {
-                    $ultimaCitaDB = $filaCita["id"];
-                }
+                $property->setAccessible(true);
+                $array[$property->getName()] = $property->getValue($object);
+                $property->setAccessible(false);
             }
-            else
-            {
-                $ultimaCitaDB = null;
-            }
-            $conexionDB->CerrarConexion();
-            return $ultimaCitaDB;
+            return $array;
         }
     }
 
