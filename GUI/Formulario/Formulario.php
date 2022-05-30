@@ -69,7 +69,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                 </div>
 
                 <!-- Formulario START-->
-                <form action="../../BL/Cita/NuevaCita.php" method="POST" class="row gap-3">
+                <form action="../../BL/Cita/NuevaCita.php" method="POST" id="form" class="row gap-3">
 
                     <!-- START Sección de datos del solicitante -->
                     <div class="row border rounded bg-white shadow-sm p-5">
@@ -81,7 +81,10 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                             <!-- Cedula -->
                             <div class="col-md-3 pb-3">
                                 <label for="cedula" class="form-label">Cédula</label>
-                                <input type="text" class="form-control " id="cedula" name="cedula" required>
+                                <input type="text" class="form-control " id="cedula" name="cedula" onfocusout="validarSolicitante('cedula')" required>
+                                <div class="invalid-feedback" id="validarCedula">
+                                    Esta cedula ya está asociada a otra cita.
+                                </div>
                             </div>
 
                             <!-- Nombre -->
@@ -108,20 +111,26 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                             <!-- Correo -->
                             <div class="col-md-4 pb-3">
                                 <label for="email" class="form-label">Correo electrónico</label>
-                                <input type="email" class="form-control " id="email" name="email" required>
+                                <input type="email" class="form-control " id="email" name="email" onfocusout="validarSolicitante('email')" required>
+                                <div class="invalid-feedback" id="validarEmail">
+                                    Este email ya está asociado a otra cita.
+                                </div>
                             </div>
 
                             <!-- Telefono -->
                             <div class="col-md-4 pb-3">
                                 <label for="telefono" class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control " id="telefono" name="telefono" min="0" required>
+                                <input type="tel" class="form-control " id="telefono" name="telefono" min="0" onfocusout="validarSolicitante('telefono')" required>
+                                <div class="invalid-feedback" id="validarTelefono">
+                                    Este telefono ya está asociado a otra cita.
+                                </div>
                             </div>
 
                             <!-- Colegio de procedencia -->
                             <div class="col-md-4 pb-3">
                                 <label for="colegioProcedencia" class="form-label">Colegio de Procedencia</label>
                                 <select id="colegioProcedencia" name="colegioProcedencia" class="form-select" required>
-                                    <option value="none" selected disabled hidden>Seleccione un colegio</option>
+                                    <option value="" selected disabled hidden>Seleccione un colegio</option>
                                     <option value="otro">Otro</option>
                                 </select>
                             </div>
@@ -142,7 +151,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                                 <div class="col-md-6 pb-3">
                                     <label for="diaCita" class="form-label">Día</label>
                                     <select id="diaCita" name="fechaCita" class="form-select" oninput="cargarHorarios(this.value)" required>
-                                        <option value="none" selected disabled hidden>Seleccione un día</option>
+                                        <option value="" selected disabled hidden>Seleccione un día</option>
                                     </select>
                                 </div>
 
@@ -150,7 +159,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                                 <div class="col-md-6 pb-3">
                                     <label for="horarioCita" class="form-label">Horario</label>
                                     <select id="horarioCita" name="horario" class="form-select" required disabled>
-                                        <option value="none" selected disabled hidden>Seleccione un dia primero</option>
+                                        <option value="" selected disabled hidden>Seleccione un dia primero</option>
                                     </select>
                                 </div>
                             </div>
@@ -199,7 +208,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                             <div class="d-flex gap-3 position-absolute top-0 end-0">
                                 <a href="../Index/Index.php" class="btn btn-danger">Descartar</a>
                                 <!-- <a type="submit" href="../../BL/Cita/NuevaCita.php" class="btn btn-primary">Enviar Reserva</a> -->
-                                <button type="submit" id="nuevaCita" class="btn btn-primary">Enviar Reserva</button>
+                                <button type="submit" id="enviarForm" class="btn btn-primary">Enviar Reserva</button>
                             </div>
                         </div>
                     </div>
@@ -214,6 +223,32 @@ include '../../BL/Cita/BuscarTodosDatos.php';
     <button type="button" class="btn btn-primary" id="btnNotificacion" hidden></button>
     <div class="toast-container" id="contenedorNotificaciones"></div>
 
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" style="display: none;" id="btnModal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content bg-transparent">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-white">
+                    <div class="d-flex flex-column gap-3 align-content-center">
+                        <p>
+                            Haz digitado una misma cédula para varios acompañantes. Asegurate de que todos los acompañantes tengan una cédula distinta.
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer bg-white">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--  Footer  -->
     <?php
@@ -225,6 +260,30 @@ include '../../BL/Cita/BuscarTodosDatos.php';
     echo $jsLinks;;
     ?>
     <script>
+        $(document).ready(function() {
+            $("#enviarForm").click(function(e) {
+                let cedulasTemp = document.getElementsByClassName('cedulaAcompanante')
+
+                if (cedulasTemp.length > 0) {
+                    let cedulas = []
+                    for (cedula of cedulasTemp) {
+                        cedulas.push(cedula.value == "" ? null : cedula.value)
+                    }
+
+                    cedulas.every(cedulaValor => {
+                        let x = cedulas.filter(cedula => cedula == cedulaValor);
+                        // x.length > 1 ? alert("si hay ") : alert("no hay");
+                        if (x.length > 1) {
+                            e.preventDefault()
+                            $('#btnModal').click()
+                            return false;
+                        }
+                    });
+                }
+            });
+        });
+
+
         var acompanantes = [];
         contadorAcompanante = 0;
 
@@ -239,6 +298,8 @@ include '../../BL/Cita/BuscarTodosDatos.php';
         $("#fechaMaxima").html(fechaMaxima)
 
         $("#maxAcompanantesTitulo").html(configuracion[0].acompanateMax)
+
+
 
         function cargarDias() {
             dias.forEach(dia => {
@@ -268,7 +329,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
         function cargarHorarios(idDia) {
             let contadorHorarios = 0;
             $("#horarioCita").html("")
-            $("#horarioCita").append(`<option value="none" selected disabled hidden>Seleccione un horario</option>`)
+            $("#horarioCita").append(`<option value="" selected disabled hidden>Seleccione un horario</option>`)
             horarios.forEach(horario => {
                 if (horario.idDiaHabil == idDia) {
                     $("#horarioCita").append(`<option value="${horario.id}">${horario.horaInicio} - ${horario.horaFinal}</option>`)
@@ -331,8 +392,14 @@ include '../../BL/Cita/BuscarTodosDatos.php';
         function mostrarAcompanante(acompanante) {
             let contenedor = `<div class="row mb-3 mx-0 p-3 gx-3 gapx-4 bg-light border rounded" id="acompanante${acompanante.id}">
                         <div class="col-md-6 mt-0">
-                            <label for="acompananteCedula${acompanante.id}" class="form-label ">Cedula</label>
-                            <input type="text" class="form-control" id="acompananteCedula${acompanante.id}" name="acompanantes[${acompanante.id - 1}][cedula]" >
+                            <label for="acompananteCedula${acompanante.id}" class="form-label">Cedula</label>
+                            <input type="text" class="form-control cedulaAcompanante" id="acompananteCedula${acompanante.id}" name="acompanantes[${acompanante.id - 1}][cedula]" onfocusout="validarAcompanantes('cedula', ${acompanante.id})">
+                            <div class="invalid-feedback" id="validarCedulaAcompanante${acompanante.id}">
+                                Esta cedula ya está asociada a otra cita.
+                            </div>
+                            <div class="invalid-feedback" id="validarCedulaAcompananteFront${acompanante.id}">
+                                Otro de tus acompañantes ya tiene esta cedula.
+                            </div>
                         </div>
                         <div class="col-md-6 mt-0">
                             <label for="acompananteNombre${acompanante.id}" class="form-label ">Nombre</label>
@@ -373,6 +440,96 @@ include '../../BL/Cita/BuscarTodosDatos.php';
             var notificacion = document.getElementById('notificacion');
             var toast = new bootstrap.Toast(notificacion);
             toast.show();
+        }
+
+        ////////////////////////////////////////////////////////////////////////////
+
+        function validarSolicitante(campo) {
+            if (campo == 'cedula') {
+                let cedula = $('#cedula').val(); //se optiene el valor de la cedula
+
+                //ajax
+                $.post("../../BL/Cita/ValidacionAsistente.php", {
+                    cedula: cedula,
+                    campo: campo
+                }, function(data) {
+                    if (data == 1) {
+                        $('#validarCedula').hide()
+                        $('#cedula').removeClass('is-invalid')
+                    } else {
+                        $('#validarCedula').show()
+                        $('#cedula').addClass('is-invalid')
+                    }
+                });
+            } else if (campo == 'email') {
+                let email = $('#email').val(); //se optiene el valor de la email
+
+                //ajax
+                $.post("../../BL/Cita/ValidacionAsistente.php", {
+                    email: email,
+                    campo: campo
+                }, function(data) {
+                    if (data == 1) {
+                        $('#validarEmail').hide()
+                        $('#email').removeClass('is-invalid')
+                    } else {
+                        $('#validarEmail').show()
+                        $('#email').addClass('is-invalid')
+                    }
+                });
+            } else if (campo == 'telefono') {
+                let telefono = $('#telefono').val(); //se optiene el valor de la telefono
+
+                //ajax
+                $.post("../../BL/Cita/ValidacionAsistente.php", {
+                    telefono: telefono,
+                    campo: campo
+                }, function(data) {
+                    if (data == 1) {
+                        $('#validartelefono').hide()
+                        $('#telefono').removeClass('is-invalid')
+                    } else {
+                        $('#validartelefono').show()
+                        $('#telefono').addClass('is-invalid')
+                    }
+                });
+            }
+        }
+
+        function validarAcompanantes(campo, idAcompanante) {
+            if (campo == 'cedula') {
+                let cedula = $(`#acompananteCedula${idAcompanante}`).val(); //se optiene el valor de la cedula
+                //ajax
+                $.post("../../BL/Cita/ValidacionAcompanante.php", {
+                    cedula: cedula,
+                    campo: campo
+                }, function(data) {
+                    if (data == 1) {
+                        $(`#validarCedulaAcompanante${idAcompanante}`).hide()
+                    } else {
+                        $(`#validarCedulaAcompanante${idAcompanante}`).show()
+                    }
+                });
+
+            }
+        }
+
+        function validarFormulario(evento) {
+            evento.preventDefault();
+            alert("");
+
+            let cedulasTemp = document.getElementsByClassName('cedulaAcompanante')
+            let cedulas = []
+            for (cedula of cedulasTemp) {
+                cedulas.push(cedula.value == "" ? null : cedula.value)
+            }
+
+            cedulas.forEach(cedulaValor => {
+                let x = cedulas.filter(cedula => cedula == cedulaValor);
+                x.length > 1 ? alert("si hay ") : alert("no hay");
+            });
+
+            this.submit();
         }
     </script>
     <!-- END Scripts  -->
