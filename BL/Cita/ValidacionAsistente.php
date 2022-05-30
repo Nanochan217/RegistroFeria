@@ -14,21 +14,21 @@ switch ($tipoValidacion)
         if ($asistenteDAL->BuscarCedula($cedulaAsistente))
             echo 1;
         else
-            echo 0;
+            echo 0;//"Esta cédula ya esta registrado"
         break;
     case "email": //Validar Correo
         $correoAsistente = $_POST['email'];
         if ($asistenteDAL->BuscarCorreo($correoAsistente))
             echo 1;
         else
-            echo 0;
+            echo 0;//"Este correo ya esta registrado"
         break;
     case "telefono": //Validar Telefono
         $telefonoAsistente = $_POST['telefono'];
         if ($asistenteDAL->BuscarTelefono($telefonoAsistente))
             echo 1;
         else
-            echo 0;
+            echo 0;//"Este telefono ya esta registrado"
         break;
     default:
         echo "Ocurrió un error...";

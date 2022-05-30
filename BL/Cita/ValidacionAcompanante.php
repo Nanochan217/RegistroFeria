@@ -14,7 +14,7 @@ switch ($tipoValidacion)
         if ($acompananteDAL->BuscarCedula($cedulaAcompanante))
             echo 1;
         else
-            echo 0;
+            echo 0;//"Esta cédula ya esta registrada"
         break;
     default:
         echo "Ocurrió un error...";

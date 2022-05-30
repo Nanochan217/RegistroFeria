@@ -15,7 +15,7 @@
     $datosAsistente = $_POST['asistente'];
     $datosCita = $_POST['cita'];
     $datosAcompanante = $_POST['acompanantes'];
-    echo "ola";
+    //echo "ola";
 
     $idAsistente = NuevoAsistente($datosAsistente);
 
@@ -75,14 +75,11 @@
         $citaDAL = new DALCita();
         $nuevaCita = new Cita();
 
-        foreach ($datosNuevoCita as $value)
-        {
-            foreach ($value as $datos)
-            {
-                $nuevaCita->setDia($datos['fechaCita']);
-                $nuevaCita->setHora($datos['horario']);
-                $nuevaCita->setIdAsistente($idAsistenteNuevo);
-            }
+        foreach ($datosNuevoCita as $datos)
+        {                        
+            $nuevaCita->setDia($datos['fechaCita']);
+            $nuevaCita->setHora($datos['horario']);
+            $nuevaCita->setIdAsistente($idAsistenteNuevo);            
         }
 
         $idNuevaCita = $citaDAL->NuevaCita($nuevaCita);
