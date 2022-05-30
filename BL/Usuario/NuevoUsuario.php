@@ -28,7 +28,7 @@
     $nuevoUsuario->setNombre($nombreUsuario);
     $nuevoUsuario->setApellido1($apellido1Usuario);
     $nuevoUsuario->setApellido2($apellido2Usuario);    
-    $nuevoUsuario->setIdPerfil($idPerfilUsuario);    
+    $nuevoUsuario->setIdPerfil($idPerfilUsuario);
 
     if($metodoparavalidarcedulasenambastablas)
     {
@@ -53,7 +53,7 @@
         $nuevaCredencial->setCorreo($correo);
         $nuevaCredencial->setContrasena($contrasena);
 
-        $idCredencial = $credencialDAL->NuevaCredencial($nuevaCredencial); //CAMBIAR 
+        $idCredencial = $credencialDAL->NuevaCredencial($nuevaCredencial); 
 
         if(isset($idCredencial))
             echo $idCredencial;
