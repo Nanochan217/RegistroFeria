@@ -151,7 +151,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion();
 
-            $consultaSql = "SELECT * FROM `USUARIO` WHERE `CEDULA` = '" . $cedula . "'";
+            $consultaSql = "SELECT * FROM `USUARIO` WHERE `CEDULA` = '" . $cedula . "' AND `ACTIVE` = 1";
 
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
@@ -176,7 +176,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion();
 
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '" . $correo . "'";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '" . $correo . "' AND `ACTIVE` = 1";
 
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 

@@ -15,7 +15,7 @@
                     VALUES ('" . $nuevaCredencial->getCorreo() . "','" . $contrasenaEncriptada . "')";
 
             if($conexionDB->NuevaConsulta($consultaSql))            
-                $resultado = true;
+                $resultado = $conexionDB->ObtenerIdUltimoInsert();
             else
                 $resultado = null;
             
@@ -24,33 +24,33 @@
         }
 
         //Método para buscar la ultima credencial creada y devolverla al BL
-        function UltimaCredencial()
-        {
-            $ultimaCredencial = new Credenciales();
-            $conexionDB = new Conexion();
-            $conexionDB->NuevaConexion();
+        // function UltimaCredencial()
+        // {
+        //     $ultimaCredencial = new Credenciales();
+        //     $conexionDB = new Conexion();
+        //     $conexionDB->NuevaConexion();
 
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `ID`=(SELECT MAX(`ID`) FROM `CREDENCIALES`) AND `ACTIVE` = 1";
-            $credencial = $conexionDB->NuevaConsulta($consultaSql);
+        //     $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `ID`=(SELECT MAX(`ID`) FROM `CREDENCIALES`) AND `ACTIVE` = 1";
+        //     $credencial = $conexionDB->NuevaConsulta($consultaSql);
 
-            if(mysqli_num_rows($credencial)>0)
-            {
-                while($filaCredencial = $credencial->fetch_assoc())
-                {
-                    $ultimaCredencial->setId($filaCredencial["id"]);
-                    $ultimaCredencial->setCorreo($filaCredencial["correo"]);
-                    $ultimaCredencial->setContrasena($filaCredencial["contrasena"]);
-                    $ultimaCredencial->setActive($filaCredencial["active"]);
-                }
-            }
-            else
-            {
-                $ultimaCredencial = null;
-            }
+        //     if(mysqli_num_rows($credencial)>0)
+        //     {
+        //         while($filaCredencial = $credencial->fetch_assoc())
+        //         {
+        //             $ultimaCredencial->setId($filaCredencial["id"]);
+        //             $ultimaCredencial->setCorreo($filaCredencial["correo"]);
+        //             $ultimaCredencial->setContrasena($filaCredencial["contrasena"]);
+        //             $ultimaCredencial->setActive($filaCredencial["active"]);
+        //         }
+        //     }
+        //     else
+        //     {
+        //         $ultimaCredencial = null;
+        //     }
             
-            $conexionDB->CerrarConexion();
-            return $ultimaCredencial;
-        }
+        //     $conexionDB->CerrarConexion();
+        //     return $ultimaCredencial;
+        // }
         
         function ActualizarCredenciales(Credenciales $modificarCredenciales)
         {
@@ -147,7 +147,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion();
                               
-            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '" . $correo . "'";
+            $consultaSql = "SELECT * FROM `CREDENCIALES` WHERE `CORREO` = '" . $correo . "' AND `ACTIVE` = 1";
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
             if(mysqli_num_rows($respuestaDB)>0)

@@ -30,9 +30,9 @@
     $nuevoUsuario->setApellido2($apellido2Usuario);    
     $nuevoUsuario->setIdPerfil($idPerfilUsuario);
 
-    if($usuarioDAL->BuscarCedula($cedulaUsuario) == false && $usuarioDAL->BuscarCorreo($correoUsuario) == false)
+    if($usuarioDAL->BuscarCedula($cedulaUsuario) == false && $credencialDAL->BuscarCorreo($correoUsuario) == false)
     {
-        $idCredenciales = NuevaCredencial($correoUsuario, $contrasena);
+        $idCredenciales = NuevaCredencial($correoUsuario, $contrasenaUsuario);
 
         if(isset($idCredenciales))
         {        
@@ -42,7 +42,9 @@
                 echo "NO AÑADIDO";
         }
         else
+        {
             echo "NO NUEVA CREDENCIAL";
+        }
     }
     else
     {
@@ -60,9 +62,9 @@
         $idCredencial = $credencialDAL->NuevaCredencial($nuevaCredencial); 
 
         if(isset($idCredencial))
-            echo $idCredencial;
+            return $idCredencial;
         else 
-            echo null;
+            return null;
     }
 
     function NuevoUsuario(Usuario $usuario, $idCredencial)
@@ -71,9 +73,9 @@
         $usuario->setIdCredenciales($idCredencial);
 
         if($usuarioDAL->NuevoUsuario($usuario))
-            echo true;
+            return true;
         else
-            echo false;
+            return false;
     }
 
 
