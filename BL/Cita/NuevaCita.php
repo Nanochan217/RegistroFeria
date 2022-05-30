@@ -50,18 +50,15 @@
         $asistenteDAL = new DALAsistente();
         $nuevoAsistente = new Asistente();
 
-        foreach($datosNuevoAsistente as $value)
+        foreach($datosNuevoAsistente as $datos)
         {
-            foreach($value as $datos)
-            {
-                $nuevoAsistente->setCedula($datos['cedula']);
-                $nuevoAsistente->setNombre($datos['nombre']);
-                $nuevoAsistente->setApellido1($datos['apellido1']);
-                $nuevoAsistente->setApellido2($datos['apellido2']);
-                $nuevoAsistente->setCorreo($datos['correo']);
-                $nuevoAsistente->setTelefono($datos['telefono']);
-                $nuevoAsistente->setIdColegioProcedencia($datos['idColegioProcedencia']);
-            }
+            $nuevoAsistente->setCedula($datos['cedula']);
+            $nuevoAsistente->setNombre($datos['nombre']);
+            $nuevoAsistente->setApellido1($datos['apellido1']);
+            $nuevoAsistente->setApellido2($datos['apellido2']);
+            $nuevoAsistente->setCorreo($datos['correo']);
+            $nuevoAsistente->setTelefono($datos['telefono']);
+            $nuevoAsistente->setIdColegioProcedencia($datos['idColegioProcedencia']);
         }
 
         $idNuevoAsistente = $asistenteDAL->NuevoAsistente($nuevoAsistente);
@@ -77,14 +74,11 @@
         $citaDAL = new DALCita();
         $nuevaCita = new Cita();
 
-        foreach($datosNuevoCita as $value)
-        {
-            foreach($value as $datos)
-            {
-                $nuevaCita->setDia($datos['dia']);
-                $nuevaCita->setHora($datos['hora']);
-                $nuevaCita->setIdAsistente($idAsistenteNuevo);
-            }
+        foreach($datosNuevoCita as $datos)
+        {            
+            $nuevaCita->setDia($datos['dia']);
+            $nuevaCita->setHora($datos['hora']);
+            $nuevaCita->setIdAsistente($idAsistenteNuevo);            
         }
 
         $idNuevaCita = $citaDAL->NuevaCita($nuevaCita);
