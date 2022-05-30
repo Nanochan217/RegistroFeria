@@ -30,7 +30,7 @@
     $nuevoUsuario->setApellido2($apellido2Usuario);    
     $nuevoUsuario->setIdPerfil($idPerfilUsuario);
 
-    if($metodoparavalidarcedulasenambastablas)
+    if(!$usuarioDAL->BuscarCedula($cedulaUsuario) && !$usuarioDAL->BuscarCorreo($correoUsuario))
     {
         $idCredenciales = NuevaCredencial($correoUsuario, $contrasena);
 
