@@ -187,7 +187,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                                 <!-- Día -->
                                 <div class="col-md-6 pb-3">
                                     <label for="diaCita" class="form-label">Día</label>
-                                    <select id="diaCita" class="form-select"  oninput="cargarHorarios(this.value)" required>
+                                    <select id="diaCita" class="form-select" oninput="cargarHorarios(this.value), llenarHiddenDia()" required>
                                         <option value="" selected disabled hidden>Seleccione un día</option>
                                     </select>
                                     <input type="hidden" name="cita[fechaCita]">
@@ -199,7 +199,8 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                                 <!-- Hora -->
                                 <div class="col-md-6 pb-3">
                                     <label for="horarioCita" class="form-label">Horario</label>
-                                    <select id="horarioCita" class="form-select" oninput="llenarHiddenHorario()" required disabled> <!-- procesooooooooooooooooooooooooooooooiooiooo -->
+                                    <select id="horarioCita" class="form-select" oninput="llenarHiddenHorario()" required disabled>
+                                        <!-- procesooooooooooooooooooooooooooooooiooiooo -->
                                         <option value="" selected disabled hidden>Seleccione un dia primero</option>
                                     </select>
                                     <input type="hidden" name="cita[horario]">
