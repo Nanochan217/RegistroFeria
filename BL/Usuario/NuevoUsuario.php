@@ -73,38 +73,38 @@
     }
 
 
-    if($usuarioDAL->BuscarCedula($cedulaUsuario) == false && $credencialDAL->BuscarCorreo($correoUsuario) == false)
-    {                    
-        if($credencialDAL->NuevaCredencial($nuevaCredencial))
-        {
-            //Obtener la ID de la credencial recien añadida
-            $ultimaCredencial = $credencialDAL->UltimaCredencial();
+    // if($usuarioDAL->BuscarCedula($cedulaUsuario) == false && $credencialDAL->BuscarCorreo($correoUsuario) == false)
+    // {                    
+    //     if($credencialDAL->NuevaCredencial($nuevaCredencial))
+    //     {
+    //         //Obtener la ID de la credencial recien añadida
+    //         $ultimaCredencial = $credencialDAL->UltimaCredencial();
             
             
-            $idCredencialUsuario = $ultimaCredencial->getId();            
+    //         $idCredencialUsuario = $ultimaCredencial->getId();            
 
-            //Nuevo Usuario
-            if($usuarioDAL->NuevoUsuario($nuevoUsuario))
-            {
-                $_SESSION["Accion"] = "¡Nuevo Usuario añadido correctamente!";
-                header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
-            }
-            else
-            {
-                $_SESSION["Accion"] = "Ocurrió un error al añadir al Usuario";
-                header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");                
-            }
-        }
-        else
-        {
-            $_SESSION["Accion"] = "Ocurrió un error a la<br>hora de añadir la credencial";
-            header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
-        }
-    }
-    else
-    {
-        $_SESSION["Accion"] = "El cedula ".$cedulaUsuario." o el correo ".$correoUsuario." ya existe en nuestro Sistema";
-        header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
-    }
+    //         //Nuevo Usuario
+    //         if($usuarioDAL->NuevoUsuario($nuevoUsuario))
+    //         {
+    //             $_SESSION["Accion"] = "¡Nuevo Usuario añadido correctamente!";
+    //             header("Location: ../../GUI/PantallasDestino/AcciónExitosa.php");
+    //         }
+    //         else
+    //         {
+    //             $_SESSION["Accion"] = "Ocurrió un error al añadir al Usuario";
+    //             header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");                
+    //         }
+    //     }
+    //     else
+    //     {
+    //         $_SESSION["Accion"] = "Ocurrió un error a la<br>hora de añadir la credencial";
+    //         header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+    //     }
+    // }
+    // else
+    // {
+    //     $_SESSION["Accion"] = "El cedula ".$cedulaUsuario." o el correo ".$correoUsuario." ya existe en nuestro Sistema";
+    //     header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+    // }
     
 /////////////////////////////////////////////////////////////////////////////
