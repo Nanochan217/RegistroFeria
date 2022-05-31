@@ -32,7 +32,7 @@
             if($modificarCredenciales->getContrasena() == null)
             {
                 $consultaSql = "UPDATE `CREDENCIALES` SET `CORREO`='" . $modificarCredenciales->getCorreo() . "' 
-                    WHERE `ID`=" . $modificarCredenciales->getId();
+                WHERE `ID`=" . $modificarCredenciales->getId();
             }
             else
             {
