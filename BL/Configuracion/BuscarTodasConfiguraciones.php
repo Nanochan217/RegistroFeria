@@ -10,8 +10,8 @@
     //Buscar todas las configuraciones y sus datos relacionados
     function BuscarConfiguraciones()
     {
-        $ConfiguracionDAL = new DALConfiguracion();
-        return json_encode($ConfiguracionDAL->BuscarTodasConfiguraciones());
+        $configuracionDAL = new DALConfiguracion();
+        return json_encode($configuracionDAL->BuscarTodasConfiguraciones());
     }
 
     function BuscarDiasHabiles()
@@ -20,5 +20,11 @@
         return json_encode($DiaHabilDAL->BuscarTodas());
     }
 
-
+    //Te devuelve un String!!!
+    function BuscarFechaLimite()
+    {
+        $configuracionDAL = new DALConfiguracion();
+        $fechaFinal = $configuracionDAL->BuscarDisponibilidad();
+        return json_encode($fechaFinal);
+    }
 ///////////////////////////////////////////////////////////////////////////////////////////
