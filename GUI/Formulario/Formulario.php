@@ -187,10 +187,10 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                                 <!-- Día -->
                                 <div class="col-md-6 pb-3">
                                     <label for="diaCita" class="form-label">Día</label>
-                                    <select id="diaCita" class="form-select" oninput="cargarHorarios(this.value), llenarHiddenDia()" required>
+                                    <select id="diaCita" class="form-select" oninput="cargarHorarios(this.value)" required>
                                         <option value="" selected disabled hidden>Seleccione un día</option>
                                     </select>
-                                    <input type="hidden" name="cita[fechaCita]">
+                                    <input type="hidden" name="cita[fechaCita]" id="inputHiddenDia">
                                     <div class="invalid-feedback">
                                         Seleccione un día.
                                     </div>
@@ -199,11 +199,10 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                                 <!-- Hora -->
                                 <div class="col-md-6 pb-3">
                                     <label for="horarioCita" class="form-label">Horario</label>
-                                    <select id="horarioCita" class="form-select" oninput="llenarHiddenHorario()" required disabled>
-                                        <!-- procesooooooooooooooooooooooooooooooiooiooo -->
+                                    <select id="horarioCita" class="form-select" oninput="llenarHiddenHorario(this.value)" required disabled>
                                         <option value="" selected disabled hidden>Seleccione un dia primero</option>
                                     </select>
-                                    <input type="hidden" name="cita[horario]">
+                                    <input type="hidden" name="cita[horario]" id="inputHiddenHorario">
                                     <div class="invalid-feedback">
                                         Seleccione un horario.
                                     </div>
@@ -306,27 +305,6 @@ include '../../BL/Cita/BuscarTodosDatos.php';
     echo $jsLinks;;
     ?>
     <script>
-        // $(document).ready(function() {
-        //     $("form").submit(function(event) {
-        //         e.preventDefault(); // avoid to execute the actual submit of the form.
-
-        //         var form = $(this);
-        //         var actionUrl = form.attr('action');
-
-
-        //         $.ajax({
-        //             type: "POST",
-        //             url: actionUrl,
-        //             data: form.serialize(), // serializes the form's elements.
-        //         }).done(function(data) {
-        //             console.log(data);
-        //         });
-
-        //         event.preventDefault();
-        //     });
-        // });
-
-
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (() => {
             'use strict'
@@ -369,7 +347,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
         var dias = <?php echo BuscarDias() ?>;
         var horarios = <?php echo BuscarHorarios() ?>;
         var colegios = <?php echo BuscarTodosColegios() ?>;
-        // var parentescos = <?php ?>
+        var parentescos = <?php echo BuscarTodosTiposAcompanantes() ?>;
         var fecha = [];
 
         let fechaMaxima = formatearDia(configuracion[0].fechaFinal)
@@ -379,6 +357,16 @@ include '../../BL/Cita/BuscarTodosDatos.php';
         $("#maxAcompanantesTitulo").html(configuracion[0].acompanateMax)
 
 
+
+        function cargarParentescos() {
+            $(".acompananteTipo").html('<option value="" selected disabled hidden>Seleccione un parentesco</option>');
+            $(".acompananteTipo").each(function(index) {
+                parentescos.forEach(parentesco => {
+                    $(this).append(`<option value="${parentesco.id}">${parentesco.tipoAcompanante}</option>`)
+                });
+            });
+
+        }
 
         function cargarDias() {
             dias.forEach(dia => {
@@ -416,11 +404,13 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                     contadorHorarios++;
                 }
             });
-            if (contadorHorarios == 0) {
-                $("#horarioCita").prop("disabled", true);
-                $("#horarioCita").html("")
-                $("#horarioCita").append(`<option value="none" selected disabled hidden>Sin horarios disponibles</option>`)
-            }
+            //NO SE USARÍA YA QUE EL BACK ME MANDA SOLO LOS DIAS QUE TIENEN RELACIONADOS ALGÚN HORARIO
+
+            // if (contadorHorarios == 0) {
+            //     $("#horarioCita").prop("disabled", true);
+            //     $("#horarioCita").html("")
+            //     $("#horarioCita").append(`<option value="none" selected disabled hidden>Sin horarios disponibles</option>`)
+            // }
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -452,6 +442,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
 
                 acompanantes.push(acompanante);
                 mostrarAcompanante(acompanante);
+                cargarParentescos();
             } else {
                 $("#contenedorNotificaciones").html(`<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                             <div id="notificacion" class="toast align-items-center  bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
@@ -489,9 +480,8 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                         </div>
                         <div class="col-md-6 mt-0">
                             <label for="acompananteTipo${acompanante.id}" class="form-label ">Parentesco</label>
-                            <select class="form-select" id="acompananteTipo${acompanante.id}" name="acompanantes[${acompanante.id}][idTipoAcompanante]" required>
+                            <select class="form-select acompananteTipo" id="acompananteTipo${acompanante.id}" name="acompanantes[${acompanante.id}][idTipoAcompanante]" required>
                                 <option value="" selected disabled hidden>Seleccione un parentesco</option>
-                                <option value="1" >1</option>
                             </select>
                             <div class="invalid-feedback" id="cedulaVacia">
                                 Digite un parentesco.
@@ -635,6 +625,11 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                     }
                 });
             }
+        }
+
+        function llenarHiddenHorario(value) {
+            $("#inputHiddenHorario").val(value);
+            console.log($("#inputHiddenHorario").val())
         }
     </script>
     <!-- END Scripts  -->
