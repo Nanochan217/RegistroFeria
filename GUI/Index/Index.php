@@ -9,6 +9,8 @@ $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
 
+include '../../BL/Cita/BuscarTodosDatos.php';
+
 ?>
 
 <!doctype html>
@@ -39,16 +41,19 @@ $cssDefault = file_get_contents('../Default/Style.css');
 
     <?php
 
-    if ($_SESSION["Perfil"]==1) {
-        echo $headerSA;    
+    if ($_SESSION["Perfil"] == 1)
+    {
+        echo $headerSA;
     }
-    else if($_SESSION["Perfil"] == 2){
-        echo $headerA;  
+    else if ($_SESSION["Perfil"] == 2)
+    {
+        echo $headerA;
     }
-    else{
-        echo $header;  
+    else
+    {
+        echo $header;
     }
-    
+
 
     ?>
 
