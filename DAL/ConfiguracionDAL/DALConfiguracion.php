@@ -90,15 +90,15 @@ class DALConfiguracion
 
         if (mysqli_num_rows($respuestaDB) > 0)
         {
-            while ($filasConfiguracion = $respuestaDB->fetch_assoc())
+            while ($filaConfiguracion = $respuestaDB->fetch_assoc())
             {
                 $configuracion = new Configuracion();
-                $configuracion->setId($filasConfiguracion["id"]);
-                $configuracion->setFechaInicio($filasConfiguracion["fechaInicio"]);
-                $configuracion->setFechaFinal($filasConfiguracion["fechaFinal"]);
-                $configuracion->setAcompanantesMax($filasConfiguracion["acompanantesMaximo"]);
-                $configuracion->setEstadoFormulario($filasConfiguracion["estadoConfiguracion"]);
-                $configuracion->setActive($filasConfiguracion['active']);
+                $configuracion->setId($filaConfiguracion["id"]);
+                $configuracion->setFechaInicio($filaConfiguracion["fechaInicio"]);
+                $configuracion->setFechaFinal($filaConfiguracion["fechaFinal"]);
+                $configuracion->setAcompanantesMax($filaConfiguracion["acompanantesMaximo"]);
+                $configuracion->setEstadoFormulario($filaConfiguracion["estadoConfiguracion"]);
+                $configuracion->setActive($filaConfiguracion['active']);
 
                 $configuracionesDB[] = $this->dismount($configuracion);
             }
@@ -110,6 +110,32 @@ class DALConfiguracion
 
         $conexionDB->CerrarConexion();
         return $configuracionesDB;
+    }
+
+    function BuscarDisponibilidad()
+    {
+        $fechaFinal = "";
+        $conexionDB =new Conexion();
+        $conexionDB->NuevaConexion();
+
+        $consultaSql = "SELECT * FROM `CONFIGURACION` WHERE `ACTIVE` = 1";
+
+        $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
+
+        if(mysqli_num_rows($respuestaDB) > 0)
+        {
+            while($filaConfiguracion = $respuestaDB->fetch_assoc())
+            {
+                $fechaFinal = $filaConfiguracion["fechaFinal"];
+            }
+        }
+        else
+        {
+            $fechaFinal = null;
+        }
+        
+        $conexionDB->CerrarConexion();
+        return $fechaFinal;
     }
 
     function dismount($object)

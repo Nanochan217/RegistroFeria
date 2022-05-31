@@ -16,8 +16,7 @@
             if(mysqli_num_rows($respuestaDB)>0)
             {
                 while($filaCredencial = $respuestaDB->fetch_assoc())
-                {
-                    //verifica la contraseña del Log In con el Hash (contraseña encriptada)
+                {                    
                     if(password_verify($contrasenaUsuario, $filaCredencial["contrasena"]))
                     {                                                          
                         $credencialesSesion->setId($filaCredencial["id"]);

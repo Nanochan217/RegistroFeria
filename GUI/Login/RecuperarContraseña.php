@@ -1,6 +1,7 @@
 <?php
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
@@ -48,11 +49,11 @@ $cssDefault = file_get_contents('../Default/Style.css');
                     <div class="col">
                         <form action="../../BL/LogIn/NuevaContrasena.php" method="post">
                             <div class="mb-3">
-                                <label for="newPassword1" class="form-label">Nueva Contraseña</label>
+                                <label for="newPassword1" class="form-label">Nueva contraseña</label>
                                 <input type="password" class="form-control" id="newPassword1" name="newPassword1" required>
                             </div>
                             <div class="mb-3">
-                                <label for="newPassword2" class="form-label">Repetir Contraseña</label>
+                                <label for="newPassword2" class="form-label">Repetir nueva contraseña</label>
                                 <input type="password" class="form-control" id="newPassword2" name="newPassword2" required>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Cambiar Contraseña</button>
