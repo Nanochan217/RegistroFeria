@@ -8,7 +8,7 @@ $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
 
-include '../../BL/Cita/BuscarTodosDatos.php';
+include '../../BL/Formulario/BuscarTodosDatos.php';
 ?>
 
 <!doctype html>
@@ -347,6 +347,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
         var dias = <?php echo BuscarDias() ?>;
         var horarios = <?php echo BuscarHorarios() ?>;
         var colegios = <?php echo BuscarTodosColegios() ?>;
+        console.log(colegios);
         var parentescos = <?php echo BuscarTodosTiposAcompanantes() ?>;
         var fecha = [];
 
