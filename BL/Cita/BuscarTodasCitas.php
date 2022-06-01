@@ -5,10 +5,7 @@
     include '../../DAL/CitaDAL/DALAsistente.php';
     include '../../DAL/CitaDAL/DALAcompanante.php';
     include '../../Entidades/CitasEntidades/Cita.php';
-    include '../../Entidades/CitasEntidades/Asistente.php';
     include '../../Entidades/CitasEntidades/Acompanante.php';
-    include '../../DAL/CitaDAL/DALCita.php';
-    include '../../Entidades/CitasEntidades/Cita.php';
 
     //Buscar todas las Citas
     function BuscarTodasCitas()
@@ -24,7 +21,7 @@
         echo json_encode($citaDAL->BuscarCita($idAsistente));
     }
 
-    function BuscarAsistenteId($id)
-    {
-        
-    }
+    // function BuscarAsistenteId($id)
+    // {
+    //     //XD
+    // }    

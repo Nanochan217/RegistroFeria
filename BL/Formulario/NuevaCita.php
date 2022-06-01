@@ -73,8 +73,8 @@
         $citaDAL = new DALCita();
         $nuevaCita = new Cita();
 
-        $nuevaCita->setDia($datosNuevoCita['fechaCita']);
-        $nuevaCita->setHora($datosNuevoCita['horario']);
+        $nuevaCita->setCantidadAsistentes($datosNuevoCita['']);//OJO
+        $nuevaCita->setIdHorario($datosNuevoCita['']);//OJO
         $nuevaCita->setIdAsistente($idAsistenteNuevo);
 
         $idNuevaCita = $citaDAL->NuevaCita($nuevaCita);

@@ -1,12 +1,11 @@
 <?php
     class Cita
     {
-        private $id;
-        private $dia;
-        private $hora;
+        private $id;        
         private $confirmado;
+        private $cantidadAsistentes;
+        private $idHorario;
         private $idAsistente;
-        //private $idAcompanante;
         private $idEstadoCita;
         private $active;
 
@@ -24,39 +23,7 @@
         public function setId($id)
         {
             $this->id = $id;
-        }
-
-        /**
-         * @return mixed
-         */
-        public function getDia()
-        {
-            return $this->dia;
-        }
-
-        /**
-         * @param mixed $dia
-         */
-        public function setDia($dia)
-        {
-            $this->dia = $dia;
-        }
-
-        /**
-         * @return mixed
-         */
-        public function getHora()
-        {
-            return $this->hora;
-        }
-
-        /**
-         * @param mixed $hora
-         */
-        public function setHora($hora)
-        {
-            $this->hora = $hora;
-        }
+        }        
 
         /**
          * @return mixed
@@ -77,6 +44,38 @@
         /**
          * @return mixed
          */
+        public function getCantidadAsistentes()
+        {
+            return $this->cantidadAsistentes;
+        }
+
+        /**
+        * @param mixed $cantidadAsistentes
+        */
+        public function setCantidadAsistentes($cantidadAsistentes)
+        {
+           $this->cantidadAsistentes = $cantidadAsistentes;
+        }        
+
+        /**
+         * @return mixed
+         */
+        public function getIdHorario()
+        {
+            return $this->idHorario;
+        }
+
+        /**
+        * @param mixed $idHorario
+        */
+        public function setIdHorario($idHorario)
+        {
+           $this->idHorario = $idHorario;
+        }        
+
+        /**
+         * @return mixed
+         */
         public function getIdAsistente()
         {
             return $this->idAsistente;
@@ -88,31 +87,7 @@
         public function setIdAsistente($idAsistente)
         {
             $this->idAsistente = $idAsistente;
-        }
-
-        ///**
-        // * @return mixed
-        // */
-        //public function getIdAcompanante()
-        //{
-        //    return $this->idAcompanante;
-        //}
-
-        ///**
-        // * @param mixed $idAcompanante
-        // */
-        //public function setIdAcompanante($idAcompanante)
-        //{
-        //    $this->idAcompanante = $idAcompanante;
-        //}
-
-        /**
-         * @return mixed
-         */
-        public function getIdEstadoCita()
-        {
-            return $this->idEstadoCita;
-        }
+        }                
 
         /**
          * @param mixed $idEstadoCita
