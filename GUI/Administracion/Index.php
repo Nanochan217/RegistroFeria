@@ -1,10 +1,11 @@
 <?php
 session_start();
-if($_SESSION['Perfil'] != 1)
+if ($_SESSION['Perfil'] != 1)
     header("Location: ../PantallasDestino/AccesoDenegado.php");
-    
+
 $header = file_get_contents('../Default/Header.html');
-$headerSA = file_get_contents('../Default/HeaderSA.html');$footer = file_get_contents('../Default/Footer.html');
+$headerSA = file_get_contents('../Default/HeaderSA.html');
+$footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
@@ -50,48 +51,36 @@ $cssDefault = file_get_contents('../Default/Style.css');
         </div>
         <div class="row g-4 mb-4">
             <div class="col">
-                <a href="EditarForm.php">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary">
-                            <div class="card-body">
-                                <h5 class="card-title">Formulario</h5>
-                            </div>
-                        </button>
-                    </div>
-                </a>
+                <div class="d-grid">
+                    <a href="./EditarForm.php" class="btn btn-primary py-4">
+                        <i class="bi bi-gear" style="font-size: 25px;"></i>
+                        <h5 class="card-title">Formulario</h5>
+                    </a>
+                </div>
             </div>
             <div class="col">
-                <a href="Usuarios.php">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary">
-                            <div class="card-body">
-                                <h5 class="card-title">Usuarios</h5>
-                            </div>
-                        </button>
-                    </div>
-                </a>
+                <div class="d-grid">
+                    <a href="./Usuarios.php" class="btn btn-primary py-4">
+                        <i class="bi bi-people" style="font-size: 25px;"></i>
+                        <h5 class="card-title">Usuarios</h5>
+                    </a>
+                </div>
             </div>
             <div class="col">
-                <a href="Citas.php">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary">
-                            <div class="card-body">
-                                <h5 class="card-title">Citas</h5>
-                            </div>
-                        </button>
-                    </div>
-                </a>
+                <div class="d-grid">
+                    <a href="./Citas.php" class="btn btn-primary py-4">
+                        <i class="bi bi-calendar-check" style="font-size: 25px;"></i>
+                        <h5 class="card-title">Citas</h5>
+                    </a>
+                </div>
             </div>
             <div class="col">
-                <a href="./Estadisticas.php">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary">
-                            <div class="card-body">
-                                <h5 class="card-title">Estadisticas</h5>
-                            </div>
-                        </button>
-                    </div>
-                </a>
+                <div class="d-grid">
+                    <a href="./Estadisticas.php" class="btn btn-primary py-4">
+                        <i class="bi bi-bar-chart" style="font-size: 25px;"></i>
+                        <h5 class="card-title">Estadisticas</h5>
+                    </a>
+                </div>
             </div>
 
         </div>
