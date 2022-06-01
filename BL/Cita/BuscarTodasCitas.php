@@ -8,7 +8,7 @@
     function BuscarTodasCitas()
     {
         $citaDAL = new DALCita();
-        echo json_encode($citaDAL->BuscarTodasCitas());
+        return json_encode($citaDAL->BuscarTodasCitas());
     }
 
     //Buscar Citas por ID de Asistente

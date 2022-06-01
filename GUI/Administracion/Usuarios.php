@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION['Perfil'] != 1)
+if ($_SESSION['Perfil'] != 1)
     header("Location: ../PantallasDestino/AccesoDenegado.php");
 
 $header = file_get_contents('../Default/Header.html');
@@ -110,22 +110,23 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
 
     <!-- Modal -->
     <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-labelledby="modalConfirmacion" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" id="modalHeader">
                     <h5 class="modal-title">¿Seguro que desea eliminar al usuario?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="modalBody">
-
-                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="eliminarUsuario">Eliminar</button>
+                    <button type="button" class="btn btn-danger" id="eliminarUsuario" onclick="eliminarUsuario()" data-bs-dismiss="modal">Eliminar usuario</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div id="idUsuarioContenedor"></div>
+    <div class="toast-container" id="contenedorNotificaciones"></div>
+
 
     <!-- IMPORT Footer  -->
     <?php
@@ -134,7 +135,7 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
 
     <!-- START Scripts  -->
     <?php
-    echo $jsLinks;;
+    echo $jsLinks;
     ?>
     <script src="./Usuarios.js"></script>
     <script>
@@ -167,20 +168,23 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                 registros[`${i+1}`] = registro;
             });
 
-            console.log(registros)
-
             llenarTabla("usuarios", registros)
 
-            function llenarTabla(tabla, registros) {
-                $.each(registros, function(i, registro) {
-                    var $tr = $('<tr>').append(
-                        $('<th>').text(registro.cedula),
-                        $('<td>').text(registro.nombre),
-                        $('<td>').text(registro.apellido1),
-                        $('<td>').text(registro.apellido2),
-                        $('<td>').text(registro.correo),
-                        $('<td>').text(registro.perfil),
-                        $('<td>').append(`<form action="./ModificarUsuario.php" method="post" class="d-flex flex-wrap gap-2 justify-content-center">
+
+
+            llenarSelect("filtrarPerfil", perfiles);
+        });
+
+        function llenarTabla(tabla, registros) {
+            $.each(registros, function(i, registro) {
+                var $tr = $('<tr>').append(
+                    $('<th>').text(registro.cedula),
+                    $('<td>').text(registro.nombre),
+                    $('<td>').text(registro.apellido1),
+                    $('<td>').text(registro.apellido2),
+                    $('<td>').text(registro.correo),
+                    $('<td>').text(registro.perfil),
+                    $('<td>').append(`<form action="./ModificarUsuario.php" method="post" class="d-flex flex-wrap gap-2 justify-content-center">
                                             <button name="id" type="submit" value="${registro.id}" class = "btn btn-warning btn-sm" >
                                                 <i class = "bi bi-pencil" style = "font-size: 20px;" > </i>
                                             </button>
@@ -188,13 +192,15 @@ include '../../BL/Usuario/BuscarTodosUsuario.php';
                                                 <i class = "bi bi-trash" style = "font-size: 20px;" > </i>
                                             </button >
                                         </form>`)
-                    );
-                    var $tbody = $(`#${tabla} tbody`).append($tr);
-                })
-            }
+                );
+                var $tbody = $(`#${tabla} tbody`).append($tr);
+            })
+        };
 
-            llenarSelect("filtrarPerfil", perfiles);
-        });
+        function obtenerUsuarios(){
+
+        }
+
     </script>
     <!-- END Scripts  -->
 </body>
