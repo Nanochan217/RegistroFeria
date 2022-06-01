@@ -106,7 +106,7 @@ class DALHorario
         return $resultado;
     }
 
-    //OJO CONTINUAR CON LA MODIFICACION DEL AFORO ACTUAL EN BASE 
+    //OJO CONTINUAR CON LA MODIFICACION DEL AFORO ACTUAL 
     function CambiarAforoMaximo($idHorario, $aforoMaximo)
     {
         $resultado = false;
