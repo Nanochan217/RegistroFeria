@@ -21,7 +21,16 @@
         echo json_encode($citaDAL->BuscarCita($idAsistente));
     }
 
-    // function BuscarAsistenteId($id)
-    // {
-    //     //XD
-    // }    
+    //Array
+    function BuscarAsistente()
+    {
+        $asistenteDAL = new DALAsistente();
+        return json_encode($asistenteDAL->BuscarTodosAsistentes());
+    }
+
+    //Objeto
+    function BuscarAcompanante($id)
+    {
+        $acompananteDAL = new DALAcompanante();
+        return json_encode($acompananteDAL->BuscarAcompananteIdCita($id));
+    }    

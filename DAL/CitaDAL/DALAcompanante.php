@@ -78,6 +78,51 @@
             $conexionDB->CerrarConexion();
             return $resultado;
         }
+
+        function BuscarAcompananteIdCita($idCita)
+        {
+            $acompanante = new Acompanante();
+            $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion();
+
+            $consultaSql = "";
+
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
+
+            if (mysqli_num_rows($respuestaDB) > 0)
+            {
+                while ($filaAcompanante = $respuestaDB->fetch_assoc())
+                {                    
+                    $acompanante->setId($filaAcompanante["id"]);
+                    $acompanante->setCedula($filaAcompanante["cedula"]);
+                    $acompanante->setNombre($filaAcompanante["nombre"]);
+                    $acompanante->setIdTipoAcompanante($filaAcompanante["idTipoAcompanante"]);
+                    $acompanante->setIdCita($filaAcompanante["idCita"]);
+                    $acompanante->setActive($filaAcompanante['active']);                    
+                }
+            }
+            else
+            {
+                $acompanante = null;
+            }
+
+            $acompanante = $this->dismount($acompanante);
+            $conexionDB->CerrarConexion();
+            return $acompanante;
+        }
+
+        function dismount($object)
+        {
+            $reflectionClass = new ReflectionClass(get_class($object));
+            $array = array();
+            foreach ($reflectionClass->getProperties() as $property)
+            {
+                $property->setAccessible(true);
+                $array[$property->getName()] = $property->getValue($object);
+                $property->setAccessible(false);
+            }
+            return $array;
+        }
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

@@ -124,6 +124,56 @@
             $conexionDB->CerrarConexion();
             return $resultado;
         }
+
+        function BuscarTodosAsistentes()
+        {
+            $asistentesDB = array();
+            $conexionDB = new Conexion();
+            $conexionDB->NuevaConexion();
+
+            $consultaSql = "SELECT * FROM `ASISTENTE` WHERE `ACTIVE` = 1";
+
+            $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
+
+            if (mysqli_num_rows($respuestaDB) > 0)
+            {
+                while ($filaAsistente = $respuestaDB->fetch_assoc())
+                {
+                    $asistente = new Asistente();
+                    $asistente->setId($filaAsistente["id"]);
+                    $asistente->setCedula($filaAsistente["cedula"]);
+                    $asistente->setNombre($filaAsistente["nombre"]);
+                    $asistente->setApellido1($filaAsistente["apellido1"]);
+                    $asistente->setApellido2($filaAsistente["apellido2"]);
+                    $asistente->setCorreo($filaAsistente["correo"]);
+                    $asistente->setTelefono($filaAsistente["telefono"]);
+                    $asistente->setIdColegioProcedencia($filaAsistente["idColegioProcedencia"]);
+                    $asistente->setActive($filaAsistente['active']);
+                    
+                    $asistentesDB[] = $this->dismount($asistente);
+                }
+            }
+            else
+            {
+                $asistentesDB = null;
+            }
+
+            $conexionDB->CerrarConexion();
+            return $asistentesDB;
+        }
+
+        function dismount($object)
+        {
+            $reflectionClass = new ReflectionClass(get_class($object));
+            $array = array();
+            foreach ($reflectionClass->getProperties() as $property)
+            {
+                $property->setAccessible(true);
+                $array[$property->getName()] = $property->getValue($object);
+                $property->setAccessible(false);
+            }
+            return $array;
+        }
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
