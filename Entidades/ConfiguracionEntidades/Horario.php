@@ -5,6 +5,7 @@
         private $horaInicio;
         private $horaFinal;
         private $aforoMaximo;
+        private $aforoActual;
         private $idDiaHabil;
         private $visible;
         private $active;
@@ -71,6 +72,22 @@
         public function setAforoMaximo($aforoMaximo)
         {
             $this->aforoMaximo = $aforoMaximo;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getAforoActual()
+        {
+            return $this->aforoActual;
+        }
+
+        /**
+         * @param mixed $aforoActual
+         */
+        public function setAforoActual($aforoActual)
+        {
+            $this->aforoActual = $aforoActual;
         }
 
         /**

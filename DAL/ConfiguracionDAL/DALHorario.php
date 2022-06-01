@@ -106,6 +106,7 @@ class DALHorario
         return $resultado;
     }
 
+    //OJO CONTINUAR CON LA MODIFICACION DEL AFORO ACTUAL EN BASE 
     function CambiarAforoMaximo($idHorario, $aforoMaximo)
     {
         $resultado = false;
@@ -149,6 +150,7 @@ class DALHorario
                 $buscarHorario->setHoraInicio($filaHorario['horaInicio']);
                 $buscarHorario->setHoraFinal($filaHorario['horaFinal']);
                 $buscarHorario->setAforoMaximo($filaHorario['aforoMaximo']);
+                $buscarHorario->setAforoActual($filaHorario['aforoActual']);
                 $buscarHorario->setIdDiaHabil($filaHorario['idDiaHabil']);
                 $buscarHorario->setVisible($filaHorario['visible']);
                 $buscarHorario->setActive($filaHorario['active']);
@@ -183,6 +185,7 @@ class DALHorario
                 $horario->setHoraInicio($filasHorarios["horaInicio"]);
                 $horario->setHoraFinal($filasHorarios["horaFinal"]);
                 $horario->setAforoMaximo($filasHorarios["aforoMaximo"]);
+                $horario->setAforoActual($filasHorarios["aforoActual"]);
                 $horario->setIdDiaHabil($filasHorarios["idDiaHabil"]);
                 $horario->setVisible($filasHorarios["visible"]);
                 $horario->setActive($filasHorarios['active']);
@@ -225,6 +228,7 @@ class DALHorario
                 $horario->setHoraInicio($filasHorarios["horaInicio"]);
                 $horario->setHoraFinal($filasHorarios["horaFinal"]);
                 $horario->setAforoMaximo($filasHorarios["aforoMaximo"]);
+                $horario->setAforoActual($filasHorarios["aforoActual"]);
                 $horario->setIdDiaHabil($filasHorarios["idDiaHabil"]);
                 $horario->setVisible($filasHorarios["visible"]);
                 $horario->setActive($filasHorarios['active']);
