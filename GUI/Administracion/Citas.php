@@ -8,6 +8,9 @@ $footer = file_get_contents('../Default/Footer.html');
 $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
+
+include '../../BL/Cita/BuscarTodasCitas.php';
+
 ?>
 
 <!doctype html>
@@ -39,16 +42,19 @@ $cssDefault = file_get_contents('../Default/Style.css');
     <!-- IMPORT Header -->
     <?php
 
-    if ($_SESSION["Perfil"]==1) {
-        echo $headerSA;    
+    if ($_SESSION["Perfil"] == 1)
+    {
+        echo $headerSA;
     }
-    else if($_SESSION["Perfil"] == 2){
-        echo $headerA;  
+    else if ($_SESSION["Perfil"] == 2)
+    {
+        echo $headerA;
     }
-    else{
-        echo $header;  
+    else
+    {
+        echo $header;
     }
-    
+
 
     ?>
 
@@ -96,7 +102,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                         </div>
                     </div>
                     <div class="table-responsive ">
-                        <table class="table table-hover table-bordered align-middle">
+                        <table class="table table-hover table-bordered align-middle" id="citas">
                             <thead class="table-secondary">
                                 <tr>
                                     <th scope="col">ID</th>
@@ -148,24 +154,23 @@ $cssDefault = file_get_contents('../Default/Style.css');
                 </div>
                 <div class="modal-body">
                     <p class="h4 pb-2 ">Datos del solicitante</p>
-                        <p class="mb-2">Cédula: <span class="fw-normal" id="cedulaAsistente">303330333</span></p>
-                        <p class="mb-2">Nombre: <span class="fw-normal" id="nombreAsistente">Bryan Monge Solano</span></p>
-                        <p class="mb-2">Correo: <span class="fw-normal" id="correoAsistente">thebryanmonge@gmail.com</span></p>
-                        <p class="mb-2">Teléfono: <span class="fw-normal" id="telefonoAsistente">8888-8888</span></p>
-                        <p class="mb-2">Colegio Proveniencia: <span class="fw-normal" id="colegioProcedencia">Colegio Vocacional de Artes y Oficios</span></p>
+                    <p class="mb-2">Cédula: <span class="fw-normal" id="cedulaAsistente">303330333</span></p>
+                    <p class="mb-2">Nombre: <span class="fw-normal" id="nombreAsistente">Bryan Monge Solano</span></p>
+                    <p class="mb-2">Correo: <span class="fw-normal" id="correoAsistente">thebryanmonge@gmail.com</span></p>
+                    <p class="mb-2">Teléfono: <span class="fw-normal" id="telefonoAsistente">8888-8888</span></p>
+                    <p class="mb-2">Colegio Proveniencia: <span class="fw-normal" id="colegioProcedencia">Colegio Vocacional de Artes y Oficios</span></p>
                     <hr class="my-4">
                     <p class="h4 pb-2">Datos de la cita</p>
-                        <p class="mb-2">Día: <span class="fw-normal" id="diaCita">Lunes 23</span></p>
-                        <p class="mb-2">Hora: <span class="fw-normal" id="horarioCita">9:00am → 11:00am</span></p>
+                    <p class="mb-2">Día: <span class="fw-normal" id="diaCita">Lunes 23</span></p>
+                    <p class="mb-2">Hora: <span class="fw-normal" id="horarioCita">9:00am → 11:00am</span></p>
                     <hr class="my-4">
                     <p class="h4 pb-2">Acompañantes</p>
-                        <p class="mb-2">Cedula- <span class="fw-normal" id="cedulaAcompanante">202220222</span></p>
-                        <p class="mb-2">Nombre- <span class="fw-normal" id="NombreAcompanante">Antonia García Mata</span></p>
-                        <p class="mb-2">Parentesco- <span class="fw-normal" id="parentesco">???</span></p>
+                    <p class="mb-2">Cedula- <span class="fw-normal" id="cedulaAcompanante">202220222</span></p>
+                    <p class="mb-2">Nombre- <span class="fw-normal" id="NombreAcompanante">Antonia García Mata</span></p>
+                    <p class="mb-2">Parentesco- <span class="fw-normal" id="parentesco">???</span></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">Eliminar</button>
-                    <button type="button" class="btn btn-primary">Aceptar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -178,11 +183,38 @@ $cssDefault = file_get_contents('../Default/Style.css');
 
     <!-- START Scripts  -->
     <?php
-    echo $jsLinks;;
+    echo $jsLinks;
     ?>
-    <Script>
+    <script>
+        alert()
         $("#navCitas").addClass("active");
-    </Script>
+        var citas = <?php echo BuscarTodasCitas() ?>;
+
+        llenarTabla("citas", registros)
+
+        function llenarTabla(tabla, registros) {
+            $.each(registros, function(i, registro) {
+                var $tr = $('<tr>').append(
+                    $('<th>').text(registro.cedula),
+                    $('<td>').text(registro.nombre),
+                    $('<td>').text(registro.apellido1),
+                    $('<td>').text(registro.apellido2),
+                    $('<td>').text(registro.correo),
+                    $('<td>').text(registro.perfil),
+                    $('<td>').append(`<form action="./ModificarUsuario.php" method="post" class="d-flex flex-wrap gap-2 justify-content-center">
+                                            <button name="id" type="submit" value="${registro.id}" class = "btn btn-warning btn-sm" >
+                                                <i class = "bi bi-pencil" style = "font-size: 20px;" > </i>
+                                            </button>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#modalConfirmacion" data-bs-whatever="${i}" class = "btn btn-danger btn-sm" >
+                                                <i class = "bi bi-trash" style = "font-size: 20px;" > </i>
+                                            </button >
+                                        </form>`)
+                );
+                var $tbody = $(`#${tabla} tbody`).append($tr);
+            })
+        }
+    </script>
+
     <!-- END Scripts  -->
 </body>
 

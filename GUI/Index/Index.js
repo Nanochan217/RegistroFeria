@@ -11,4 +11,5 @@ modal.addEventListener('show.bs.modal', function (event) {
     var modalTitle = modal.querySelector('.modal-title')
 
     modalTitle.textContent = recipient
-})
+} );
+

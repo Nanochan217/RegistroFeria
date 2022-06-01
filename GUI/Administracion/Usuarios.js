@@ -15,22 +15,38 @@ function llenarSelect( nombreSelect, perfiles )
 var exampleModal = document.getElementById( 'modalConfirmacion' );
 exampleModal.addEventListener( 'show.bs.modal', function ( event )
 {
-
     // Extract info from data-bs-* attributes
-        var id = event.relatedTarget.getAttribute( 'data-bs-whatever' );
-        console.log(id)
-    
-    // Update the modal's content.
-        $( "#modalBody" ).html(`<input input type="number" class="form-control " id="idUsuario" name="idUsuario" value="${registros[id].id}" hidden>
-                                <h6>Cedula: ${registros[id].cedula}</h6>
-                                <h6>Nombre: ${registros[id].nombre + " " + registros[ id ].apellido1 + " " + registros[ id ].apellido2}</h6>
-                                <h6>Correo: ${registros[id].correo}</h6>
-                                <h6>Perfil: ${registros[id].perfil}</h6>`)
-});        
+    var id = event.relatedTarget.getAttribute( 'data-bs-whatever' );
 
-$(document).ready(function (){
-    $("#eliminarUsuario").click(function(){
-        var idUsuario = $("#idUsuario").val();
-        $.post("../../BL/Usuario/DesactivarUsuario.php", { id : idUsuario }, function (resultado) { $("#modalBody").html(resultado) });
-    });
-});
+    // Update the modal's content.
+    $( "#idUsuarioContenedor" ).html( `<input input type="number" class="form-control " id="idUsuario" name="idUsuario" value="${registros[ id ].id}" hidden>` );
+} );
+
+function eliminarUsuario()
+{
+    var idUsuario = $( "#idUsuario" ).val();
+    alert( idUsuario );
+    $.post( "../../BL/Usuario/DesactivarUsuario.php", { id: idUsuario }, function ( data )
+    {
+
+        $( "#contenedorNotificaciones" ).html( `<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                                                        <div id="notificacion" class="toast align-items-center text-white ${data == 1 ? "bg-success" : "bg-danger"} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                                                            <div class="d-flex">
+                                                                <div class="toast-body">
+                                                                    ${data == 1 ? "<b>Usuario</b> eliminado correctamente" : "Ocurrió un error al intentar eliminar al usuario"}
+                                                                </div>
+                                                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>`);
+        mostrarNotificacion();
+
+    } );
+}
+
+function mostrarNotificacion()
+{
+    var notificacion = document.getElementById( 'notificacion' );
+    var toast = new bootstrap.Toast( notificacion );
+    toast.show();
+}

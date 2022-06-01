@@ -9,7 +9,7 @@ $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
 
-include '../../BL/Cita/BuscarTodosDatos.php';
+include '../../BL/Configuracion/BuscarTodasConfiguraciones.php';
 
 ?>
 
@@ -68,7 +68,7 @@ include '../../BL/Cita/BuscarTodosDatos.php';
                     </p>
                     <a href="../Formulario/Formulario.php" class="btn btn-lg btn-primary">Reservar una Cita</a>
                     <div class="text-center small alert alert-warning mt-4 py-1" role="alert">
-                        Fecha maxima de registro: <span class="fw-bold" id="fechaMaxima">Lunes 1 de Noviembre</span>
+                        Fecha maxima de registro: <span class="fw-bold" id="fechaMaxima"></span>
                     </div>
                 </div>
             </div>
@@ -127,6 +127,18 @@ include '../../BL/Cita/BuscarTodosDatos.php';
     echo $jsLinks;;
     ?>
     <script src="Index.js"></script>
+    <script>
+        let fechaMaxima = formatearDia(<?php BuscarFechaLimite() ?>);
+
+        function formatearDia(fecha) {
+            let diasSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+            let mesAnio = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            let fechaNueva = new Date(fecha);
+
+            return [`${diasSemana[fechaNueva.getDay()]} ${fechaNueva.getDate() + 1} de ${mesAnio[fechaNueva.getMonth()]}`]
+        }
+        $('#fechaMaxima').html(fechaMaxima);
+    </script>
     <!-- END Scripts  -->
 </body>
 
