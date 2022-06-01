@@ -162,32 +162,7 @@ class DALHorario
         $buscarHorario = $this->dismount($buscarHorario);
         $conexionDB->CerrarConexion();
         return $buscarHorario;
-    }
-
-    function BuscarUltimoHorario()
-    {
-        $idUltimoHorario = 0;
-        $conexionDB = new Conexion();
-        $conexionDB->NuevaConexion();
-
-        $consultaSql = "SELECT * FROM `HORARIO` WHERE `ID` = (SELECT MAX(`ID`) FROM `HORARIO`) AND `ACTIVE` = 1";
-        $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
-
-        if (mysqli_num_rows($respuestaDB) > 0)
-        {
-            while ($filaHorario = $respuestaDB->fetch_assoc())
-            {
-                $idUltimoHorario = $filaHorario['id'];
-            }
-        }
-        else
-        {
-            $idUltimoHorario = null;
-        }
-
-        $conexionDB->CerrarConexion();
-        return $idUltimoHorario;
-    }
+    }    
 
     function BuscarTodosHorarioIdDia($idDia)
     {
