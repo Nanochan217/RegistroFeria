@@ -19,12 +19,14 @@ function BuscarConfiguracion()
     return json_encode($configuracionDAL->BuscarTodasConfiguraciones());
 }
 
+//Devuelve los horarios con aforo actual menor o igual que el maximo
 function BuscarHorarios()
 {
     $horarioDAL = new DALHorario();
     return json_encode($horarioDAL->BuscarTodosHorarios(1));
 }
 
+//Devuelve los dias con horarios activos
 function BuscarDias()
 {
     $diaHabilDAL = new DALDiaHabil();
