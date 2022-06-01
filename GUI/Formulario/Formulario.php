@@ -8,7 +8,7 @@ $cssLinks = file_get_contents('../Default/CSSImports.html');
 $jsLinks = file_get_contents('../Default/JSImports.html');
 $cssDefault = file_get_contents('../Default/Style.css');
 
-include '../../BL/Cita/BuscarTodosDatos.php';
+include '../../BL/Formulario/BuscarTodosDatos.php';
 ?>
 
 <!doctype html>
