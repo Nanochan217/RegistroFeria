@@ -114,14 +114,22 @@ class DALDiaHabil
         return $buscarDia;
     }
 
-    function BuscarTodas()
+    function BuscarTodosDias($funcionSolicitada)
     {
         $DiasHabilesDB = array();
         $conexionDB = new Conexion();
         $conexionDB->NuevaConexion();
-
-        $consultaSql = "SELECT * FROM `DIAHABIL`";
-
+        
+        if($funcionSolicitada == 0)
+        {
+            $consultaSql = "SELECT * FROM `DIAHABIL`";
+        }
+        else if($funcionSolicitada == 1)
+        {
+            $consultaSql = "SELECT * FROM `DIAHABIL` INNER JOIN `HORARIO`
+            ON (`DIAHABIL.ID` = `HORARIO.IDDIAHABIL` AND `HORARIO.ACTIVE` = 1)";
+        }
+        
         $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
         if (mysqli_num_rows($respuestaDB) > 0)

@@ -10,14 +10,14 @@ include '../../Entidades/UsuarioEntidades/Perfil.php';
 //Funciones para buscar todos los datos relacionados a Usuarios
 function BuscarUsuarios()
 {
-    $UsuarioDAL = new DALUsuario();
-    return json_encode($UsuarioDAL->BuscarTodosUsuario());
+    $usuarioDAL = new DALUsuario();
+    return json_encode($usuarioDAL->BuscarTodosUsuario());
 }
 
 function BuscarCredenciales()
 {
-    $CredencialesDAL = new DALCredenciales();
-    return json_encode($CredencialesDAL->BuscarTodasCredenciales());
+    $credencialesDAL = new DALCredenciales();
+    return json_encode($credencialesDAL->BuscarTodasCredenciales());
 }
 
 function BuscarPerfiles()

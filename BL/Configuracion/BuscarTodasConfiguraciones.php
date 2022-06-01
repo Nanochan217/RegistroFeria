@@ -17,7 +17,7 @@
     function BuscarDiasHabiles()
     {
         $DiaHabilDAL = new DALDiaHabil();
-        return json_encode($DiaHabilDAL->BuscarTodas());
+        return json_encode($DiaHabilDAL->BuscarTodosDias(0));
     }
 
     //Te devuelve un String!!!

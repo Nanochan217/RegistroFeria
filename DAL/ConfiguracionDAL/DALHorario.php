@@ -199,13 +199,20 @@ class DALHorario
         return $HorariosDB;
     }
 
-    function BuscarTodas()
+    function BuscarTodosHorarios($funcionSolicitada)
     {
         $HorariosDB = array();
         $conexionDB = new Conexion();
         $conexionDB->NuevaConexion();
 
-        $consultaSql = "SELECT * FROM `HORARIO`";
+        if($funcionSolicitada == 0)
+        {
+            $consultaSql = "SELECT * FROM `HORARIO`";
+        }
+        else if($funcionSolicitada == 1)
+        {
+            $consultaSql = "SELECT * FROM `HORARIO` WHERE `AFOROACTUAL` <= `AFORO` AND `ACTIVE` = 1";
+        }    
 
         $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 

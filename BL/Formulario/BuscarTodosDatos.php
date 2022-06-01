@@ -22,13 +22,13 @@ function BuscarConfiguracion()
 function BuscarHorarios()
 {
     $horarioDAL = new DALHorario();
-    return json_encode($horarioDAL->BuscarTodas());
+    return json_encode($horarioDAL->BuscarTodosHorarios(1));
 }
 
 function BuscarDias()
 {
     $diaHabilDAL = new DALDiaHabil();
-    return json_encode($diaHabilDAL->BuscarTodas());
+    return json_encode($diaHabilDAL->BuscarTodosDias(1));
 }
 
 function BuscarTodosColegios()
