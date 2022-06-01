@@ -85,7 +85,7 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion();
 
-            $consultaSql = "";
+            $consultaSql = "SELECT * FROM `ACOMPANANTE` WHERE `IDCITA` = '".$idCita."'";
 
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
