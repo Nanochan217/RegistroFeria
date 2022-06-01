@@ -46,7 +46,10 @@
             $conexionDB = new Conexion();
             $conexionDB->NuevaConexion();
 
-            $consultaSql = "SELECT * FROM `USUARIO` WHERE `ACTIVE` = 1";
+            $consultaSql = "SELECT `u.cedula`, `u.nombre`, `u.apellido1`, `u.apellido2`,
+            `c.correo`, `p.nombrePerfil` FROM `USUARIO` AS u INNER JOIN `CREDENCIALES`
+            AS c ON `u.idCredenciales` = `c.id` INNER JOIN `PERFIL`
+            AS p ON `u.idPerfil` = `p.id` WHERE `u.active` = 1";
 
             $respuestaDB = $conexionDB->NuevaConsulta($consultaSql);
 
