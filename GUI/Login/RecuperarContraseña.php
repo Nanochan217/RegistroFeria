@@ -47,7 +47,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                 </div>
                 <div class="row">
                     <div class="col">
-                        <form action="../../BL/LogIn/NuevaContrasena.php" method="post">
+                        <form>
                             <div class="mb-3">
                                 <label for="newPassword1" class="form-label">Nueva contraseña</label>
                                 <input type="password" class="form-control" id="newPassword1" name="newPassword1" required>
@@ -56,7 +56,7 @@ $cssDefault = file_get_contents('../Default/Style.css');
                                 <label for="newPassword2" class="form-label">Repetir nueva contraseña</label>
                                 <input type="password" class="form-control" id="newPassword2" name="newPassword2" required>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3">Cambiar Contraseña</button>
+                            <button id="cambiarContrasena" type="button" class="btn btn-primary mt-3">Cambiar Contraseña</button>
                         </form>
 
                     </div>
@@ -64,6 +64,26 @@ $cssDefault = file_get_contents('../Default/Style.css');
             </div>
         </div>
     </div>
+
+    <!-- Button trigger modal -->
+    <button id="mostrarModal" type="button" class="btn btn-primary" style="display: none;" data-bs-toggle="modal" data-bs-target="#contraseñaCambiada"> </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="contraseñaCambiada" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Contraseña actualizada correctamente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <a href="./Login.php" class="btn btn-success">Ir al login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="contenedorNotificaciones"></div>
 
     <!--  Footer  -->
     <?php

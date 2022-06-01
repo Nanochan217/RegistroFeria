@@ -1,44 +1,44 @@
 <?php
-    include '../../Core/Conexion.php';
-    include '../../DAL/LogInDAL/DALLogIn.php';    
-    include '../../Entidades/UsuarioEntidades/Solicitudes.php';
-    
-    $logInDAL = new DALLogIn();
+include '../../Core/Conexion.php';
+include '../../DAL/LogInDAL/DALLogIn.php';
+include '../../Entidades/UsuarioEntidades/Solicitudes.php';
 
-    $correoUsuario = $_GET['email'];
-    $nuevaContrasena1 = $_POST['contrasena1'];
-    $nuevaContrasena2 = $_POST['contrasena2'];    
-    $correoUsuario = $logInDAL->BuscarSolicitudContrasena(null, $correoUsuario);
+$logInDAL = new DALLogIn();
 
-    if($nuevaContrasena1 == $nuevaContrasena2)
+$correoUsuario = $_GET['email'];
+$nuevaContrasena1 = $_POST['contrasena1'];
+$nuevaContrasena2 = $_POST['contrasena2'];
+$correoUsuario = $logInDAL->BuscarSolicitudContrasena(null, $correoUsuario);
+
+if ($nuevaContrasena1 == $nuevaContrasena2)
+{
+    switch ($correoUsuario)
     {
-        switch($correoUsuario)
-        {
-            case "Expirado":
-                //La solicitud de cambio de contraseña ha expirado
-                header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
-                break;
-            case "Denegado":
-                //Acceso Denegado
-                header("Location: ../../GUI/PantallasDestino/AccesoDenegado.php");
-                break;
-            default:            
-                if($logInDAL->RestablecerContrasena($correoUsuario, $nuevaContrasena1))
-                {
-                    if($logInDAL->DesactivarSolicitud(null, $correoUsuario))
-                        echo "¡Contraseña restablecida correctamente!";            
-                }
-                else
-                {
-                    echo "Ha ocurrido un error...";
-                }           
-                break;
-        }
+        case "Expirado":
+            //La solicitud de cambio de contraseña ha expirado
+            header("Location: ../../GUI/PantallasDestino/AcciónErronea.php");
+            break;
+        case "Denegado":
+            //Acceso Denegado
+            header("Location: ../../GUI/PantallasDestino/AccesoDenegado.php");
+            break;
+        default:
+            if ($logInDAL->RestablecerContrasena($correoUsuario, $nuevaContrasena1))
+            {
+                if ($logInDAL->DesactivarSolicitud(null, $correoUsuario))
+                    echo 1;
+            }
+            else
+            {
+                echo 0;
+            }
+            break;
     }
-    else
-    {
-        echo "¡Las contraseñas no coinciden!";
-    }
+}
+else
+{
+    echo 2;
+}
 
     // if($correoUsuario)
     // {

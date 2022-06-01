@@ -347,6 +347,7 @@ include '../../BL/Formulario/BuscarTodosDatos.php';
         var dias = <?php echo BuscarDias() ?>;
         var horarios = <?php echo BuscarHorarios() ?>;
         var colegios = <?php echo BuscarTodosColegios() ?>;
+        console.log(colegios);
         var parentescos = <?php echo BuscarTodosTiposAcompanantes() ?>;
         var fecha = [];
 
